@@ -4,6 +4,7 @@
 // block for a fixed element (the Apr–Sep 2026 iPhone menu bug).
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { localeFromPath, t, routePath, SUPPORTED_LOCALES, LOCALE_META } from '@/lib/i18n';
 
 const ITEMS = [
@@ -38,12 +39,12 @@ export default function Nav({ ctaHref = '#speak-to-expert', ctaLabel = 'Speak to
   return (
     <div className="rd-nav-wrap">
       <nav className="rd-nav" aria-label="Main">
-        <a href={homeHref} className="rd-nav-logo" aria-label={t('site.brand', locale)}>
+        <Link href={homeHref} className="rd-nav-logo" aria-label={t('site.brand', locale)}>
           <img src="/images/cop-logo.svg" alt="" width="70" height="34" />
-        </a>
+        </Link>
         <ul className="rd-nav-links">
           {links.map(({ href, label }) => (
-            <li key={href}><a href={href} aria-current={clean === href ? 'page' : undefined}>{label}</a></li>
+            <li key={href}><Link href={href} aria-current={clean === href ? 'page' : undefined}>{label}</Link></li>
           ))}
         </ul>
         <div className="rd-nav-right">
@@ -70,7 +71,7 @@ export default function Nav({ ctaHref = '#speak-to-expert', ctaLabel = 'Speak to
         </div>
       </nav>
       <div className="rd-nav-sheet" id="rd-nav-sheet" data-open={open ? 'true' : 'false'}>
-        {links.map(({ href, label }) => <a key={href} href={href}>{label}</a>)}
+        {links.map(({ href, label }) => <Link key={href} href={href}>{label}</Link>)}
         <a href={ctaHref} className="rd-nav-cta" onClick={() => setOpen(false)}>{ctaLabel}</a>
         <div className="rd-nav-lang">
           <select

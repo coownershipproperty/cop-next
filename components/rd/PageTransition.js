@@ -18,6 +18,7 @@ const DURATION_MS = 900;
 export default function PageTransition({ children }) {
   const router = useRouter();
   const [enterKey, setEnterKey] = useState(0);
+  const [entering, setEntering] = useState(false);
   const armed = useRef(false);
   const ghosts = useRef([]);
 
@@ -64,11 +65,15 @@ export default function PageTransition({ children }) {
       if (!armed.current) return;
       armed.current = false;
       setEnterKey((k) => k + 1);
-      // Hold the ghost for the length of the slide, then hand over.
-      setTimeout(clearGhosts, DURATION_MS + 60);
+      setEntering(true);
+      // Hold the ghost for the length of the slide, then hand over. The
+      // wrapper's transform/will-change must go too: while they are present
+      // the wrapper is the containing block for every position:fixed child
+      // (the nav pill, the legacy header) — the iPhone-menu lesson.
+      setTimeout(() => { clearGhosts(); setEntering(false); }, DURATION_MS + 60);
     }
 
-    function onError() { armed.current = false; clearGhosts(); }
+    function onError() { armed.current = false; clearGhosts(); setEntering(false); }
 
     router.events.on('routeChangeStart', onStart);
     router.events.on('routeChangeComplete', onDone);
@@ -84,7 +89,7 @@ export default function PageTransition({ children }) {
 
   // Re-key the wrapper on every transition so the CSS animation restarts.
   return (
-    <div key={enterKey} className={enterKey ? 'rd-page-enter' : undefined}>
+    <div key={enterKey} className={entering ? 'rd-page-enter' : undefined}>
       {children}
     </div>
   );
