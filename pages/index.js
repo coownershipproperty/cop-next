@@ -470,7 +470,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
         <section className="rd-section" aria-label="Newsletter" style={{ paddingTop: 0 }}>
           <div className="rd-container">
             <div className="rd-news" data-rv>
-              <div className="rd-news-media"><img src="/redesign/newsletter-kings-yard.webp" alt="" loading="lazy" /></div>
+              <div className="rd-news-media"><img src="/redesign/hero-costa-azul.webp" alt="" loading="lazy" /></div>
               <div className="rd-news-body"><Newsletter /></div>
             </div>
           </div>
