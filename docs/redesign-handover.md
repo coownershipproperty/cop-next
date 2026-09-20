@@ -48,6 +48,25 @@ on `main`.
   the homepage). Verify by pushing the branch once and reading the preview in
   Chrome — one build per batch of fixes.
 
+### Round 2 (20 Sep, later) — David's review, all applied
+
+- Hero is the dark-wood lounge David generated (`public/redesign/hero-lounge*.webp`).
+  The dark-graded listing stills are NOT used for tiles any more.
+- Stay **discreet about being agents**: no "operators", no "independent agency"
+  in visible copy. Value 04 is "Straight answers".
+- Press strip is a seamless CSS marquee.
+- Featured homes use `components/PropertyCard.js` (heart, share, carousel,
+  unlock slide, New badge) with a dark restyle under `.rd .prop-*` — one card
+  for homepage and our-homes.
+- Destination tiles: real, **bright** listing photos, no dimming, picked by
+  slug in `DEST_PICK` with live fallback. Dark UI + bright photography is the
+  rule from here (Rently does the same).
+- Values band: photo visible at the top, copy on solid ground at the bottom.
+- `components/rd/PageTransition.js`: Framer-style slide-up. Needs `next/link`
+  on every internal link (a plain `<a>` is a full load, no transition). The
+  ghost must survive routeChangeComplete — the effect is registered once.
+- Smooth scroll ease 0.07 (was 0.11) for more glide. Rently runs Lenis 1.1.2.
+
 ### Next
 
 1. Spain has no dark image in the set (our second-largest market) — ask

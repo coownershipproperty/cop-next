@@ -21,6 +21,8 @@ export default function PageTransition({ children }) {
   const [entering, setEntering] = useState(false);
   const armed = useRef(false);
   const ghosts = useRef([]);
+  const pathRef = useRef(router.asPath);
+  useEffect(() => { pathRef.current = router.asPath; }, [router.asPath]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -36,7 +38,7 @@ export default function PageTransition({ children }) {
       if (shallow || reduced) return;
       const page = document.querySelector('.rd');
       if (!page) return;
-      if (url.split('?')[0] === router.asPath.split('?')[0]) return;
+      if (url.split('?')[0] === (pathRef.current || '').split('?')[0]) return;
       clearGhosts();
 
       const nav = page.querySelector('.rd-nav-wrap');
@@ -84,8 +86,10 @@ export default function PageTransition({ children }) {
       router.events.off('routeChangeError', onError);
       clearGhosts();
     };
+    // Registered once: re-running this effect on every route change would
+    // run the cleanup — and remove the ghost — the instant the new page lands.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.asPath]);
+  }, []);
 
   // Re-key the wrapper on every transition so the CSS animation restarts.
   return (
