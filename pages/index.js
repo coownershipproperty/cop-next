@@ -2,7 +2,6 @@ import Head from 'next/head';
 import hreflangLinks from '@/components/HreflangLinks';
 import { orderForCountry, countryFromCookie } from '@/lib/geoOrder';
 import Image from 'next/image';
-import Link from 'next/link';
 import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -318,7 +317,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
               <h1 className="rd-h1">Own a share of somewhere extraordinary.</h1>
               <p className="rd-lead">Real, deeded ownership of a fully managed second home — for a fraction of the price of buying it alone.</p>
               <div className="rd-btn-row">
-                <Link href="/our-homes/" className="rd-btn">Explore the homes</Link>
+                <a href="/our-homes/" className="rd-btn">Explore the homes</a>
                 <a href="#speak-to-expert" className="rd-btn rd-btn-ghost">Speak to us</a>
               </div>
             </div>
@@ -358,7 +357,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                 <h2 className="rd-h2" id="h-homes">Homes worth owning a piece of.</h2>
                 <p className="rd-lead">A rotating selection from {propertyCount} co-ownership homes. Prices are for a single share, fully furnished.</p>
               </div>
-              <Link href="/our-homes/" className="rd-btn rd-btn-ghost">All {propertyCount} homes</Link>
+              <a href="/our-homes/" className="rd-btn rd-btn-ghost">All {propertyCount} homes</a>
             </div>
             <div className="rd-grid-4 rd-cards">
               {homes.map((p, i) => (
@@ -377,16 +376,16 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                 <h2 className="rd-h2" id="h-dest">Eleven countries. One way to own.</h2>
                 <p className="rd-lead">Every home we have in each country, on one page.</p>
               </div>
-              <Link href="/our-homes/" className="rd-btn-link">All destinations →</Link>
+              <a href="/our-homes/" className="rd-btn-link">All destinations →</a>
             </div>
             <div className="rd-dest-grid">
               {tiles.map((d, i) => (
-                <Link key={d.key} href={d.href} className={`rd-dest${i < 2 ? ' is-wide' : ''}`} data-rv={String(Math.min(i % 3 + 1, 3))}>
+                <a key={d.key} href={d.href} className={`rd-dest${i < 2 ? ' is-wide' : ''}`} data-rv={String(Math.min(i % 3 + 1, 3))}>
                   {d.img && (d.img.startsWith('/')
                     ? <img src={d.img} alt="" loading="lazy" />
                     : <Image src={d.img} alt="" fill sizes="(max-width: 1000px) 50vw, 33vw" style={{ objectFit: 'cover' }} loading="lazy" />)}
                   <div className="rd-dest-label"><b>{d.label}</b><span>{d.count} {d.count === 1 ? 'home' : 'homes'}</span></div>
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -412,7 +411,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                     </div>
                   ))}
                 </div>
-                <div className="rd-btn-row"><Link href="/how-it-works/" className="rd-btn rd-btn-ghost">How co-ownership works</Link></div>
+                <div className="rd-btn-row"><a href="/how-it-works/" className="rd-btn rd-btn-ghost">How co-ownership works</a></div>
               </div>
             </div>
           </div>
@@ -427,11 +426,11 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                   <span className="rd-kicker">Reading</span>
                   <h2 className="rd-h2" id="h-posts">Before you buy.</h2>
                 </div>
-                <Link href="/all-our-blog/" className="rd-btn-link">All articles →</Link>
+                <a href="/all-our-blog/" className="rd-btn-link">All articles →</a>
               </div>
               <div className="rd-grid-3">
                 {latestPosts.map((post, i) => (
-                  <Link key={post.slug} href={`/blog/${post.slug}/`} className="rd-card rd-post" data-rv={String(i + 1)}>
+                  <a key={post.slug} href={`/blog/${post.slug}/`} className="rd-card rd-post" data-rv={String(i + 1)}>
                     <div className="rd-media">
                       {post.heroImage && <Image src={post.heroImage} alt={post.title} fill sizes="(max-width: 900px) 50vw, 33vw" style={{ objectFit: 'cover' }} loading="lazy" />}
                     </div>
@@ -439,7 +438,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                       <div className="rd-post-date">{post.category ? `${post.category} · ` : ''}{post.dateFormatted}</div>
                       <div className="rd-post-title">{post.title}</div>
                     </div>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
@@ -492,7 +491,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                 <h2 className="rd-h2">Ready to find your share?</h2>
                 <p className="rd-lead" style={{ margin: '1rem auto 0' }}>Tell us where you would like to be and when. A person replies with real availability and real figures.</p>
                 <div className="rd-btn-row">
-                  <Link href="/our-homes/" className="rd-btn">Browse the homes</Link>
+                  <a href="/our-homes/" className="rd-btn">Browse the homes</a>
                   <a href="#speak-to-expert" className="rd-btn rd-btn-ghost">Speak to us</a>
                 </div>
               </div>
