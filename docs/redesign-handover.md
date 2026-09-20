@@ -67,6 +67,20 @@ on `main`.
   ghost must survive routeChangeComplete — the effect is registered once.
 - Smooth scroll ease 0.07 (was 0.11) for more glide. Rently runs Lenis 1.1.2.
 
+### Local loop (20 Sep, 04:25) — use this, not Vercel, for iteration
+
+David runs `sh ~/code/cop-next/scripts/dev-redesign.sh` once in Terminal;
+it serves the `redesign2` worktree (`~/code/cop-next/.worktrees/redesign2`,
+`.gitignore`d from main) at http://localhost:3001 with hot reload. Edit files
+in the worktree via the mount, check in David's Chrome at localhost:3001,
+push to Vercel only for a shareable preview. Commit from inside the worktree
+(`git commit -F`), clearing `.git/worktrees/redesign2/*.lock` into
+`.git/_stale/` first; push with the token as above.
+
+The "preview does not hydrate" scare earlier tonight was a bad check (looking
+for React fibre keys on `#__next`, which React 19 does not put there). It
+hydrates; the slide-up transition works — verified on localhost.
+
 ### Next
 
 1. Spain has no dark image in the set (our second-largest market) — ask
