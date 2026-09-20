@@ -72,7 +72,7 @@ export default function Nav({ ctaHref = '#speak-to-expert', ctaLabel = 'Speak to
       <div className="rd-nav-sheet" id="rd-nav-sheet" data-open={open ? 'true' : 'false'}>
         {links.map(({ href, label }) => <a key={href} href={href}>{label}</a>)}
         <a href={ctaHref} className="rd-nav-cta" onClick={() => setOpen(false)}>{ctaLabel}</a>
-        <div className="rd-nav-lang" style={{ padding: '0.5rem 1rem 0.25rem' }}>
+        <div className="rd-nav-lang">
           <select
             aria-label="Language"
             value={locale}

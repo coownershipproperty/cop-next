@@ -41,7 +41,7 @@
   min-height: 100vh;
 }
 .rd *, .rd *::before, .rd *::after { box-sizing: border-box; }
-.rd a { color: inherit; text-decoration: none; }
+:where(.rd) a { color: inherit; text-decoration: none; } /* zero specificity: components set their own colour */
 .rd img { max-width: 100%; display: block; }
 .rd ::selection { background: rgba(236,235,231,0.22); }
 
@@ -131,19 +131,21 @@ html.rv-ready .rd [data-rv].rv-in { opacity: 1; transform: none; }
 .rd-nav-lang select { appearance: none; background: transparent; border: 1px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 0.55rem 1.8rem 0.55rem 0.8rem; font: inherit; font-size: 0.85rem; font-weight: 500; color: var(--rd-pill-ink); cursor: pointer; }
 .rd-nav-lang::after { content: ''; position: absolute; right: 0.75rem; top: 50%; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .rd-nav-burger { display: none; width: 40px; height: 40px; border: 0; background: transparent; border-radius: 10px; cursor: pointer; position: relative; }
-.rd-nav-burger span, .rd-nav-burger span::before, .rd-nav-burger span::after { position: absolute; left: 10px; width: 20px; height: 1.6px; background: var(--rd-pill-ink); content: ''; transition: transform 0.3s var(--rd-ease), opacity 0.3s; }
+.rd-nav-burger span, .rd-nav-burger span::before, .rd-nav-burger span::after { position: absolute; left: 10px; transition: top 0.3s var(--rd-ease), transform 0.3s var(--rd-ease), background 0.2s; width: 20px; height: 1.6px; background: var(--rd-pill-ink); content: ''; transition: transform 0.3s var(--rd-ease), opacity 0.3s; }
 .rd-nav-burger span { top: 19px; }
 .rd-nav-burger span::before { top: -6px; left: 0; }
 .rd-nav-burger span::after { top: 6px; left: 0; }
 .rd-nav-burger[aria-expanded="true"] span { background: transparent; }
-.rd-nav-burger[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
-.rd-nav-burger[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
+.rd-nav-burger[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+.rd-nav-burger[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
 /* Mobile sheet: a sibling of the pill, never a descendant of anything transformed. */
 .rd-nav-sheet { display: none; pointer-events: auto; max-width: var(--rd-max); margin: 8px auto 0; background: rgba(228,226,221,0.98); color: var(--rd-pill-ink); border-radius: 18px; padding: 0.75rem; box-shadow: 0 20px 60px rgba(0,0,0,0.45); }
 .rd-nav-sheet[data-open="true"] { display: block; }
 .rd-nav-sheet a { display: block; padding: 0.9rem 1rem; border-radius: 12px; font-size: 1.05rem; font-weight: 500; }
 .rd-nav-sheet a:hover { background: rgba(0,0,0,0.06); }
-.rd-nav-sheet .rd-nav-cta { margin-top: 0.5rem; text-align: center; }
+.rd-nav-sheet .rd-nav-cta { display: block; margin-top: 0.5rem; text-align: center; padding: 0.9rem 1rem; }
+.rd-nav-sheet .rd-nav-lang { padding: 0.75rem 0 0.25rem !important; }
+.rd-nav-sheet .rd-nav-lang select { width: 100%; padding: 0.8rem 2rem 0.8rem 1rem; font-size: 0.95rem; }
 @media (max-width: 1000px) {
   .rd-nav-links, .rd-nav-right .rd-nav-cta, .rd-nav-right .rd-nav-lang { display: none; }
   .rd-nav-burger { display: block; }
@@ -213,6 +215,7 @@ html.rv-ready .rd [data-rv].rv-in { opacity: 1; transform: none; }
 .rd-dest.is-wide { grid-column: span 3; }
 .rd-dest img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--rd-ease); }
 .rd-dest:hover img { transform: scale(1.05); }
+.rd-dest.is-light img { filter: brightness(0.62) saturate(0.8); }
 .rd-dest::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,7,0.82) 0%, rgba(8,8,7,0.1) 55%); }
 .rd-dest-label { position: absolute; left: 1.2rem; right: 1.2rem; bottom: 1.1rem; z-index: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
 .rd-dest-label b { font-family: var(--rd-head); font-weight: 500; font-size: 1.35rem; letter-spacing: -0.01em; }
@@ -306,7 +309,7 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
    ============================================================ */
 .rd .site-footer { background: var(--rd-bg-2); border-top: 1px solid var(--rd-line); color: var(--rd-ink); padding: clamp(3rem, 6vw, 5rem) 0 2rem; font-family: var(--rd-body); }
 .rd .footer-inner { max-width: var(--rd-max); margin: 0 auto; padding: 0 var(--rd-gutter); display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 2.5rem; }
-.rd .footer-logo-text { font-family: var(--rd-head); font-weight: 500; font-size: 1.15rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--rd-ink); }
+.rd .footer-logo-text { font-family: var(--rd-head); font-style: normal; font-weight: 500; font-size: 1.15rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--rd-ink); }
 .rd .footer-brand p { color: var(--rd-ink-50); font-size: 0.92rem; max-width: 34ch; margin-top: 1rem; line-height: 1.6; }
 .rd .footer-social { display: flex; gap: 0.6rem; margin-top: 1.25rem; }
 .rd .footer-social a { width: 36px; height: 36px; border: 1px solid var(--rd-line-2); border-radius: 50%; display: grid; place-items: center; color: var(--rd-ink-70); transition: background 0.3s, color 0.3s; }
@@ -326,7 +329,7 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
 .rd-press { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; padding: 1.25rem 0; border-top: 1px solid var(--rd-line); border-bottom: 1px solid var(--rd-line); }
 .rd-press-label { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rd-ink-50); white-space: nowrap; }
 .rd-press-logos { display: flex; align-items: center; gap: clamp(1.5rem, 4vw, 3.5rem); flex-wrap: wrap; flex: 1; justify-content: space-between; }
-.rd-press-logos img { height: 22px; width: auto; opacity: 0.55; filter: brightness(0) invert(1); transition: opacity 0.3s; }
+.rd-press-logos img { height: 26px; width: auto; opacity: 0.72; filter: brightness(0) invert(1); transition: opacity 0.3s; }
 .rd-press-logos img:hover { opacity: 0.9; }
 @media (max-width: 760px) { .rd-press { gap: 1rem; } .rd-press-logos { justify-content: flex-start; gap: 1.5rem; } .rd-press-logos img { height: 18px; } }
 

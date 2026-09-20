@@ -377,7 +377,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
             </div>
             <div className="rd-dest-grid">
               {tiles.map((d, i) => (
-                <a key={d.key} href={d.href} className={`rd-dest${i < 2 ? ' is-wide' : ''}`} data-rv={String(Math.min(i % 3 + 1, 3))}>
+                <a key={d.key} href={d.href} className={`rd-dest${i < 2 ? ' is-wide' : ''}${d.img && !d.img.startsWith('/redesign/') ? ' is-light' : ''}`} data-rv={String(Math.min(i % 3 + 1, 3))}>
                   {d.img && (d.img.startsWith('/')
                     ? <img src={d.img} alt="" loading="lazy" />
                     : <Image src={d.img} alt="" fill sizes="(max-width: 1000px) 50vw, 33vw" style={{ objectFit: 'cover' }} loading="lazy" />)}
