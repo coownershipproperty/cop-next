@@ -344,14 +344,15 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
 .rd-chip-new { position: absolute; top: 0.8rem; left: 0.8rem; z-index: 1; background: rgba(228,226,221,0.95); color: var(--rd-pill-ink); }
 
 /* ── Newsletter (dark restyle of components/Newsletter.js, scoped) ── */
-.rd .newsletter-section { background: transparent; padding: 0; text-align: left; max-width: none; }
+.rd .newsletter-section { background: transparent; padding: 0; text-align: left; max-width: none; display: block; }
 .rd .newsletter-heading { font-family: var(--rd-head); font-weight: 500; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--rd-ink); margin: 0; }
 .rd .newsletter-subtitle { color: var(--rd-ink-70); margin: 1rem 0 0; max-width: 46ch; line-height: 1.55; }
-.rd .newsletter-form { display: grid; gap: 0.75rem; margin-top: 1.6rem; max-width: none; }
+.rd .newsletter-form { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-top: 1.6rem; max-width: 420px; }
+.rd .newsletter-form input, .rd .newsletter-form input[type="tel"] { flex: none; max-width: none; }
 .rd .newsletter-form input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--rd-line-2); border-radius: var(--rd-r-sm); color: var(--rd-ink); font: inherit; font-size: 0.95rem; padding: 0.9rem 1rem; outline: none; box-shadow: none; }
 .rd .newsletter-form input::placeholder { color: var(--rd-ink-30); }
 .rd .newsletter-form input:focus { border-color: rgba(255,255,255,0.4); }
-.rd .newsletter-btn { background: var(--rd-pill); color: var(--rd-pill-ink); border: 0; border-radius: var(--rd-r-sm); font: inherit; font-weight: 500; font-size: 0.95rem; padding: 0.95rem 1.4rem; cursor: pointer; transition: background 0.3s; }
+.rd .newsletter-btn { background: var(--rd-pill); color: var(--rd-pill-ink); border: 0; border-radius: var(--rd-r-sm); font: inherit; font-weight: 500; font-size: 0.95rem; letter-spacing: 0; text-transform: none; justify-self: start; min-width: 200px; padding: 0.95rem 1.4rem; cursor: pointer; transition: background 0.3s; }
 .rd .newsletter-btn:hover { background: #ffffff; }
 .rd .newsletter-form-msg { font-size: 0.9rem; color: var(--rd-ink-70); margin-top: 0.75rem; }
 
