@@ -227,8 +227,8 @@ html.rv-ready .rd [data-rv].rv-in { opacity: 1; transform: none; }
    ============================================================ */
 .rd-values { position: relative; overflow: hidden; border-radius: var(--rd-r-lg); background: var(--rd-card); }
 .rd-values-media { position: absolute; inset: 0; }
-.rd-values-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-.rd-values-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #171614 0%, #171614 42%, rgba(23,22,20,0.9) 55%, rgba(23,22,20,0.45) 75%, rgba(23,22,20,0.25) 100%); }
+.rd-values-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.rd-values-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #151413 0%, #151413 36%, rgba(21,20,19,0.85) 50%, rgba(21,20,19,0.35) 70%, rgba(21,20,19,0.1) 100%); }
 .rd-values-inner { position: relative; z-index: 1; padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4.5rem); }
 .rd-values-head { max-width: 640px; margin-bottom: clamp(6rem, 14vw, 12rem); text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
 .rd-values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
@@ -270,8 +270,8 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
 @media (max-width: 860px) { .rd-news { grid-template-columns: 1fr; } .rd-news-media { min-height: 240px; } .rd-form-row { grid-template-columns: 1fr; } }
 
 .rd-cta { position: relative; border-radius: var(--rd-r-lg); overflow: hidden; min-height: 460px; display: grid; place-items: center; text-align: center; padding: clamp(3rem, 7vw, 6rem) var(--rd-gutter); }
-.rd-cta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-.rd-cta::after { content: ''; position: absolute; inset: 0; background: rgba(12,12,11,0.5); }
+.rd-cta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.rd-cta::after { content: ''; position: absolute; inset: 0; background: rgba(12,12,11,0.42); }
 .rd-cta > div { position: relative; z-index: 1; max-width: 700px; }
 .rd-cta .rd-btn-row { justify-content: center; }
 

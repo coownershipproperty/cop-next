@@ -396,7 +396,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
         <section className="rd-section" aria-labelledby="h-values" style={{ paddingTop: 0 }}>
           <div className="rd-container">
             <div className="rd-values" data-rv>
-              <div className="rd-values-media"><img src="/redesign/values-casa-bianca.webp" alt="" loading="lazy" /></div>
+              <div className="rd-values-media"><img src="/redesign/values-shelf.webp" alt="" loading="lazy" /></div>
               <div className="rd-values-inner">
                 <div className="rd-values-head">
                   <span className="rd-kicker">How it works</span>
@@ -487,7 +487,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
         <section className="rd-section" aria-label="Get started" style={{ paddingTop: 0 }}>
           <div className="rd-container">
             <div className="rd-cta" data-rv>
-              <img src="/redesign/cta-juliet.webp" alt="" loading="lazy" />
+              <img src="/redesign/cta-marble.webp" alt="" loading="lazy" />
               <div>
                 <h2 className="rd-h2">Ready to find your share?</h2>
                 <p className="rd-lead" style={{ margin: '1rem auto 0' }}>Tell us where you would like to be and when. A person replies with real availability and real figures.</p>
