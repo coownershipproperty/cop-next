@@ -1,34 +1,84 @@
 import Head from 'next/head';
 import hreflangLinks from '@/components/HreflangLinks';
 import { orderForCountry, countryFromCookie } from '@/lib/geoOrder';
-import { trackConversion } from '@/lib/gtag';
 import Image from 'next/image';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import PriceTicker from '@/components/PriceTicker';
 import { createClient } from '@supabase/supabase-js';
 import { getFeaturedSlugs } from '@/lib/featured-properties';
-
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
 // Single source of truth for the homepage FAQ — drives the FAQPage JSON-LD
-// below. Keep in sync with the visible <details> list in the FAQ section.
+// below and the visible accordion. Nights: 42–45 depending on the home, so
+// the copy says "around six weeks" and sends the exact figure to the enquiry.
 const HOMEPAGE_FAQS = [
-  { q: "What is fractional or co-ownership of a holiday home?", a: "Co-ownership means you and a small number of other owners each purchase a deeded share of a fully managed luxury property. You own a real fraction of the home — typically one-eighth — and unlike a timeshare, you hold genuine legal ownership of the property itself. It combines the pride and financial benefits of real property ownership with the ease of a five-star hotel experience, at a fraction of the cost of buying outright." },
-  { q: "How is co-ownership different from timeshare?", a: "Unlike a timeshare, co-ownership gives you a real share of the property deed, meaning you benefit from any appreciation in value and can sell your share on the open market whenever you choose. Because these are luxury properties in high-demand locations, prices typically do rise over time. There is no membership club, no points system, and no long-term contractual lock-in. You are a genuine property owner with full legal rights over your fraction." },
-  { q: "What does the purchase price include?", a: "Your purchase price covers your deeded share of the property along with its full furnishings, interior design, and equipment. Many of our homes are professionally styled to a turnkey standard, so they are move-in ready from day one. Ongoing costs such as maintenance, insurance, property management, and local taxes are shared proportionally among all co-owners, keeping individual running costs very low." },
-  { q: "How is usage time divided between owners?", a: "Every one-eighth share gives you 45 days — roughly six weeks — which is one-eighth of a year. Each property has a clear usage schedule that rotates fairly so all owners enjoy peak-season access over time. Many operators also offer a digital booking platform so you can swap, extend, or exchange weeks with fellow owners flexibly." },
-  { q: "Can I rent out my weeks when I'm not using them?", a: "In many cases, yes. Many of our properties allow owners to place unused weeks into a managed rental programme. The property management company handles guest screening, check-in, cleaning, and maintenance, while rental income is returned to you. This can offset your annual running costs significantly and, in popular destinations, even generate a net return." },
-  { q: "Who manages the property day to day?", a: "Every home on our platform is looked after by a professional property management company. They handle everything from routine maintenance and housekeeping to landscaping, pool care, and emergency repairs. You arrive to a pristine, hotel-quality home every visit — without lifting a finger." },
-  { q: "Can I sell my share later?", a: "Absolutely. Because you hold a deeded share, you can sell it at any time on the open market — just like any other property. If the home has appreciated in value, you benefit from that growth in proportion to your ownership share. Our team can also assist with resales to our network of qualified buyers." },
-  { q: "Which destinations and property types do you offer?", a: "We curate luxury co-ownership homes across Europe and the United States, including France, Spain, Italy, Portugal, Austria, England, and several US destinations. Properties range from coastal villas and Parisian apartments to Alpine chalets and Tuscan farmhouses. Every home is hand-selected for its location, build quality, and lifestyle appeal." },
-  { q: "Is co-ownership a good investment?", a: "Co-ownership allows you to access a high-value property at a fraction of the cost of buying outright, freeing capital for other investments. You enjoy potential property appreciation, possible rental income, and the personal value of a luxury holiday home — all while sharing costs with fellow owners. It is increasingly recognised as one of the most financially sensible ways to own a second home." },
-  { q: "How do I get started?", a: "Simply browse our collection above or speak to one of our property specialists using the enquiry form. We will walk you through available homes, answer any questions, and guide you through the purchase process from start to finish — with full legal and financial transparency at every step." },
+  { q: "What is co-ownership of a holiday home?", a: "You and a small number of other owners each buy a deeded share of a fully managed home — typically one eighth. It is real property ownership, registered in your name, not a timeshare or a membership. You get the home, the furnishings and the management, at a fraction of the cost of buying it alone." },
+  { q: "How is it different from a timeshare?", a: "A timeshare sells you time; co-ownership sells you the property. Your share is a legal interest in the home itself, so you benefit if it rises in value and you can sell it on the open market when you choose. There is no points system and no lock-in." },
+  { q: "What does the price include?", a: "Your share of the home, fully furnished and equipped to a turnkey standard. What sits on top varies by country and operator — purchase taxes and notary fees in Spain, for example — and we tell you exactly what applies to any home you ask about, before you commit." },
+  { q: "How much time do I get?", a: "A one-eighth share gives you around six weeks a year, scheduled so every owner gets peak dates over time. Most operators run a booking app where you reserve stays months ahead and pick up unused weeks at short notice. The exact number of nights and the booking rules differ by home, and we set them out for you." },
+  { q: "Can I rent out my weeks?", a: "It depends on the home, not just the operator. Some homes hold a tourist licence and run a managed rental programme; others are for owners and their guests only. We check the policy for every home before we tell you it can be let." },
+  { q: "Who looks after the property?", a: "A professional management team handles maintenance, housekeeping, insurance and repairs, funded by the owners' shared running costs. You arrive to a ready home and leave the rest to them." },
+  { q: "Can I sell my share later?", a: "Yes. After an initial holding period — usually twelve months — you can sell at a price you set. Your co-owners typically get first refusal, then it goes to the open market. We can help you find a buyer." },
+  { q: "Where are the homes?", a: "Across Europe and the United States: the Alps, the Balearics and the Costa del Sol, Tuscany and the Italian lakes, Paris, London, Portugal, Austria, Germany, and the American West and Florida. New homes are added every week." },
+  { q: "Are you the operator?", a: "No — we are the independent agency. We list homes from every serious co-ownership operator and explain plainly how each one works, so you can compare them side by side. Our fee is paid by the operator, never by you." },
+  { q: "How do I get started?", a: "Browse the homes, or tell us where and when you would like to be there. A person replies — usually within a few hours — with real availability, real figures and the questions worth asking." },
 ];
+
+// Destination tiles: order, pillar-page href and label. The dark-graded tile
+// images come from David's 20 Sep set (public/redesign/); countries without
+// one fall back to the top-priced live listing's photo.
+const DESTINATION_ORDER = [
+  { key: 'usa',      country: 'USA',      label: 'United States', href: '/usa-fractional-ownership-properties/' },
+  { key: 'spain',    country: 'Spain',    label: 'Spain',         href: '/spain-fractional-ownership-properties/' },
+  { key: 'italy',    country: 'Italy',    label: 'Italy',         href: '/italy-fractional-ownership-properties/' },
+  { key: 'france',   country: 'France',   label: 'France',        href: '/france-fractional-ownership-properties/' },
+  { key: 'austria',  country: 'Austria',  label: 'Austria',       href: '/austria-fractional-ownership-properties/' },
+  { key: 'germany',  country: 'Germany',  label: 'Germany',       href: '/germany-fractional-ownership-properties/' },
+  { key: 'mexico',   country: 'Mexico',   label: 'Mexico',        href: '/mexico-fractional-ownership-properties/' },
+  { key: 'portugal', country: 'Portugal', label: 'Portugal',      href: '/portugal-fractional-ownership-properties/' },
+  { key: 'england',  country: 'England',  label: 'England',       href: '/england-fractional-ownership-properties/' },
+  { key: 'sweden',   country: 'Sweden',   label: 'Sweden',        href: '/sweden-fractional-ownership-properties/' },
+  { key: 'croatia',  country: 'Croatia',  label: 'Croatia',       href: '/croatia-fractional-ownership-properties/' },
+];
+const DARK_DEST_IMAGES = {
+  usa: '/redesign/dest-usa.webp',
+  italy: '/redesign/dest-italy.webp',
+  france: '/redesign/dest-france.webp',
+  england: '/redesign/dest-england.webp',
+  mexico: '/redesign/dest-mexico.webp',
+};
+
+// Press coverage of the operators whose homes we list — labelled as theirs,
+// not ours (David, 17 Sep).
+const PRESS = [
+  { src: '/wp-content/uploads/2025/11/press-times.png', alt: 'The Times' },
+  { src: '/wp-content/uploads/2025/11/press-ft.png', alt: 'Financial Times' },
+  { src: '/wp-content/uploads/2025/11/press-forbes.png', alt: 'Forbes' },
+  { src: '/wp-content/uploads/2025/11/press-businessinsider.png', alt: 'Business Insider' },
+  { src: '/wp-content/uploads/2025/11/press-dailymail.png', alt: 'Daily Mail' },
+  { src: '/wp-content/uploads/2025/11/press-luxtravel.png', alt: 'Luxury Travel Magazine' },
+];
+
+const VALUES = [
+  { n: '01', h: 'Real ownership', p: 'A deeded share of the home itself, registered in your name. Not a timeshare, not a membership — you can sell it, pass it on, and gain if it rises in value.' },
+  { n: '02', h: 'Your weeks, every year', p: 'Around six weeks a year with a one-eighth share, scheduled so everyone gets the peak dates over time. Book ahead in the owners\u2019 app; stay longer when weeks go unused.' },
+  { n: '03', h: 'Looked after', p: 'Professionally managed and maintained, with the running costs shared. You arrive to a ready home and leave the rest to the team.' },
+  { n: '04', h: 'Independent advice', p: 'We are the agency, not the operator. We list homes from every serious operator across Europe and the USA and tell you plainly how each one works before you commit.' },
+];
+
+function fmtPrice(price, currency) {
+  if (!price) return null;
+  const sym = SYM[currency] || '';
+  return sym + Number(price).toLocaleString('en-GB');
+}
+function fmtK(n) {
+  if (!n) return null;
+  return n >= 1000 ? '\u20ac' + Math.round(n / 1000) + 'k' : '\u20ac' + n;
+}
 
 export async function getStaticProps() {
   const supabase = createClient(
@@ -128,280 +178,69 @@ export async function getStaticProps() {
     category: p.category || '',
   }));
 
-  return { props: { propertyCount: propertyCount || 0, featuredProps, latestPosts }, revalidate: 3600 };
+  // Destinations + headline numbers, from the same live inventory. One query,
+  // ~300 rows at build time; nothing here is typed in by hand.
+  const { data: liveRows } = await supabase
+    .from('properties')
+    .select('country, img, price, currency, partner')
+    .in('status', ['Live', 'for_sale'])
+    .eq('is_discreet', false);
+  const byCountry = {};
+  let minEur = null;
+  const partners = new Set();
+  for (const r of liveRows || []) {
+    const c = r.country || '';
+    if (!byCountry[c]) byCountry[c] = { count: 0, img: r.img || '', top: -1 };
+    byCountry[c].count += 1;
+    const pr = Number(r.price) || 0;
+    if (pr > byCountry[c].top && r.img) { byCountry[c].top = pr; byCountry[c].img = r.img; }
+    if (r.currency === 'EUR' && pr > 0 && (minEur === null || pr < minEur)) minEur = pr;
+    if (r.partner) partners.add(r.partner);
+  }
+  const destinations = DESTINATION_ORDER
+    .map(({ key, country, label, href }) => ({
+      key, label, href,
+      count: byCountry[country]?.count || 0,
+      img: DARK_DEST_IMAGES[key] || byCountry[country]?.img || '',
+    }))
+    .filter(d => d.count > 0);
+  const stats = {
+    homes: propertyCount || 0,
+    countries: Object.keys(byCountry).filter(Boolean).length,
+    operators: partners.size,
+    fromEur: minEur,
+  };
+
+  return { props: { propertyCount: propertyCount || 0, featuredProps, latestPosts, destinations, stats }, revalidate: 3600 };
 }
 
-const CARD_GAP = 20;
-
-function getCardW() {
-  if (typeof window === 'undefined') return 430;
-  const vw = window.innerWidth;
-  // Must match CSS exactly:
-  // ≤480px → calc(100vw - 40px) capped at 340px
-  // ≤768px → calc(100vw - 48px) capped at 380px
-  if (vw <= 480) return Math.min(vw - 40, 340);
-  if (vw <= 768) return Math.min(vw - 48, 380);
-  return 430;
-}
-
-function PropCarousel({ items, propertyCount }) {
-  // Build full list: featured properties + "view all" end card
-  const allItems = [...items, { slug: '__viewall', isViewAll: true }];
-  const N = allItems.length; // e.g. 21
-
-  // Triple the array for infinite loop — start in the middle copy
-  const extended = [...allItems, ...allItems, ...allItems];
-  const START = N; // pos N = first item of middle copy
-
-  const [pos, setPos] = useState(START);
-  const [cardW, setCardW] = useState(430);
-  const trackRef = useRef(null);
-  const snapping = useRef(false); // prevents moves during instant snap
-
-  // Touch-swipe state — refs (no re-renders during gesture). Tracks initial
-  // touch position so we can compute the delta on touchend and decide
-  // whether the gesture was a horizontal swipe (next/prev) or a vertical
-  // scroll (do nothing).
-  const touchStartX = useRef(null);
-  const touchStartY = useRef(null);
-
-  // Keep card width in sync with viewport
-  useEffect(() => {
-    setCardW(getCardW());
-    const onResize = () => setCardW(getCardW());
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  // Which real card (0..N-1) is currently active
-  const realIdx = ((pos % N) + N) % N;
-  // Counter shows 1..items.length (not counting the view-all card), / total db count
-  const displayNum = realIdx < items.length ? realIdx + 1 : items.length;
-
-  const move = (dir) => {
-    if (snapping.current) return;
-    setPos(p => p + dir);
-  };
-
-  // Touch handlers — swipe left = next, swipe right = previous. We require
-  // a primarily-horizontal gesture (|Δx| > |Δy| and |Δx| ≥ 40px) so vertical
-  // page scrolling never accidentally pages the carousel.
-  const SWIPE_THRESHOLD = 40;
-  const onTouchStart = (e) => {
-    if (!e.touches || e.touches.length === 0) return;
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
-  const onTouchEnd = (e) => {
-    if (touchStartX.current == null) return;
-    const endTouch = (e.changedTouches && e.changedTouches[0]) || null;
-    if (!endTouch) { touchStartX.current = null; return; }
-    const dx = endTouch.clientX - touchStartX.current;
-    const dy = endTouch.clientY - touchStartY.current;
-    touchStartX.current = null;
-    touchStartY.current = null;
-    if (Math.abs(dx) < SWIPE_THRESHOLD) return;
-    if (Math.abs(dy) > Math.abs(dx)) return; // vertical scroll — ignore
-    if (dx < 0) move(1);   // swipe left → next
-    else        move(-1);  // swipe right → previous
-  };
-
-  // After each CSS transition ends, silently snap back to the middle copy if needed
-  const onTransitionEnd = () => {
-    const current = pos;
-    let newPos = null;
-    if (current < N) newPos = current + N;
-    else if (current >= 2 * N) newPos = current - N;
-
-    if (newPos !== null) {
-      snapping.current = true;
-      const track = trackRef.current;
-      if (track) {
-        track.style.transition = 'none';
-        void track.getBoundingClientRect(); // force reflow so transition removal takes effect
-        setPos(newPos);
-        requestAnimationFrame(() => {
-          if (track) track.style.transition = '';
-          snapping.current = false;
-        });
-      }
-    }
-  };
-
-  const cardStep = cardW + CARD_GAP;
-  const offset = pos * cardStep;
-
-  return (
-    <div className="pc-wrap">
-      <div
-        className="pc-outer"
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        <div
-          ref={trackRef}
-          className="pc-track"
-          style={{ transform: `translateX(calc(-${offset}px + 50vw - ${cardW / 2}px))` }}
-          onTransitionEnd={onTransitionEnd}
-        >
-          {extended.map((p, i) => {
-            const isActive = i === pos;
-            const copyNum = Math.floor(i / N); // 0, 1, or 2 — used for unique keys
-
-            if (p.isViewAll) {
-              return (
-                <div
-                  key={`viewall-${copyNum}`}
-                  className={`pc-card pc-card-viewall${isActive ? ' pc-active' : ''}`}
-                  onClick={() => { snapping.current = false; setPos(i); }}
-                >
-                  <div className="pc-img-wrap pc-viewall-img">
-                    <div className="pc-viewall-inner">
-                      <span className="pc-viewall-count">{propertyCount}</span>
-                      <span className="pc-viewall-label">Properties</span>
-                      <a href="/our-homes/" className="pc-viewall-btn" onClick={e => e.stopPropagation()}>Browse All →</a>
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-
-            const titleParts = p.title.includes('—') ? p.title.split('—') : null;
-            const loc   = titleParts ? titleParts[0].trim() : `${p.region}${p.region && p.country ? ', ' : ''}${p.country}`;
-            const label = titleParts ? titleParts.slice(1).join('—').trim() : p.title;
-            const sym = SYM[p.currency] || p.currency;
-            // Eager-load only the first few cards in the middle copy
-            const eager = copyNum === 1 && (i - N) < 4;
-
-            return (
-              <div
-                key={`${p.slug}-${copyNum}`}
-                className={`pc-card${isActive ? ' pc-active' : ''}`}
-                onClick={() => {
-                  if (isActive) {
-                    window.location.href = `/property/${p.slug}`;
-                  } else {
-                    snapping.current = false;
-                    setPos(i);
-                  }
-                }}
-                style={{ cursor: 'pointer' }}
-              >
-                <div className="pc-img-wrap">
-                  <img
-                    src={p.img || '/images/placeholder.jpg'}
-                    alt={p.title}
-                    className="pc-img"
-                    loading={eager ? 'eager' : 'lazy'}
-                    decoding="async"
-                  />
-                  {p.isNew && <span className="pc-new-badge">New This Week</span>}
-                </div>
-                {isActive ? (
-                  <div className="pc-panel">
-                    <span className="pc-panel-loc">{loc}</span>
-                    <span className="pc-panel-title">{label}</span>
-                    <div className="pc-panel-stats">
-                      {p.size && <span>{p.size.toLocaleString('en-GB')} m²</span>}
-                    </div>
-                    {p.price && (
-                      <span className="pc-panel-price">
-                        {sym}{p.price.toLocaleString('en-GB')}
-                      </span>
-                    )}
-                    <a href={`/property/${p.slug}`} className="pc-panel-btn" onClick={e => e.stopPropagation()}>View Property →</a>
-                  </div>
-                ) : (
-                  <div className="pc-caption">
-                    <span className="pc-caption-loc">{loc}</span>
-                    <span className="pc-caption-title">{label}</span>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="pc-nav">
-        <button className="pc-btn" onClick={() => move(-1)} aria-label="Previous">&#8592;</button>
-        <span className="pc-counter">{displayNum} / {propertyCount}</span>
-        <button className="pc-btn" onClick={() => move(1)} aria-label="Next">&#8594;</button>
-      </div>
-    </div>
-  );
-}
-
-/**
- * The one email capture above the fold.
- *
- * Deliberately small: a line of type, a field and a button. It posts to the
- * same /api/newsletter every other signup uses, with its own source so the
- * homepage's contribution stays separable in reporting, and it carries the
- * honeypot the API already checks. No modal, no delay, no exit intent.
- */
-// The six operators whose homes we list. Five have a profile page on this
-// site; Paris Property Group has one apartment rather than a profile, so it
-// points at the apartment. Every link here is a page that exists.
-// The mastheads are back at David's call (17 Sep): the coverage belongs to
-// the operators whose homes COP lists, and COP sells their product, so
-// showing it is fair. What was not fair was the old label — "As Featured In"
-// on our own site reads as a claim about us. The label now says whose press
-// it is, which keeps the signal and drops the claim.
-const PRESS = [
-  { src: '/wp-content/uploads/2025/11/press-times.png', alt: 'The Times' },
-  { src: '/wp-content/uploads/2025/11/press-ft.png', alt: 'Financial Times' },
-  { src: '/wp-content/uploads/2025/11/press-dailymail.png', alt: 'Daily Mail' },
-  { src: '/wp-content/uploads/2025/11/press-forbes.png', alt: 'Forbes' },
-  { src: '/wp-content/uploads/2025/11/press-express.png', alt: 'Express' },
-  { src: '/wp-content/uploads/2025/11/press-businessinsider.png', alt: 'Business Insider' },
-  { src: '/wp-content/uploads/2025/11/press-luxtravel.png', alt: 'Luxury Travel Magazine' },
-  { src: '/wp-content/uploads/2025/11/press-rollingstone.png', alt: 'Rolling Stone' },
-];
-// Two identical passes make the marquee loop seamlessly; the second is
-// hidden from assistive tech and taken out of the tab order.
-const OPERATOR_SETS = [false, true];
-
-export default function Home({ propertyCount, featuredProps, latestPosts }) {
-  const [activeDest, setActiveDest] = useState('spain');
-  // The carousel opens with the homes this visitor might actually buy. The
-  // server-rendered order is the editorial one — reordering happens after
-  // mount, from the cop_country cookie, so crawlers and anyone whose country
-  // we cannot read see the canonical page. See lib/geoOrder.js.
+export default function Home({ propertyCount, featuredProps, latestPosts, destinations = [], stats = {} }) {
+  // Server-rendered order is the editorial one; reorder after mount from the
+  // cop_country cookie so crawlers see the canonical page. See lib/geoOrder.js.
   const [featured, setFeatured] = useState(featuredProps);
   useEffect(() => {
     if (typeof document === 'undefined') return;
     const country = countryFromCookie(document.cookie);
     if (!country) return;
     const ordered = orderForCountry(featuredProps, country);
-    if (ordered.length && ordered.some((p, i) => p.slug !== featuredProps[i]?.slug)) {
-      setFeatured(ordered);
-    }
+    if (ordered.length && ordered.some((p, i) => p.slug !== featuredProps[i]?.slug)) setFeatured(ordered);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [featuredProps]);
-  const videoRef = useRef(null);
-  const destTabsRef = useRef(null);
 
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    // Force play on mobile — declarative autoPlay is ignored by some mobile browsers
-    v.muted = true;
-    v.play().catch(() => {});
-    // Also retry on visibility change (e.g. tab switching, phone wake)
-    const retry = () => { if (!document.hidden) v.play().catch(() => {}); };
-    document.addEventListener('visibilitychange', retry);
-    return () => document.removeEventListener('visibilitychange', retry);
-  }, []);
+  const homes = featured.slice(0, 8);
+  const tiles = destinations.slice(0, 8);
+
   return (
     <>
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
         {hreflangLinks({ englishPath: '/' })}
-        <meta name="description" content="Browse 300+ luxury co-ownership homes across Europe and the USA. Real ownership in the world's finest homes — from a fraction of the cost." />
+        <meta name="description" content={`Browse ${propertyCount}+ luxury co-ownership homes across Europe and the USA. Real, deeded ownership of a managed second home — for a fraction of the price of buying alone.`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/" />
+        <link rel="preload" as="image" href="/redesign/hero-uavi.webp" media="(min-width: 861px)" />
+        <link rel="preload" as="image" href="/redesign/hero-uavi-m.webp" media="(max-width: 860px)" />
         <meta property="og:title" content="Co-Ownership Property | Luxury Fractional Ownership" />
         <meta property="og:description" content="Browse 300+ luxury fractional ownership homes across Europe and the USA. Real ownership from a fraction of the cost." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
@@ -434,460 +273,231 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
               "url": "https://co-ownership-property.com",
               "publisher": { "@id": "https://co-ownership-property.com/#organization" },
               "inLanguage": "en"
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": HOMEPAGE_FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
             }
           ]
         }) }} />
       </Head>
-      <Header />
-{/* ===== HERO SECTION ===== */}
-{/* cache-bust: lang-switcher flags v2 — 2026-05-15 */}
-    <section className="hero">
-        {/* poster: the first frame, so the fold is never a black rectangle
-            while 6 MB of video arrives — it is the largest contentful paint
-            on the site and it was empty until it loaded. */}
-        <video ref={videoRef} className="hero-video" poster="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.jpg" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
-            <source src="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4" type="video/mp4" />
-        </video>
-        <div className="hero-overlay"></div>
 
-        {/* Header &amp; Navigation (shared partial) */}
-        
+      <div className="rd rd-home">
+        <Nav />
 
-        {/* Hero Content */}
-        <div className="hero-content">
-            {/* The original line is back at David's call (17 Sep). It was
-                replaced on 16 Sep on the grounds that it told a visitor
-                nothing — true of the line on its own, but the fix was never
-                to lose it. The headline sets the tone; the sub does the
-                explaining, and every clause of it is demonstrable on any
-                listing page. */}
-            <h1 className="hero-heading">
-                <span className="hero-pre">Your window to the</span>
-                <em>world's finest</em>
-                <span className="hero-rule"></span>
-                <span className="hero-post">co-ownership</span>
-            </h1>
-        </div>
-
-        {/* Hero Bottom Section */}
-        <div className="hero-bottom">
-            <div className="hero-ctas">
-                <a href="/our-homes" className="hero-cta-primary">Browse Properties &rarr;</a>
-                <a href="/how-it-works" className="hero-cta-secondary">How It Works</a>
+        {/* ── Hero ── */}
+        <section className="rd-hero" aria-label="Introduction">
+          <div className="rd-hero-media">
+            <picture>
+              <source media="(max-width: 860px)" srcSet="/redesign/hero-uavi-m.webp" />
+              <img src="/redesign/hero-uavi.webp" alt="Evening in a co-owned villa lounge opening onto the sea" fetchPriority="high" decoding="async" />
+            </picture>
+          </div>
+          <div className="rd-hero-shade" />
+          <div className="rd-hero-inner">
+            <div className="rd-hero-copy">
+              <span className="rd-kicker" style={{ color: 'rgba(243,242,238,0.7)' }}>Luxury co-ownership · Europe &amp; the USA</span>
+              <h1 className="rd-h1">Own a share of somewhere extraordinary.</h1>
+              <p className="rd-lead">Real, deeded ownership of a fully managed home — in the Alps, the Balearics, Tuscany, Paris or the American West — for a fraction of the price of buying alone. We are the independent agency: we list homes from every serious operator and help you choose between them.</p>
+              <div className="rd-btn-row">
+                <a href="/our-homes/" className="rd-btn">Explore the homes</a>
+                <a href="#speak-to-expert" className="rd-btn rd-btn-ghost">Speak to us</a>
+              </div>
             </div>
-        </div>
-    </section>
+            <aside className="rd-hero-proof" aria-label="At a glance">
+              <dl>
+                <div><dt>{stats.homes || propertyCount}</dt><dd>homes for sale</dd></div>
+                <div><dt>{stats.countries || 11}</dt><dd>countries</dd></div>
+                <div><dt>{stats.operators || 7}</dt><dd>operators compared</dd></div>
+                {stats.fromEur && <div><dt>from {fmtK(stats.fromEur)}</dt><dd>for a share</dd></div>}
+              </dl>
+            </aside>
+          </div>
+        </section>
 
-    {/* ===== OPERATOR MARQUEE =====
-         Until 17 Sep 2026 this bar said "As Featured In" over The Times, the
-         FT, the Daily Mail, Forbes, the Express, Business Insider, Luxury
-         Travel Magazine and Rolling Stone. No evidence was ever found for any
-         of them. What we can say instead is true, checkable and actually more
-         useful to a buyer: these are the operators whose homes we list, and
-         every name links to what we know about them.
+        {/* ── Press (the operators' coverage, labelled as theirs) ── */}
+        <section className="rd-section-tight" aria-label="Press">
+          <div className="rd-container">
+            <div className="rd-press" data-rv>
+              <span className="rd-press-label">The homes we list have been covered in</span>
+              <div className="rd-press-logos">
+                {PRESS.map(p => <img key={p.alt} src={p.src} alt={p.alt} loading="lazy" />)}
+              </div>
+            </div>
+          </div>
+        </section>
 
-         Wordmarks rather than logo files — we hold no operator logo assets
-         except Vivla's. Swapping any one for an <Image> later is a one-line
-         change. ── */}
-    <div className="press-bar" role="region" aria-label="Our partners in the press">
-        <div className="press-bar-header">
-            <span className="press-bar-label">Our partners in the press</span>
-        </div>
-        <div className="press-marquee-wrap">
-        <div className="press-track-outer">
-            {OPERATOR_SETS.map((hidden, setIndex) => (
-            <div className="press-track" key={setIndex} aria-hidden={hidden || undefined}>
-                {PRESS.map(logo => (
-                    <div className="press-logo-item" key={logo.alt}>
-                        <Image src={logo.src} alt={hidden ? '' : logo.alt} width={200} height={50} loading="eager" />
+        {/* ── Featured homes ── */}
+        <section className="rd-section" id="properties" aria-labelledby="h-homes">
+          <div className="rd-container">
+            <div className="rd-head-row" data-rv>
+              <div>
+                <span className="rd-kicker">This week</span>
+                <h2 className="rd-h2" id="h-homes">Homes worth owning a piece of.</h2>
+                <p className="rd-lead">A rotating selection from {propertyCount} co-ownership homes. Prices are for a single share, fully furnished.</p>
+              </div>
+              <a href="/our-homes/" className="rd-btn rd-btn-ghost">All {propertyCount} homes</a>
+            </div>
+            <div className="rd-grid-4">
+              {homes.map((p, i) => {
+                const parts = (p.title || '').split(' — ');
+                const loc = parts.length > 1 ? parts[0].trim() : [p.region, p.country].filter(Boolean).join(', ');
+                const name = parts.length > 1 ? parts.slice(1).join(' — ').trim() : p.title;
+                return (
+                  <a key={p.slug} href={`/property/${p.slug}/`} className="rd-card rd-home" data-rv={String(Math.min(i % 4 + 1, 4))}>
+                    <div className="rd-media">
+                      {p.img && <Image src={p.img} alt={p.title} fill sizes="(max-width: 560px) 100vw, (max-width: 1100px) 50vw, 25vw" style={{ objectFit: 'cover' }} loading={i < 4 ? 'eager' : 'lazy'} />}
+                      {p.isNew && <span className="rd-chip rd-chip-new">New</span>}
                     </div>
+                    <div className="rd-home-body">
+                      <div className="rd-home-loc">{loc}</div>
+                      <div className="rd-home-title">{name}</div>
+                      <div className="rd-home-meta">
+                        <div className="rd-home-price">{fmtPrice(p.price, p.currency)}<small>per share</small></div>
+                        <div className="rd-home-facts">{[p.beds ? `${p.beds} bed` : null, p.size ? `${p.size} m²` : null].filter(Boolean).join(' · ')}</div>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Destinations ── */}
+        <section className="rd-section" id="destinations" aria-labelledby="h-dest" style={{ paddingTop: 0 }}>
+          <div className="rd-container">
+            <div className="rd-head-row" data-rv>
+              <div>
+                <span className="rd-kicker">Where</span>
+                <h2 className="rd-h2" id="h-dest">Eleven countries. One way to own.</h2>
+                <p className="rd-lead">Each destination page lists every home we have there, with the operator differences explained.</p>
+              </div>
+              <a href="/our-homes/" className="rd-btn-link">All destinations →</a>
+            </div>
+            <div className="rd-dest-grid">
+              {tiles.map((d, i) => (
+                <a key={d.key} href={d.href} className={`rd-dest${i < 2 ? ' is-wide' : ''}`} data-rv={String(Math.min(i % 3 + 1, 3))}>
+                  {d.img && (d.img.startsWith('/')
+                    ? <img src={d.img} alt="" loading="lazy" />
+                    : <Image src={d.img} alt="" fill sizes="(max-width: 1000px) 50vw, 33vw" style={{ objectFit: 'cover' }} loading="lazy" />)}
+                  <div className="rd-dest-label"><b>{d.label}</b><span>{d.count} {d.count === 1 ? 'home' : 'homes'}</span></div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Values ── */}
+        <section className="rd-section" aria-labelledby="h-values" style={{ paddingTop: 0 }}>
+          <div className="rd-container">
+            <div className="rd-values" data-rv>
+              <div className="rd-values-media"><img src="/redesign/values-casa-bianca.webp" alt="" loading="lazy" /></div>
+              <div className="rd-values-inner">
+                <div className="rd-values-head">
+                  <span className="rd-kicker">How it works</span>
+                  <h2 className="rd-h2" id="h-values">The difference is in the details.</h2>
+                  <p className="rd-lead">Four things that are true of every home we list — and one that is only true of us.</p>
+                </div>
+                <div className="rd-values-grid">
+                  {VALUES.map((v, i) => (
+                    <div className="rd-value" key={v.n} data-rv={String(i + 1)}>
+                      <b>{v.n}</b>
+                      <h3>{v.h}</h3>
+                      <p>{v.p}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="rd-btn-row"><a href="/how-it-works/" className="rd-btn rd-btn-ghost">How co-ownership works</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Latest insights ── */}
+        {latestPosts?.length > 0 && (
+          <section className="rd-section" aria-labelledby="h-posts" style={{ paddingTop: 0 }}>
+            <div className="rd-container">
+              <div className="rd-head-row" data-rv>
+                <div>
+                  <span className="rd-kicker">Reading</span>
+                  <h2 className="rd-h2" id="h-posts">Before you buy.</h2>
+                </div>
+                <a href="/all-our-blog/" className="rd-btn-link">All articles →</a>
+              </div>
+              <div className="rd-grid-3">
+                {latestPosts.map((post, i) => (
+                  <a key={post.slug} href={`/blog/${post.slug}/`} className="rd-card rd-post" data-rv={String(i + 1)}>
+                    <div className="rd-media">
+                      {post.heroImage && <Image src={post.heroImage} alt={post.title} fill sizes="(max-width: 900px) 50vw, 33vw" style={{ objectFit: 'cover' }} loading="lazy" />}
+                    </div>
+                    <div className="rd-post-body">
+                      <div className="rd-post-date">{post.category ? `${post.category} · ` : ''}{post.dateFormatted}</div>
+                      <div className="rd-post-title">{post.title}</div>
+                    </div>
+                  </a>
                 ))}
-            </div>
-            ))}
-        </div>
-        </div>
-    </div>
-
-    {/* ===== INTRODUCTION SECTION ===== */}
-    {/* ===== PROPERTIES CAROUSEL SECTION (placed immediately after the
-         hero so visitors see inventory before anything else — biggest
-         single bounce-rate lever) ===== */}
-    <section className="properties-section" id="properties">
-        <h2 className="section-heading">Explore Our Properties</h2>
-        <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
-
-        <PropCarousel items={featured} propertyCount={propertyCount} />
-
-        <div className="pc-browse-all">
-          <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>
-        </div>
-    </section>
-
-    {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
-    <section className="explainer-section">
-        <div className="explainer-intro">
-            <h2>What is Co-Ownership?</h2>
-            <p>Co-ownership lets you buy a legal share of a premium holiday property — and use it fully, just as you would a home you owned outright. You get the lifestyle without the full price tag, and share only the costs.</p>
-        </div>
-        <div className="explainer-grid">
-            <div className="explainer-item">
-                <div className="explainer-num">01</div>
-                <div className="explainer-divider"></div>
-                <h3>You Own a Legal Share</h3>
-                <p>You purchase a <strong>1/8 share</strong> of a premium property. It's <strong>real ownership, registered in your name</strong>, with full legal protections. Our properties are designed to <strong>appreciate in value</strong>, giving you the benefits of real estate as an investment. You have full flexibility to <strong>sell your share at any time</strong> — you set the price, and we help find a buyer.</p>
-                <p className="explainer-stat">Shares sell in under a month on average.</p>
-            </div>
-            <div className="explainer-item">
-                <div className="explainer-num">02</div>
-                <div className="explainer-divider"></div>
-                <h3>Guaranteed Usage</h3>
-                <p><strong>Your weeks are yours.</strong> A fair, structured schedule ensures every owner gets their time without competing for dates — <strong>including peak season.</strong> No timeshare, no points, no compromise. It feels like home — you arrive and <strong>your belongings are there, everything is set up, and the property is fully managed</strong> so you can simply enjoy it.</p>
-            </div>
-            <div className="explainer-item">
-                <div className="explainer-num">03</div>
-                <div className="explainer-divider"></div>
-                <h3>Shared Running Costs</h3>
-                <p>Maintenance, management fees and running costs are <strong>divided equally among owners.</strong> On many properties, when you're not using it, it can be <strong>rented out — generating income</strong> that further offsets your costs. <strong>We handle everything.</strong></p>
-            </div>
-            <div className="explainer-item">
-                <div className="explainer-num">04</div>
-                <div className="explainer-divider"></div>
-                <h3>Added Benefits</h3>
-                <p>Co-ownership brings wider advantages too — from <strong>favourable tax treatment</strong> and <strong>simplified inheritance planning</strong>, to the flexibility of <strong>home-swapping</strong> with fellow owners across our portfolio of properties worldwide.</p>
-            </div>
-        </div>
-    </section>
-
-    {/* ===== CTA BAND ===== */}
-    <section className="cta-band">
-        <p className="cta-band-eyebrow">Co-Ownership Property</p>
-        <h2 className="cta-band-heading">Own a share of somewhere <em>extraordinary</em></h2>
-        <span className="cta-band-rule"></span>
-        <p className="cta-band-sub">From a villa on the Côte d'Azur to a chalet in Aspen — fractional ownership gives you a genuine stake in the world's finest homes, at a fraction of the cost.</p>
-        <div className="cta-band-buttons">
-            <a href="#speak-to-expert" className="cta-band-primary">Speak to an Expert</a>
-            <a href="#newsletter" className="cta-band-secondary">Subscribe to Newsletter</a>
-        </div>
-    </section>
-
-    {/* ===== DESTINATIONS SECTION ===== */}
-    <section className="destinations-section" id="destinations">
-        <h2 className="section-heading">Our Destinations</h2>
-
-        {/* Tab navigation */}
-        <div className="dest-tabs" ref={destTabsRef}>
-            {[["spain","Spain"],["france","France"],["usa","USA"],["italy","Italy"],["portugal","Portugal"],["austria","Austria"],["england","England"],["sweden","Sweden"],["germany","Germany"],["croatia","Croatia"],["mexico","Mexico"]].map(([key, label]) => (
-              <button
-                key={key}
-                className={`dest-tab-btn${activeDest === key ? " active" : ""}`}
-                onMouseEnter={() => setActiveDest(key)}
-                onClick={e => {
-                  setActiveDest(key);
-                  // Manually scroll the strip so the clicked tab is centred
-                  const strip = destTabsRef.current;
-                  const btn = e.currentTarget;
-                  if (strip) {
-                    const stripCenter = strip.offsetWidth / 2;
-                    const btnCenter = btn.offsetLeft + btn.offsetWidth / 2;
-                    strip.scrollTo({ left: btnCenter - stripCenter, behavior: 'smooth' });
-                  }
-                }}
-              >{label}</button>
-            ))}
-        </div>
-
-        {/* Panels */}
-        <div className="dest-panels">
-
-            <div className={`dest-panel${activeDest === "spain" ? " active" : ""}`} id="dest-spain">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/spain-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-spain.webp" alt="Spain" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Spain</div>
-                    <p className="dest-info-desc">Spain combines world-class beaches, vibrant culture and year-round sunshine across Mallorca, Ibiza, the Costa del Sol and beyond — all at remarkable value for discerning co-owners.</p>
-                    <a href="/spain-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "france" ? " active" : ""}`} id="dest-france">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/france-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-france.webp" alt="France" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">France</div>
-                    <p className="dest-info-desc">From the sun-drenched shores of the Côte d'Azur to the ski slopes of the French Alps and the timeless elegance of Paris, France is Europe's most coveted address for fractional ownership.</p>
-                    <a href="/france-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "italy" ? " active" : ""}`} id="dest-italy">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/italy-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-italy-v2.webp" alt="Italy" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Italy</div>
-                    <p className="dest-info-desc">Italy's extraordinary landscapes — from the glassy waters of Lake Como to the ancient villages of Liguria and the Tuscan hills — make it a perennial favourite for discerning co-owners.</p>
-                    <a href="/italy-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "portugal" ? " active" : ""}`} id="dest-portugal">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/portugal-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-portugal.webp" alt="Portugal" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Portugal</div>
-                    <p className="dest-info-desc">From the golden coastline of the Algarve to the elegant boulevards of Lisbon and the unspoilt beauty of the Silver Coast, Portugal is one of Europe's most exciting destinations for luxury co-ownership.</p>
-                    <a href="/portugal-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "austria" ? " active" : ""}`} id="dest-austria">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/austria-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-austria.webp" alt="Austria" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Austria</div>
-                    <p className="dest-info-desc">Austria's Alpine splendour — from the world-class ski resorts of Tyrol to the grand imperial charm of Vienna — makes it one of Europe's most rewarding destinations for luxury fractional ownership.</p>
-                    <a href="/austria-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "england" ? " active" : ""}`} id="dest-england">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/england-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-england.webp" alt="England" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">England</div>
-                    <p className="dest-info-desc">London remains one of the world's great cities for luxury property — from Mayfair townhouses to riverside apartments — while the English countryside offers idyllic retreats for discerning co-owners.</p>
-                    <a href="/england-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "sweden" ? " active" : ""}`} id="dest-sweden">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/sweden-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-sweden.webp" alt="Sweden" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Sweden</div>
-                    <p className="dest-info-desc">Sweden's dramatic landscapes — from the Stockholm archipelago to the forested lake districts of the north — offer a uniquely peaceful setting for luxury co-ownership away from the crowds.</p>
-                    <a href="/sweden-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "germany" ? " active" : ""}`} id="dest-germany">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/germany-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-germany.webp" alt="Germany" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Germany</div>
-                    <p className="dest-info-desc">From the Bavarian Alps and the shores of Lake Constance to the cultural capitals of Berlin and Munich, Germany offers a compelling range of luxury property opportunities for co-owners.</p>
-                    <a href="/germany-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "croatia" ? " active" : ""}`} id="dest-croatia">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/croatia-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-croatia.webp" alt="Croatia" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Croatia</div>
-                    <p className="dest-info-desc">Croatia's breathtaking Adriatic coastline, crystal-clear waters and historic walled towns like Dubrovnik make it one of the Mediterranean's most coveted destinations for luxury fractional ownership.</p>
-                    <a href="/croatia-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "usa" ? " active" : ""}`} id="dest-usa">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/usa-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-usa-v2.webp" alt="USA" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">USA</div>
-                    <p className="dest-info-desc">From the surf culture of California to the ski slopes of Colorado and the waterfront glamour of Florida, America's luxury property market offers extraordinary opportunities for international co-owners.</p>
-                    <a href="/usa-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-            <div className={`dest-panel${activeDest === "mexico" ? " active" : ""}`} id="dest-mexico">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/mexico-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">Mexico</div>
-                    <p className="dest-info-desc">From the turquoise shores of the Riviera Maya to the Pacific glamour of Los Cabos, Mexico offers extraordinary luxury at exceptional value — making it one of the most exciting co-ownership markets in the world.</p>
-                    <a href="/mexico-fractional-ownership-properties/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    {/* ===== BUY-FROM PRICE TICKER (below Our Destinations) ===== */}
-    <PriceTicker />
-
-    {/* ===== TESTIMONIALS SECTION ===== */}
-    <section className="testimonials-section" id="testimonials">
-        <h2 className="section-heading">Homeowner Stories</h2>
-        <div className="testimonials-grid">
-            <div className="testimonial-card">
-                <Image src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" width={120} height={120} className="testimonial-image" loading="lazy" />
-                <p className="testimonial-quote">"From the first stay, everything felt effortless — like arriving at your own home with the comfort of a hotel. Provence is now part of our rhythm. I don't have to worry about a thing."</p>
-                <div className="testimonial-author">Astrid</div>
-                <div className="testimonial-location">Mougins, South of France</div>
-            </div>
-            <div className="testimonial-card">
-                <Image src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry &amp; Nicole" width={120} height={120} className="testimonial-image" loading="lazy" />
-                <p className="testimonial-quote">"Fractional ownership gave us the Alpine dream we thought was out of reach. The process was seamless, and our son now brings his school friends to ski. It's become a proper family home."</p>
-                <div className="testimonial-author">Harry &amp; Nicole</div>
-                <div className="testimonial-location">La Plagne, French Alps</div>
-            </div>
-            <div className="testimonial-card">
-                <Image src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo &amp; Anne" width={120} height={120} className="testimonial-image" loading="lazy" />
-                <p className="testimonial-quote">"We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier. Already planning our next share in Europe."</p>
-                <div className="testimonial-author">Mateo &amp; Anne</div>
-                <div className="testimonial-location">LA, California</div>
-            </div>
-            <div className="testimonial-card">
-                <Image src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca.jpg" alt="Jan &amp; The Family" width={120} height={120} className="testimonial-image" loading="lazy" />
-                <p className="testimonial-quote">"I sold my French holiday home and bought a much nicer villa in Mallorca for a quarter of the price. The team handled everything flawlessly — it feels like ours the moment we walk through the door."</p>
-                <div className="testimonial-author">Jan &amp; The Family</div>
-                <div className="testimonial-location">Mallorca, Spain</div>
-            </div>
-        </div>
-    </section>
-
-    {/* ===== LATEST POSTS SECTION ===== */}
-    <section className="latest-posts-section">
-        <span className="lp-eyebrow">From the Blog</span>
-        <h2 className="section-heading">Latest Insights</h2>
-        <p className="lp-subtitle">Destination guides, market analysis and ownership stories — published daily for the discerning buyer.</p>
-
-        <div className="latest-posts-grid">
-          {latestPosts.map(post => (
-            <article key={post.slug} className="lp-card" onClick={() => { window.location=`/blog/${post.slug}/`; }}>
-              <div className="lp-image-wrap">
-                {post.heroImage && (
-                  <Image src={post.heroImage} alt={post.title} fill className="lp-image" style={{objectFit:'cover'}} loading="lazy" sizes="(max-width: 768px) 100vw, 400px" />
-                )}
               </div>
-              <div className="lp-content">
-                <span className="lp-date">{post.dateFormatted}</span>
-                <h3 className="lp-title">{post.title}</h3>
-                <a href={`/blog/${post.slug}/`} className="lp-read-more" onClick={e => e.stopPropagation()}>Read Article →</a>
+            </div>
+          </section>
+        )}
+
+        {/* ── FAQ ── */}
+        <section className="rd-section" id="faq" aria-labelledby="h-faq" style={{ paddingTop: 0 }}>
+          <div className="rd-container">
+            <div className="rd-head-row" data-rv>
+              <div>
+                <span className="rd-kicker">Questions</span>
+                <h2 className="rd-h2" id="h-faq">Straight answers.</h2>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+            <div className="rd-faq" data-rv>
+              {HOMEPAGE_FAQS.map((f, i) => (
+                <details key={i}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        <div className="lp-footer">
-            <a href="/all-our-blog/" className="lp-all-btn">View All Articles</a>
-        </div>
-    </section>
+        {/* ── Newsletter ── */}
+        <section className="rd-section" aria-label="Newsletter" style={{ paddingTop: 0 }}>
+          <div className="rd-container">
+            <div className="rd-news" data-rv>
+              <div className="rd-news-media"><img src="/redesign/newsletter-kings-yard.webp" alt="" loading="lazy" /></div>
+              <div className="rd-news-body"><Newsletter /></div>
+            </div>
+          </div>
+        </section>
 
-    {/* ===== NEWSLETTER (shared partial) ===== */}
-        {/* ===== NEWSLETTER SIGNUP (shared partial) ===== */}
-    
+        {/* ── Enquiry ── */}
+        <section className="rd-section" aria-label="Enquiry" style={{ paddingTop: 0 }}>
+          <div className="rd-container" data-rv>
+            <ExpertForm />
+          </div>
+        </section>
 
-    {/* ===== EXPERT FORM (shared partial) ===== */}
-        {/* ===== SPEAK TO AN EXPERT (shared partial) ===== */}
-    
+        {/* ── Final CTA ── */}
+        <section className="rd-section" aria-label="Get started" style={{ paddingTop: 0 }}>
+          <div className="rd-container">
+            <div className="rd-cta" data-rv>
+              <img src="/redesign/cta-juliet.webp" alt="" loading="lazy" />
+              <div>
+                <h2 className="rd-h2">Ready to find your share?</h2>
+                <p className="rd-lead" style={{ margin: '1rem auto 0' }}>Tell us where you would like to be and when. A person replies with real availability and real figures.</p>
+                <div className="rd-btn-row">
+                  <a href="/our-homes/" className="rd-btn">Browse the homes</a>
+                  <a href="#speak-to-expert" className="rd-btn rd-btn-ghost">Speak to us</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-    {/* ===== FAQ SECTION ===== */}
-    <section className="faq-section" id="faq">
-        <p className="faq-eyebrow">Common Questions</p>
-        <h2 className="faq-heading">Frequently Asked <em>Questions</em></h2>
-        <p className="faq-subheading">Everything you need to know about luxury co-ownership — and why it's the smartest way to own a holiday home.</p>
-        <div className="faq-list">
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>What is fractional or co-ownership of a holiday home?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Co-ownership means you and a small number of other owners each purchase a deeded share of a fully managed luxury property. You own a real fraction of the home — typically one-eighth — and unlike a timeshare, you hold genuine legal ownership of the property itself. It combines the pride and financial benefits of real property ownership with the ease of a five-star hotel experience, at a fraction of the cost of buying outright.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>How is co-ownership different from timeshare?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Unlike a timeshare, co-ownership gives you a real share of the property deed, meaning you benefit from any appreciation in value and can sell your share on the open market whenever you choose. Because these are luxury properties in high-demand locations, prices typically do rise over time. There is no membership club, no points system, and no long-term contractual lock-in. You are a genuine property owner with full legal rights over your fraction.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>What does the purchase price include?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Your purchase price covers your deeded share of the property along with its full furnishings, interior design, and equipment. Many of our homes are professionally styled to a turnkey standard, so they are move-in ready from day one. Ongoing costs such as maintenance, insurance, property management, and local taxes are shared proportionally among all co-owners, keeping individual running costs very low.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>How is usage time divided between owners?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Every one-eighth share gives you 45 days — roughly six weeks — which is one-eighth of a year. Each property has a clear usage schedule that rotates fairly so all owners enjoy peak-season access over time. Many operators also offer a digital booking platform so you can swap, extend, or exchange weeks with fellow owners flexibly.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>Can I rent out my weeks when I'm not using them?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>In many cases, yes. Many of our properties allow owners to place unused weeks into a managed rental programme. The property management company handles guest screening, check-in, cleaning, and maintenance, while rental income is returned to you. This can offset your annual running costs significantly and, in popular destinations, even generate a net return.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>Who manages the property day to day?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Every home on our platform is looked after by a professional property management company. They handle everything from routine maintenance and housekeeping to landscaping, pool care, and emergency repairs. You arrive to a pristine, hotel-quality home every visit — without lifting a finger.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>Can I sell my share later?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Absolutely. Because you hold a deeded share, you can sell it at any time on the open market — just like any other property. If the home has appreciated in value, you benefit from that growth in proportion to your ownership share. Our team can also assist with resales to our network of qualified buyers.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>Which destinations and property types do you offer?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>We curate luxury co-ownership homes across Europe and the United States, including France, Spain, Italy, Portugal, Austria, England, and several US destinations. Properties range from coastal villas and Parisian apartments to Alpine chalets and Tuscan farmhouses. Every home is hand-selected for its location, build quality, and lifestyle appeal.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>Is co-ownership a good investment?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Co-ownership allows you to access a high-value property at a fraction of the cost of buying outright, freeing capital for other investments. You enjoy potential property appreciation, possible rental income, and the personal value of a luxury holiday home — all while sharing costs with fellow owners. It is increasingly recognised as one of the most financially sensible ways to own a second home.</p></div>
-            </details>
-
-            <details className="faq-item">
-                <summary className="faq-q"><span>How do I get started?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-                <div className="faq-a"><p>Simply browse our collection above or speak to one of our property specialists using the enquiry form. We will walk you through available homes, answer any questions, and guide you through the purchase process from start to finish — with full legal and financial transparency at every step.</p></div>
-            </details>
-
-        </div>
-    </section>
-
-    {/* FAQ Structured Data (SEO) */}
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": HOMEPAGE_FAQS.map(f => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": { "@type": "Answer", "text": f.a },
-      })),
-    }) }} />
-
-
-    {/* ===== FOOTER ===== */}
-    
-
-    {/* jQuery + Slick (same carousel library as August Collections) */}
-    
-    
-
-    {/* ===== VANILLA JAVASCRIPT ===== */}
-      <Newsletter />
-      <ExpertForm />
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }
