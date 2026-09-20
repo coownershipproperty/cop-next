@@ -2,7 +2,8 @@ import "@/styles/globals.css";
 import "@/styles/locale-pages.css";
 import "@/styles/partner-hub.css";
 import "@/styles/admin.css";
-import { Playfair_Display, Nunito_Sans } from 'next/font/google';
+import "@/styles/redesign.css";
+import { Playfair_Display, Nunito_Sans, Poppins, Inter } from 'next/font/google';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
@@ -10,6 +11,8 @@ import { trackConversion } from '@/lib/gtag';
 import { Analytics } from '@vercel/analytics/react';
 import ExitPopup from '@/components/ExitPopup';
 import { captureFirstTouch } from '@/lib/attribution';
+import { initSmoothScroll } from '@/lib/smooth-scroll';
+import { initReveals } from '@/lib/reveals';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -27,6 +30,20 @@ const nunito = Nunito_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '600', '700', '800'],
   variable: '--font-nunito',
+  display: 'swap',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -104,8 +121,15 @@ export default function App({ Component, pageProps }) {
     return () => document.removeEventListener('click', handleNewsletterClick);
   }, []);
 
+  useEffect(() => {
+    if (isPrivate) return;
+    const stopScroll = initSmoothScroll();
+    const stopReveals = initReveals(router);
+    return () => { stopScroll(); stopReveals(); };
+  }, [isPrivate]);
+
   return (
-    <main className={`${playfair.variable} ${nunito.variable}`}>
+    <main className={`${playfair.variable} ${nunito.variable} ${poppins.variable} ${inter.variable}`}>
       {/* ── Google Analytics 4 ── */}
       {!isPrivate && <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
