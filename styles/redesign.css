@@ -227,8 +227,10 @@ html.rv-ready .rd [data-rv].rv-in { opacity: 1; transform: none; }
    ============================================================ */
 .rd-values { position: relative; overflow: hidden; border-radius: var(--rd-r-lg); background: var(--rd-card); }
 .rd-values-media { position: absolute; inset: 0; }
-.rd-values-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.rd-values-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #151413 0%, #151413 36%, rgba(21,20,19,0.85) 50%, rgba(21,20,19,0.35) 70%, rgba(21,20,19,0.1) 100%); }
+.rd-values-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; transform: scaleX(-1); }
+.rd-values-media::after { content: ''; position: absolute; inset: 0; background:
+  linear-gradient(to right, rgba(21,20,19,0.88) 0%, rgba(21,20,19,0.6) 38%, rgba(21,20,19,0.12) 62%, rgba(21,20,19,0) 100%),
+  linear-gradient(to top, #151413 0%, #151413 36%, rgba(21,20,19,0.85) 50%, rgba(21,20,19,0.3) 70%, rgba(21,20,19,0.05) 100%); }
 .rd-values-inner { position: relative; z-index: 1; padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4.5rem); }
 .rd-values-head { max-width: 640px; margin-bottom: clamp(6rem, 14vw, 12rem); text-shadow: 0 2px 24px rgba(0,0,0,0.5); }
 .rd-values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
