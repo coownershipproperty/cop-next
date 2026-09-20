@@ -139,7 +139,7 @@ const COUNTRY_FLAGS = {
 const FRANCE_CLUSTERS = [
   { label: 'Paris',           regions: ['Paris'] },
   { label: 'South of France', regions: ["Côte d'Azur"] },
-  { label: 'French Alps',     regions: ['French Alps', 'Portes du Soleil'] },
+  { label: 'French Alps',     regions: ['French Alps', 'Portes du Soleil', 'Mont Blanc', 'Chamonix', 'Megève', 'Tarentaise', 'Savoie', 'Haute-Savoie'] },
 ];
 
 /** Return the France cluster label for a raw region string, or null */
