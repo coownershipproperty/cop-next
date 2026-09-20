@@ -280,12 +280,15 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
 /* ============================================================
    Enquiry (dark restyle of components/ExpertForm.js, scoped)
    ============================================================ */
-.rd .expert-section { background: transparent; padding: 0; }
-.rd .expert-inner { max-width: none; padding: 0; display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+.rd .expert-section { background: transparent; padding: 0; overflow: visible; }
+.rd .expert-section::after { content: none; }   /* legacy gold frame */
+.rd .expert-inner { max-width: none; padding: 0; display: grid; grid-template-columns: 1fr 1.2fr; grid-auto-rows: max-content; column-gap: clamp(2rem, 5vw, 5rem); row-gap: 0; align-items: start; text-align: left; }
+.rd .expert-inner > :not(form) { grid-column: 1; }
+.rd .expert-inner > form { grid-column: 2; grid-row: 1 / span 4; }
 .rd .expert-eyebrow { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rd-ink-50); margin: 0 0 1rem; font-family: var(--rd-body); }
-.rd .expert-heading { font-family: var(--rd-head); font-weight: 500; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--rd-ink); margin: 0; }
+.rd .expert-heading { text-align: left; font-family: var(--rd-head); font-weight: 500; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--rd-ink); margin: 0; }
 .rd .expert-heading em { font-style: normal; color: var(--rd-ink-70); }
-.rd .expert-sub { color: var(--rd-ink-70); margin-top: 1rem; font-size: 1.05rem; line-height: 1.55; }
+.rd .expert-sub { text-align: left; color: var(--rd-ink-70); margin-top: 1rem; font-size: 1.05rem; line-height: 1.55; }
 .rd .expert-form { background: var(--rd-card); border: 1px solid var(--rd-line); border-radius: var(--rd-r-lg); padding: clamp(1.5rem, 3vw, 2.5rem); }
 .rd .expert-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .rd .expert-form-field { display: flex; flex-direction: column; gap: 0.45rem; }
@@ -299,10 +302,10 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
 .rd .dest-group-children label, .rd .dest-group-header, .rd .dest-group > div:first-child { color: var(--rd-ink); }
 .rd .dest-group-children label:hover, .rd .dest-group > div:first-child:hover { background: rgba(255,255,255,0.06); }
 .rd .dest-tag { background: rgba(255,255,255,0.1); color: var(--rd-ink); border-radius: 999px; }
-.rd .expert-submit-btn { background: var(--rd-pill); color: var(--rd-pill-ink); border: 0; border-radius: var(--rd-r-sm); font: inherit; font-weight: 500; font-size: 0.95rem; padding: 1rem 1.6rem; cursor: pointer; width: 100%; margin-top: 0.5rem; transition: background 0.3s; }
+.rd .expert-submit-btn { background: var(--rd-pill); color: var(--rd-pill-ink); border: 0; border-radius: var(--rd-r-sm); font: inherit; font-weight: 500; font-size: 0.95rem; letter-spacing: 0; text-transform: none; padding: 1rem 1.6rem; cursor: pointer; width: 100%; margin-top: 0.5rem; transition: background 0.3s; }
 .rd .expert-submit-btn:hover { background: #ffffff; }
 .rd .expert-form .expert-privacy, .rd .expert-form small, .rd .expert-form p { color: var(--rd-ink-50); font-size: 0.8rem; }
-@media (max-width: 900px) { .rd .expert-inner { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .rd .expert-inner { grid-template-columns: 1fr; } .rd .expert-inner > form { grid-column: 1; grid-row: auto; margin-top: 1.5rem; } }
 @media (max-width: 560px) { .rd .expert-form-grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
