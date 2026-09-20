@@ -1705,7 +1705,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
         {local.amenities.length > 0 && <a href="#amenities" className="pp-tab">{t.tab_amenities}</a>}
         {(p.lat || p.city) && <a href="#location" className="pp-tab">{t.tab_location}</a>}
         <a href="#co-ownership" className="pp-tab">{t.tab_coown}</a>
-        {facts?.mortgage && Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
+        {showEnhancedSections && Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
       </nav>
       )}
 
@@ -1823,26 +1823,9 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                  answers we give a buyer once they are talking to us, not
                  figures to publish beside the price. The usage figure stays,
                  because the alternative was the invented ~365/n. ── */}
-          {facts && usageText && !discreetLocked && (
-            <div className="pp-numbers" id="the-numbers">
-              <h2 className="pp-heading">{ft.heading}</h2>
-              <div className="pp-num-rows">
-                {p.price > 0 && (
-                  <div className="pp-num-row">
-                    <span className="pp-num-lbl">{ft.share(facts.denom)}</span>
-                    <span className="pp-num-val">{fmt(p.price, p.currency || 'EUR', localeNumberFmt)}</span>
-                  </div>
-                )}
-                {usageText && (
-                  <div className="pp-num-row">
-                    <span className="pp-num-lbl">{ft.time}</span>
-                    <span className="pp-num-val">{usageText}</span>
-                  </div>
-                )}
-              </div>
-              <p className="pp-num-ask">{ft.ask}</p>
-            </div>
-          )}
+          {/* The numbers block removed on David's instruction, 20 Sep 2026:
+              the share price is already in the price row and the usage figure
+              in the stats strip. The FACTS_COPY strings stay for the strip. */}
 
           {/* ── Look inside: gallery + 3D tour request (no tour is ever
                  embedded or linked — the team sends it by email).
@@ -1943,7 +1926,9 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                  portfolio and Abitaro's is ten interest-free instalments —
                  a mortgage calculator would misdescribe both — and Paris
                  shares are cash purchases. ── */}
-          {facts?.mortgage && Number(p.price) > 0 && (
+          {/* Financing: Pacaso only (David, 20 Sep 2026). The European operators'
+              routes depend on the buyer's country and bank, so nothing is shown. */}
+          {showEnhancedSections && Number(p.price) > 0 && (
             <div className="pp-financing" id="financing">
               <FinancingCalculator
                 sharePrice={Number(p.price)}
