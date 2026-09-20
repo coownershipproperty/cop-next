@@ -13,6 +13,7 @@ import ExitPopup from '@/components/ExitPopup';
 import { captureFirstTouch } from '@/lib/attribution';
 import { initSmoothScroll } from '@/lib/smooth-scroll';
 import { initReveals } from '@/lib/reveals';
+import PageTransition from '@/components/rd/PageTransition';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -123,7 +124,8 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     if (isPrivate) return;
-    const stopScroll = initSmoothScroll();
+    // ease 0.07: a touch more glide than Lenis' default 0.1 (David, 20 Sep).
+    const stopScroll = initSmoothScroll({ ease: 0.07 });
     const stopReveals = initReveals(router);
     return () => { stopScroll(); stopReveals(); };
   }, [isPrivate]);
@@ -164,7 +166,7 @@ export default function App({ Component, pageProps }) {
         </>
       )}
 
-      <Component {...pageProps} />
+      {isPrivate ? <Component {...pageProps} /> : <PageTransition><Component {...pageProps} /></PageTransition>}
       {!isPrivate && <Analytics />}
 
       {/* ── Exit-intent / scroll-depth capture popup ──
