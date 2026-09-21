@@ -12,7 +12,10 @@
     "favourites": "My Favourites",
     "contact": "Contact Us",
     "language": "Language",
-    "list_with_cop": "List Your Home"
+    "list_with_cop": "List Your Home",
+    "cta": "Speak to us",
+    "email_us": "Email us",
+    "saved": "Saved homes"
   },
   "footer": {
     "discover_heading": "Discover",
@@ -227,5 +230,31 @@
     "sold_badge": "Sold",
     "bed_one": "{count} Bed",
     "bed_other": "{count} Beds"
+  },
+  "listings": {
+    "availability": "Availability",
+    "all_homes": "All homes",
+    "available": "Available",
+    "sold_resale": "Sold out · resale alerts",
+    "bedrooms": "Bedrooms",
+    "any_bedrooms": "Any bedrooms",
+    "bedroom": "bedroom",
+    "bedrooms_plural": "bedrooms",
+    "share_budget": "Share budget",
+    "any_budget": "Any budget",
+    "up_to": "Up to",
+    "over": "Over",
+    "currency": "Currency",
+    "available_only": "Available homes only",
+    "get_alerts": "Get property alerts",
+    "showing": "Showing",
+    "of": "of",
+    "available_count": "{n} available",
+    "previously_listed": "{n} previously listed"
+  },
+  "not_found": {
+    "title": "This page has moved or never existed.",
+    "body": "The home you were after may have sold, or the link is out of date. Every available home is one click away.",
+    "cta": "Browse the homes"
   }
 }

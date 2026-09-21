@@ -12,7 +12,10 @@
     "favourites": "I miei preferiti",
     "contact": "Contattaci",
     "language": "Lingua",
-    "list_with_cop": "Proponi il tuo immobile"
+    "list_with_cop": "Proponi il tuo immobile",
+    "cta": "Parla con noi",
+    "email_us": "Scrivici",
+    "saved": "Case salvate"
   },
   "footer": {
     "discover_heading": "Scopri",
@@ -227,5 +230,31 @@
     "sold_badge": "Venduto",
     "bed_one": "{count} camera",
     "bed_other": "{count} camere"
+  },
+  "listings": {
+    "availability": "Disponibilità",
+    "all_homes": "Tutte le case",
+    "available": "Disponibili",
+    "sold_resale": "Esaurite · avvisi di rivendita",
+    "bedrooms": "Camere",
+    "any_bedrooms": "Qualsiasi",
+    "bedroom": "camera",
+    "bedrooms_plural": "camere",
+    "share_budget": "Budget per quota",
+    "any_budget": "Qualsiasi budget",
+    "up_to": "Fino a",
+    "over": "Oltre",
+    "currency": "Valuta",
+    "available_only": "Solo case disponibili",
+    "get_alerts": "Ricevi avvisi",
+    "showing": "Mostrate",
+    "of": "di",
+    "available_count": "{n} disponibili",
+    "previously_listed": "{n} già vendute"
+  },
+  "not_found": {
+    "title": "Questa pagina è stata spostata o non è mai esistita.",
+    "body": "La casa che cercavi potrebbe essere stata venduta, o il link non è aggiornato. Tutte le case disponibili sono a un clic.",
+    "cta": "Vedi le case"
   }
 }

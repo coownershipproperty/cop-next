@@ -12,7 +12,10 @@
     "favourites": "Mine favoritter",
     "contact": "Kontakt oss",
     "language": "Språk",
-    "list_with_cop": "Meld inn boligen din"
+    "list_with_cop": "Meld inn boligen din",
+    "cta": "Snakk med oss",
+    "email_us": "Send oss e-post",
+    "saved": "Lagrede boliger"
   },
   "footer": {
     "discover_heading": "Utforsk",
@@ -227,5 +230,31 @@
     "sold_badge": "Solgt",
     "bed_one": "{count} soverom",
     "bed_other": "{count} soverom"
+  },
+  "listings": {
+    "availability": "Tilgjengelighet",
+    "all_homes": "Alle boliger",
+    "available": "Tilgjengelige",
+    "sold_resale": "Utsolgt · videresalgsvarsler",
+    "bedrooms": "Soverom",
+    "any_bedrooms": "Alle",
+    "bedroom": "soverom",
+    "bedrooms_plural": "soverom",
+    "share_budget": "Budsjett per andel",
+    "any_budget": "Alle budsjetter",
+    "up_to": "Opptil",
+    "over": "Over",
+    "currency": "Valuta",
+    "available_only": "Kun tilgjengelige boliger",
+    "get_alerts": "Få boligvarsler",
+    "showing": "Viser",
+    "of": "av",
+    "available_count": "{n} tilgjengelige",
+    "previously_listed": "{n} tidligere solgt"
+  },
+  "not_found": {
+    "title": "Denne siden er flyttet eller har aldri eksistert.",
+    "body": "Boligen du lette etter kan være solgt, eller lenken er utdatert. Alle tilgjengelige boliger er ett klikk unna.",
+    "cta": "Se boligene"
   }
 }

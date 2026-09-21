@@ -12,7 +12,10 @@
     "favourites": "Mes favoris",
     "contact": "Contact",
     "language": "Langue",
-    "list_with_cop": "Proposez votre bien"
+    "list_with_cop": "Proposez votre bien",
+    "cta": "Parlez-nous",
+    "email_us": "Écrivez-nous",
+    "saved": "Biens enregistrés"
   },
   "footer": {
     "discover_heading": "Découvrir",
@@ -227,5 +230,31 @@
     "sold_badge": "Vendue",
     "bed_one": "{count} chambre",
     "bed_other": "{count} chambres"
+  },
+  "listings": {
+    "availability": "Disponibilité",
+    "all_homes": "Tous les biens",
+    "available": "Disponibles",
+    "sold_resale": "Vendus · alertes revente",
+    "bedrooms": "Chambres",
+    "any_bedrooms": "Toutes",
+    "bedroom": "chambre",
+    "bedrooms_plural": "chambres",
+    "share_budget": "Budget par part",
+    "any_budget": "Tous budgets",
+    "up_to": "Jusqu’à",
+    "over": "Plus de",
+    "currency": "Devise",
+    "available_only": "Biens disponibles uniquement",
+    "get_alerts": "Recevoir les alertes",
+    "showing": "Affichage de",
+    "of": "sur",
+    "available_count": "{n} disponibles",
+    "previously_listed": "{n} déjà vendus"
+  },
+  "not_found": {
+    "title": "Cette page a été déplacée ou n’a jamais existé.",
+    "body": "Le bien que vous cherchiez a peut-être été vendu, ou le lien n’est plus à jour. Tous les biens disponibles sont à un clic.",
+    "cta": "Voir les biens"
   }
 }

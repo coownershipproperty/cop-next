@@ -12,7 +12,10 @@
     "favourites": "Favoriten",
     "contact": "Kontakt",
     "language": "Sprache",
-    "list_with_cop": "Immobilie anbieten"
+    "list_with_cop": "Immobilie anbieten",
+    "cta": "Sprechen Sie mit uns",
+    "email_us": "E-Mail an uns",
+    "saved": "Gemerkte Immobilien"
   },
   "footer": {
     "discover_heading": "Entdecken",
@@ -227,5 +230,31 @@
     "sold_badge": "Verkauft",
     "bed_one": "{count} Schlafzimmer",
     "bed_other": "{count} Schlafzimmer"
+  },
+  "listings": {
+    "availability": "Verfügbarkeit",
+    "all_homes": "Alle Immobilien",
+    "available": "Verfügbar",
+    "sold_resale": "Ausverkauft · Resale-Alerts",
+    "bedrooms": "Schlafzimmer",
+    "any_bedrooms": "Beliebig",
+    "bedroom": "Schlafzimmer",
+    "bedrooms_plural": "Schlafzimmer",
+    "share_budget": "Budget pro Anteil",
+    "any_budget": "Jedes Budget",
+    "up_to": "Bis",
+    "over": "Über",
+    "currency": "Währung",
+    "available_only": "Nur verfügbare Immobilien",
+    "get_alerts": "Immobilien-Alerts erhalten",
+    "showing": "Angezeigt",
+    "of": "von",
+    "available_count": "{n} verfügbar",
+    "previously_listed": "{n} bereits verkauft"
+  },
+  "not_found": {
+    "title": "Diese Seite wurde verschoben oder hat nie existiert.",
+    "body": "Die gesuchte Immobilie ist vielleicht verkauft, oder der Link ist veraltet. Alle verfügbaren Immobilien sind einen Klick entfernt.",
+    "cta": "Immobilien ansehen"
   }
 }

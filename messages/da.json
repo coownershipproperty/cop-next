@@ -12,7 +12,10 @@
     "favourites": "Mine favoritter",
     "contact": "Kontakt os",
     "language": "Sprog",
-    "list_with_cop": "Anmeld din bolig"
+    "list_with_cop": "Anmeld din bolig",
+    "cta": "Tal med os",
+    "email_us": "Skriv til os",
+    "saved": "Gemte boliger"
   },
   "footer": {
     "discover_heading": "Udforsk",
@@ -227,5 +230,31 @@
     "sold_badge": "Solgt",
     "bed_one": "{count} soveværelse",
     "bed_other": "{count} soveværelser"
+  },
+  "listings": {
+    "availability": "Tilgængelighed",
+    "all_homes": "Alle boliger",
+    "available": "Tilgængelige",
+    "sold_resale": "Udsolgt · gensalgsalarmer",
+    "bedrooms": "Soveværelser",
+    "any_bedrooms": "Alle",
+    "bedroom": "soveværelse",
+    "bedrooms_plural": "soveværelser",
+    "share_budget": "Budget pr. andel",
+    "any_budget": "Alle budgetter",
+    "up_to": "Op til",
+    "over": "Over",
+    "currency": "Valuta",
+    "available_only": "Kun tilgængelige boliger",
+    "get_alerts": "Få boligalarmer",
+    "showing": "Viser",
+    "of": "af",
+    "available_count": "{n} tilgængelige",
+    "previously_listed": "{n} tidligere solgt"
+  },
+  "not_found": {
+    "title": "Denne side er flyttet eller har aldrig eksisteret.",
+    "body": "Boligen, du ledte efter, er måske solgt, eller linket er forældet. Alle tilgængelige boliger er ét klik væk.",
+    "cta": "Se boligerne"
   }
 }

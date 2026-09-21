@@ -12,7 +12,10 @@
     "favourites": "Favoritos",
     "contact": "Contacto",
     "language": "Idioma",
-    "list_with_cop": "Publica tu propiedad"
+    "list_with_cop": "Publica tu propiedad",
+    "cta": "Hable con nosotros",
+    "email_us": "Escríbanos",
+    "saved": "Guardadas"
   },
   "footer": {
     "discover_heading": "Descubre",
@@ -227,5 +230,31 @@
     "sold_badge": "Vendida",
     "bed_one": "{count} dormitorio",
     "bed_other": "{count} dormitorios"
+  },
+  "listings": {
+    "availability": "Disponibilidad",
+    "all_homes": "Todas las viviendas",
+    "available": "Disponibles",
+    "sold_resale": "Agotadas · alertas de reventa",
+    "bedrooms": "Dormitorios",
+    "any_bedrooms": "Cualquier número",
+    "bedroom": "dormitorio",
+    "bedrooms_plural": "dormitorios",
+    "share_budget": "Presupuesto por participación",
+    "any_budget": "Cualquier presupuesto",
+    "up_to": "Hasta",
+    "over": "Más de",
+    "currency": "Moneda",
+    "available_only": "Solo viviendas disponibles",
+    "get_alerts": "Recibir alertas",
+    "showing": "Mostrando",
+    "of": "de",
+    "available_count": "{n} disponibles",
+    "previously_listed": "{n} ya vendidas"
+  },
+  "not_found": {
+    "title": "Esta página se ha movido o nunca existió.",
+    "body": "La vivienda que buscaba puede haberse vendido, o el enlace está desactualizado. Todas las viviendas disponibles están a un clic.",
+    "cta": "Ver las viviendas"
   }
 }
