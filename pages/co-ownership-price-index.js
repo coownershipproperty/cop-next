@@ -501,7 +501,7 @@ export default function PriceIndex({
     },
     {
       q: 'How many shares does a home usually divide into?',
-      a: `${headline.eighthPct}% of the homes in this index divide into eight shares, which is the de facto European standard and works out at roughly 45 days of use a year. The remainder use quarters, sixths or — in a few Paris apartments — larger divisions that lower the entry price and shorten the stay allocation.`,
+      a: `${headline.eighthPct}% of the homes in this index divide into eight shares, which is the de facto European standard and works out at around six weeks of use a year. The remainder use quarters, sixths or — in a few Paris apartments — larger divisions that lower the entry price and shorten the stay allocation.`,
     },
     {
       q: 'Do co-ownership shares sell at the asking price?',
@@ -642,7 +642,7 @@ export default function PriceIndex({
                 </li>
               )}
               <li>
-                <strong>{headline.eighthPct}% of homes divide into eighths</strong> — about 45 days of
+                <strong>{headline.eighthPct}% of homes divide into eighths</strong> — around six weeks of
                 use a year. Where a home divides differently it is nearly always to lower the entry
                 price, not to change the ownership itself.
               </li>

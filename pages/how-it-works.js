@@ -53,7 +53,7 @@ export default function HowItWorks() {
                   "name": "What is fractional co-ownership and how does it work?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Fractional co-ownership means buying a legally deeded share — typically 1/8 — of a luxury second home through a property-specific LLC registered in your name. You acquire real equity in a real asset: if the property appreciates, your share appreciates proportionally. A 1/8 share entitles you to approximately 45 days of use per year, a proportional share of any rental income, and 1/8 of the property's value when it sells. Costs are split proportionally among co-owners. Unlike a timeshare, your name sits behind the property deed and you can sell on the open market whenever you choose."
+                    "text": "Fractional co-ownership means buying a legally deeded share — typically 1/8 — of a luxury second home through a property-specific LLC registered in your name. You acquire real equity in a real asset: if the property appreciates, your share appreciates proportionally. A 1/8 share gives you around six weeks of use a year, a proportional share of any rental income, and 1/8 of the property's value when it sells. Costs are split proportionally among co-owners. Unlike a timeshare, your name sits behind the property deed and you can sell on the open market whenever you choose."
                   }
                 },
                 {
@@ -69,7 +69,7 @@ export default function HowItWorks() {
                   "name": "What does a 1/8 share entitle me to?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Each 1/8 share entitles you to approximately 45 days of private use per year — roughly six weeks. The home is yours during those weeks with exclusive access to every bedroom, garden, pool, terrace, and amenity. You can invite friends and family, or allow them to stay independently during your allocated time. Usage is allocated through a rotating calendar so every co-owner gets fair access to peak and off-peak dates over time. The average second-home owner uses their property just 35 days a year, so a 1/8 share already exceeds typical personal use."
+                    "text": "Each 1/8 share gives you around six weeks of private use a year. The home is yours during those weeks with exclusive access to every bedroom, garden, pool, terrace, and amenity. You can invite friends and family, or allow them to stay independently during your allocated time. Usage is allocated through a rotating calendar so every co-owner gets fair access to peak and off-peak dates over time. The average second-home owner uses their property just 35 days a year, so a 1/8 share already exceeds typical personal use."
                   }
                 },
                 {
@@ -85,7 +85,7 @@ export default function HowItWorks() {
                   "name": "How is usage time scheduled fairly between co-owners?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Usage is allocated through a clearly defined and fair rotation system. Each 1/8 share entitles you to approximately 45 days per year, structured so all co-owners access high-season and shoulder-season weeks equitably over a multi-year cycle. Most properties use a digital booking platform that lets owners reserve specific dates, swap weeks with other owners, or extend stays where availability permits. The property management company administers the schedule and handles all coordination — owners never need to negotiate directly with each other."
+                    "text": "Usage is allocated through a clearly defined and fair rotation system. Each 1/8 share gives you around six weeks a year, structured so all co-owners access high-season and shoulder-season weeks equitably over a multi-year cycle. Most properties use a digital booking platform that lets owners reserve specific dates, swap weeks with other owners, or extend stays where availability permits. The property management company administers the schedule and handles all coordination — owners never need to negotiate directly with each other."
                   }
                 },
                 {
@@ -245,7 +245,7 @@ export default function HowItWorks() {
                     <p className="eyebrow">The Smart Way to Own</p>
                     <h2>Own a Home Worth <em>8 Times</em> Your Budget</h2>
                     <p className="highlight">A luxury holiday home that would cost you millions to buy alone becomes yours for a fraction — with all the same rights, deeds, and appreciation.</p>
-                    <p>With co-ownership, you purchase a genuine, deeded freehold share — typically 1/8 — in a premium property. It's registered in your name through a property-specific LLC. You use the home for around 45 days a year, and every cost is shared proportionally among co-owners.</p>
+                    <p>With co-ownership, you purchase a genuine, deeded freehold share — typically 1/8 — in a premium property. It's registered in your name through a property-specific LLC. You use the home for around six weeks a year, and every cost is shared proportionally among co-owners.</p>
                     <p>This isn't timeshare. There are no points, no clubs, no catch. It's real property ownership — the kind you can resell, pass to your children, and watch appreciate in value.</p>
                     <div className="intro-stats">
                         <div>
@@ -401,7 +401,7 @@ export default function HowItWorks() {
                     </tr>
                     <tr>
                         <td>Guaranteed availability</td>
-                        <td className="compare-highlight"><span className="check">&#10003;</span> ~45 days / year</td>
+                        <td className="compare-highlight"><span className="check">&#10003;</span> around six weeks a year</td>
                         <td><span className="check">&#10003;</span> 365 days</td>
                         <td><span className="partial">~</span> Often restricted</td>
                         <td><span className="cross">&#10007;</span> Subject to booking</td>
@@ -466,7 +466,7 @@ export default function HowItWorks() {
             <li className="faq-item"><details><summary><h3>What is fractional co-ownership?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Fractional co-ownership is the purchase of a deeded freehold share in a property — typically 1/8 or 1/4. You own your share outright, registered through a property-specific LLC. You can use the property for your allocated time each year (usually 45–90 days), resell your share on the open market, or pass it to your children. It's genuine property ownership — not a rental scheme, club membership, or timeshare.</p></div></details></li>
             <li className="faq-item"><details><summary><h3>How is it different from timeshare?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Fundamentally different. Co-ownership gives you a registered deed — real property that appreciates in value. Timeshare is a usage contract that typically depreciates. You can resell a co-ownership share on the open market; timeshare resales are notoriously difficult. Co-ownership costs are proportional and transparent; timeshare fees continue regardless of whether you use the property.</p></div></details></li>
             <li className="faq-item"><details><summary><h3>What is the LLC structure?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Each property is held in its own dedicated LLC (Limited Liability Company). When you buy a share, you purchase membership units in that LLC — giving you legal ownership of the property proportional to your share size. This structure provides liability protection, simplifies resale, and ensures clean legal separation between co-owners.</p></div></details></li>
-            <li className="faq-item"><details><summary><h3>How much time can I use the property each year?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Usage depends on your share size. A 1/8 share gives you approximately 45 days per year (6 weeks). A 1/4 share provides about 90 days (roughly 3 months). A fair rotation calendar ensures equal distribution of peak and off-peak dates across all co-owners — everyone gets summer weeks, Christmas, and Easter over time.</p></div></details></li>
+            <li className="faq-item"><details><summary><h3>How much time can I use the property each year?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Usage depends on your share size. A 1/8 share gives you around six weeks a year. A 1/4 share provides about 90 days (roughly 3 months). A fair rotation calendar ensures equal distribution of peak and off-peak dates across all co-owners — everyone gets summer weeks, Christmas, and Easter over time.</p></div></details></li>
             <li className="faq-item"><details><summary><h3>Can I sell my share?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Yes. You own a deeded share, so you can resell it on the open market at any time — subject to a right-of-first-refusal clause for your co-owners. Resale is straightforward and shares in premium locations tend to appreciate in value over time.</p></div></details></li>
             <li className="faq-item"><details><summary><h3>Can I earn rental income from my share?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>On many of our properties, yes. If you're not using your allocated weeks, you can rent them out and earn income. The property management team can handle the rental process on your behalf. Availability varies by property — ask us for details on specific listings.</p></div></details></li>
             <li className="faq-item"><details><summary><h3>What about home swapping?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Most properties in our portfolio offer a home exchange system. If you'd like to spend your allocated time at a different destination, you can arrange a swap with a co-owner at another property. It's a great way to explore different locations without additional cost.</p></div></details></li>

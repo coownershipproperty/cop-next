@@ -90,7 +90,7 @@ const FAQS = [
   },
   {
     q: '¿Puedo financiar la compra de una participación fraccional con hipoteca?',
-    a: `Sí, hay financiación disponible para compras de copropiedad fraccional. La estructura más habitual hoy es la hipoteca bullet, donde se toma prestado contra el valor de su participación. La mayoría de nuestros compradores son al contado o liberan capital de su vivienda principal para financiar la compra — lo que hace el modelo accesible sin la complejidad de gestionar una hipoteca nueva. Dicho esto, el mercado hipotecario para copropiedad fraccional está evolucionando rápidamente y van apareciendo opciones más flexibles. Contacte con nuestro equipo para conocer las opciones de financiación más actuales para su situación y el país de compra.`,
+    a: `A veces. En algunas viviendas puede haber financiación a través de un banco colaborador, según dónde resida usted y dónde esté la vivienda — no está disponible en todos los países y las condiciones no son las de una hipoteca convencional. La mayoría de nuestros compradores compran al contado o liberan capital de su vivienda principal. Díganos qué vivienda le interesa y dónde reside y le confirmaremos qué se aplica antes de que cuente con ello. Busque asesoramiento financiero independiente antes de comprometerse.`,
   },
 ];
 

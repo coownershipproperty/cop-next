@@ -257,7 +257,7 @@ export default function AboutUs() {
                     <p className="eyebrow">The Solution</p>
                     <h2>A Better Way to <em>Own</em></h2>
                     <p>Where a whole Alpine property might now require over &euro;800,000, a fractional share brings genuine ownership within reach from around &euro;100,000. You own a deeded share of a premium property, it appreciates with the market, and you decide when to sell.</p>
-                    <p>A single one-eighth share gives you six weeks of use per year — 45 days. The average second-home owner uses their property just 35 days a year, so a fractional share already exceeds typical personal use.</p>
+                    <p>A single one-eighth share gives you around six weeks of use a year. The average second-home owner uses their property just 35 days a year, so a fractional share already exceeds typical personal use.</p>
                     <p>And there's nothing to stop you going further: buy two shares in the same property, or combine a share in an Alpine chalet with a share in an Ibiza villa. The properties work independently, the ownership structure is the same, and your calendar is yours to arrange.</p>
                     <blockquote>The average second home sits empty for 330 days a year. A fractional share gives you more time in an exceptional property — at a fraction of the cost.</blockquote>
                 </div>
