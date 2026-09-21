@@ -29,6 +29,13 @@ export default async function handler(req, res) {
   if (!admin) return;
   const slug = String(req.query.slug || '').trim();
   if (!/^[a-z0-9-]{3,200}$/.test(slug)) return res.status(400).json({ error: 'bad slug' });
-  const token = signToken({ email: admin.email, name: 'admin', purpose: PREVIEW_PURPOSE, ttlMs: PREVIEW_TTL_MS });
+  let token;
+  try {
+    token = signToken({ email: admin.email, name: 'admin', purpose: PREVIEW_PURPOSE, ttlMs: PREVIEW_TTL_MS });
+  } catch (e) {
+    // A missing secret used to surface as a bare "Internal Server Error" page
+    // that the admin's fetch could not even parse. Say what is wrong instead.
+    return res.status(500).json({ error: `${e.message} — set SIGNIN_SECRET in Vercel` });
+  }
   return res.status(200).json({ url: `/gallery/${slug}/?preview=${encodeURIComponent(token)}` });
 }
