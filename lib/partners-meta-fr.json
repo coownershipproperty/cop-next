@@ -6,13 +6,20 @@
     "h1": "Pacaso — Profil de l'opérateur de copropriété fractionnée [2026]",
     "shortTitle": "Pacaso",
     "title": "Pacaso copropriété analysée : opérations, couverture, frais, revente [2026]",
-    "subtitle": "Fondée en 2020, basée à Napa, Californie. L'opérateur de copropriété fractionnée le plus important et le plus abouti opérationnellement par densité américaine, avec un inventaire européen en croissance. 190 propriétés listées sur COP dans 6 pays.",
+    "subtitle": "Fondée en 2020, basée à Napa, Californie. L'opérateur de copropriété fractionnée le plus important et le plus abouti opérationnellement par densité américaine, avec un inventaire européen en croissance. 190 propriétés listées sur COP dans {{countries:partner:pacaso}} pays.",
     "metaDescription": "Profil opérationnel de Pacaso, l'opérateur de copropriété fractionnée d'origine américaine. Couvre la couverture géographique, la structure des parts, les frais annuels, le processus de revente, le réseau Pacaso Swap, les voies de financement, et comment Pacaso se compare à MYNE, Vivla et d'autres opérateurs.",
     "founded": "2020",
     "headquarters": "Napa, Californie, États-Unis",
     "website": "https://www.pacaso.com/",
-    "propertiesOnCop": 190,
-    "countriesCoverage": ["États-Unis", "Mexique", "France", "Angleterre", "Italie", "Espagne"],
+    "propertiesOnCop": "{{homes:partner:pacaso}}",
+    "countriesCoverage": [
+      "États-Unis",
+      "Mexique",
+      "France",
+      "Angleterre",
+      "Italie",
+      "Espagne"
+    ],
     "datePublished": "2026-05-27",
     "dateModified": "2026-05-28",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
@@ -24,13 +31,23 @@
     "h1": "MYNE Homes — Profil de l'opérateur de copropriété fractionnée [2026]",
     "shortTitle": "MYNE Homes",
     "title": "MYNE Homes copropriété analysée : opérations, couverture, frais, revente [2026]",
-    "subtitle": "Fondée en 2020, basée à Berlin. Opérateur européen de copropriété fractionnée à orientation méditerranéenne. 99 propriétés listées sur COP dans 9 pays. Structure allemande GmbH & Co. KG avec garantie de satisfaction de 12 mois et frais de service de 99 €/mois.",
+    "subtitle": "Fondée en 2020, basée à Berlin. Opérateur européen de copropriété fractionnée à orientation méditerranéenne. 99 propriétés listées sur COP dans {{countries:partner:myne}} pays. Structure allemande GmbH & Co. KG avec garantie de satisfaction de 12 mois et frais de service de 99 €/mois.",
     "metaDescription": "Profil opérationnel de MYNE Homes, l'opérateur de copropriété fractionnée basé à Berlin. Couvre la couverture européenne de 9 pays, la structure GmbH & Co. KG, les frais de service de 99 €/mois, le système d'échange concierge MYNE Owner Service, la garantie de satisfaction de 12 mois, un financement via des banques partenaires européennes, selon le pays de résidence de l'acheteur.",
     "founded": "2020",
     "headquarters": "Berlin, Allemagne",
     "website": "https://www.myne-homes.com/",
-    "propertiesOnCop": 99,
-    "countriesCoverage": ["Espagne", "Italie", "Allemagne", "Autriche", "France", "Portugal", "Croatie", "Suède", "Angleterre"],
+    "propertiesOnCop": "{{homes:partner:myne}}",
+    "countriesCoverage": [
+      "Espagne",
+      "Italie",
+      "Allemagne",
+      "Autriche",
+      "France",
+      "Portugal",
+      "Croatie",
+      "Suède",
+      "Angleterre"
+    ],
     "datePublished": "2026-05-27",
     "dateModified": "2026-05-28",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
@@ -47,8 +64,10 @@
     "founded": "2020",
     "headquarters": "Barcelone, Espagne",
     "website": "https://www.vivla.com/",
-    "propertiesOnCop": 34,
-    "countriesCoverage": ["Espagne"],
+    "propertiesOnCop": "{{homes:partner:vivla}}",
+    "countriesCoverage": [
+      "Espagne"
+    ],
     "datePublished": "2026-05-27",
     "dateModified": "2026-05-28",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
@@ -65,8 +84,12 @@
     "founded": "2020 (capitaux Askeladden & Co)",
     "headquarters": "Norvège (avec base opérationnelle en Espagne)",
     "website": "https://www.andhamlet.com/",
-    "propertiesOnCop": 12,
-    "countriesCoverage": ["Espagne", "France", "Italie"],
+    "propertiesOnCop": "{{homes:partner:andhamlet}}",
+    "countriesCoverage": [
+      "Espagne",
+      "France",
+      "Italie"
+    ],
     "datePublished": "2026-05-27",
     "dateModified": "2026-05-28",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
@@ -83,8 +106,10 @@
     "founded": "Opérateur plus récent (2023+ selon les opérations visibles)",
     "headquarters": "États-Unis",
     "website": "https://ownabitaro.com/",
-    "propertiesOnCop": 3,
-    "countriesCoverage": ["États-Unis"],
+    "propertiesOnCop": "{{homes:partner:abitaro}}",
+    "countriesCoverage": [
+      "États-Unis"
+    ],
     "datePublished": "2026-05-27",
     "dateModified": "2026-05-28",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
