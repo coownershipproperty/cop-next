@@ -279,20 +279,22 @@ export async function getStaticProps() {
   // ~300 rows at build time; nothing here is typed in by hand.
   const { data: liveRows } = await supabase
     .from('properties')
-    .select('slug, country, img, price, currency, partner')
-    .in('status', ['Live', 'for_sale'])
-    .eq('is_discreet', false);
+    .select('slug, country, img, price, currency, partner, is_discreet')
+    .in('status', ['Live', 'for_sale']);
   const byCountry = {};
   const imgBySlug = {};
   let minEur = null;
   const partners = new Set();
   for (const r of liveRows || []) {
     const c = r.country || '';
-    if (r.slug && r.img) imgBySlug[r.slug] = r.img;
-    if (!byCountry[c]) byCountry[c] = { count: 0, img: r.img || '', top: -1 };
+    // Discreet homes count towards each country (they are for sale, the
+    // homepage total already includes them) but never lend their photo.
+    const showable = !r.is_discreet;
+    if (showable && r.slug && r.img) imgBySlug[r.slug] = r.img;
+    if (!byCountry[c]) byCountry[c] = { count: 0, img: showable ? (r.img || '') : '', top: -1 };
     byCountry[c].count += 1;
     const pr = Number(r.price) || 0;
-    if (pr > byCountry[c].top && r.img) { byCountry[c].top = pr; byCountry[c].img = r.img; }
+    if (showable && pr > byCountry[c].top && r.img) { byCountry[c].top = pr; byCountry[c].img = r.img; }
     if (r.currency === 'EUR' && pr > 0 && (minEur === null || pr < minEur)) minEur = pr;
     if (r.partner) partners.add(r.partner);
   }

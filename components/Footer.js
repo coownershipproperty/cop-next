@@ -171,10 +171,19 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} {t('site.brand', locale)}. {t('footer.rights_reserved', locale)}</p>
+        <p className="footer-legal">
+          <a href="/privacy-policy/">{t('footer.privacy', locale)}</a>
+          <span aria-hidden="true"> · </span>
+          <a href="/terms-and-conditions/">{t('footer.terms', locale)}</a>
+          <span aria-hidden="true"> · </span>
+          <span>PREMPROPERTY SL · NIF B93358489 · Marbella, Spain</span>
+        </p>
       </div>
 
       <style jsx>{`
         :global(.footer-mobile-toggle) { display: none; }
+        :global(.footer-legal) { margin-top: 8px; font-size: 12px; opacity: .7; }
+        :global(.footer-legal a) { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
         @media (max-width: 760px) {
           :global(.rd .site-footer) { padding: 36px 0 28px; }
           :global(.rd .footer-inner) { display: flex; flex-direction: column; align-items: stretch; gap: 0; }

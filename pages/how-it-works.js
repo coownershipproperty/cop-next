@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import hreflangLinks from '@/components/HreflangLinks';
@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import ExpertForm from '@/components/ExpertForm';
 import Newsletter from '@/components/Newsletter';
 import s from '@/styles/how-it-works.module.css';
+import { getInventory } from '@/lib/inventory';
 
 const FAQS = [
   ['What is co-ownership of a holiday home?', 'You buy a legal ownership share in a home with a small group of other owners. Your share gives you an agreed amount of use, and you share the running costs. A professional team manages the home. The legal structure and ownership documents depend on the property and country.'],
@@ -79,7 +80,7 @@ function OwnershipComparison() {
   </section>;
 }
 
-export default function HowItWorks() {
+export default function HowItWorks({ inventory = null }) {
   const scrollCleanup = useRef(null);
   useEffect(() => () => scrollCleanup.current?.(), []);
   function scrollToSection(event) {
@@ -130,19 +131,8 @@ export default function HowItWorks() {
     scrollCleanup.current = stop;
     frame = requestAnimationFrame(tick);
   }
-  const [inventory, setInventory] = useState(null);
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch('/api/properties.json', { signal:controller.signal })
-      .then(response => { if (!response.ok) throw new Error('Inventory unavailable'); return response.json(); })
-      .then(feed => {
-        const homes = feed.dataFeedElement;
-        if (!Array.isArray(homes) || !homes.length) return;
-        const prices = homes.filter(home => home.offers?.priceCurrency === 'EUR').map(home => Number(home.offers.price)).filter(price => Number.isFinite(price) && price > 0);
-        setInventory({ homes:homes.length, countries:new Set(homes.map(home => home.address?.addressCountry).filter(Boolean)).size, from:prices.length ? Math.min(...prices) : null });
-      }).catch(() => {});
-    return () => controller.abort();
-  }, []);
+  // Live counts come from getStaticProps (lib/inventory.js, same source as
+  // every other page) instead of a client-side fetch of the whole feed.
   const description = 'Understand luxury co-ownership: what you own, how stays are booked, shared running costs, resale and the steps to a fully managed second home.';
   return <>
     <Head>
@@ -223,4 +213,14 @@ export default function HowItWorks() {
       <Footer />
     </div>
   </>;
+}
+
+export async function getStaticProps() {
+  let inventory = null;
+  try {
+    const inv = await getInventory();
+    const eurMins = Object.values(inv.countries).filter(c => c.available > 0 && c.min && c.minCurrency === 'EUR').map(c => c.min);
+    inventory = { homes: inv.available, countries: inv.countryCount, from: eurMins.length ? Math.min(...eurMins) : null };
+  } catch { /* strip simply does not render */ }
+  return { props: { inventory }, revalidate: 3600 };
 }

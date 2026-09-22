@@ -33,7 +33,9 @@
     "faq_staying": "Staying FAQ",
     "compare": "Compare",
     "buying_guides": "Buying Guides",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "privacy": "Privacy policy",
+    "terms": "Terms & conditions"
   },
   "common": {
     "language_switcher_label": "Language",

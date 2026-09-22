@@ -33,7 +33,9 @@
     "faq_staying": "FAQ: Aufenthalt",
     "compare": "Vergleich",
     "buying_guides": "Kaufratgeber",
-    "sign_in": "Anmelden"
+    "sign_in": "Anmelden",
+    "privacy": "Datenschutz",
+    "terms": "AGB"
   },
   "common": {
     "language_switcher_label": "Sprache",

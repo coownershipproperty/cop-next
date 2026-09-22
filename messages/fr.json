@@ -33,7 +33,9 @@
     "faq_staying": "FAQ : profiter",
     "compare": "Comparatifs",
     "buying_guides": "Guides d'achat",
-    "sign_in": "Se connecter"
+    "sign_in": "Se connecter",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions générales"
   },
   "common": {
     "language_switcher_label": "Langue",

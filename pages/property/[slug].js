@@ -179,7 +179,7 @@ const COPY = {
   en: {
     cobadge: (n) => `1/${n} Co-Ownership`,
     price_qualifier: (n) => `for a 1/${n} share`,
-    bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Total size', per_year: 'Per year', share_size: 'Share size',
+    bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Living area', per_year: 'Per year', share_size: 'Share size',
     about_heading: 'About This Property',
     desc_empty: 'Full details coming soon. Use the enquiry form to get in touch.',
     show_less: 'Show less', read_more: 'Read more',
@@ -237,7 +237,7 @@ const COPY = {
   es: {
     cobadge: (n) => `1/${n} de copropiedad`,
     price_qualifier: (n) => `por una participación de 1/${n}`,
-    bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie total', per_year: 'Al año', share_size: 'Tamaño de fracción',
+    bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie habitable', per_year: 'Al año', share_size: 'Tamaño de fracción',
     about_heading: 'Sobre esta propiedad',
     desc_empty: 'Próximamente más detalles. Usa el formulario de contacto para obtener información.',
     show_less: 'Ver menos', read_more: 'Leer más',
@@ -295,7 +295,7 @@ const COPY = {
   fr: {
     cobadge: (n) => `1/${n} en copropriété`,
     price_qualifier: (n) => `pour une part de 1/${n}`,
-    bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface totale', per_year: 'Par an', share_size: 'Taille de la part',
+    bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface habitable', per_year: 'Par an', share_size: 'Taille de la part',
     about_heading: 'À propos de ce bien',
     desc_empty: 'Plus de détails bientôt. Utilisez le formulaire pour nous contacter.',
     show_less: 'Voir moins', read_more: 'Lire la suite',
@@ -353,7 +353,7 @@ const COPY = {
   de: {
     cobadge: (n) => `1/${n} Miteigentum`,
     price_qualifier: (n) => `für einen 1/${n}-Anteil`,
-    bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Gesamtfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
+    bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Wohnfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
     about_heading: 'Über diese Immobilie',
     desc_empty: 'Weitere Details folgen in Kürze. Bitte nutzen Sie das Anfrageformular, um Kontakt aufzunehmen.',
     show_less: 'Weniger anzeigen', read_more: 'Mehr lesen',
@@ -419,7 +419,7 @@ const COPY = {
   it: {
     cobadge: (n) => `1/${n} di comproprietà`,
     price_qualifier: (n) => `per una quota di 1/${n}`,
-    bedrooms: "Camere da letto", bathrooms: "Bagni", total_size: "Superficie totale", per_year: "All'anno", share_size: "Dimensione della quota",
+    bedrooms: "Camere da letto", bathrooms: "Bagni", total_size: "Superficie abitabile", per_year: "All'anno", share_size: "Dimensione della quota",
     about_heading: "Informazioni su questo immobile",
     desc_empty: "I dettagli completi saranno disponibili a breve. Scrivici usando il modulo di richiesta informazioni.",
     show_less: "Mostra meno", read_more: "Leggi tutto",
@@ -477,7 +477,7 @@ const COPY = {
   nl: {
     cobadge: (n) => `1/${n} mede-eigendom`,
     price_qualifier: (n) => `voor een 1/${n}-aandeel`,
-    bedrooms: "Slaapkamers", bathrooms: "Badkamers", total_size: "Totale oppervlakte", per_year: "Per jaar", share_size: "Aandeelgrootte",
+    bedrooms: "Slaapkamers", bathrooms: "Badkamers", total_size: "Woonoppervlakte", per_year: "Per jaar", share_size: "Aandeelgrootte",
     about_heading: "Over deze woning",
     desc_empty: "Volledige details volgen binnenkort. Gebruik het formulier om contact met ons op te nemen.",
     show_less: "Minder tonen", read_more: "Meer lezen",
@@ -535,7 +535,7 @@ const COPY = {
   pt: {
     cobadge: (n) => `1/${n} em compropriedade`,
     price_qualifier: (n) => `por uma quota de 1/${n}`,
-    bedrooms: "Quartos", bathrooms: "Casas de banho", total_size: "Área total", per_year: "Por ano", share_size: "Dimensão da quota",
+    bedrooms: "Quartos", bathrooms: "Casas de banho", total_size: "Área habitável", per_year: "Por ano", share_size: "Dimensão da quota",
     about_heading: "Sobre este imóvel",
     desc_empty: "Descrição completa em breve. Use o formulário de contacto para falar connosco.",
     show_less: "Ver menos", read_more: "Ler mais",
