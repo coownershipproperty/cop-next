@@ -475,9 +475,12 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
             <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#111111', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
             <form onSubmit={submitForm} className="ul-form">
               <HoneypotField />
-              <input type="text" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />
+              <input type="text" name="name" autoComplete="name" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />
               <input
                 type="email"
+                name="email"
+                autoComplete="email"
+                inputMode="email"
                 placeholder={t.email_placeholder}
                 value={email}
                 onChange={e => {

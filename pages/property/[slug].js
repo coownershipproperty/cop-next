@@ -1247,19 +1247,24 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
     <div className="eq-done"><span className="eq-tick">✓</span><p>{t.eq_thanks(f.name)}</p></div>
   );
 
+  // The last entry is the autocomplete token: without it (and without a
+  // name attribute) phones and password managers offer nothing, so every
+  // visitor types their details by hand.
   const fields = [
-    ['name',  t.eq_name,  'text',  t.eq_name_ph,  true],
-    ['email', t.eq_email, 'email', t.eq_email_ph, true],
-    ['phone', t.eq_phone, 'tel',   t.eq_phone_ph, true],
+    ['name',  t.eq_name,  'text',  t.eq_name_ph,  true, 'name'],
+    ['email', t.eq_email, 'email', t.eq_email_ph, true, 'email'],
+    ['phone', t.eq_phone, 'tel',   t.eq_phone_ph, true, 'tel'],
   ];
 
   return (
     <form ref={formRef} onSubmit={submit} className="eq-form">
       <HoneypotField />
-      {fields.map(([k, label, type, ph, req]) => (
+      {fields.map(([k, label, type, ph, req, auto]) => (
         <div key={k} className={`eq-field eq-field-${k}`}>
-          <label>{label}{req ? ' *' : ''}</label>
-          <input type={type} placeholder={ph} value={f[k]} onChange={set(k)} required={req} />
+          <label htmlFor={`eq-${k}`}>{label}{req ? ' *' : ''}</label>
+          <input id={`eq-${k}`} name={k} type={type} autoComplete={auto}
+            inputMode={type === 'email' ? 'email' : type === 'tel' ? 'tel' : undefined}
+            placeholder={ph} value={f[k]} onChange={set(k)} required={req} />
         </div>
       ))}
       {chipQs.map(c => (

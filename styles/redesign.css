@@ -422,6 +422,12 @@ textarea.rd-input { min-height: 120px; resize: vertical; }
 .rd .expert-inner > form { grid-column: 2; grid-row: 1 / span 4; }
 .rd .expert-eyebrow { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rd-ink-50); margin: 0 0 1rem; font-family: var(--rd-body); }
 .rd .expert-heading { text-align: left; font-family: var(--rd-head); font-weight: 500; font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--rd-ink); margin: 0; }
+/* On phones the enquiry block is a single narrow card, so its heading,
+   eyebrow and sub read better centred. The light-theme sheet only did this on
+   pages carrying .cop-public; do it for every page that shows the block. */
+@media (max-width: 760px) {
+  .rd .cop-enquiry :is(.expert-eyebrow, .expert-heading, .expert-sub) { text-align: center; margin-left: auto; margin-right: auto; }
+}
 .rd .expert-heading em { font-style: normal; color: var(--rd-ink-70); }
 .rd .expert-sub { text-align: left; color: var(--rd-ink-70); margin-top: 1rem; font-size: 1.05rem; line-height: 1.55; }
 .rd .expert-form { background: var(--rd-card); border: 1px solid var(--rd-line); border-radius: var(--rd-r-lg); padding: clamp(1.5rem, 3vw, 2.5rem); }
@@ -1130,4 +1136,22 @@ html:has(.rd-home-light) { scroll-behavior:smooth; }
  .rd.rd-collection.rd-home-light .rd-filter-select { min-width:0; }
  .rd.rd-collection.rd-home-light .newsletter-section { display:block; }
  .rd.rd-collection.rd-home-light .newsletter-form { margin-top:24px; }
+}
+
+/* ── Homepage: no scroll-reveal on phones (David, 22 Sep 2026) ──
+   The fade-and-rise felt wrong on a phone: each section stayed blank until
+   you scrolled into it. Two earlier rules tried to switch it off on mobile
+   but sat above the stronger `html.rv-ready .rd:is(.rd-home,…)` selectors, so
+   it kept running. This is last in the file and deliberately !important so it
+   wins whatever order the sheets load in. Desktop keeps the animation, and
+   the other pages keep it on mobile — say the word and it goes there too. */
+@media (max-width: 760px) {
+  html.rv-ready .rd.rd-home [data-rv],
+  html.rv-ready .rd.rd-home [data-rv].rv-in,
+  .rd.rd-home [data-rv] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    transition-delay: 0s !important;
+  }
 }

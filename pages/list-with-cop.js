@@ -188,17 +188,17 @@ export default function ListWithCop() {
               <form className="lw-form" onSubmit={submit}>
                 <label>
                   <span>Your name</span>
-                  <input type="text" required value={form.name || ''} onChange={set('name')} />
+                  <input type="text" name="name" autoComplete="name" required value={form.name || ''} onChange={set('name')} />
                 </label>
                 {tab === 'partner' && (
                   <>
                     <label>
                       <span>Company</span>
-                      <input type="text" required value={form.company || ''} onChange={set('company')} />
+                      <input type="text" name="company" autoComplete="organization" required value={form.company || ''} onChange={set('company')} />
                     </label>
                     <label>
                       <span>Website</span>
-                      <input type="text" value={form.website || ''} onChange={set('website')} placeholder="https://" />
+                      <input type="url" name="website" autoComplete="url" inputMode="url" value={form.website || ''} onChange={set('website')} placeholder="https://" />
                     </label>
                     <label>
                       <span>How many co-ownership homes do you offer?</span>
@@ -208,11 +208,11 @@ export default function ListWithCop() {
                 )}
                 <label>
                   <span>Email</span>
-                  <input type="email" required value={form.email || ''} onChange={set('email')} />
+                  <input type="email" name="email" autoComplete="email" inputMode="email" required value={form.email || ''} onChange={set('email')} />
                 </label>
                 <label>
                   <span>Phone (optional)</span>
-                  <input type="tel" value={form.phone || ''} onChange={set('phone')} />
+                  <input type="tel" name="phone" autoComplete="tel" inputMode="tel" value={form.phone || ''} onChange={set('phone')} />
                 </label>
                 {tab === 'resale' ? (
                   <>

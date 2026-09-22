@@ -1380,12 +1380,17 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
                   </div>
                   <input
                     type="text"
+                    name="name"
+                    autoComplete="name"
                     placeholder={t.alert_name_ph}
                     value={alertName}
                     onChange={e => setAlertName(e.target.value)}
                   />
                   <input
                     type="email"
+                    name="email"
+                    autoComplete="email"
+                    inputMode="email"
                     placeholder={t.alert_email_ph}
                     value={alertEmail}
                     onChange={e => setAlertEmail(e.target.value)}

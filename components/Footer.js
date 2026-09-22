@@ -173,17 +173,27 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} {t('site.brand', locale)}. {t('footer.rights_reserved', locale)}</p>
         <p className="footer-legal">
           <a href="/privacy-policy/">{t('footer.privacy', locale)}</a>
-          <span aria-hidden="true"> · </span>
+          <span aria-hidden="true">·</span>
           <a href="/terms-and-conditions/">{t('footer.terms', locale)}</a>
-          <span aria-hidden="true"> · </span>
-          <span>PREMPROPERTY SL · NIF B93358489 · Marbella, Spain</span>
         </p>
+        <p className="footer-entity">PREMPROPERTY SL · NIF B93358489 · Marbella, Spain</p>
       </div>
 
       <style jsx>{`
         :global(.footer-mobile-toggle) { display: none; }
-        :global(.footer-legal) { margin-top: 8px; font-size: 12px; opacity: .7; }
-        :global(.footer-legal a) { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+        /* Copyright left, the two policies right, the company identity on its
+           own full-width line underneath (footer-bottom is a wrapping flex
+           row, so flex-basis:100% breaks it onto that line). */
+        :global(.footer-legal) { display: flex; align-items: center; gap: 10px; }
+        :global(.footer-legal a) { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+        :global(.footer-legal a:hover) { opacity: .75; }
+        :global(.footer-legal span) { opacity: .45; }
+        :global(.footer-entity) { flex-basis: 100%; order: 3; margin-top: 14px; font-size: 12px; opacity: .55; }
+        @media (max-width: 760px) {
+          :global(.rd .footer-bottom) { align-items: center; text-align: center; gap: 14px; }
+          :global(.footer-legal) { justify-content: center; }
+          :global(.footer-entity) { margin-top: 2px; }
+        }
         @media (max-width: 760px) {
           :global(.rd .site-footer) { padding: 36px 0 28px; }
           :global(.rd .footer-inner) { display: flex; flex-direction: column; align-items: stretch; gap: 0; }

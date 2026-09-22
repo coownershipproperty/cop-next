@@ -227,9 +227,9 @@ export default function TourRequestModal({ propertyTitle, propertyUrl, propertyS
             <p className="ul-sub">{t.sub}</p>
             <form onSubmit={submit} className="ul-form">
               <HoneypotField />
-              <input type="text" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />
-              <input type="email" placeholder={t.email_placeholder} value={email} onChange={e => setEmail(e.target.value)} required />
-              <input type="tel" placeholder={t.phone_placeholder} value={phone} onChange={e => setPhone(e.target.value)} required />
+              <input type="text" name="name" autoComplete="name" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />
+              <input type="email" name="email" autoComplete="email" inputMode="email" placeholder={t.email_placeholder} value={email} onChange={e => setEmail(e.target.value)} required />
+              <input type="tel" name="phone" autoComplete="tel" inputMode="tel" placeholder={t.phone_placeholder} value={phone} onChange={e => setPhone(e.target.value)} required />
               <button type="submit" disabled={status === 'sending'}>{status === 'sending' ? t.btn_sending : t.btn_idle}</button>
               {(status === 'error' || errMsg) && <p className="ul-err">{errMsg || t.error}</p>}
             </form>

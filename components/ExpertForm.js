@@ -674,17 +674,17 @@ export default function ExpertForm({ property, hideIntro = false }) {
 
             <div className="expert-form-field">
               <label htmlFor="ef-name">{t.name_label} <span>{t.required}</span></label>
-              <input type="text" id="ef-name" name="name" placeholder={t.name_placeholder} required value={name} onChange={e => setName(e.target.value)} />
+              <input type="text" id="ef-name" name="name" autoComplete="name" placeholder={t.name_placeholder} required value={name} onChange={e => setName(e.target.value)} />
             </div>
 
             <div className="expert-form-field">
               <label htmlFor="ef-email">{t.email_label} <span>{t.required}</span></label>
-              <input type="email" id="ef-email" name="email" placeholder={t.email_placeholder} required value={email} onChange={e => setEmail(e.target.value)} />
+              <input type="email" id="ef-email" name="email" autoComplete="email" inputMode="email" placeholder={t.email_placeholder} required value={email} onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="expert-form-field">
               <label htmlFor="ef-phone">{t.phone_label} {t.required}</label>
-              <input type="tel" id="ef-phone" name="phone" placeholder={t.phone_placeholder} required />
+              <input type="tel" id="ef-phone" name="phone" autoComplete="tel" inputMode="tel" placeholder={t.phone_placeholder} required />
             </div>
 
             <div className="expert-form-field">
