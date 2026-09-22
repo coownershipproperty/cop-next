@@ -21,7 +21,7 @@ const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 // Locale → BCP-47 tag for Number.toLocaleString price formatting (Spanish
 // uses dots as thousand separators, French uses thin spaces, English commas).
 const LOCALE_TAG = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, numberLocale(l)]));
-const SHARE_LABEL = { en: 'share', es: 'fracción', fr: 'part', de: 'Anteil', it: "quota", nl: "aandeel", pt: "quota" };
+const SHARE_LABEL = { en: 'share', es: 'fracción', fr: 'part', de: 'Anteil', it: "quota", nl: "aandeel", pt: "quota", sv: 'andel', da: 'andel', no: 'andel' };
 
 // Locale → href for the "Browse Properties" empty-state CTA. Each locale's
 // own properties index keeps the visitor in their language stream.
@@ -60,6 +60,9 @@ const SL_COPY = {
   it: { title: "Conserva questa selezione", sub: "Le invieremo un link privato — i suoi preferiti la seguiranno su qualsiasi dispositivo e potrà inoltrarlo a chi vorrebbe comprare insieme a lei.", placeholder: "Il suo indirizzo email", btn: "Inviami la mia selezione", done: "Inviata — troverà il link alla sua selezione nella posta in arrivo." },
   nl: { title: "Bewaar deze shortlist", sub: "We mailen u een privélink — uw favorieten gaan met u mee naar elk apparaat, en u kunt de link doorsturen naar degene met wie u mede-eigenaar zou worden.", placeholder: "Uw e-mailadres", btn: "Mail mij mijn shortlist", done: "Verzonden — kijk in uw inbox voor de link naar uw shortlist." },
   pt: { title: "Guarde esta seleção", sub: "Enviamos-lhe um link privado por email — os seus favoritos ficam consigo em qualquer dispositivo e pode reencaminhá-lo a quem gostaria de ter como comproprietário.", placeholder: "O seu endereço de email", btn: "Enviar-me a seleção por email", done: "Enviado — veja na sua caixa de entrada o link para a sua seleção." },
+  sv: { title: "Spara den här listan", sub: "Vi mejlar dig en privat länk — dina favoriter följer med dig till vilken enhet som helst, och du kan vidarebefordra den till den du skulle samäga med.", placeholder: "Din e-postadress", btn: "Mejla mig min lista", done: "Skickat — länken till din lista ligger i inkorgen." },
+  da: { title: "Gem denne liste", sub: "Vi sender dig et privat link på mail — dine favoritter følger med dig til enhver enhed, og du kan sende linket videre til den, du vil være medejer sammen med.", placeholder: "Din e-mailadresse", btn: "Send mig min liste", done: "Sendt — linket til din liste ligger i din indbakke." },
+  no: { title: "Ta vare på denne listen", sub: "Vi sender deg en privat lenke på e-post — favorittene dine følger med deg til alle enheter, og du kan sende lenken videre til den du vil eie sammen med.", placeholder: "Din e-postadresse", btn: "Send meg listen min", done: "Sendt — lenken til listen din ligger i innboksen." },
 };
 
 export default function Favourites({ locale = DEFAULT_LOCALE }) {

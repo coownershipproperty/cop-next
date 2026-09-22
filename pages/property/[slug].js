@@ -2121,7 +2121,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           {/* Micro-commitment capture: track a live home / waitlist on a sold one */}
           <a className="pp-mobile-contact" href="#property-enquiry"
             onClick={() => track('property_contact_cta_click', { property: local.title, slug: p.slug, locale })}>
-            <span>{({ en: "I'm interested", es: 'Me interesa', fr: 'Ce bien m’intéresse', de: 'Ich bin interessiert', it: 'Sono interessato', nl: 'Ik ben geïnteresseerd', pt: 'Tenho interesse' })[locale] || "I'm interested"}</span>
+            <span>{({ en: "I'm interested", es: 'Me interesa', fr: 'Ce bien m’intéresse', de: 'Ich bin interessiert', it: 'Sono interessato', nl: 'Ik ben geïnteresseerd', pt: 'Tenho interesse', sv: 'Jag är intresserad', da: 'Jeg er interesseret', no: 'Jeg er interessert' })[locale] || "I'm interested"}</span>
           </a>
           <PropertyWatch
             slug={p.slug}

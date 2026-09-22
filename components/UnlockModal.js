@@ -429,7 +429,7 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
   return (
     <div ref={overlayRef} className="ul-overlay" onClick={onClose}>
       <div className="ul-modal" role="dialog" aria-modal="true" aria-label={t.heading} onClick={e => e.stopPropagation()}>
-        <button type="button" className="ul-close" aria-label={{en:'Close',fr:'Fermer',de:'Schließen',es:'Cerrar',it:'Chiudi'}[locale] || 'Close'} onClick={onClose}>×</button>
+        <button type="button" className="ul-close" aria-label={{en:'Close',fr:'Fermer',de:'Schließen',es:'Cerrar',it:'Chiudi',nl:'Sluiten',pt:'Fechar',sv:'Stäng',da:'Luk',no:'Lukk'}[locale] || 'Close'} onClick={onClose}>×</button>
         {status === 'done' ? (
           <div className="ul-success">
             <div className="ul-tick">✓</div>

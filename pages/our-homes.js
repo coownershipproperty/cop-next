@@ -1253,7 +1253,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           <button type="button" className="collection-filter-done" onClick={() => {
             setFiltersOpen(false);
             requestAnimationFrame(() => document.querySelector('.results-bar')?.scrollIntoView({ block:'start', behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
-          }}>{({en:'Show homes',fr:'Voir les biens',de:'Immobilien anzeigen',es:'Ver propiedades',it:'Mostra immobili'})[locale] || 'Show homes'}</button>
+          }}>{({en:'Show homes',fr:'Voir les biens',de:'Immobilien anzeigen',es:'Ver propiedades',it:'Mostra immobili',nl:'Toon woningen',pt:'Ver imóveis',sv:'Visa hem',da:'Vis boliger',no:'Vis boliger'})[locale] || 'Show homes'}</button>
           <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>{t.get_alerts}</button>
         </div>
 

@@ -92,6 +92,36 @@ const CONFIRM = {
     cta: "Ver a coleção",
     view_home: "Ver a casa",
   },
+  sv: {
+    watch_subject: (title) => `Du bevakar ${title}`,
+    watch_body: (title, url) =>
+      `Du bevakar nu <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Ändras priset eller tillgängligheten hör du det av oss först — ingen spam, bara nyheter om det här huset.`,
+    wait_subject: (region) => `Du står i kön — ${region}`,
+    wait_body: (title, region) =>
+      `<strong>${title}</strong> är helt såld — men nu står du först i kön. I samma stund som ett nytt hus i <strong>${region}</strong> kommer in i samlingen ser du det före alla andra.`,
+    cta: 'Se samlingen',
+    view_home: 'Se huset',
+  },
+  da: {
+    watch_subject: (title) => `Du følger ${title}`,
+    watch_body: (title, url) =>
+      `Du følger nu <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Ændrer prisen eller ledigheden sig, hører du det fra os først — ingen spam, kun nyt om denne bolig.`,
+    wait_subject: (region) => `Du er på ventelisten — ${region}`,
+    wait_body: (title, region) =>
+      `<strong>${title}</strong> er helt udsolgt — men nu står du forrest i køen. I samme øjeblik en ny bolig i <strong>${region}</strong> kommer i samlingen, ser du den før alle andre.`,
+    cta: 'Se samlingen',
+    view_home: 'Se boligen',
+  },
+  no: {
+    watch_subject: (title) => `Du følger ${title}`,
+    watch_body: (title, url) =>
+      `Du følger nå <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Endrer prisen eller ledigheten seg, hører du det fra oss først — ingen spam, bare nytt om denne boligen.`,
+    wait_subject: (region) => `Du står på ventelisten — ${region}`,
+    wait_body: (title, region) =>
+      `<strong>${title}</strong> er helt utsolgt — men nå står du først i køen. I det øyeblikket en ny bolig i <strong>${region}</strong> kommer inn i samlingen, ser du den før alle andre.`,
+    cta: 'Se samlingen',
+    view_home: 'Se boligen',
+  },
 };
 CONFIRM.en.open_now = (region) => `While you wait, these homes in <strong>${region}</strong> are open right now:`;
 CONFIRM.es.open_now = (region) => `Mientras tanto, estas propiedades en <strong>${region}</strong> están disponibles ahora mismo:`;

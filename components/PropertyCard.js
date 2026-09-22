@@ -445,7 +445,7 @@ export default function PropertyCard({ property: p, priority = false, editorial 
           {editorial && title.includes(' — ') && <p className="prop-editorial-description">{title.split(' — ').slice(1).join(' — ')}</p>}
           <div className="prop-mobile-facts">
             {p.beds > 0 && <div><strong>{p.beds}</strong><small>{p.beds > 1 ? t.bed_plural : t.bed_singular}</small></div>}
-            {p.size > 0 && <div><strong>{p.size} <span>m²</span></strong><small>{{ en: 'Home size', es: 'Superficie', fr: 'Surface', de: 'Wohnfläche', it: 'Superficie', nl: 'Oppervlakte', pt: 'Área' }[locale] || 'Home size'}</small></div>}
+            {p.size > 0 && <div><strong>{p.size} <span>m²</span></strong><small>{{ en: 'Home size', es: 'Superficie', fr: 'Surface', de: 'Wohnfläche', it: 'Superficie', nl: 'Oppervlakte', pt: 'Área', sv: 'Boyta', da: 'Boligareal', no: 'Boareal' }[locale] || 'Home size'}</small></div>}
             {priceDisplay && <div><strong>{priceDisplay}</strong>{shareDisplay && <small>{shareDisplay} {t.share_label}</small>}</div>}
           </div>
           {(p.beds > 0 || p.size > 0) && (
