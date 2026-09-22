@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { numberLocale } from '@/lib/i18n';
+import FilterSelect from '@/components/rd/FilterSelect';
 
 // Locale-specific copy. Inline rather than messages/*.json because the strings are
 // tightly coupled to this component's UX (calculator labels, share size dropdown options).
@@ -208,7 +209,7 @@ const COPY = {
 
 const C = {
   navy:  '#143047',
-  gold:  '#C9A84C',
+  gold:  '#6b6b6b',
   cream: '#F5F2EC',
   muted: '#6B8A9E',
   white: '#FFFFFF',
@@ -295,16 +296,7 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', shar
 
             <div className="cop-fin-row">
               <div className="cop-fin-field">
-                <label className="cop-fin-label">{t.label_share}</label>
-                <select
-                  className="cop-fin-input"
-                  value={shareKey}
-                  onChange={e => setShareKey(e.target.value)}
-                >
-                  <option value="one_eighth">{t.share_one_eighth}</option>
-                  <option value="one_fourth">{t.share_one_fourth}</option>
-                  <option value="one_half">{t.share_one_half}</option>
-                </select>
+                <FilterSelect label={t.label_share} value={shareKey} onChange={setShareKey} options={[{value:'one_eighth',label:t.share_one_eighth},{value:'one_fourth',label:t.share_one_fourth},{value:'one_half',label:t.share_one_half}]} />
                 <p className="cop-fin-helper">
                   <span className="cop-fin-helper-label">{t.helper_share}</span>
                   <span className="cop-fin-helper-val">{formatMoney(selectedPrice, currency, locale)}</span>
@@ -312,16 +304,7 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', shar
               </div>
 
               <div className="cop-fin-field">
-                <label className="cop-fin-label">{t.label_down}</label>
-                <select
-                  className="cop-fin-input"
-                  value={downPct}
-                  onChange={e => setDownPct(Number(e.target.value))}
-                >
-                  {[30, 40, 50, 60, 70].map(v => (
-                    <option key={v} value={v}>{v}%</option>
-                  ))}
-                </select>
+                <FilterSelect label={t.label_down} value={downPct} onChange={value => setDownPct(Number(value))} options={[30,40,50,60,70].map(value => ({value,label:`${value}%`}))} />
                 <p className="cop-fin-helper">
                   <span className="cop-fin-helper-label">{t.helper_down}</span>
                   <span className="cop-fin-helper-val">{formatMoney(downAmount, currency, locale)}</span>

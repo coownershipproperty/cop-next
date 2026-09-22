@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * components/GlossaryPageRenderer.js
  *
@@ -130,14 +131,14 @@ export default function GlossaryPageRenderer({ locale, data }) {
       <Header />
 
       <article className="compare-page glossary-page">
-        <section className="compare-hero">
+        <PublicPageHeader>
           <p className="compare-eyebrow">{ui.glossaryEyebrow}</p>
           <h1 className="compare-h1">{h1ByLocale[locale]}</h1>
           <p className="compare-subtitle">{intro}</p>
           <p className="compare-meta">
             <span className="compare-wc-inline">{terms.length} {ui.termsLabel} · {categories.length} {ui.categoriesLabel}</span>
           </p>
-        </section>
+        </PublicPageHeader>
 
         <section className="glossary-body">
           <div className="glossary-inner">

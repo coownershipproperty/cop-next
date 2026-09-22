@@ -25,12 +25,12 @@
   font-family: var(--font-nunito, Arial, sans-serif);
   color: #2C4A5E;
 }
-.cop-pillar-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid #C9A84C; }
+.cop-pillar-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid #6b6b6b; }
 .cop-pillar-eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.78rem;
-  color: #C9A84C;
+  color: #6b6b6b;
   margin: 0 0 1rem;
   font-weight: 700;
 }
@@ -46,7 +46,7 @@
 
 .cop-pillar-callout {
   background: #F5F2EC;
-  border-left: 4px solid #C9A84C;
+  border-left: 4px solid #6b6b6b;
   padding: 1.5rem 1.75rem;
   margin: 2.5rem 0;
 }
@@ -63,13 +63,13 @@
   margin: 0 0 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #C9A84C;
+  color: #6b6b6b;
   font-family: var(--font-nunito, Arial, sans-serif);
   font-weight: 700;
 }
 .cop-pillar-toc ol { margin: 0; padding-left: 1.5rem; line-height: 1.9; }
 .cop-pillar-toc a { color: #2C4A5E; text-decoration: none; }
-.cop-pillar-toc a:hover { color: #C9A84C; text-decoration: underline; }
+.cop-pillar-toc a:hover { color: #6b6b6b; text-decoration: underline; }
 
 .cop-pillar section { margin-top: 3rem; }
 .cop-pillar h2 {
@@ -84,7 +84,7 @@
 .cop-pillar p { font-size: 1.05rem; line-height: 1.75; margin: 0 0 1rem; color: #3a4a5a; }
 .cop-pillar ul, .cop-pillar ol { line-height: 1.75; padding-left: 1.5rem; margin: 1rem 0; color: #3a4a5a; }
 .cop-pillar ul li, .cop-pillar ol li { margin-bottom: 0.5rem; }
-.cop-pillar a { color: #C9A84C; }
+.cop-pillar a { color: #6b6b6b; }
 
 .cop-pillar-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
 .cop-pillar-table th,
@@ -111,7 +111,7 @@
   text-decoration: none;
   font-family: var(--font-nunito, Arial, sans-serif);
 }
-.cop-pillar-cta a.cop-cta-primary { background: #C9A84C; color: #2C4A5E; }
+.cop-pillar-cta a.cop-cta-primary { background: #6b6b6b; color: #2C4A5E; }
 .cop-pillar-cta a.cop-cta-secondary { background: transparent; color: #fff; border: 1.5px solid #fff; }
 .cop-pillar-cta a.cop-cta-primary:hover { background: #d9b85a; }
 .cop-pillar-cta a.cop-cta-secondary:hover { background: #fff; color: #2C4A5E; }

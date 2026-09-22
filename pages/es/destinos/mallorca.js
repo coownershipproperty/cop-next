@@ -1,5 +1,6 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -47,7 +48,7 @@ export async function getStaticProps() {
 export default function MallorcaES({ properties }) {
   const canonicalUrl = 'https://co-ownership-property.com/es/destinos/mallorca/';
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>Copropiedad en Mallorca: villas y apartamentos en propiedad fraccionada [2026]</title>
         <meta name="description" content="Propiedades en copropiedad en Mallorca — villas, apartamentos y fincas en Palma, Pollensa, Andratx, Deià y otras zonas premium. Desde 1/8 con escritura ante notario." />
@@ -59,13 +60,13 @@ export default function MallorcaES({ properties }) {
         <meta property="og:description" content="Villas y apartamentos de lujo en copropiedad por toda Mallorca. Desde una fracción del precio." />
         <meta property="og:url" content={canonicalUrl} />
       </Head>
-      <Header />
+      <Nav />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Destino · Islas Baleares</p>
         <h1>Copropiedad en <em>Mallorca</em></h1>
         <p className="subtitle">Villas, apartamentos y fincas en copropiedad por las zonas más exclusivas de la isla más codiciada del Mediterráneo.</p>
-      </section>
+      </PublicPageHeader>
 
       <section className="sec intro-sec">
         <div className="intro-center">
@@ -157,6 +158,6 @@ export default function MallorcaES({ properties }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
-    </>
+    </div>
   );
 }

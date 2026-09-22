@@ -133,7 +133,7 @@ const COPY = {
   },
 };
 
-export default function Newsletter() {
+export default function Newsletter({ editorial = false }) {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
@@ -151,7 +151,7 @@ export default function Newsletter() {
     e.preventDefault();
     const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     if (!email) return;
-    const sendPhone = String(phone || '').trim();
+    const sendPhone = editorial ? '' : String(phone || '').trim();
 
     setStatus('sending');
     setMsg('');
@@ -164,7 +164,7 @@ export default function Newsletter() {
       });
       const data = await res.json();
       if (data.ok) {
-        saveUser({ email, phone: sendPhone });
+        saveUser(editorial ? { email } : { email, phone: sendPhone });
         setStatus('success');
         setMsg(t.msg_success);
         trackConversion('sign_up', 'Lead', { method: 'newsletter', locale });
@@ -180,19 +180,20 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="newsletter-section" id="newsletter">
-      <h2 className="newsletter-heading">{t.heading}</h2>
-      <p className="newsletter-subtitle">{t.subtitle}</p>
-      <form className="newsletter-form" id="cop-newsletter-form" onSubmit={handleSubmit} noValidate>
+    <section className={`newsletter-section${editorial ? '' : ' cop-newsletter-standard'}`} id="newsletter">
+      {editorial && <span className="rd-kicker">The COP edit</span>}
+      <h2 className="newsletter-heading">{editorial ? <>Exceptional homes.<br />Be the first to know.</> : t.heading}</h2>
+      <p className="newsletter-subtitle">{editorial ? 'New homes, remarkable destinations, and a closer look at co-ownership.' : t.subtitle}</p>
+      <form className="newsletter-form" id="cop-newsletter-form" onSubmit={handleSubmit} noValidate={!editorial}>
         <HoneypotField />
-        <input type="email" name="email" placeholder={t.placeholder} required value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="tel" name="phone" inputMode="tel" autoComplete="tel" placeholder={t.phone_placeholder} value={phone} onChange={e => setPhone(e.target.value)} />
+        <input type="email" name="email" aria-label={t.placeholder} autoComplete="email" placeholder={t.placeholder} required value={email} onChange={e => setEmail(e.target.value)} />
+        {!editorial && <input type="tel" name="phone" inputMode="tel" autoComplete="tel" placeholder={t.phone_placeholder} value={phone} onChange={e => setPhone(e.target.value)} />}
         <button type="submit" className="newsletter-btn" disabled={status === 'sending'}>
-          {status === 'sending' ? t.button_sending : status === 'success' ? t.button_success : t.button_idle}
+          {status === 'sending' ? t.button_sending : status === 'success' ? t.button_success : editorial ? 'Subscribe ↗' : t.button_idle}
         </button>
       </form>
       {msg && (
-        <p className={`newsletter-form-msg${status === 'success' ? ' success' : ' error'}`}>{msg}</p>
+        <p role="status" className={`newsletter-form-msg${status === 'success' ? ' success' : ' error'}`}>{msg}</p>
       )}
     </section>
   );

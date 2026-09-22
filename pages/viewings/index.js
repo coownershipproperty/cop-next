@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * pages/viewings/index.js
  * Public-facing index of upcoming private viewings.
@@ -218,7 +219,7 @@ export default function ViewingsPage({ viewings }) {
       <Header />
 
       {/* HERO */}
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="page-hero-eyebrow">Private Viewings</p>
         <h1>
           Step inside <em>before you decide</em>
@@ -227,7 +228,7 @@ export default function ViewingsPage({ viewings }) {
           Upcoming viewings of co-ownership homes in France — Côte d&apos;Azur and the French Alps.
           Choose on-site or live via video. We confirm within a few hours.
         </p>
-      </section>
+      </PublicPageHeader>
 
       {/* VIEWINGS GRID */}
       <section className="viewings-grid-sec">

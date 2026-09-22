@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -37,11 +38,11 @@ export default function ComoFunciona() {
       <Header />
 
       {/* ===== HERO ===== */}
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Copropiedad explicada</p>
         <h1>Cómo <em>funciona</em></h1>
         <p className="subtitle">Posee una participación de una vivienda vacacional de lujo. Disfrútala varias semanas al año. Comparte cada coste. Conserva cada recuerdo.</p>
-      </section>
+      </PublicPageHeader>
 
       {/* ===== AS FEATURED IN ===== */}
       <div className="press-bar" role="region" aria-label="Aparecemos en">

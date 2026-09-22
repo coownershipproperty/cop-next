@@ -1,8 +1,9 @@
+import PublicFaq, { PublicFaqSection } from '@/components/PublicFaq';
 import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import fs from 'fs';
 import path from 'path';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -831,7 +832,7 @@ export default function DestinationPage({
   }
 
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>{title}</title>
         <meta name="description" content={metaDesc} />
@@ -900,7 +901,7 @@ export default function DestinationPage({
             background: none;
             border: none;
             padding: 0;
-            color: #C9A84C;
+            color: #6b6b6b;
             font-size: inherit;
             cursor: pointer;
             font-family: inherit;
@@ -908,7 +909,7 @@ export default function DestinationPage({
           }
           /* ── Inline content links ── */
           .dest-inline-link {
-            color: #C9A84C;
+            color: #6b6b6b;
             text-decoration: underline;
             text-underline-offset: 2px;
           }
@@ -941,8 +942,8 @@ export default function DestinationPage({
             border-bottom: 1px solid transparent;
             transition: color 180ms ease, border-color 180ms ease;
           }
-          .dest-breadcrumbs a:hover { color: #C9A84C; border-bottom-color: #C9A84C; }
-          .dest-breadcrumb-sep { margin: 0 8px; color: #C9A84C; opacity: 0.6; }
+          .dest-breadcrumbs a:hover { color: #6b6b6b; border-bottom-color: #6b6b6b; }
+          .dest-breadcrumb-sep { margin: 0 8px; color: #6b6b6b; opacity: 0.6; }
           .dest-breadcrumbs li[aria-current="page"], .dest-breadcrumbs span[aria-current="page"] {
             color: #2C4A5E;
           }
@@ -988,7 +989,7 @@ export default function DestinationPage({
             content: counter(toc, decimal-leading-zero);
             display: inline-block;
             width: 26px;
-            color: #C9A84C;
+            color: #6b6b6b;
             font-weight: 700;
             font-size: 11px;
           }
@@ -999,7 +1000,7 @@ export default function DestinationPage({
             border-bottom: 1px solid transparent;
             transition: color 180ms ease, border-color 180ms ease;
           }
-          .dest-toc a:hover { color: #C9A84C; border-bottom-color: #C9A84C; }
+          .dest-toc a:hover { color: #6b6b6b; border-bottom-color: #6b6b6b; }
 
           /* Smooth scrolling for in-page anchor jumps */
           html { scroll-behavior: smooth; }
@@ -1013,7 +1014,7 @@ export default function DestinationPage({
             margin: 28px auto 12px;
             padding: 14px 20px;
             background: #F5F2EC;
-            border-left: 3px solid #C9A84C;
+            border-left: 3px solid #6b6b6b;
             display: flex;
             align-items: center;
             gap: 14px;
@@ -1036,8 +1037,8 @@ export default function DestinationPage({
             transition: border-color 180ms ease, color 180ms ease;
           }
           .dest-cluster-up-link:hover {
-            color: #C9A84C;
-            border-bottom-color: #C9A84C;
+            color: #6b6b6b;
+            border-bottom-color: #6b6b6b;
           }
 
           /* ── Cluster grid: "Regions in {Country}" — cream-band style so it
@@ -1058,7 +1059,7 @@ export default function DestinationPage({
             font-weight: 700;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: #C9A84C;
+            color: #6b6b6b;
             margin: 0 0 12px;
           }
           .dest-cluster-down-h2 {
@@ -1092,12 +1093,12 @@ export default function DestinationPage({
             transition: border-color 180ms ease, color 180ms ease, transform 220ms ease;
           }
           .dest-cluster-down-tile:hover {
-            border-color: #C9A84C;
-            color: #C9A84C;
+            border-color: #6b6b6b;
+            color: #6b6b6b;
             transform: translateX(2px);
           }
           .dest-cluster-down-tile-arrow {
-            color: #C9A84C;
+            color: #6b6b6b;
             opacity: 0.7;
             margin-left: 12px;
             transition: opacity 180ms ease;
@@ -1111,7 +1112,7 @@ export default function DestinationPage({
         `}</style>
       </Head>
 
-      <Header />
+      <Nav />
 
       {/* Visible breadcrumbs — uses the BreadcrumbList structured data */}
       <nav className="dest-breadcrumbs" aria-label="Breadcrumb">
@@ -1255,20 +1256,11 @@ export default function DestinationPage({
 
       {/* ── FAQ section — rendered from destination-faqs.json using homepage design ── */}
       {faqData && faqData.items && faqData.items.length > 0 && (
-        <section className="faq-section">
-          <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 3rem' }}>
-            <p className="faq-eyebrow">Questions &amp; Answers</p>
-            <h2 className="faq-heading">{faqData.title}</h2>
-            <div className="faq-list">
-              {faqData.items.map((item, i) => (
-                <details key={i} className="faq-item">
-                  <summary className="faq-q"><span>{item.q}</span></summary>
-                  <div className="faq-a" dangerouslySetInnerHTML={{ __html: item.a }} />
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PublicFaqSection>
+            <p>Questions &amp; Answers</p>
+            <h2>{faqData.title}</h2>
+            <PublicFaq items={faqData.items} htmlAnswers />
+        </PublicFaqSection>
       )}
 
       {/* Also Explore — hidden on pillar pages (children.length > 0), because
@@ -1288,8 +1280,9 @@ export default function DestinationPage({
       )}
 
       <Newsletter />
-      <ExpertForm />
+      <div id="destination-enquiry"><ExpertForm /></div>
+      <a className="destination-mobile-enquiry" href="#destination-enquiry">Enquire about homes here <span aria-hidden="true">↓</span></a>
       <Footer />
-    </>
+    </div>
   );
 }

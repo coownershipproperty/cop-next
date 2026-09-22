@@ -7,9 +7,9 @@ import { trackConversion, fbqEvent } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser, visitorFromUrl } from '@/lib/savedUser';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
+import s from '@/styles/property-redesign.module.css';
 import Footer from '@/components/Footer';
-import Newsletter from '@/components/Newsletter';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import ExpertForm from '@/components/ExpertForm';
 import UnlockModal from '@/components/UnlockModal';
@@ -19,11 +19,13 @@ import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
 import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice, familyPrefix, destinationAvailableIn } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
+import PropertyMap from '@/components/PropertyMap';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
 import hreflangLinks from '@/components/HreflangLinks';
 import { buildFactsPanel } from '@/lib/propertyFactsPanel';
+import { buildLockedPreviews } from '@/lib/lockedPreviews';
 
 // ── "The numbers" panel ────────────────────────────────────────────────────
 // The values arrive from the server as data ({kind:'minimum', nights:44}),
@@ -36,7 +38,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} a month`,
     nights_minimum: (n) => `${n} nights a year, minimum`,
     nights_fixed: (n) => `${n} nights a year`,
-    nights_uncapped: 'No set cap on total nights',
+    nights_uncapped: '~45 nights a year',
     nights_fraction: (n) => `Your 1/${n} share of the year`,
     shares_left: (n, d) => (n === 1 ? 'One share left' : `${n} of ${d} shares left`),
     covers_advance: 'A fixed monthly advance against the home’s own budget — management, insurance, upkeep and the reserve. Electricity, heating, the clean after each stay and laundry are billed by use, on top.',
@@ -50,7 +52,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} al mes`,
     nights_minimum: (n) => `${n} noches al año, como mínimo`,
     nights_fixed: (n) => `${n} noches al año`,
-    nights_uncapped: 'Sin límite de noches',
+    nights_uncapped: '~45 noches al año',
     nights_fraction: (n) => `Tu 1/${n} del año`,
     shares_left: (n, d) => (n === 1 ? 'Queda una participación' : `Quedan ${n} de ${d} participaciones`),
     covers_advance: 'Un anticipo mensual fijo a cuenta del presupuesto de la casa — gestión, seguro, mantenimiento y el fondo de reserva. La luz, la calefacción, la limpieza tras cada estancia y la lavandería se facturan aparte, según consumo.',
@@ -64,7 +66,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} par mois`,
     nights_minimum: (n) => `${n} nuits par an, au minimum`,
     nights_fixed: (n) => `${n} nuits par an`,
-    nights_uncapped: 'Pas de plafond de nuits',
+    nights_uncapped: '~45 nuits par an',
     nights_fraction: (n) => `Votre 1/${n} de l’année`,
     shares_left: (n, d) => (n === 1 ? 'Une quote-part restante' : `${n} quotes-parts restantes sur ${d}`),
     covers_advance: 'Une avance mensuelle fixe sur le budget de la maison — gestion, assurance, entretien et fonds de réserve. L’électricité, le chauffage, le ménage après chaque séjour et le linge sont facturés à l’usage, en plus.',
@@ -78,7 +80,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} im Monat`,
     nights_minimum: (n) => `${n} Nächte im Jahr, mindestens`,
     nights_fixed: (n) => `${n} Nächte im Jahr`,
-    nights_uncapped: 'Keine feste Obergrenze an Nächten',
+    nights_uncapped: '~45 Nächte im Jahr',
     nights_fraction: (n) => `Ihr 1/${n} des Jahres`,
     shares_left: (n, d) => (n === 1 ? 'Ein Anteil frei' : `${n} von ${d} Anteilen frei`),
     covers_advance: 'Ein fester monatlicher Vorschuss auf das Budget des Hauses — Verwaltung, Versicherung, Instandhaltung und Rücklage. Strom, Heizung, die Reinigung nach jedem Aufenthalt und Wäsche werden zusätzlich nach Verbrauch abgerechnet.',
@@ -92,7 +94,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} al mese`,
     nights_minimum: (n) => `${n} notti all’anno, come minimo`,
     nights_fixed: (n) => `${n} notti all’anno`,
-    nights_uncapped: 'Nessun limite di notti',
+    nights_uncapped: '~45 notti l’anno',
     nights_fraction: (n) => `Il tuo 1/${n} dell’anno`,
     shares_left: (n, d) => (n === 1 ? 'Resta una quota' : `Restano ${n} quote su ${d}`),
     covers_advance: 'Un anticipo mensile fisso sul bilancio della casa — gestione, assicurazione, manutenzione e fondo di riserva. Elettricità, riscaldamento, pulizia dopo ogni soggiorno e lavanderia sono fatturati a consumo, a parte.',
@@ -106,7 +108,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} per maand`,
     nights_minimum: (n) => `${n} nachten per jaar, minimaal`,
     nights_fixed: (n) => `${n} nachten per jaar`,
-    nights_uncapped: 'Geen vaste limiet op het aantal nachten',
+    nights_uncapped: '~45 nachten per jaar',
     nights_fraction: (n) => `Uw 1/${n} van het jaar`,
     shares_left: (n, d) => (n === 1 ? 'Nog één aandeel' : `Nog ${n} van de ${d} aandelen`),
     covers_advance: 'Een vast maandelijks voorschot op het budget van de woning — beheer, verzekering, onderhoud en de reserve. Elektriciteit, verwarming, de schoonmaak na elk verblijf en was worden apart op gebruik afgerekend.',
@@ -120,7 +122,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} por mês`,
     nights_minimum: (n) => `${n} noites por ano, no mínimo`,
     nights_fixed: (n) => `${n} noites por ano`,
-    nights_uncapped: 'Sem limite de noites',
+    nights_uncapped: '~45 noites por ano',
     nights_fraction: (n) => `A sua 1/${n} parte do ano`,
     shares_left: (n, d) => (n === 1 ? 'Resta uma quota' : `Restam ${n} de ${d} quotas`),
     covers_advance: 'Um adiantamento mensal fixo por conta do orçamento da casa — gestão, seguro, manutenção e o fundo de reserva. Eletricidade, aquecimento, a limpeza após cada estadia e lavandaria são faturados à parte, conforme o uso.',
@@ -134,7 +136,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} i månaden`,
     nights_minimum: (n) => `${n} nätter om året, som lägst`,
     nights_fixed: (n) => `${n} nätter om året`,
-    nights_uncapped: 'Ingen fast gräns för antal nätter',
+    nights_uncapped: '~45 nätter om året',
     nights_fraction: (n) => `Din 1/${n} av året`,
     shares_left: (n, d) => (n === 1 ? 'En andel kvar' : `${n} av ${d} andelar kvar`),
     covers_advance: 'Ett fast månadsförskott mot husets egen budget — förvaltning, försäkring, underhåll och reserven. El, uppvärmning, städning efter varje vistelse och tvätt faktureras separat efter förbrukning.',
@@ -148,7 +150,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} om måneden`,
     nights_minimum: (n) => `${n} nætter om året, som minimum`,
     nights_fixed: (n) => `${n} nætter om året`,
-    nights_uncapped: 'Ingen fast grænse for antal nætter',
+    nights_uncapped: '~45 nætter om året',
     nights_fraction: (n) => `Din 1/${n} af året`,
     shares_left: (n, d) => (n === 1 ? 'Én andel tilbage' : `${n} af ${d} andele tilbage`),
     covers_advance: 'Et fast månedligt acontobeløb mod boligens eget budget — administration, forsikring, vedligehold og henlæggelser. El, varme, rengøring efter hvert ophold og vask afregnes særskilt efter forbrug.',
@@ -162,7 +164,7 @@ const FACTS_COPY = {
     monthly: (m) => `${m} i måneden`,
     nights_minimum: (n) => `${n} netter i året, som et minimum`,
     nights_fixed: (n) => `${n} netter i året`,
-    nights_uncapped: 'Ingen fast grense for antall netter',
+    nights_uncapped: '~45 netter i året',
     nights_fraction: (n) => `Din 1/${n} av året`,
     shares_left: (n, d) => (n === 1 ? 'Én andel igjen' : `${n} av ${d} andeler igjen`),
     covers_advance: 'Et fast månedlig forskudd mot boligens eget budsjett — forvaltning, forsikring, vedlikehold og avsetninger. Strøm, oppvarming, rengjøring etter hvert opphold og vask faktureres separat etter forbruk.',
@@ -199,9 +201,9 @@ const COPY = {
       ['Fully managed', 'Maintenance, cleaning and scheduling are handled for you — just arrive and enjoy.'],
       ['Sell whenever you like', 'Your share is a real asset: sell it at a price you set.'],
     ],
-    missing_photos: (n) => `You're missing ${n} photos`,
-    unlock_sub: 'Unlock once — see every gallery on the site, free',
-    unlock_now: 'Unlock Now →',
+    missing_photos: (n) => `You're missing ${n} ${n === 1 ? 'photo' : 'photos'}`,
+    unlock_sub: 'Unlock once — see every gallery on the site',
+    unlock_now: 'Unlock now',
     unlocked_title: 'Your galleries are unlocked',
     unlocked_sub: (n) => n > 1 ? `View all ${n} photos for this home`
       : n === 1 ? 'View the photo for this home'
@@ -258,7 +260,7 @@ const COPY = {
       ['Vende cuando quieras', 'Tu participación es un activo real: véndela al precio que tú fijes.'],
     ],
     missing_photos: (n) => `Te faltan ${n} fotos`,
-    unlock_sub: 'Desbloquea una vez — ve todas las galerías del sitio, gratis',
+    unlock_sub: 'Desbloquea una vez — ve todas las galerías del sitio',
     unlock_now: 'Desbloquear ahora →',
     unlocked_title: 'Tus galerías están desbloqueadas',
     unlocked_sub: (n) => n > 1 ? `Ver las ${n} fotos de esta vivienda`
@@ -316,7 +318,7 @@ const COPY = {
       ['Revendez quand vous voulez', 'Votre part est un actif réel : revendez-la au prix que vous fixez.'],
     ],
     missing_photos: (n) => `Il vous manque ${n} photos`,
-    unlock_sub: "Débloquez une fois — voyez toutes les galeries du site, gratuit",
+    unlock_sub: "Débloquez une fois — voyez toutes les galeries du site",
     unlock_now: 'Débloquer maintenant →',
     unlocked_title: 'Vos galeries sont débloquées',
     unlocked_sub: (n) => n > 1 ? `Voir les ${n} photos de ce bien`
@@ -374,7 +376,7 @@ const COPY = {
       ['Verkaufen, wann Sie möchten', 'Ihr Anteil ist ein echter Vermögenswert: Verkaufen Sie ihn zum Preis, den Sie festlegen.'],
     ],
     missing_photos: (n) => `Ihnen fehlen ${n} Fotos`,
-    unlock_sub: 'Einmal freischalten — alle Galerien der Website sehen, kostenlos',
+    unlock_sub: 'Einmal freischalten — alle Galerien der Website sehen',
     unlock_now: 'Jetzt freischalten →',
     unlocked_title: 'Ihre Galerien sind freigeschaltet',
     unlocked_sub: (n) => n > 1 ? `Alle ${n} Fotos dieses Objekts ansehen`
@@ -440,7 +442,7 @@ const COPY = {
       ["Può vendere quando vuole", "La sua quota è un bene reale: può venderla al prezzo che stabilisce lei."],
     ],
     missing_photos: (n) => `Ci sono ancora ${n} foto da vedere`,
-    unlock_sub: "Sblocca una volta sola — vedrai tutte le gallerie del sito, gratis",
+    unlock_sub: "Sblocca una volta sola — vedrai tutte le gallerie del sito",
     unlock_now: "Sblocca ora →",
     unlocked_title: "Le sue gallerie sono sbloccate",
     unlocked_sub: (n) => n > 1 ? `Vedi tutte le ${n} foto di questa casa`
@@ -498,7 +500,7 @@ const COPY = {
       ["Verkoop wanneer u wilt", "Uw aandeel is een echt bezit: u verkoopt het tegen een prijs die u zelf bepaalt."],
     ],
     missing_photos: (n) => `U mist ${n} foto's`,
-    unlock_sub: "Eén keer ontgrendelen — bekijk elke galerij op de site, gratis",
+    unlock_sub: "Eén keer ontgrendelen — bekijk elke galerij op de site",
     unlock_now: "Nu ontgrendelen →",
     unlocked_title: "Uw galerijen zijn ontgrendeld",
     unlocked_sub: (n) => n > 1 ? `Bekijk alle ${n} foto's van deze woning`
@@ -556,7 +558,7 @@ const COPY = {
       ["Venda quando quiser", "A sua quota é um ativo real: pode vendê-la pelo preço que definir."],
     ],
     missing_photos: (n) => `Está a perder ${n} fotografias`,
-    unlock_sub: "Desbloqueie uma vez — veja todas as galerias do site, sem custos",
+    unlock_sub: "Desbloqueie uma vez — veja todas as galerias do site",
     unlock_now: "Desbloquear agora →",
     unlocked_title: "As suas galerias estão desbloqueadas",
     unlocked_sub: (n) => n > 1 ? `Veja as ${n} fotografias desta casa`
@@ -747,6 +749,12 @@ export async function getStaticProps({ params }) {
         : (property.total_images || (property.images || []).length),
       dateAdded: property.date_added,
     };
+    // Blurred 2×2 teaser of the gated photos (data URIs, not URLs) — see
+    // lib/lockedPreviews.js. Built before the gated fields are deleted.
+    prop.lockedPreviews = await buildLockedPreviews([
+      ...(Array.isArray(property.photos) ? property.photos : []),
+      ...(Array.isArray(property.extra_photos) ? property.extra_photos : []),
+    ].filter((ph) => !(property.images || []).includes(typeof ph === 'string' ? ph : ph?.url)));
     delete prop.drive_url;
     delete prop.photos;
     delete prop.extra_photos;
@@ -1013,6 +1021,64 @@ const BELL_COPY = {
   no: { title: 'Varsle meg!', sub: 'Få en e-post hvis prisen eller antall tilgjengelige andeler endres — kun for denne boligen.', placeholder: 'Din e-postadresse', btn: 'Varsle meg', done: 'Klart — vi skriver så snart noe endres.', error: 'Noe gikk galt — prøv igjen.', aria: 'Få varsler om denne boligen' },
 };
 
+function ListingStats({ children }) {
+  const ref = useRef(null);
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    const stats = ref.current;
+    const title = stats?.parentElement.querySelector('.pp-title');
+    let userScrolled = false;
+    // Keep the next section below the opening viewport, even on tall phones.
+    // Measure the title rather than the stats so the spacer never feeds back
+    // into its own size. Long titles keep their natural, unclipped height.
+    const measure = () => {
+      if (!stats || !title) return;
+      let titleTop = 0;
+      for (let node = title; node; node = node.offsetParent) titleTop += node.offsetTop;
+      const titleBottom = titleTop + title.offsetHeight;
+      const gap = Math.max(0, window.innerHeight + 16 - titleBottom - 20);
+      stats.style.setProperty('--opening-gap', `${gap}px`);
+    };
+    const reveal = () => {
+      if (userScrolled && window.scrollY > 8 && stats?.getBoundingClientRect().top < window.innerHeight - 24) {
+        setRevealed(true);
+        window.removeEventListener('scroll', reveal);
+      }
+    };
+    const intent = e => {
+      if (document.documentElement.hasAttribute('data-cop-navigating')) return;
+      if (e.type === 'keydown' && !['ArrowDown', 'PageDown', ' '].includes(e.key)) return;
+      userScrolled = true;
+    };
+    measure();
+    reveal();
+    const observer = new ResizeObserver(measure);
+    if (title) observer.observe(title);
+    window.addEventListener('resize', measure);
+    window.addEventListener('scroll', reveal, { passive: true });
+    ['touchmove', 'wheel', 'keydown'].forEach(type => window.addEventListener(type, intent, { passive:true }));
+    return () => { window.removeEventListener('scroll', reveal); window.removeEventListener('resize', measure); observer.disconnect(); ['touchmove', 'wheel', 'keydown'].forEach(type => window.removeEventListener(type, intent)); };
+  }, []);
+  return <div ref={ref} className={`pp-stats${revealed ? ' is-revealed' : ''}`}>{children}</div>;
+}
+
+function ListingShare({ title }) {
+  const [copied, setCopied] = useState(false);
+  async function share(e) {
+    e.stopPropagation();
+    const url = window.location.href.split('#')[0];
+    if (navigator.share) {
+      try { await navigator.share({ title, url }); } catch (_) {}
+      return;
+    }
+    try { await navigator.clipboard.writeText(url); setCopied(true); }
+    catch (_) { window.prompt('Copy this link:', url); }
+  }
+  return <button type="button" className="pp-share-btn" onClick={share} aria-label={copied ? 'Link copied' : 'Share property'} title={copied ? 'Link copied' : 'Share property'}>
+    {copied ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="m5 12 4 4L19 6" /></svg> : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg>}
+  </button>;
+}
+
 function NotifyBell({ slug, locale, title }) {
   const t = BELL_COPY[locale] || BELL_COPY.en;
   const [open, setOpen] = useState(false);
@@ -1040,6 +1106,7 @@ function NotifyBell({ slug, locale, title }) {
       <button
         className={`pp-bell-btn${open ? ' open' : ''}`}
         aria-label={t.aria}
+        aria-expanded={open}
         onClick={() => {
           setOpen(o => !o);
           if (!open) track('property_watch_opened', { property: title, slug, locale });
@@ -1099,16 +1166,32 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
   const [status, setStatus] = useState('idle');
   const set = k => e => setF(prev => ({ ...prev, [k]: e.target.value }));
 
-  /* Tap-to-answer, in place of the free-text box.
-     Of 1,186 property enquiries on record, 21 carried a typed message — 1.8%.
-     The box was therefore asking 98% of people to stare at an empty field and
-     then skip it, while telling the person writing the reply nothing at all.
-     Three taps answer the questions every reply currently has to guess:
-     when, how much, and whether they already understand the model.
-     The free-text box survives behind a disclosure for the 1.8% who use it. */
+  // Keep the high-signal quick answers visible and let people reveal the
+  // lower-use free-text field only when they have something extra to add.
   const [chips, setChips] = useState({});
   const [noteOpen, setNoteOpen] = useState(false);
-  const chipQs = typeof t.eq_chips === 'function' ? t.eq_chips(currencySymbol) : [];
+  const formRef = useRef(null);
+  useEffect(() => {
+    const card = formRef.current?.closest('.pp-form-card');
+    if (!card) return;
+    const measure = () => {
+      // A tall panel scrolls until its bottom is visible, then remains sticky.
+      // CSS keeps it bounded by the detail column above similar properties.
+      const preferredTop = window.innerHeight <= 760 ? 88 : 96;
+      const top = Math.min(preferredTop, window.innerHeight - card.getBoundingClientRect().height - 16);
+      card.style.setProperty('--pp-sticky-top', `${top}px`);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(card);
+    window.addEventListener('resize', measure);
+    measure();
+    return () => { observer.disconnect(); window.removeEventListener('resize', measure); card.style.removeProperty('--pp-sticky-top'); };
+  }, [status, noteOpen]);
+  // Budget is optional: omit the empty "rather not say" choice in every locale.
+  const chipQs = (typeof t.eq_chips === 'function' ? t.eq_chips(currencySymbol) : []).map(c => {
+    if (c.k !== 'budget') return c;
+    return { ...c, o: c.o.filter((_, i) => c.v[i] !== ''), v: c.v.filter(v => v !== '') };
+  });
   const tapChip = (k, v) => setChips(prev => (prev[k] === v ? (() => { const n = { ...prev }; delete n[k]; return n; })() : { ...prev, [k]: v }));
 
   async function submit(e) {
@@ -1174,10 +1257,10 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
   ];
 
   return (
-    <form onSubmit={submit} className="eq-form">
+    <form ref={formRef} onSubmit={submit} className="eq-form">
       <HoneypotField />
       {fields.map(([k, label, type, ph, req]) => (
-        <div key={k} className="eq-field">
+        <div key={k} className={`eq-field eq-field-${k}`}>
           <label>{label}{req ? ' *' : ''}</label>
           <input type={type} placeholder={ph} value={f[k]} onChange={set(k)} required={req} />
         </div>
@@ -1186,28 +1269,28 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
         <div key={c.k} className="eq-chips">
           <span className="eq-chips-q">{c.q}</span>
           <div className="eq-chips-row">
-            {c.o.map(opt => (
-              <button
-                type="button"
-                key={opt}
-                className={'eq-chip' + (chips[c.k] === opt ? ' is-on' : '')}
-                aria-pressed={chips[c.k] === opt}
-                onClick={() => tapChip(c.k, opt)}
-              >{opt}</button>
-            ))}
+            {c.o.map(opt => <button type="button" key={opt}
+              className={'eq-chip' + (chips[c.k] === opt ? ' is-on' : '')}
+              aria-pressed={chips[c.k] === opt} onClick={() => tapChip(c.k, opt)}>
+              <span className="eq-choice-check" aria-hidden="true">{chips[c.k] === opt ? '✓' : ''}</span>{opt}
+            </button>)}
           </div>
         </div>
       ))}
 
       {noteOpen ? (
-        <div className="eq-field">
-          <label>{t.eq_msg}</label>
-          <textarea rows={3} placeholder={t.eq_msg_ph} value={f.message} onChange={set('message')} autoFocus />
+        <div className="eq-field eq-field-message">
+          <label htmlFor="property-enquiry-message">{locale === 'en' || !locale ? 'Message (optional)' : t.eq_msg}</label>
+          <textarea id="property-enquiry-message" rows={2} placeholder={t.eq_msg_ph} value={f.message} onChange={set('message')} autoFocus />
         </div>
       ) : (
-        <button type="button" className="eq-note-add" onClick={() => setNoteOpen(true)}>
-          {t.eq_note_add || t.eq_msg}
-        </button>
+        <button
+          type="button"
+          className="eq-note-add"
+          aria-expanded="false"
+          aria-controls="property-enquiry-message"
+          onClick={() => setNoteOpen(true)}
+        >{t.eq_note_add}</button>
       )}
       <button type="submit" className="eq-submit" disabled={status === 'sending'}>
         {status === 'sending' ? t.eq_sending : t.eq_send}
@@ -1269,6 +1352,43 @@ function StickyEnquiryBar({ priceLabel, shareLabel, ctaLabel, onTap }) {
 /* ── Main page ── */
 export default function PropertyPage({ property: p0, similar, showEnhancedSections = false, facts = null, forceLocale = null, hreflangLocales = null }) {
   const router = useRouter();
+  const scrollCleanup = useRef(null);
+  useEffect(() => () => scrollCleanup.current?.(), []);
+  function scrollToSection(event) {
+    const anchor = event.target.closest('a[href^="#"]');
+    if (!anchor || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = document.getElementById(anchor.hash.slice(1));
+    if (!target) return;
+    event.preventDefault();
+    scrollCleanup.current?.();
+    window.history.pushState(null, '', anchor.hash);
+    const start = window.scrollY;
+    const destination = Math.max(0, Math.min(target.getBoundingClientRect().top + start - 110, document.documentElement.scrollHeight - window.innerHeight));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo({ top:destination, behavior:'instant' });
+      return;
+    }
+    let frame;
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchstart', stop);
+      window.removeEventListener('keydown', stop);
+      scrollCleanup.current = null;
+    };
+    const started = performance.now();
+    const tick = now => {
+      const progress = Math.min(1, (now - started) / 1100);
+      window.scrollTo({ top:start + (destination - start) * (1 - Math.cos(Math.PI * progress)) / 2, behavior:'instant' });
+      if (progress < 1) frame = requestAnimationFrame(tick);
+      else stop();
+    };
+    window.addEventListener('wheel', stop, { passive:true });
+    window.addEventListener('touchstart', stop, { passive:true });
+    window.addEventListener('keydown', stop);
+    scrollCleanup.current = stop;
+    frame = requestAnimationFrame(tick);
+  }
   // Discreet-sale homes: the static props carry a stripped row; once the
   // visitor has enquired the full listing is fetched and merged in here.
   const [fullListing, setFullListing] = useState(null);
@@ -1387,6 +1507,11 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
 
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.img || p.images?.[0] || '/images/placeholder.jpg';
+  // Blurred strip of the photos behind the gate. Floor plans, site plans and
+  // maps are skipped (filename heuristic); if fewer than three real photos
+  // remain, the single blurred hero is used instead.
+  const lockedPreviews = Array.isArray(p.lockedPreviews) ? p.lockedPreviews : [];
+  const useStrip = !unlocked && lockedPreviews.length >= 3;
   const galleryTotal = p.galleryTotal || p.total_images || p.images.length;
   const missingCount = galleryTotal;
   const descParas = local.description ? local.description.split('\n').filter(Boolean) : [];
@@ -1590,7 +1715,8 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
         }) }} />
       </Head>
 
-      <Header />
+      <div className={`rd ${s.page}`} onClick={scrollToSection}>
+      <Nav propertyHero ctaHref="#property-enquiry" />
 
       {discreetLocked ? (
         /* ── Discreet sale, locked: one photograph + unlock the full listing ── */
@@ -1618,6 +1744,8 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           }
         </button>
+        <ListingShare title={local.title} />
+        {!String(p.status || '').toLowerCase().includes('sold') && <NotifyBell slug={p.slug} locale={locale} title={local.title} />}
         <div className="pp-mob-track" style={{ transform: `translateX(${-mobileSlide * 100}%)` }}>
           {mobileSlides.map((slide, i) =>
             slide.type === 'img' ? (
@@ -1645,17 +1773,18 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                   <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
                 </svg>
                 <span className="pp-mob-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
-                <span className="pp-mob-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : t.unlock_sub}</span>
+                <span className="pp-mob-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : (t.gallery_count ? t.gallery_count(missingCount) : t.unlock_sub)}</span>
                 <span className="pp-mob-lock-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
+                {!unlocked && t.gallery_access && <span className="pp-gallery-access">{t.gallery_access}</span>}
               </div>
             )
           )}
         </div>
         {mobileSlide > 0 && (
-          <button className="pp-mob-arrow pp-mob-prev" onClick={() => setMobileSlide(s => s - 1)}>&#8249;</button>
+          <button className="pp-mob-arrow pp-mob-prev" aria-label="Previous photo" onClick={() => setMobileSlide(s => s - 1)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
         )}
         {mobileSlide < mobileSlides.length - 1 && (
-          <button className="pp-mob-arrow pp-mob-next" onClick={() => setMobileSlide(s => s + 1)}>&#8250;</button>
+          <button className="pp-mob-arrow pp-mob-next" aria-label="Next photo" onClick={() => setMobileSlide(s => s + 1)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         )}
         <div className="pp-mob-dots">
           {mobileSlides.map((_, i) => (
@@ -1666,6 +1795,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
 
       {/* ── Desktop gallery ── */}
       <div className="pp-gallery">
+        <ListingShare title={local.title} />
         {!String(p.status || '').toLowerCase().includes('sold') && (
           <NotifyBell slug={p.slug} locale={locale} title={local.title} />
         )}
@@ -1685,13 +1815,16 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           {p.images[2] ? <Img src={p.images[2]} alt={`${local.title} 3`} sizes="(max-width: 960px) 33vw, 25vw" /> : <div className="pp-gallery-blank" />}
         </div>
         <div className="pp-gallery-lock" onClick={() => unlocked ? viewGallery() : setShowUnlock(true)}>
-          <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
+          {useStrip
+            ? <div className="pp-lock-strip" aria-hidden="true">{lockedPreviews.map((u, i) => <div key={i} className="pp-lock-strip-cell" style={{ backgroundImage: `url('${u}')` }} />)}</div>
+            : <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />}
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
           </svg>
           <span className="pp-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
-          <span className="pp-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : t.unlock_sub}</span>
+          <span className="pp-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : (t.gallery_count ? t.gallery_count(missingCount) : t.unlock_sub)}</span>
           <span className="pp-lock-cta-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
+                {!unlocked && t.gallery_access && <span className="pp-gallery-access">{t.gallery_access}</span>}
         </div>
       </div>
       </>)}
@@ -1704,7 +1837,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
         {local.amenities.length > 0 && <a href="#amenities" className="pp-tab">{t.tab_amenities}</a>}
         {(p.lat || p.city) && <a href="#location" className="pp-tab">{t.tab_location}</a>}
         <a href="#co-ownership" className="pp-tab">{t.tab_coown}</a>
-        {facts?.mortgage && Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
+        {showEnhancedSections && Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
       </nav>
       )}
 
@@ -1739,7 +1872,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
 
           <h1 className="pp-title">{local.title}</h1>
 
-          <div className="pp-stats">
+          <ListingStats key={p.slug}>
             {p.beds > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.beds}</span><span className="pp-stat-lbl">{t.bedrooms}</span></div>}
             {p.baths > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.baths}</span><span className="pp-stat-lbl">{t.bathrooms}</span></div>}
             {p.size > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.size} m²</span><span className="pp-stat-lbl">{t.total_size}</span></div>}
@@ -1755,9 +1888,13 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                 which are floors. Removed 17 Sep 2026; an empty slot is better
                 than an invented one. */}
             {usageText
-              ? <div className="pp-stat"><span className="pp-stat-val pp-stat-val-sm">{usageText}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
+              ? <div className="pp-stat" aria-label={usageText}>{locale === 'en' && facts?.usage?.nights && ['minimum', 'fixed'].includes(facts.usage.kind)
+                ? <><span className="pp-stat-val">{facts.usage.nights}</span><span className="pp-stat-lbl">Nights / year{facts.usage.kind === 'minimum' ? ' · minimum' : ''}</span></>
+                : facts?.usage?.kind === 'uncapped'
+                  ? <><span className="pp-stat-val">~45</span><span className="pp-stat-lbl">{({ en:'Nights / year', es:'Noches / año', fr:'Nuits / an', de:'Nächte / Jahr', it:'Notti / anno', nl:'Nachten / jaar', pt:'Noites / ano', sv:'Nätter / år', da:'Nætter / år', no:'Netter / år' })[locale] || 'Nights / year'}</span></>
+                  : <><span className="pp-stat-val pp-stat-val-sm">{usageText}</span><span className="pp-stat-lbl">{t.per_year}</span></>}</div>
               : null}
-            <div className="pp-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
+            <div className="pp-stat pp-share-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
             <a
               href="#property-enquiry"
               className="pp-stat pp-contact-stat"
@@ -1766,9 +1903,13 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
               <span className="pp-stat-val pp-contact-stat-val">{t.contact_cta}</span>
               <span className="pp-stat-lbl">{t.contact_sub}</span>
             </a>
-          </div>
+          </ListingStats>
 
           {/* Micro-commitment capture: track a live home / waitlist on a sold one */}
+          <a className="pp-mobile-contact" href="#property-enquiry"
+            onClick={() => track('property_contact_cta_click', { property: local.title, slug: p.slug, locale })}>
+            <span>{({ en: "I'm interested", es: 'Me interesa', fr: 'Ce bien m’intéresse', de: 'Ich bin interessiert', it: 'Sono interessato', nl: 'Ik ben geïnteresseerd', pt: 'Tenho interesse' })[locale] || "I'm interested"}</span>
+          </a>
           <PropertyWatch
             slug={p.slug}
             region={p.region || p.country}
@@ -1822,26 +1963,6 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                  answers we give a buyer once they are talking to us, not
                  figures to publish beside the price. The usage figure stays,
                  because the alternative was the invented ~365/n. ── */}
-          {facts && usageText && !discreetLocked && (
-            <div className="pp-numbers" id="the-numbers">
-              <h2 className="pp-heading">{ft.heading}</h2>
-              <div className="pp-num-rows">
-                {p.price > 0 && (
-                  <div className="pp-num-row">
-                    <span className="pp-num-lbl">{ft.share(facts.denom)}</span>
-                    <span className="pp-num-val">{fmt(p.price, p.currency || 'EUR', localeNumberFmt)}</span>
-                  </div>
-                )}
-                {usageText && (
-                  <div className="pp-num-row">
-                    <span className="pp-num-lbl">{ft.time}</span>
-                    <span className="pp-num-val">{usageText}</span>
-                  </div>
-                )}
-              </div>
-              <p className="pp-num-ask">{ft.ask}</p>
-            </div>
-          )}
 
           {/* ── Look inside: gallery + 3D tour request (no tour is ever
                  embedded or linked — the team sends it by email).
@@ -1892,11 +2013,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
               <p className="pp-location-text"><LocationTrail items={locationTrail} separator=", " /></p>
               {p.lat && p.lng && (
                 <div className="pp-map-wrap">
-                  <iframe
-                    title="Property location"
-                    src={`https://www.google.com/maps?q=${encodeURIComponent(`${p.lat},${p.lng}`)}&z=13&output=embed`}
-                    width="100%" height="280" style={{ border: 0, display: 'block' }} loading="lazy" allowFullScreen
-                  />
+                  <PropertyMap lat={p.lat} lng={p.lng} />
                 </div>
               )}
             </div>
@@ -1908,6 +2025,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                  what the fact table knows rather than 365 divided by eight. ── */}
           {(showEnhancedSections || usageText) && (
           <div className="pp-coown" id="co-ownership">
+            <a className="pp-mobile-how-link" href="/how-it-works/">{t.coown_heading} <span aria-hidden="true">→</span></a>
             <h2 className="pp-heading">{t.coown_heading}</h2>
             <ul className="pp-coown-list">
               {t.coown_points(p.share_denominator || 8, Math.floor(365 / (p.share_denominator || 8)))
@@ -1934,15 +2052,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
 
           {/* ── Financing calculator — COP's own widget, generic maths, no
                  partner claims. Pacaso listings only. ── */}
-          {/* ── Financing ──
-                 The calculator asks for a down payment and an interest rate,
-                 so it only belongs where mortgage-style financing actually
-                 exists: MYNE's partner banks, Pacaso to 70% LTV, &Hamlet
-                 through Nordea. Vivla's facility is secured on an investment
-                 portfolio and Abitaro's is ten interest-free instalments —
-                 a mortgage calculator would misdescribe both — and Paris
-                 shares are cash purchases. ── */}
-          {facts?.mortgage && Number(p.price) > 0 && (
+          {showEnhancedSections && Number(p.price) > 0 && (
             <div className="pp-financing" id="financing">
               <FinancingCalculator
                 sharePrice={Number(p.price)}
@@ -1957,9 +2067,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
 
         <div className="pp-right" id="property-enquiry">
           <div className="pp-form-card">
-            <p className="pp-form-eye">{t.form_eye}</p>
             <h3 className="pp-form-title">{t.form_title}</h3>
-            <p className="pp-form-sub">{t.form_sub}</p>
             <EnquiryForm propertySlug={p.slug} propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} currencySymbol={(cx && CURRENCY_SYMBOLS[cx.currency]) || CURRENCY_SYMBOLS[p.currency || 'EUR'] || '\u20ac'} />
           </div>
         </div>
@@ -2019,8 +2127,9 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                   <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
                 </svg>
                 <span className="pp-lb-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
-                <span className="pp-lb-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : t.unlock_sub}</span>
+                <span className="pp-lb-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : (t.gallery_count ? t.gallery_count(missingCount) : t.unlock_sub)}</span>
                 <span className="pp-lb-lock-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
+                {!unlocked && t.gallery_access && <span className="pp-gallery-access">{t.gallery_access}</span>}
               </div>
             ) : (
               <img src={lbImages[lightbox]} alt={local.title} onClick={e => e.stopPropagation()} />
@@ -2061,8 +2170,8 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
         onTap={() => track('property_stickybar_click', { property: local.title, slug: p.slug, locale })}
       />
 
-      <Newsletter />
       <Footer />
+      </div>
     </>
   );
 }

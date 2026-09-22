@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import useModalFocus from '@/components/useModalFocus';
 import { useRouter } from 'next/router';
 import { trackConversion } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
@@ -288,6 +289,7 @@ function slugFromPropertyUrl(url) {
 }
 
 export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, propertyCountry, onClose }) {
+  const overlayRef = useModalFocus(onClose);
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
@@ -425,9 +427,9 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
   const [dymBefore, dymAfter] = t.did_you_mean.split('{s}');
 
   return (
-    <div className="ul-overlay" onClick={onClose}>
-      <div className="ul-modal" onClick={e => e.stopPropagation()}>
-        <button className="ul-close" onClick={onClose}>×</button>
+    <div ref={overlayRef} className="ul-overlay" onClick={onClose}>
+      <div className="ul-modal" role="dialog" aria-modal="true" aria-label={t.heading} onClick={e => e.stopPropagation()}>
+        <button type="button" className="ul-close" aria-label={{en:'Close',fr:'Fermer',de:'Schließen',es:'Cerrar',it:'Chiudi'}[locale] || 'Close'} onClick={onClose}>×</button>
         {status === 'done' ? (
           <div className="ul-success">
             <div className="ul-tick">✓</div>
@@ -441,7 +443,7 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
             <p className="ul-eye">{t.eyebrow}</p>
             <h3>{t.heading}</h3>
             <p className="ul-sub">{t.oneclick_continue} <strong style={{ color: '#143047' }}>{email}</strong></p>
-            <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#C9A84C', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
+            <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#111111', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
             {/* The way out for somebody who has already done this once on
                 another device — the whole reason /signin exists. */}
             <p style={{ margin: '-8px 0 14px', fontSize: '.78rem', fontFamily: "'Nunito Sans',sans-serif" }}>
@@ -470,7 +472,7 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
             <p className="ul-eye">{t.eyebrow}</p>
             <h3>{t.heading}</h3>
             <p className="ul-sub">{t.sub}</p>
-            <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#C9A84C', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
+            <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#111111', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
             <form onSubmit={submitForm} className="ul-form">
               <HoneypotField />
               <input type="text" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />
@@ -499,7 +501,7 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
                   onClick={acceptSuggestion}
                   style={{
                     fontFamily: "'Nunito Sans',sans-serif", fontSize: '.85rem',
-                    color: '#143047', background: '#FAF6EC', border: '1px solid #C9A84C',
+                    color: '#143047', background: '#f4f4f4', border: '1px solid #111111',
                     borderRadius: 20, padding: '8px 14px', cursor: 'pointer',
                     textAlign: 'left', alignSelf: 'flex-start',
                   }}

@@ -1,3 +1,5 @@
+import PublicArticleBody from '@/components/PublicArticleBody';
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * components/ComparePageRenderer.js
  *
@@ -140,7 +142,7 @@ export default function ComparePageRenderer({ locale, slug, entry, body, faqs, w
       <Header />
 
       <article className="compare-page">
-        <section className="compare-hero">
+        <PublicPageHeader>
           <p className="compare-eyebrow">{ui[sec.eyebrow]}</p>
           <h1 className="compare-h1">{entry.h1}</h1>
           {entry.subtitle && <p className="compare-subtitle">{entry.subtitle}</p>}
@@ -151,11 +153,11 @@ export default function ComparePageRenderer({ locale, slug, entry, body, faqs, w
             <span className="compare-date-inline">{ui.updatedPrefix} {new Date(entry.dateModified).toLocaleDateString(ui.dateLocale, { day: 'numeric', month: 'long', year: 'numeric' })}</span>
             <span className="compare-wc-inline">{Math.round(wordCount / 100) * 100} {ui.wordsLabel} · {Math.ceil(wordCount / 230)} {ui.minReadLabel}</span>
           </p>
-        </section>
+        </PublicPageHeader>
 
-        <section className="compare-body">
+        <PublicArticleBody>
           <div className="compare-body-inner" dangerouslySetInnerHTML={{ __html: body }} />
-        </section>
+        </PublicArticleBody>
       </article>
 
       <Newsletter />

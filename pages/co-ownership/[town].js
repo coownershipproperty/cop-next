@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -431,7 +431,7 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
 
 
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>{`${t.title(town)} — Fractional Ownership ${locale === 'en' ? `from ${from || ''}` : from || ''} | COP`}</title>
         <meta name="description" content={t.sub(homes.length, from, town)} />
@@ -450,7 +450,7 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }} />
       </Head>
-      <Header />
+      <Nav />
 
       <section className="page-hero">
         <span className="page-hero-eyebrow">{t.eyebrow([region, country].filter(Boolean).join(', '))}</span>
@@ -507,12 +507,7 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
           )}
 
           <div className="town-faq">
-            {faqs.map((f, i) => (
-              <details key={i}>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
+            <PublicFaq items={faqs} />
           </div>
 
           <div className="town-cta">
@@ -525,6 +520,7 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
       <Newsletter />
       <ExpertForm />
       <Footer />
-    </>
+    </div>
   );
 }
+import PublicFaq from '@/components/PublicFaq';

@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
+import s from '@/styles/blog-index.module.css';
+import { localeFromPath, localeColumns, pickLocalized, routePath } from '@/lib/i18n';
 
 export async function getStaticProps() {
   const supabase = createClient(
@@ -62,16 +63,30 @@ export async function getStaticProps() {
 
 // Locale-specific UI strings — the page can be served at /all-our-blog,
 // /es/blog or /fr/blog and detects which from the URL path.
+const LOAD_MORE = {
+  en: n => `Load more (${n} remaining)`,
+  es: n => `Ver más (${n} restantes)`,
+  fr: n => `Voir plus (${n} restants)`,
+  de: n => `Weitere anzeigen (noch ${n})`,
+  it: n => `Mostra altri (ne restano ${n})`,
+  nl: n => `Meer laden (nog ${n})`,
+  pt: n => `Ver mais (faltam ${n})`,
+  sv: n => `Visa fler (${n} kvar)`,
+  da: n => `Vis flere (${n} tilbage)`,
+  no: n => `Vis flere (${n} igjen)`,
+};
+const ARTICLE_BATCH = 9;
+
 const COPY = {
   en: {
     title_tag: 'Our Blog | Co-Ownership Property',
     meta_desc: 'Insights, guides, and market intelligence on luxury fractional ownership, co-ownership properties, and the second-home market across Europe and the USA.',
     og_title: 'Co-Ownership Property Blog — Fractional Ownership Insights',
-    og_desc: 'Destination guides, market analysis, and ownership stories for the discerning fractional buyer. Published daily.',
+    og_desc: 'Destination guides, market analysis, and practical advice for your next second home.',
     eyebrow: 'Insights & Guides',
     h1_a: 'Our',
     h1_b: 'Blog',
-    sub: 'Market intelligence, buyer guides, and destination insights for smart second-home owners.',
+    sub: 'News, insights and ideas on property co-ownership.',
     topics_label: 'Topics',
     article_singular: 'article',
     article_plural: 'articles',
@@ -251,11 +266,13 @@ export default function AllOurBlog({ posts }) {
   const categoryMap = useMemo(() => buildCategoryMap(t.categories), [t.categories]);
   const ALL_LABEL = t.categories[0];
   const [activeCategory, setActiveCategory] = useState(ALL_LABEL);
+  const [visibleCount, setVisibleCount] = useState(ARTICLE_BATCH);
 
   // Re-pick the per-post displayed title/excerpt for the current locale,
   // falling back to the English original when no translation exists.
   const localizedPosts = useMemo(() => posts.map(p => ({
     ...p,
+    category: p.category === 'Choose one of the newest listings for a presentation' ? 'Properties & Destinations' : p.category,
     displayTitle:   p[`title_${locale}`]   || p.title,
     displayExcerpt: p[`excerpt_${locale}`] || p.excerpt,
   })), [posts, locale]);
@@ -267,9 +284,17 @@ export default function AllOurBlog({ posts }) {
   }, [localizedPosts, activeCategory, ALL_LABEL, categoryMap]);
 
   const canonicalPath = locale === 'en' ? '/all-our-blog/' : `/${locale}/blog/`;
+  const featured = filtered[0];
+  const articles = filtered.slice(1);
+  const visibleArticles = articles.slice(0, visibleCount);
+  const remaining = Math.max(0, articles.length - visibleCount);
+  const categoryLabel = category => {
+    const index = COPY.en.categories.indexOf(category);
+    return index < 0 ? category : t.categories[index];
+  };
 
   return (
-    <>
+    <div className={`rd rd-home-light rd-blog ${s.page}`}>
       <Head>
         <title>{t.title_tag}</title>
         {hreflangLinks({ englishPath: '/all-our-blog' })}
@@ -284,24 +309,27 @@ export default function AllOurBlog({ posts }) {
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Header />
+      <Nav ctaHref={routePath(locale, 'contact')} />
+      <main className={s.main}>
 
       {/* Hero */}
-      <section className="page-hero">
-        <span className="page-hero-eyebrow">{t.eyebrow}</span>
-        <h1>{t.h1_a} <em>{t.h1_b}</em></h1>
-        <p className="page-hero-sub">{t.sub}</p>
+      <section className={`${s.hero} rd-container`} data-rv>
+        <p className={s.kicker}>{t.eyebrow}</p>
+        <div className={s.heroRow}><h1>{t.h1_a} {t.h1_b}<span>.</span></h1>
+        <p>{t.sub}</p></div>
       </section>
 
       {/* Category Filter */}
-      <div className="cat-bar">
-        <div className="cat-bar-inner">
-          <span className="cat-label">{t.topics_label}</span>
+      <div className={`${s.filters} rd-container`} role="group" aria-label={t.topics_label}>
+          <span className={s.kicker}>{t.topics_label}</span>
+          <div className={s.filterButtons}>
           {t.categories.map(cat => (
             <button
               key={cat}
-              className={`cat-btn${activeCategory === cat ? ' active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
+              type="button"
+              aria-pressed={activeCategory === cat}
+              className={activeCategory === cat ? s.active : ''}
+              onClick={() => { setActiveCategory(cat); setVisibleCount(ARTICLE_BATCH); }}
             >
               {cat}
             </button>
@@ -310,37 +338,48 @@ export default function AllOurBlog({ posts }) {
       </div>
 
       {/* Blog Grid */}
-      <section className="blog-sec">
-        <div className="blog-inner">
-          <p className="blog-count">
+      <section className={`${s.articles} rd-container`} aria-label={t.eyebrow}>
+          <p className={s.count} role="status">
             <strong>{filtered.length}</strong>{' '}
             {filtered.length === 1 ? t.article_singular : t.article_plural}
             {activeCategory !== ALL_LABEL && t.in_category(activeCategory)}
           </p>
-          <div className="blog-grid">
-            {filtered.map(post => (
-              <a key={post.slug} href={`${t.blog_path_prefix}/${post.slug}/`} className="blog-card">
-                <div className="blog-thumb">
+          {featured && <a key={featured.slug} className={s.featured} data-rv href={`${t.blog_path_prefix}/${featured.slug}/`}>
+            <div className={s.featuredImage}>{featured.heroImage ? <Image src={featured.heroImage} alt="" fill priority sizes="(max-width: 760px) 100vw, 60vw" style={{objectFit:'cover'}} /> : <div className={s.placeholder} />}</div>
+            <div className={s.featuredCopy}><p className={s.kicker}>{categoryLabel(featured.category)}</p><h2>{featured.displayTitle}</h2>{featured.displayExcerpt && <p className={s.excerpt}>{featured.displayExcerpt}</p>}<time dateTime={featured.date}>{featured.dateFormatted}</time><span className={s.read}>{t.read_article}</span></div>
+          </a>}
+          <div className={s.grid} id="blog-articles">
+            {visibleArticles.map((post, index) => (
+              <a key={post.slug} href={`${t.blog_path_prefix}/${post.slug}/`} className={s.card} data-rv={String((index % 3) + 1)}>
+                <div className={s.thumb}>
                   {post.heroImage
                     ? <Image src={post.heroImage} alt={post.displayTitle} fill quality={90} style={{objectFit:"cover"}} loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-                    : <div className="blog-thumb-placeholder" />
+                    : <div className={s.placeholder} />
                   }
                 </div>
-                <div className="blog-body">
-                  <span className="blog-cat">{post.category}</span>
-                  <h3 className="blog-title">{post.displayTitle}</h3>
-                  <span className="blog-meta">{post.dateFormatted}</span>
-                  <span className="blog-read">{t.read_article}</span>
+                <div className={s.cardBody}>
+                  <span className={s.kicker}>{categoryLabel(post.category)}</span>
+                  <h2>{post.displayTitle}</h2>
+                  <time dateTime={post.date}>{post.dateFormatted}</time>
+                  <span className={s.read}>{t.read_article}</span>
                 </div>
               </a>
             ))}
           </div>
-        </div>
+          {remaining > 0 && <div className={s.loadMoreWrap}>
+            <button type="button" className={s.loadMore} aria-controls="blog-articles" onClick={() => setVisibleCount(count => count + ARTICLE_BATCH)}>
+              {(LOAD_MORE[locale] || LOAD_MORE.en)(remaining)}
+            </button>
+          </div>}
       </section>
-
-      <Newsletter />
-      <ExpertForm />
+      <section className={`rd-section rd-collection-closing ${s.newsletter}`} aria-label="Newsletter">
+        <div className="rd-container"><div className="rd-news" data-rv><div className="rd-news-body"><Newsletter editorial /></div></div></div>
+      </section>
+      <section className="rd-section rd-collection-closing" id="enquire" aria-label="Enquiry" style={{ scrollMarginTop: 110 }}>
+        <div className="rd-container rd-enquiry-editorial" data-rv><ExpertForm /></div>
+      </section>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

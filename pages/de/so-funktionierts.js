@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -28,11 +29,11 @@ export default function SoFunktionierts() {
       </Head>
       <Header />
 {/* ===== HERO ===== */}
-    <section className="page-hero">
+    <PublicPageHeader>
         <p className="eyebrow">Co-Ownership erklärt</p>
         <h1>So <em>funktioniert's</em></h1>
         <p className="subtitle">Besitzen Sie einen Anteil an einer luxuriösen Ferienimmobilie. Nutzen Sie sie wochenlang im Jahr. Teilen Sie alle Kosten. Behalten Sie jede Erinnerung.</p>
-    </section>
+    </PublicPageHeader>
 
     {/* ===== AS FEATURED IN (carousel from homepage) ===== */}
     <div className="press-bar" role="region" aria-label="Bekannt aus">

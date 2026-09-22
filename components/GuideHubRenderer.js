@@ -1,3 +1,5 @@
+import PublicArticleBody from '@/components/PublicArticleBody';
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * components/GuideHubRenderer.js — the buyer-guide hub in any language.
  * Counts and subtitles come from that locale's guides-meta file, so the hub
@@ -78,13 +80,13 @@ export default function GuideHubRenderer({ locale, items, altLocales }) {
       <Header />
 
       <article className="compare-page">
-        <section className="compare-hero">
+        <PublicPageHeader>
           <p className="compare-eyebrow">{copy.eyebrow}</p>
           <h1 className="compare-h1">{copy.h1}</h1>
           <p className="compare-subtitle">{copy.subtitle}</p>
-        </section>
+        </PublicPageHeader>
 
-        <section className="compare-body">
+        <PublicArticleBody>
           <div className="compare-body-inner">
             <section className="cmp-group">
               <h2>{copy.marketsHeading}</h2>
@@ -107,13 +109,10 @@ export default function GuideHubRenderer({ locale, items, altLocales }) {
             </section>
 
             <section className="cmp-group">
-              <h2>{copy.operatorHeading}</h2>
-              <p>{copy.operatorBody}</p>
-              <p><Link href={`${comparePath}/which-co-ownership-operator/`}>{copy.operatorLink} &rarr;</Link></p>
               <p><Link href={HOMES_PATH[locale] || '/our-homes/'}>{copy.homesLink} &rarr;</Link></p>
             </section>
           </div>
-        </section>
+        </PublicArticleBody>
       </article>
 
       <Newsletter />

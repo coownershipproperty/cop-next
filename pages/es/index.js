@@ -1,3 +1,4 @@
+import ClientRouter from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
 import Image from 'next/image';
@@ -212,7 +213,7 @@ function PropCarousel({ items, propertyCount }) {
                 className={`pc-card${isActive ? ' pc-active' : ''}`}
                 onClick={() => {
                   if (isActive) {
-                    window.location.href = `/property/${p.slug}`;
+                    ClientRouter.push(`/property/${p.slug}`);
                   } else {
                     snapping.current = false;
                     setPos(i);
@@ -622,7 +623,7 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
 
         <div className="latest-posts-grid">
           {latestPosts.map(post => (
-            <article key={post.slug} className="lp-card" onClick={() => { window.location=`/blog/${post.slug}/`; }}>
+            <article key={post.slug} className="lp-card" onClick={() => { ClientRouter.push(`/blog/${post.slug}/`); }}>
               <div className="lp-image-wrap">
                 {post.heroImage && (
                   <Image src={post.heroImage} alt={post.title} fill className="lp-image" style={{objectFit:'cover'}} loading="lazy" sizes="(max-width: 768px) 100vw, 400px" />

@@ -1,340 +1,154 @@
 import Head from 'next/head';
-import hreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
-import Script from 'next/script';
-import Header from '@/components/Header';
+import { useEffect, useRef } from 'react';
+import hreflangLinks from '@/components/HreflangLinks';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
-import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
+import Newsletter from '@/components/Newsletter';
+import s from '@/styles/about-us.module.css';
 
+const DAVID = '/wp-content/uploads/2025/11/unnamed-4-1.jpg';
+const DYLAN = '/wp-content/uploads/2025/12/1761762811297.jpg';
+const BASE = 'https://co-ownership-property.com';
+const QUOTE = "The clients I had worked with for years still wanted to buy — they just couldn't afford to anymore. They were simply priced out.";
+const STEPS = [
+  ['Tell us what you have in mind.', 'A destination you love, the time you want to spend there, your budget. You do not need to have everything worked out.'],
+  ['Speak to a person. See the figures.', 'We reply within one working day with real availability and the figures for the homes that fit. If a home does not suit your plans, we say so.'],
+  ['Meet the team behind the home.', 'We introduce you to the people who manage the property, so you can ask about the home, the ownership and how your stays will work.'],
+  ['We stay in the loop.', 'From the first conversation through to your purchase, we stay involved and help you get the answers you need.'],
+];
+// Only add genuine buyer quotes with permission to publish their name and words.
+// An empty list deliberately renders no section or placeholder space.
+const BUYER_QUOTES = [];
+const schema = {
+  '@context': 'https://schema.org', '@graph': [
+    { '@type': 'AboutPage', '@id': `${BASE}/about-us/#webpage`, url: `${BASE}/about-us/`, name: 'About Us | Co-Ownership Property', about: { '@id': `${BASE}/#organization` }, mainEntity: [{ '@id': `${BASE}/about-us/#david-olsson` }, { '@id': `${BASE}/about-us/#dylan-olsson` }] },
+    { '@type': 'Person', '@id': `${BASE}/about-us/#david-olsson`, name: 'David Olsson', jobTitle: 'Founder', image: BASE + DAVID, worksFor: { '@id': `${BASE}/#organization` } },
+    { '@type': 'Person', '@id': `${BASE}/about-us/#dylan-olsson`, name: 'Dylan Olsson', jobTitle: 'Co-founder & Head of Sales', image: BASE + DYLAN, worksFor: { '@id': `${BASE}/#organization` } },
+    { '@type': 'Organization', '@id': `${BASE}/#organization`, name: 'Co-Ownership Property', alternateName: 'COP', legalName: 'PREMPROPERTY SL', taxID: 'B93358489', vatID: 'ESB93358489', foundingDate: '2022', url: BASE, founder: [{ '@id': `${BASE}/about-us/#david-olsson` }, { '@id': `${BASE}/about-us/#dylan-olsson` }], description: 'Founded by David Olsson and his son, Dylan, in 2022, Co-Ownership Property helps buyers find and understand their second-home co-ownership options.', contactPoint: { '@type': 'ContactPoint', email: 'info@co-ownership-property.com', contactType: 'customer service' }, sameAs: ['https://www.linkedin.com/company/co-ownership-property'] },
+    { '@type': 'WebSite', '@id': `${BASE}/#website`, url: BASE, name: 'Co-Ownership Property', publisher: { '@id': `${BASE}/#organization` } },
+    { '@type': 'Quotation', '@id': `${BASE}/about-us/#david-quote-priced-out`, text: QUOTE, creator: { '@id': `${BASE}/about-us/#david-olsson` } },
+  ],
+};
 
 export default function AboutUs() {
-  return (
-    <>
-      <Head>
-        <title>About Us | Co-Ownership Property</title>
-        {hreflangLinks({ englishPath: '/about-us' })}
-        <meta name="description" content="Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson, we help smart buyers access luxury second homes through fractional co-ownership." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://co-ownership-property.com/about-us/" />
-        <meta property="og:title" content="About Us | Co-Ownership Property" />
-        <meta property="og:description" content="Meet the team behind Co-Ownership Property. We help smart buyers access luxury second homes through fractional co-ownership." />
-        <meta property="og:url" content="https://co-ownership-property.com/about-us/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        {/* ── Schema.org entity graph ─────────────────────────────────────
-            AboutPage + Person (David, Dylan) + Organization + Quotation,
-            cross-linked via @id so AI engines can attribute statements to
-            the founder when citing COP content. */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "AboutPage",
-              "@id": "https://co-ownership-property.com/about-us/#webpage",
-              "url": "https://co-ownership-property.com/about-us/",
-              "name": "About Us | Co-Ownership Property",
-              "description": "Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson after 20 years selling premium Alpine ski properties.",
-              "inLanguage": "en",
-              "isPartOf": { "@id": "https://co-ownership-property.com/#website" },
-              "about": { "@id": "https://co-ownership-property.com/#organization" },
-              "mainEntity": [
-                { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
-                { "@id": "https://co-ownership-property.com/about-us/#dylan-olsson" }
-              ],
-              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
-            },
-            {
-              "@type": "Person",
-              "@id": "https://co-ownership-property.com/about-us/#david-olsson",
-              "name": "David Olsson",
-              "givenName": "David",
-              "familyName": "Olsson",
-              "jobTitle": "Founder",
-              "description": "Founder of Co-Ownership Property. Over 20 years selling premium ski properties across more than 40 French Alpine resorts before founding COP in 2022 in response to the structural unaffordability of trophy second homes in the European Alps and beyond.",
-              "image": "https://co-ownership-property.com/wp-content/uploads/2025/11/unnamed-4-1.jpg",
-              "url": "https://co-ownership-property.com/about-us/",
-              "knowsAbout": [
-                "Fractional ownership",
-                "Co-ownership real estate",
-                "Luxury second homes",
-                "European Alpine ski properties",
-                "French Alps real estate",
-                "LLC structures for real estate co-ownership",
-                "Cross-border property ownership for non-residents",
-                "Holiday-home investment"
-              ],
-              "knowsLanguage": ["en", "fr"],
-              "worksFor": { "@id": "https://co-ownership-property.com/#organization" },
-              "sameAs": []
-            },
-            {
-              "@type": "Person",
-              "@id": "https://co-ownership-property.com/about-us/#dylan-olsson",
-              "name": "Dylan Olsson",
-              "givenName": "Dylan",
-              "familyName": "Olsson",
-              "jobTitle": "Sales",
-              "description": "Sales at Co-Ownership Property. Raised between London and Marbella with roots across four countries; business graduate from the University of Manchester. Specialises in international buyer relationships for fractional ownership across Spain, France, Italy, Portugal and the USA.",
-              "image": "https://co-ownership-property.com/wp-content/uploads/2025/12/1761762811297.jpg",
-              "url": "https://co-ownership-property.com/about-us/",
-              "knowsAbout": [
-                "Fractional co-ownership",
-                "International real estate sales",
-                "Luxury second homes",
-                "Spanish property market",
-                "Marbella property market",
-                "London property market"
-              ],
-              "knowsLanguage": ["en", "es"],
-              "worksFor": { "@id": "https://co-ownership-property.com/#organization" },
-              "sameAs": []
-            },
-            {
-              "@type": "Organization",
-              "@id": "https://co-ownership-property.com/#organization",
-              "name": "Co-Ownership Property",
-              "alternateName": "COP",
-              "url": "https://co-ownership-property.com",
-              "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
-              "description": "Independent agents for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. We list homes from every major operator, publish the running costs and usage terms for each, and introduce buyers to the team that manages the home.",
-              // The registered company behind the brand. An answer engine asked "is this
-              // company real?" needs a legal name and a tax number it can cross-check;
-              // until 12 Sep 2026 the schema had neither (entity strategy, mechanism 3).
-              "legalName": "PREMPROPERTY SL",
-              "taxID": "B93358489",
-              "vatID": "ESB93358489",
-              "foundingDate": "2022",
-              "founder": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
-              "employee": [
-                { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
-                { "@id": "https://co-ownership-property.com/about-us/#dylan-olsson" }
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "info@co-ownership-property.com",
-                "contactType": "customer service",
-                "availableLanguage": ["English", "Spanish", "French", "German"]
-              },
-              // NO aggregateRating and no `review` array here, deliberately.
-              // Both were present until 16 Sep 2026: a flat 5.0 out of 5 from
-              // four reviews, each one carrying "publisher": this same
-              // organisation. That is COP publishing five-star reviews of COP.
-              // Google's structured-data policy forbids self-serving reviews on
-              // an Organization and enforces it with manual actions, and quite
-              // apart from Google it is not a claim we can stand behind.
-              // Real social proof is coming from real buyers — see the note in
-              // the testimonials section below.
-              "sameAs": ["https://www.linkedin.com/company/co-ownership-property"]
-            },
-            {
-              "@type": "WebSite",
-              "@id": "https://co-ownership-property.com/#website",
-              "url": "https://co-ownership-property.com",
-              "name": "Co-Ownership Property",
-              "publisher": { "@id": "https://co-ownership-property.com/#organization" },
-              "inLanguage": "en"
-            },
-            {
-              "@type": "Quotation",
-              "@id": "https://co-ownership-property.com/about-us/#david-quote-priced-out",
-              "text": "The clients I had worked with for years still wanted to buy — they just couldn't afford to anymore. They were simply priced out.",
-              "spokenByCharacter": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
-              "creator": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" }
-            }
-          ]
-        }) }} />
-      </Head>
-      <Header />
-{/* ===== HERO ===== */}
-    <section className="page-hero">
-        <p className="eyebrow">Our Story</p>
-        <h1>About <em>Us</em></h1>
-        <p className="subtitle">Meet the team dedicated to making luxury second-home ownership accessible, transparent, and smart.</p>
-    </section>
-
-    {/* ===== PRESS BAR ===== */}
-    <div className="press-bar" role="region" aria-label="As featured in">
-        <div className="press-bar-header"><span className="press-bar-label">As Featured In</span></div>
-        <div className="press-marquee-wrap"><div className="press-track-outer">
-            <div className="press-track">
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-express.png" alt="Express" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width={200} height={50} /></div>
-            </div>
-            <div className="press-track" aria-hidden="true">
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-times.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-ft.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-express.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width={200} height={50} /></div>
-                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width={200} height={50} /></div>
-            </div>
-        </div></div>
-    </div>
-
-    {/* ===== INTRO ===== */}
-    <section className="sec intro-sec">
-        <div className="intro-center">
-            <p className="eyebrow">Who We Are</p>
-            <h2>An Agency for Premium <em>Co-Ownership</em></h2>
-            <p>Since 2022, Co-Ownership Property has been dedicated exclusively to premium fractional ownership second homes in the world's most desirable destinations.</p>
-            <p>Acting 100% on the buyer's side, we collaborate only with the most reputable, transparent, and professionally managed operators across Europe and the US. We are not tied to any single platform or developer. If a property doesn't meet our standard, it doesn't appear on this site.</p>
+  const scrollCleanup = useRef(null);
+  useEffect(() => () => scrollCleanup.current?.(), []);
+  function scrollToSection(event) {
+    const anchor = event.target.closest('a[href^="#"]');
+    if (!anchor || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = document.getElementById(anchor.hash.slice(1));
+    if (!target) return;
+    event.preventDefault();
+    const heading = target.querySelector(`.${s.kicker}`) || target;
+    const nav = document.querySelector('.rd-nav');
+    const wrap = document.querySelector('.rd-nav-wrap');
+    const inset = parseFloat(wrap ? getComputedStyle(wrap).top : '0') || 0;
+    const clearance = (nav?.offsetHeight || 64) + inset + 24;
+    window.history.pushState(null, '', anchor.hash);
+    scrollCleanup.current?.();
+    const start = window.scrollY;
+    const destination = Math.max(0, Math.min(
+      heading.getBoundingClientRect().top + start - clearance,
+      document.documentElement.scrollHeight - window.innerHeight,
+    ));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo({ top: destination, behavior: 'instant' });
+      return;
+    }
+    const duration = 1100;
+    const startedAt = performance.now();
+    let frame;
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchstart', stop);
+      window.removeEventListener('keydown', stopOnKey);
+      scrollCleanup.current = null;
+    };
+    const stopOnKey = event => {
+      if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'Escape', 'Tab'].includes(event.key)) stop();
+    };
+    const tick = now => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = (1 - Math.cos(Math.PI * progress)) / 2;
+      window.scrollTo({ top: start + (destination - start) * eased, behavior: 'instant' });
+      if (progress < 1) frame = requestAnimationFrame(tick);
+      else stop();
+    };
+    window.addEventListener('wheel', stop, { passive: true });
+    window.addEventListener('touchstart', stop, { passive: true });
+    window.addEventListener('keydown', stopOnKey);
+    scrollCleanup.current = stop;
+    frame = requestAnimationFrame(tick);
+  }
+  return <div className={`rd rd-home-light rd-about ${s.page}`} onClick={scrollToSection}>
+    <Head>
+      <title>About Us | Co-Ownership Property</title>
+      {hreflangLinks({ englishPath: '/about-us' })}
+      <meta name="description" content="Meet David and Dylan Olsson. Founded by father and son in 2022, COP grew from twenty years helping buyers find a place in the French Alps." />
+      <link rel="canonical" href={`${BASE}/about-us/`} />
+      <meta property="og:title" content="Our story | Co-Ownership Property" />
+      <meta property="og:description" content="It started with a familiar conversation in the Alps. Meet the people behind COP." />
+      <meta property="og:url" content={`${BASE}/about-us/`} />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content={BASE + DAVID} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+    </Head>
+    <Nav ctaHref="#enquire" />
+    <main className={s.main}>
+      <section className={`${s.hero} rd-container`} aria-label="Meet the founders">
+        <div className={s.heroCopy} data-rv>
+          <p className={s.kicker}>Our story · Since 2022</p>
+          <h1>A different way to own.<br /><span>A very personal reason.</span></h1>
+          <p className={s.lead}>Founded in 2022 by David Olsson and his son, Dylan, COP brings a personal approach to finding and owning your second home.</p>
         </div>
-    </section>
+        <div className={s.founders} data-rv="2">
+          <figure><Image src={DAVID} alt="David Olsson" width={1024} height={1024} priority sizes="(max-width: 760px) 44vw, 24vw" /><figcaption><strong>David Olsson</strong><span>Founder</span></figcaption></figure>
+          <figure><Image src={DYLAN} alt="Dylan Olsson" width={800} height={800} priority sizes="(max-width: 760px) 44vw, 24vw" /><figcaption><strong>Dylan Olsson</strong><span>Co-founder &amp; Head of Sales</span></figcaption></figure>
+          <a className={`rd-btn ${s.teamLink}`} href="#team">More about the team <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
 
-    {/* ===== TEAM ===== */}
-    <section className="sec team-sec">
-        <div className="sec-inner" style={{textAlign: 'center'}}>
-            <p className="eyebrow">The Team</p>
-            <h2>Meet the People <em>Behind COP</em></h2>
-
-            <div className="team-grid">
-                <div className="team-card">
-                    <div className="team-photo">
-                        <Image src="/wp-content/uploads/2025/11/unnamed-4-1.jpg" alt="David Olsson" fill style={{objectFit:"cover"}} sizes="140px" />
-                    </div>
-                    <h3>David Olsson</h3>
-                    <span className="team-role">Founder</span>
-                    <p className="team-bio">Over 20 years selling premium ski properties across 40+ French Alpine resorts. David watched the market transform as clients who had once been able to buy were increasingly priced out. He founded COP in 2022 because he believed exceptional properties should be owned by people who love them — not just those who can afford to buy them outright.</p>
-                </div>
-                <div className="team-card">
-                    <div className="team-photo">
-                        <Image src="/wp-content/uploads/2025/12/1761762811297.jpg" alt="Dylan Olsson" fill style={{objectFit:"cover"}} sizes="140px" />
-                    </div>
-                    <h3>Dylan Olsson</h3>
-                    <span className="team-role">Sales</span>
-                    <p className="team-bio">Raised between London and Marbella with roots across four countries, Dylan grew up with an instinctive feel for the international buyer. After graduating in business from the University of Manchester, he set out to bridge the gap between aspiration and reality — making high-end holiday homes accessible to more people through a transparent, client-first approach.</p>
-                </div>
-                <div className="poppy-card">
-                    <div className="team-photo">
-                        <Image src="/wp-content/uploads/2025/11/unnamed-8.jpg" alt="Poppy" fill style={{objectFit:"cover"}} sizes="140px" />
-                    </div>
-                    <div>
-                        <h3 style={{color: '#fff'}}>Poppy</h3>
-                        <span className="team-role">Head of Security</span>
-                        <p className="team-bio">Takes a zero-tolerance approach to squirrels, postmen, and unauthorised cats. Has been known to accept bribes in the form of cheddar cheese or belly rubs.</p>
-                    </div>
-                </div>
+      <section className={s.storyBand} id="our-story" aria-labelledby="story-title">
+        <div className={`rd-container ${s.storyLayout}`}>
+          <div className={s.storyHeading} data-rv><p className={s.kicker}>From the Alps to a new idea</p><h2 id="story-title">A new way to own.<br />The same desire for home.</h2><blockquote>“{QUOTE}”<cite>David Olsson · Founder</cite></blockquote></div>
+          <div className={s.storyBody}>
+            <div data-rv>
+              <p>After <strong>more than twenty years helping buyers find homes in the French Alps</strong>, David kept hearing the same story. Clients who had spent years returning to the mountains still wanted a place of their own, but rising prices had put buying outright beyond their reach. Their connection to those places had not changed; what they could afford had. Co-ownership offered a way to <strong>own a share of a home they loved</strong>, with the costs shared and a professional team looking after it.</p>
+              <p>In 2022, <strong>David founded COP with his son, Dylan</strong>, to help buyers explore that possibility. COP’s approach starts with understanding where people want to be, how they want to spend their time and what works for their budget. The aim is to help people find <strong>a second home that fits the life they actually live</strong>, with clear information and someone to talk to along the way.</p>
+              <a className={s.textLink} href="/how-it-works/">How co-ownership works <span aria-hidden="true">↗</span></a>
             </div>
+          </div>
+
         </div>
-    </section>
+      </section>
 
-    {/* ===== OUR STORY ===== */}
-    <section className="sec story-sec">
-        <div className="sec-inner">
-            <div className="story-grid">
-                <div className="story-img">
-                    <Image src="/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" alt="Luxury Alpine chalet interior" fill quality={90} style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
-                </div>
-                <div className="story-text">
-                    <p className="eyebrow">Why We Started</p>
-                    <h2>A Market That Left <em>People Behind</em></h2>
-                    <p>David spent over two decades selling premium properties in the French Alps. In the early days, French mortgage rates sat below 2%, terms stretched to 25 years, and Alpine resort prices — while never cheap — still bore a meaningful relationship to Parisian ones. Buying a ski property was a realistic aspiration for a professional family.</p>
-                    <p>That world gradually disappeared. Between 2017 and 2022, prices in the most sought-after resorts rose by 30–50%, in some areas overtaking Paris per square metre. The chalet in Meribel, the flat in Chamonix — these had become cash-buyer territory.</p>
-                    <blockquote>The clients I had worked with for years still wanted to buy — they just couldn't afford to anymore. They were simply priced out.
-                        <span className="quote-attr">David Olsson — Founder</span>
-                    </blockquote>
-                </div>
-            </div>
+      <section className={`${s.team} rd-container`} id="team" aria-labelledby="team-title">
+        <div className={s.sectionHead} data-rv><p className={s.kicker}>The people behind COP</p><h2 id="team-title">Meet the team.</h2></div>
+        <div className={s.people}>
+          <article data-rv="1"><div className={s.portrait}><Image src={DAVID} alt="David Olsson" width={1024} height={1024} sizes="(max-width: 760px) 90vw, 30vw" /></div><div className={s.personTitle}><h3>David Olsson</h3><span>Founder</span></div><p>David still works in French Alps real estate, with over twenty years spent selling ski properties across more than forty resorts.</p><p>He founded COP with his son, Dylan, in 2022 because he believes exceptional homes should be owned by people who love them—not only those who can afford to buy them outright.</p></article>
+          <article data-rv="2"><div className={s.portrait}><Image src={DYLAN} alt="Dylan Olsson" width={800} height={800} sizes="(max-width: 760px) 90vw, 30vw" /></div><div className={s.personTitle}><h3>Dylan Olsson</h3><span>Co-founder &amp; Head of Sales</span></div><p>Raised between London and Marbella, with roots across four countries, Dylan grew up between languages and cultures. That international background shapes how he works with people looking for a home abroad.</p><p>A business graduate from the University of Manchester, he co-founded COP and leads sales, working closely with buyers to find the right home.</p></article>
+          <article data-rv="3"><div className={s.portrait}><Image src="/wp-content/uploads/2025/11/unnamed-8.jpg" alt="Poppy, the team's dog" width={775} height={1024} sizes="(max-width: 760px) 90vw, 30vw" /></div><div className={s.personTitle}><h3>Poppy</h3><span>Head of security</span></div><p>Takes a zero-tolerance approach to squirrels, postmen and unauthorised cats.</p><p>Has been known to accept bribes in the form of cheddar cheese or belly rubs.</p></article>
         </div>
-    </section>
+      </section>
 
-    {/* ===== THE MODEL ===== */}
-    <section className="sec" style={{background: 'var(--white)'}}>
-        <div className="sec-inner">
-            <div className="story-grid">
-                <div className="story-text">
-                    <p className="eyebrow">The Solution</p>
-                    <h2>A Better Way to <em>Own</em></h2>
-                    <p>Where a whole Alpine property might now require over &euro;800,000, a fractional share brings genuine ownership within reach from around &euro;100,000. You own a deeded share of a premium property, it appreciates with the market, and you decide when to sell.</p>
-                    <p>A single one-eighth share gives you six weeks of use per year — 45 days. The average second-home owner uses their property just 35 days a year, so a fractional share already exceeds typical personal use.</p>
-                    <p>And there's nothing to stop you going further: buy two shares in the same property, or combine a share in an Alpine chalet with a share in an Ibiza villa. The properties work independently, the ownership structure is the same, and your calendar is yours to arrange.</p>
-                    <blockquote>The average second home sits empty for 330 days a year. A fractional share gives you more time in an exceptional property — at a fraction of the cost.</blockquote>
-                </div>
-                <div className="story-img">
-                    <Image src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Ibiza villa with pool" fill quality={90} style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
-                </div>
-            </div>
-        </div>
-    </section>
+      <section className={`${s.process} rd-container`} aria-labelledby="process-title">
+        <div className={s.sectionHead} data-rv><p className={s.kicker}>How we work with you</p><h2 id="process-title">A conversation.<br />Not a sales conveyor belt.</h2></div>
+        <ol className={s.steps}>{STEPS.map(([title, text], i) => <li key={title} data-rv={String((i % 2) + 1)}><span className={s.stepNumber}>0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
+      </section>
 
-    {/* ===== MID-PAGE CTA ===== */}
-    <section style={{background: 'var(--blue)', padding: '60px 3rem', textAlign: 'center'}}>
-        <p style={{fontSize: '1.05rem', color: 'rgba(255,255,255,0.7)', marginBottom: '1.5rem'}}>Ready to find your second home?</p>
-        <div style={{display: 'flex', gap: '1.2rem', justifyContent: 'center', flexWrap: 'wrap'}}>
-            <a href="#speak-to-expert" style={{display: 'inline-block', padding: '14px 36px', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Nunito Sans',sans-serif", background: 'var(--warm-gold)', color: '#fff', textDecoration: 'none', transition: 'background 0.3s'}}>Speak to an Expert</a>
-            <a href="#newsletter" style={{display: 'inline-block', padding: '13px 36px', fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Nunito Sans',sans-serif", background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'all 0.3s'}}>Join Our Newsletter</a>
-        </div>
-    </section>
+      {BUYER_QUOTES.length > 0 && <section className={`${s.testimonials} rd-container`} aria-label="Our buyers' words">{BUYER_QUOTES.map(({ name, quote }) => <blockquote key={name}>“{quote}”<cite>{name}</cite></blockquote>)}</section>}
 
-    {/* ===== TESTIMONIALS =====
-         NOTE, 16 Sep 2026. These four carry stock photography and first names,
-         and the matching Review/AggregateRating schema was removed above
-         because COP was publishing five-star reviews of COP. Left visible
-         pending David's call, but they should be replaced by quotes from
-         people who actually bought — and there are now real ones to ask:
-         every completed sale is invoiced in Qonto with the buyer's name on
-         it. A named buyer saying one true sentence beats four invented ones.
-         Do not re-add the schema. */}
-    <section className="sec testi-sec" style={{background: 'var(--cream-bg)'}}>
-        <div className="sec-inner" style={{textAlign: 'center'}}>
-            <p className="eyebrow">What Our Clients Say</p>
-            <h2>Real Owners, Real <em>Stories</em></h2>
-
-            <div className="testi-grid">
-                <div className="testi-card">
-                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" fill style={{objectFit:"cover"}} sizes="90px" /></div>
-                    <div className="testi-name">Astrid</div>
-                    <span className="testi-loc">Mougins, South of France</span>
-                    <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p className="testi-quote">From the first stay, everything felt effortless. It's like arriving at your own home with the comfort of a hotel. The beds are made, towels ready — nothing to think about. Every visit starts with calm, not chores. I love it already, and I don't have to worry about a thing.</p>
-                </div>
-                <div className="testi-card">
-                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry &amp; Nicole" fill style={{objectFit:"cover"}} sizes="90px" /></div>
-                    <div className="testi-name">Harry &amp; Nicole</div>
-                    <span className="testi-loc">La Plagne, French Alps</span>
-                    <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p className="testi-quote">Owning a place in the French Alps had always been a dream. Fractional ownership offered the perfect solution — all the benefits of a luxury mountain home without the stress and cost of managing a whole property. Our son can now invite his school friends to ski for half term. It truly made our dream a reality.</p>
-                </div>
-                <div className="testi-card">
-                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo &amp; Anne" fill style={{objectFit:"cover"}} sizes="90px" /></div>
-                    <div className="testi-name">Mateo &amp; Anne</div>
-                    <span className="testi-loc">Lake Tahoe, California</span>
-                    <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p className="testi-quote">We've been driving up from LA to Tahoe every summer for years, but couldn't justify a whole house. This ownership model felt like the perfect middle way. We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier.</p>
-                </div>
-                <div className="testi-card">
-                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca-300x300.jpg" alt="Jan &amp; Family" fill style={{objectFit:"cover"}} sizes="90px" /></div>
-                    <div className="testi-name">Jan &amp; Family</div>
-                    <span className="testi-loc">Port d'Andratx, Mallorca</span>
-                    <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p className="testi-quote">I sold my French holiday home, took the profit, and used just a quarter of that to buy a much nicer villa. Guilt gone. The villa is stunning, the kids love it, and the remaining weeks are rented out — more than covering the monthly running costs. Highly recommended.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {/* ===== CTAs ===== */}
-        {/* ===== NEWSLETTER SIGNUP (shared partial) ===== */}
-    
-        {/* ===== SPEAK TO AN EXPERT (shared partial) ===== */}
-    
-
-    {/* ===== FOOTER ===== */}
-      <Newsletter />
-      <ExpertForm />
-      <Footer />
-      <Script src="/js/about-us.js" strategy="afterInteractive" />
-    </>
-  );
+      <section className="rd-section rd-collection-closing" aria-label="Newsletter">
+        <div className="rd-container"><div className="rd-news" data-rv><div className="rd-news-body"><Newsletter editorial /></div></div></div>
+      </section>
+      <section className="rd-section rd-collection-closing" id="enquire" aria-label="Enquiry" style={{ scrollMarginTop: 110 }}>
+        <div className="rd-container rd-enquiry-editorial" data-rv><ExpertForm /></div>
+      </section>
+    </main>
+    <Footer />
+  </div>;
 }

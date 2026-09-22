@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -25,11 +26,11 @@ export default function APropos() {
       </Head>
       <Header />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Notre histoire</p>
         <h1>À <em>propos</em></h1>
         <p className="subtitle">Rencontrez notre équipe dirigeante dédiée à rendre la copropriété de résidence secondaire de luxe plus accessible et transparente.</p>
-      </section>
+      </PublicPageHeader>
 
       <div className="press-bar" role="region" aria-label="Vu dans">
         <div className="press-bar-header"><span className="press-bar-label">Vu dans</span></div>

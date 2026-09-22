@@ -3,6 +3,8 @@ import "@/styles/locale-pages.css";
 import "@/styles/partner-hub.css";
 import "@/styles/admin.css";
 import "@/styles/redesign.css";
+import "@/styles/destination-redesign.css";
+import "@/styles/public-design.css";
 import { Playfair_Display, Nunito_Sans, Poppins, Inter } from 'next/font/google';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -75,6 +77,8 @@ export default function App({ Component, pageProps }) {
   const isAdmin = router.pathname.startsWith('/admin');
   const isPartner = router.pathname.startsWith('/partner');
   const isPrivate = isAdmin || isPartner;
+  // Public operator profiles (/partners/) are marketing pages, not the partner dashboard.
+  const isPublicDesign = !isAdmin && !/^\/partner(?:\/|$)/.test(router.pathname) && !router.pathname.startsWith('/auth/');
   const popupAllowed = POPUP_ROUTES.some(re => re.test(router.pathname));
   const [waVisible, setWaVisible] = useState(false);
   const [waDismissed, setWaDismissed] = useState(false);
@@ -125,13 +129,13 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     if (isPrivate) return;
     // ease 0.07: a touch more glide than Lenis' default 0.1 (David, 20 Sep).
-    const stopScroll = initSmoothScroll({ ease: 0.07 });
+    const stopScroll = initSmoothScroll({ ease: 0.065 });
     const stopReveals = initReveals(router);
     return () => { stopScroll(); stopReveals(); };
   }, [isPrivate]);
 
   return (
-    <main className={`${playfair.variable} ${nunito.variable} ${poppins.variable} ${inter.variable}`}>
+    <main className={`${playfair.variable} ${nunito.variable} ${poppins.variable} ${inter.variable}${isPublicDesign ? ' cop-public rd rd-home-light' : ''}`}>
       {/* ── Google Analytics 4 ── */}
       {!isPrivate && <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

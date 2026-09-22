@@ -1,5 +1,6 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -36,7 +37,7 @@ export async function getStaticProps() {
 export default function IbizaFR({ properties }) {
   const canonicalUrl = 'https://co-ownership-property.com/fr/destinations/ibiza/';
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>Résidence secondaire à Ibiza : copropriété et villas en quote-part [2026]</title>
         <meta name="description" content="Devenez copropriétaire d'une résidence secondaire à Ibiza — villas et fincas dans les meilleures zones (Santa Eulalia, San José, Roca Llisa). À partir d'1/8 avec acte authentique." />
@@ -48,13 +49,13 @@ export default function IbizaFR({ properties }) {
         <meta property="og:description" content="Villas et fincas de luxe en copropriété à Ibiza. Pour une fraction du prix." />
         <meta property="og:url" content={canonicalUrl} />
       </Head>
-      <Header />
+      <Nav />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Destination · Îles Baléares</p>
         <h1>Copropriété à <em>Ibiza</em></h1>
         <p className="subtitle">Villas, fincas restaurées et maisons d'architecte en copropriété à travers Ibiza — pour une fraction du prix d'achat intégral.</p>
-      </section>
+      </PublicPageHeader>
 
       <section className="sec intro-sec">
         <div className="intro-center">
@@ -96,6 +97,6 @@ export default function IbizaFR({ properties }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
-    </>
+    </div>
   );
 }

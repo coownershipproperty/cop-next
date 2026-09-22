@@ -498,11 +498,18 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
   const [zoom, setZoom] = useState({ scale: 1, x: 0, y: 0, smooth: false });
   const [panning, setPanning] = useState(false);
   const stageRef = useRef(null);
+  const thumbnailRef = useRef(null);
   const zoomRef = useRef(zoom);
   const indexRef = useRef(index);
   const gestureRef = useRef({ lastDist: null, lastMid: null, lastTouch: null, pinched: false });
   useEffect(() => { zoomRef.current = zoom; }, [zoom]);
   useEffect(() => { indexRef.current = index; }, [index]);
+  useEffect(() => {
+    const rail = thumbnailRef.current;
+    const selected = rail?.children[index];
+    if (!rail || !selected) return;
+    rail.scrollTo({ left: Math.max(0, selected.offsetLeft - (rail.clientWidth - selected.clientWidth) / 2), behavior: 'auto' });
+  }, [index]);
 
   // Changing slide always starts fresh at 1×
   useEffect(() => { setZoom({ scale: 1, x: 0, y: 0, smooth: false }); }, [index]);
@@ -731,7 +738,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
   const currentType  = !isEnquiry ? slides[index]?.type : null;
   const isDocument   = currentType === 'document';
   const isExtra      = currentType === 'extra';
-  const isNonPhoto   = isEnquiry || isDocument || isExtra || index !== 0; // hide property info overlay
+  const isNonPhoto   = isEnquiry; // Keep property context visible throughout the gallery.
 
   return (
     <>
@@ -740,8 +747,6 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
         <meta name="robots" content="noindex, nofollow" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
         {/* Set <html lang="..."> so screen readers + browser translators pick up the right language */}
         <script
           dangerouslySetInnerHTML={{
@@ -759,6 +764,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
 
       <div
         ref={stageRef}
+        className={`gallery-stage${isEnquiry ? ' is-enquiry' : ''}`}
         style={{
           ...s.stage,
           // Disable the browser's own pan/zoom on image slides so our pinch/pan
@@ -779,6 +785,8 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
           return (
             <div
               key={slide.url}
+              className="gallery-media-slide"
+              aria-hidden={!isCurrent}
               style={{
                 ...s.slide,
                 opacity: isCurrent ? 1 : isPrevSlide ? 1 : 0,
@@ -804,21 +812,20 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
                 }}
               />
               {/* gradient only on full-bleed photos */}
-              {isPhoto && <div style={s.gradient} />}
               {/* extra photos label */}
               {isExtr && (
-                <div style={s.extraLabel}>{t.extra_label}</div>
+                <div style={s.extraLabel} className="gallery-media-label">{t.extra_label}</div>
               )}
               {/* document label */}
               {isDoc && (
-                <div style={s.docLabel}>{t.doc_label}</div>
+                <div style={s.docLabel} className="gallery-media-label">{t.doc_label}</div>
               )}
             </div>
           );
         })}
 
         {/* ── ENQUIRY SLIDE ── */}
-        <div style={{
+        <div className="gallery-enquiry-slide" aria-hidden={!isEnquiry} inert={!isEnquiry} style={{
           ...s.slide,
           background: '#0F1D2A',
           opacity: isEnquiry ? 1 : isPrevEnquiry ? 1 : 0,
@@ -918,6 +925,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
           <a href="https://co-ownership-property.com" style={s.navLogo} className="gallery-nav-logo">
             Co-Ownership Property
           </a>
+          <a className="gallery-listing-link" href={`/property/${property.slug}/`}>{t.view_listing}</a>
         </nav>
 
         {/* ── PROPERTY INFO (bottom left, photo slides only) ── */}
@@ -939,7 +947,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
         </div>
 
         {/* ── COUNTER (bottom right) ── */}
-        <div style={s.counter}>
+        <div style={s.counter} className="gallery-counter" aria-live="polite">
           {isEnquiry
             ? <span style={{ color: '#C9A84C', letterSpacing: '0.2em' }}>{t.enquiry_counter}</span>
             : <>{index + 1} <span style={{ color: 'rgba(255,255,255,0.3)', margin: '0 4px' }}>/</span> {totalSlides}</>
@@ -1021,7 +1029,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
 
         {/* ── I'M INTERESTED BUTTON ── */}
         {!isEnquiry && (
-          <div style={s.interestedWrap}>
+          <div style={s.interestedWrap} className="gallery-action">
             <button className="gallery-interested" onClick={() => goTo(enquiryIndex, 1)}>
               {t.interested_btn}
             </button>
@@ -1029,24 +1037,26 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
         )}
 
         {/* ── DOT INDICATORS ── */}
-        <div style={s.dots} className="gallery-dots">
+        <div ref={thumbnailRef} style={s.dots} className="gallery-dots" aria-label={t.private_gallery}>
           {Array.from({ length: totalSlides }).map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i, i > index ? 1 : -1)}
               aria-label={t.slide_aria(i + 1)}
+              aria-current={i === index ? 'true' : undefined}
               style={{
                 ...s.dot,
-                background: i === index ? '#C9A84C' : 'rgba(255,255,255,0.35)',
+                backgroundColor: i === index ? '#C9A84C' : '#f5f5f5',
+                backgroundImage: slides[i] ? `url(${JSON.stringify(slides[i].url)})` : undefined,
                 width: i === index ? 24 : 6,
               }}
-            />
+            >{i === enquiryIndex ? '↗' : null}</button>
           ))}
         </div>
 
         {/* ── PREV ARROW ── (hidden on enquiry slide to avoid overlapping form) */}
         {index > 0 && (
-          <button style={{ ...s.arrow, left: 0 }} className={isEnquiry ? 'gallery-prev-enquiry' : ''} onClick={goPrev} aria-label={t.prev_aria}>
+          <button style={{ ...s.arrow, left: 0 }} className={`gallery-arrow${isEnquiry ? ' gallery-prev-enquiry' : ''}`} onClick={goPrev} aria-label={t.prev_aria}>
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M9 1L1 9L9 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -1055,7 +1065,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
 
         {/* ── NEXT ARROW ── */}
         {index < totalSlides - 1 && (
-          <button style={{ ...s.arrow, right: 0 }} onClick={goNext} aria-label={t.next_aria}>
+          <button style={{ ...s.arrow, right: 0 }} className="gallery-arrow" onClick={goNext} aria-label={t.next_aria}>
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M1 1L9 9L1 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -1064,7 +1074,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
 
         {/* ── SWIPE HINT (first load) ── */}
         {index === 0 && photos.length > 1 && (
-          <div style={s.swipeHint}>
+          <div style={s.swipeHint} className="gallery-swipe-hint">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>

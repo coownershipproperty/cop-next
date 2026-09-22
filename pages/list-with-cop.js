@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import { useState } from 'react';
 import Header from '@/components/Header';
@@ -107,14 +108,14 @@ export default function ListWithCop() {
       </Head>
       <Header />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <span className="page-hero-eyebrow">List With COP</span>
         <h1>Your home, in front of the <em>right buyers</em></h1>
         <p className="page-hero-sub">
           We curate Europe's leading collection of co-ownership homes — and the buyers who come with it.
           Sell your share, or put your homes in front of them.
         </p>
-      </section>
+      </PublicPageHeader>
 
       <section className="lw-sec">
         <div className="lw-inner">

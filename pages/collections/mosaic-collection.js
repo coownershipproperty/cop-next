@@ -247,20 +247,20 @@ function CollectionEnquiryForm() {
       <HoneypotField />
       <div className={styles.nameFields}>
         <label>
-          First name <span>*</span>
+          <span>First name <span>*</span></span>
           <input type="text" value={form.firstName} onChange={update('firstName')} placeholder="First name" autoComplete="given-name" required />
         </label>
         <label>
-          Surname <span>*</span>
+          <span>Surname <span>*</span></span>
           <input type="text" value={form.surname} onChange={update('surname')} placeholder="Surname" autoComplete="family-name" required />
         </label>
       </div>
       <label>
-        Email <span>*</span>
+        <span>Email <span>*</span></span>
         <input type="email" value={form.email} onChange={update('email')} placeholder="your@email.com" autoComplete="email" required />
       </label>
       <label>
-        Phone <span>*</span>
+        <span>Phone <span>*</span></span>
         <input type="tel" value={form.phone} onChange={update('phone')} placeholder="+1 or +44…" autoComplete="tel" required />
       </label>
       <label>

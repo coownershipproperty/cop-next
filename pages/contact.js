@@ -1,120 +1,65 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import hreflangLinks from '@/components/HreflangLinks';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
-import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import styles from '@/styles/Contact.module.css';
-
-const assurances = [
-  {
-    number: '01',
-    title: 'Direct answers',
-    text: 'Your enquiry goes to a co-ownership specialist, not a call centre.',
-  },
-  {
-    number: '02',
-    title: 'A reply within hours',
-    text: 'We respond personally across European and US time zones.',
-  },
-  {
-    number: '03',
-    title: 'No pressure',
-    text: 'Independent guidance, whether you buy now or keep researching.',
-  },
-];
+import Newsletter from '@/components/Newsletter';
+import s from '@/styles/contact-redesign.module.css';
 
 export default function Contact() {
-  return (
-    <>
-      <Head>
-        <title>Contact Us | Co-Ownership Property</title>
-        {hreflangLinks({ englishPath: '/contact' })}
-        <meta
-          name="description"
-          content="Speak to the COP team. Questions about fractional ownership? We respond within a few hours — no sales pressure, no obligation."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://co-ownership-property.com/contact/" />
-        <meta property="og:title" content="Contact Co-Ownership Property" />
-        <meta
-          property="og:description"
-          content="Questions about fractional ownership? Speak to our team — no sales pressure, no obligation. We respond within a few hours."
-        />
-        <meta property="og:url" content="https://co-ownership-property.com/contact/" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://co-ownership-property.com/images/contact/family-mediterranean-cove.webp"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
-
-      <Header />
-
-      <div className={styles.page}>
-        <section className={styles.editorialSplit} aria-labelledby="contact-heading">
-          <div className={styles.imagePanel}>
-            <Image
-              className={styles.heroImage}
-              src="/images/contact/family-mediterranean-cove.webp"
-              alt="A family spending the day at a quiet Mediterranean cove"
-              fill
-              priority
-              sizes="(max-width: 900px) 100vw, 54vw"
-            />
-            <div className={styles.imageWash} />
-            <div className={styles.imageCaption}>
-              <span>01 / 03</span>
-              <p>A conversation is the beginning of every good journey.</p>
+  return <div className={`rd rd-home-light rd-contact ${s.page}`}>
+    <Head>
+      <title>Contact Us | Co-Ownership Property</title>
+      {hreflangLinks({ englishPath: '/contact' })}
+      <meta name="description" content="Get in touch with David and Dylan at COP. Ask about a home, share your plans or find out more about co-ownership." />
+      <link rel="canonical" href="https://co-ownership-property.com/contact/" />
+      <meta property="og:title" content="Contact Us | Co-Ownership Property" />
+      <meta property="og:description" content="A home in mind? A question about co-ownership? Let's talk." />
+      <meta property="og:url" content="https://co-ownership-property.com/contact/" />
+      <meta property="og:type" content="website" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </Head>
+    <Nav ctaHref="mailto:info@co-ownership-property.com" ctaLabel="Email us" />
+    <main>
+      <section className={`${s.hero} rd-container`} aria-labelledby="contact-title">
+        <div className={s.intro} data-rv>
+          <p className={s.kicker}>Contact us</p>
+          <h1 id="contact-title">Let’s talk about<br /><span>your next home.</span></h1>
+          <p className={s.description}>A home you have spotted. A destination you love. Or a question about co-ownership. Tell us what you have in mind.</p>
+          <div className={s.people}>
+            <div className={s.portraits}>
+              <Image src="/wp-content/uploads/2025/11/unnamed-4-1.jpg" alt="David Olsson" width={64} height={64} />
+              <Image src="/wp-content/uploads/2025/12/1761762811297.jpg" alt="Dylan Olsson" width={64} height={64} />
             </div>
+            <div><p>David &amp; Dylan</p><span>A personal reply within one working day.</span></div>
           </div>
-
-          <div className={styles.contactPanel}>
-            <p className={styles.eyebrow}>Begin the conversation</p>
-            <h1 id="contact-heading">
-              Let&apos;s find the right <em>place</em> for you.
-            </h1>
-            <p className={styles.intro}>
-              Tell us what you are looking for. You will hear from a co-ownership
-              specialist within a few hours, with clear answers and no pressure.
-            </p>
-            <p className={styles.directEmail}>
-              Prefer to write directly?{' '}
-              <a href="mailto:info@co-ownership-property.com">
-                info@co-ownership-property.com
-              </a>
-            </p>
-
-            <div className={styles.formShell}>
-              <ExpertForm hideIntro />
-              <p className={styles.privacyNote}>
-                Private, personal and obligation-free.
-              </p>
-            </div>
+          <div className={s.direct}>
+            <p className={s.kicker}>Prefer email?</p>
+            <a href="mailto:info@co-ownership-property.com">info@co-ownership-property.com <span aria-hidden="true">↗</span></a>
           </div>
-        </section>
-
-        <section className={styles.assurances} aria-label="What to expect">
-          {assurances.map((item) => (
-            <article key={item.number}>
-              <span>{item.number}</span>
-              <div>
-                <h2>{item.title}</h2>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        <div className={styles.newsletterWrap}>
-          <Newsletter />
         </div>
-      </div>
-
-      <Footer />
-    </>
-  );
+        <div className={s.form} data-rv="2">
+          <p className={s.kicker}>Send us a message</p>
+          <ExpertForm hideIntro />
+          <p className={s.note}>Just a conversation. No obligation.</p>
+        </div>
+      </section>
+      <section className={s.next} aria-labelledby="next-title">
+        <div className="rd-container" data-rv>
+          <div className={s.nextHeading}><div><p className={s.kicker}>What happens next</p><h2 id="next-title">From your first hello.</h2></div><Link href="/about-us/">Meet the team <span aria-hidden="true">↗</span></Link></div>
+          <div className={s.steps}>
+            <article><span>01</span><h3>We get to know your plans.</h3><p>Where you would like to be, how you would use your home and what matters to you.</p></article>
+            <article><span>02</span><h3>You get the real details.</h3><p>Availability, share prices and running costs for the homes that fit. If a home does not suit, we say so.</p></article>
+            <article><span>03</span><h3>You decide what comes next.</h3><p>Ask more questions, arrange an introduction to the team managing the home, or take your time.</p></article>
+          </div>
+        </div>
+      </section>
+      <section className={`rd-section ${s.newsletter}`} aria-label="Newsletter">
+        <div className="rd-container"><div className="rd-news" data-rv><div className="rd-news-body"><Newsletter editorial /></div></div></div>
+      </section>
+    </main>
+    <Footer />
+  </div>;
 }

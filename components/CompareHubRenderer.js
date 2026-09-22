@@ -1,3 +1,5 @@
+import PublicArticleBody from '@/components/PublicArticleBody';
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * components/CompareHubRenderer.js — the comparison hub in any language.
  *
@@ -81,13 +83,13 @@ export default function CompareHubRenderer({ locale, items, groups, ungrouped, a
       <Header />
 
       <article className="compare-page">
-        <section className="compare-hero">
+        <PublicPageHeader>
           <p className="compare-eyebrow">{copy.eyebrow}</p>
           <h1 className="compare-h1">{copy.h1}</h1>
           <p className="compare-subtitle">{copy.subtitle}</p>
-        </section>
+        </PublicPageHeader>
 
-        <section className="compare-body">
+        <PublicArticleBody>
           <div className="compare-body-inner">
             {groups.map(group => (
               <section key={group.key} className="cmp-group">
@@ -130,7 +132,7 @@ export default function CompareHubRenderer({ locale, items, groups, ungrouped, a
               </p>
             </section>
           </div>
-        </section>
+        </PublicArticleBody>
       </article>
 
       <Newsletter />

@@ -1,5 +1,6 @@
+import PublicFaq, { PublicFaqSection } from '@/components/PublicFaq';
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -78,7 +79,6 @@ const FAQS = [
 ];
 
 export default function StayingFAQsES() {
-  const [open, setOpen] = useState(null);
   const canonicalUrl = 'https://co-ownership-property.com/es/disfrutar-copropiedad-preguntas-frecuentes/';
 
   return (
@@ -108,36 +108,17 @@ export default function StayingFAQsES() {
       </Head>
       <Header />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Guía del propietario</p>
         <h1>Disfrutar de su copropiedad — <em>preguntas frecuentes</em></h1>
         <p className="subtitle">Todo lo que necesita saber sobre cómo reservar su tiempo, llegar, recibir invitados y sacar el máximo partido a su propiedad en copropiedad.</p>
-      </section>
+      </PublicPageHeader>
 
-      <section className="faq-section">
+      <PublicFaqSection>
         <p className="faq-eyebrow">Preguntas habituales</p>
         <h2 className="faq-heading">Preguntas <em>frecuentes</em></h2>
-        <div className="bfaq-list">
-          {FAQS.map((item, i) => (
-            <div key={i} className="bfaq-row">
-              <button
-                className="bfaq-btn"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-              >
-                <span className="bfaq-num">{String(i + 1).padStart(2, '0')}</span>
-                <span className="bfaq-question">{item.q}</span>
-                <span className={`bfaq-arrow${open === i ? ' bfaq-arrow--open' : ''}`} />
-              </button>
-              {open === i && (
-                <div className="bfaq-answer">
-                  <p>{item.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
+        <PublicFaq items={FAQS} />
+      </PublicFaqSection>
 
       <section className="sec" style={{ background: 'var(--cream-bg)', paddingTop: 60, paddingBottom: 80 }}>
         <div className="sec-inner" style={{ maxWidth: 760 }}>

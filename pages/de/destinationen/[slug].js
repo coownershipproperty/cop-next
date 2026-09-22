@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import Head from 'next/head';
 import fs from 'fs';
 import path from 'path';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -483,7 +483,7 @@ export default function DestinationPageDE({
   ];
 
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>{title}</title>
         <meta name="description" content={metaDesc} />
@@ -519,13 +519,13 @@ export default function DestinationPageDE({
         <style>{`
           .dest-props-count { font-size: 14px; color: #777; margin: 0 0 20px; padding-top: 20px; }
           .dest-props-count strong { color: #2C4A5E; font-weight: 600; }
-          .dest-chip-clear { background: none; border: none; padding: 0; color: #C9A84C; font-size: inherit; cursor: pointer; font-family: inherit; text-decoration: underline; }
-          .dest-inline-link { color: #C9A84C; text-decoration: underline; text-underline-offset: 2px; }
+          .dest-chip-clear { background: none; border: none; padding: 0; color: #6b6b6b; font-size: inherit; cursor: pointer; font-family: inherit; text-decoration: underline; }
+          .dest-inline-link { color: #6b6b6b; text-decoration: underline; text-underline-offset: 2px; }
           .dest-inline-link:hover { opacity: 0.75; }
         `}</style>
       </Head>
 
-      <Header />
+      <Nav />
 
       {/* Hero */}
       <div dangerouslySetInnerHTML={{ __html: heroHtml }} />
@@ -617,6 +617,6 @@ export default function DestinationPageDE({
       <Newsletter />
       <ExpertForm />
       <Footer />
-    </>
+    </div>
   );
 }

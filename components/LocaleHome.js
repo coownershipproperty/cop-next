@@ -1,3 +1,5 @@
+import PublicFaq, { PublicFaqSection } from '@/components/PublicFaq';
+import ClientRouter from 'next/router';
 // components/LocaleHome.js
 //
 // The real COP homepage — video hero, press marquee, property carousel,
@@ -179,7 +181,7 @@ function PropCarousel({ items, propertyCount, locale, copy }) {
                 className={`pc-card${isActive ? ' pc-active' : ''}`}
                 onClick={() => {
                   if (isActive) {
-                    window.location.href = href;
+                    ClientRouter.push(href);
                   } else {
                     snapping.current = false;
                     setPos(i);
@@ -426,7 +428,7 @@ export default function LocaleHome({ locale, copy, propertyCount, featuredProps,
 
         <div className="latest-posts-grid">
           {latestPosts.map(post => (
-            <article key={post.slug} className="lp-card" onClick={() => { window.location = `/blog/${post.slug}/`; }}>
+            <article key={post.slug} className="lp-card" onClick={() => { ClientRouter.push(`/blog/${post.slug}/`); }}>
               <div className="lp-image-wrap">
                 {post.heroImage && (
                   <Image src={post.heroImage} alt={post.title} fill className="lp-image" style={{ objectFit: 'cover' }} loading="lazy" sizes="(max-width: 768px) 100vw, 400px" />
@@ -448,19 +450,12 @@ export default function LocaleHome({ locale, copy, propertyCount, featuredProps,
       )}
 
       {/* ===== FAQ SECTION ===== */}
-      <section className="faq-section" id="faq">
-        <p className="faq-eyebrow">{copy.faq.eyebrow}</p>
-        <h2 className="faq-heading" dangerouslySetInnerHTML={{ __html: copy.faq.headingHtml }} />
-        <p className="faq-subheading">{copy.faq.sub}</p>
-        <div className="faq-list">
-          {copy.faq.items.map((item, i) => (
-            <details className="faq-item" key={i}>
-              <summary className="faq-q"><span>{item.q}</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-              <div className="faq-a"><p>{item.a}</p></div>
-            </details>
-          ))}
-        </div>
-      </section>
+      <PublicFaqSection id="faq">
+        <p>{copy.faq.eyebrow}</p>
+        <h2 dangerouslySetInnerHTML={{ __html: copy.faq.headingHtml }} />
+        <p className="cop-faq-description">{copy.faq.sub}</p>
+        <PublicFaq items={copy.faq.items} />
+      </PublicFaqSection>
 
       <Newsletter />
       <ExpertForm />

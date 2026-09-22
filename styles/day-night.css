@@ -1,0 +1,52 @@
+/* Theme only redesigned surfaces; legacy pages and photography stay untouched. */
+.rd-theme-toggle { display:grid; place-items:center; width:42px; min-width:42px; height:44px; padding:0; border:1px solid #24231f26; border-radius:10px; color:#24231f; background:transparent; cursor:pointer; }
+.rd-theme-toggle:hover { background:#24231f0c; }
+.rd-theme-toggle:focus-visible { outline:2px solid #817155; outline-offset:3px; }
+.rd .rd-nav .rd-nav-cta,.rd .rd-nav-sheet .rd-nav-cta { color:#f5f2eb; }
+html[data-cop-theme="light"] .rd {
+  color-scheme:light;
+  --rd-bg:#f5f2eb;
+  --rd-bg-2:#ece8df;
+  --rd-card:#eeeadf;
+  --rd-card-2:#e5dfd3;
+  --rd-ink:#26241f;
+  --rd-ink-70:#5e594f;
+  --rd-ink-50:#6d6559;
+  --rd-ink-30:#756d60;
+  --rd-line:#28251e21;
+  --rd-line-2:#28251e38;
+  --rd-gold:#6b6b6b;
+  --border:#28251e30;
+  --how-muted:#5e594f;
+  --day-ink:#26241f;
+  --day-muted:#625c51;
+  --day-gold:#6b6b6b;
+  --day-line:#28251e30;
+}
+/* Keep the light navigation and its logo stable; inverse buttons are separate. */
+html[data-cop-theme="light"] .rd :is(.rd-btn-primary,.expert-submit-btn) { background:#29271f; border-color:#29271f; color:#f5f2eb; }
+html[data-cop-theme="light"] .rd :is(.rd-btn-primary,.expert-submit-btn):hover { background:#464035; }
+html[data-cop-theme="light"] .rd :is(.expert-form input,.expert-form textarea,.expert-form select,.dest-trigger) { background:#faf8f3; color:#26241f; border-color:#bcb4a6; }
+html[data-cop-theme="light"] .rd :is(.expert-form label,.expert-form-field .rd-filter-select-label,.collection-live-only) { color:#625c51; }
+html[data-cop-theme="light"] .rd .rd-btn-ghost:hover { background:#28251e0d; border-color:#28251e55; }
+html[data-cop-theme="light"] .rd .rd-press-logos img { filter:brightness(.3); }
+/* Image-backed areas retain light lettering in both themes. */
+html[data-cop-theme="light"] .rd :is(.rd-hero,.rd-news) { --rd-ink:#ecebe7; --rd-ink-70:#e0dcd3; --rd-ink-50:#d2ccc1; --rd-ink-30:#c8c1b5; --rd-line-2:#ffffff44; color:#ecebe7; }
+html[data-cop-theme="light"] .rd .rd-hero .rd-btn-primary { background:#e4e2dd; border-color:#e4e2dd; color:#141312; }
+html[data-cop-theme="light"] .rd .rd-enquiry-editorial :is(.expert-heading,.expert-heading em) { color:#ecebe7; }
+html[data-cop-theme="light"] .rd .rd-enquiry-editorial .expert-sub { color:#dfdcd5; }
+html[data-cop-theme="light"] .rd :is(.pp-tab,.pp-crumb,.pp-stat-lbl,.pp-desc p,.pp-look-sub,.pp-location-text,.pp-amenity-item,.pp-coown-item span,.pw-toggle-sub,.pw-sub,.cop-fin-sub,.cop-fin-body,.cop-fin-note) { color:#625c51; }
+html[data-cop-theme="light"] .rd :is(.pp-crumb a,.pp-location-text a,.pp-price-qualifier,.pp-seemore) { color:#6b6b6b; }
+html[data-cop-theme="light"] .rd .pp-financing .cop-fin-card { background:#eeeadf; border-color:#c8c0b2; }
+html[data-cop-theme="light"] .rd .pp-financing :is(.cop-fin-label,.cop-fin-helper-label,.rd-filter-select-label,.cop-fin-result-label) { color:#625c51; }
+html[data-cop-theme="light"] .rd .pp-financing :is(.cop-fin-helper-val,.cop-fin-rate-val,.cop-fin-result-financed,.cop-fin-result-amount) { color:#26241f; }
+html[data-cop-theme="light"] .rd .pp-financing :is(.rd-filter-select-trigger,.rd-filter-select-menu,.cop-fin-btn) { background:#faf8f3; color:#26241f; border-color:#bcb4a6; }
+html[data-cop-theme="light"] .rd :is(.prop-card,.fav-empty,.fav-save-card,.fav-header,.prop-price-row) { border-color:#28251e30; }
+html[data-cop-theme="light"] .rd .prop-card { background:#eeeadf; }
+html[data-cop-theme="light"] .rd :is(.page-hero-sub,.fav-count,.fav-count strong,.fav-empty p,.fav-save-sub,.prop-location,.prop-stats,.prop-share-size,.prop-view-btn,.clear-favs-btn) { color:#625c51; }
+html[data-cop-theme="light"] .rd .fav-save-form input { background:#faf8f3; color:#26241f; border-color:#bcb4a6; }
+html[data-cop-theme="light"] .rd :is(.fav-save-form button,.fav-empty .btn-gold) { background:#29271f; color:#f5f2eb; }
+html[data-cop-theme="light"] .rd .fav-save-done { color:#405934; }
+html[data-cop-theme="light"] .rd .fav-save-error { color:#993e2f; }
+html[data-cop-theme="light"] .rd .pp-gallery-lock { --rd-ink:#ecebe7; --rd-gold:#cfcfcf; }
+@media (min-width:981px) and (max-width:1200px) { .rd .rd-nav-links a { padding-left:.55rem; padding-right:.55rem; font-size:.84rem; } }

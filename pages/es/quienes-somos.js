@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -25,11 +26,11 @@ export default function QuienesSomos() {
       </Head>
       <Header />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Nuestra historia</p>
         <h1>Quiénes <em>somos</em></h1>
         <p className="subtitle">Conoce al equipo dedicado a hacer accesible, transparente e inteligente la propiedad de una segunda residencia de lujo.</p>
-      </section>
+      </PublicPageHeader>
 
       <div className="press-bar" role="region" aria-label="Aparecemos en">
         <div className="press-bar-header"><span className="press-bar-label">Aparecemos en</span></div>

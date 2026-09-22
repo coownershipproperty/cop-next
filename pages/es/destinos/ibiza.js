@@ -1,5 +1,6 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -36,7 +37,7 @@ export async function getStaticProps() {
 export default function IbizaES({ properties }) {
   const canonicalUrl = 'https://co-ownership-property.com/es/destinos/ibiza/';
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>Copropiedad en Ibiza: villas y casas en propiedad fraccionada [2026]</title>
         <meta name="description" content="Propiedades en copropiedad en Ibiza — villas y casas en Santa Eulalia, San José, San Juan y otras zonas. Propiedad real con escritura ante notario, desde una fracción del precio." />
@@ -48,13 +49,13 @@ export default function IbizaES({ properties }) {
         <meta property="og:description" content="Villas y casas de lujo en copropiedad en Ibiza. Desde una fracción del precio." />
         <meta property="og:url" content={canonicalUrl} />
       </Head>
-      <Header />
+      <Nav />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Destino · Islas Baleares</p>
         <h1>Copropiedad en <em>Ibiza</em></h1>
         <p className="subtitle">Villas, fincas restauradas y casas de diseño en copropiedad por toda Ibiza — desde una fracción del precio de la compra íntegra.</p>
-      </section>
+      </PublicPageHeader>
 
       <section className="sec intro-sec">
         <div className="intro-center">
@@ -96,6 +97,6 @@ export default function IbizaES({ properties }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
-    </>
+    </div>
   );
 }

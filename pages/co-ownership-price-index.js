@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
@@ -29,7 +30,7 @@ import Newsletter from '@/components/Newsletter';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
-/* Data-mark colours. Brand navy (#1E3448) and gold (#C9A84C) FAIL as data
+/* Data-mark colours. Brand navy (#1E3448) and gold (#6b6b6b) FAIL as data
    marks — navy sits outside the lightness band and reads gray at 0.046
    chroma; gold lands at 2.29:1 against white. These are the brand-adjacent
    steps that pass all six checks (CVD ΔE 20.3 protan / 21.4 tritan,
@@ -562,7 +563,7 @@ export default function PriceIndex({
       </Head>
       <Header />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <span className="page-hero-eyebrow">Live market data · Updated {updatedNice}</span>
         <h1>The <em>Co-Ownership</em> Price Index</h1>
         <p className="page-hero-sub">
@@ -571,7 +572,7 @@ export default function PriceIndex({
           {soldTotals.count} that have already sold — {headline.countries} countries, no estimates,
           no survey, no hand-typed numbers.
         </p>
-      </section>
+      </PublicPageHeader>
 
       <section className="pi-sec">
         <div className="pi-inner">

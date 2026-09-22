@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Script from 'next/script';
 import Header from '@/components/Header';
@@ -23,11 +24,11 @@ export default function ContactFR() {
       </Head>
       <Header />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Nous sommes là pour vous aider</p>
         <h1>Nous <em>contacter</em></h1>
         <p className="subtitle">Questions sur la copropriété, sur un bien en particulier, ou simplement envie de comprendre comment tout cela fonctionne ? Nous vous donnerons des réponses directes — sans pression commerciale.</p>
-      </section>
+      </PublicPageHeader>
 
       <section className="trust-sec">
         <div className="trust-inner">

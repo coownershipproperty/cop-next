@@ -1,5 +1,6 @@
+import PublicFaq, { PublicFaqSection } from '@/components/PublicFaq';
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -90,7 +91,6 @@ const FAQS = [
 ];
 
 export default function FerienimmobilieKaufenFAQs() {
-  const [open, setOpen] = useState(null);
 
   return (
     <>
@@ -120,37 +120,18 @@ export default function FerienimmobilieKaufenFAQs() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Käufer-Leitfäden</p>
         <h1>Ferienimmobilie kaufen — <em>Häufige Fragen</em></h1>
         <p className="subtitle">Alles, was Sie über den Erwerb eines Miteigentum-Anteils wissen müssen — von rechtlicher Struktur und Kosten bis zum Kaufprozess und darüber hinaus.</p>
-      </section>
+      </PublicPageHeader>
 
       {/* FAQ Accordion */}
-      <section className="faq-section">
+      <PublicFaqSection>
         <p className="faq-eyebrow">Häufige Fragen</p>
         <h2 className="faq-heading">Häufig gestellte <em>Fragen</em></h2>
-        <div className="bfaq-list">
-          {FAQS.map((item, i) => (
-            <div key={i} className="bfaq-row">
-              <button
-                className="bfaq-btn"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-              >
-                <span className="bfaq-num">{String(i + 1).padStart(2, '0')}</span>
-                <span className="bfaq-question">{item.q}</span>
-                <span className={`bfaq-arrow${open === i ? ' bfaq-arrow--open' : ''}`} />
-              </button>
-              {open === i && (
-                <div className="bfaq-answer">
-                  <p>{item.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
+        <PublicFaq items={FAQS} />
+      </PublicFaqSection>
 
       {/* Helpful links */}
       <section className="sec" style={{ background: 'var(--cream-bg)', paddingTop: 60, paddingBottom: 80 }}>

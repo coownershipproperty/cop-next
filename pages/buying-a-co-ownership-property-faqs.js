@@ -1,6 +1,7 @@
+import PublicFaq, { PublicFaqSection } from '@/components/PublicFaq';
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import hreflangLinks from '@/components/HreflangLinks';
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -90,7 +91,6 @@ const FAQS = [
 ];
 
 export default function BuyingFAQs() {
-  const [open, setOpen] = useState(null);
 
   return (
     <>
@@ -119,40 +119,21 @@ export default function BuyingFAQs() {
       <Header />
 
       {/* Hero */}
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Buyer Guides</p>
         <h1>Buying a Co-Ownership Property — <em>FAQs</em></h1>
         <p className="subtitle">Everything you need to know about purchasing a fractional share — from legal structure and costs to the buying process and beyond.</p>
         <p className="subtitle" style={{marginTop: '0.6rem', fontSize: '0.95rem'}}>
           Looking for shorter, single-question answers? See our independent <a href="/faq/">buyer&rsquo;s Q&amp;A</a> covering pricing, resale, LLC structure, tax, and the difference from timeshare.
         </p>
-      </section>
+      </PublicPageHeader>
 
       {/* FAQ Accordion */}
-      <section className="faq-section">
+      <PublicFaqSection>
         <p className="faq-eyebrow">Common Questions</p>
         <h2 className="faq-heading">Frequently Asked <em>Questions</em></h2>
-        <div className="bfaq-list">
-          {FAQS.map((item, i) => (
-            <div key={i} className="bfaq-row">
-              <button
-                className="bfaq-btn"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-              >
-                <span className="bfaq-num">{String(i + 1).padStart(2, '0')}</span>
-                <span className="bfaq-question">{item.q}</span>
-                <span className={`bfaq-arrow${open === i ? ' bfaq-arrow--open' : ''}`} />
-              </button>
-              {open === i && (
-                <div className="bfaq-answer">
-                  <p>{item.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
+        <PublicFaq items={FAQS} />
+      </PublicFaqSection>
 
       {/* Helpful links */}
       <section className="sec" style={{ background: 'var(--cream-bg)', paddingTop: 60, paddingBottom: 80 }}>

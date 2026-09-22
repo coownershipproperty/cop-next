@@ -4,15 +4,97 @@ import { orderForCountry, countryFromCookie } from '@/lib/geoOrder';
 import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '@/components/rd/Nav';
+import Destinations from '@/components/rd/Destinations';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { saveUser } from '@/lib/savedUser';
+import { trackConversion } from '@/lib/gtag';
+import { track } from '@vercel/analytics';
 import PropertyCard from '@/components/PropertyCard';
 import ExpertForm from '@/components/ExpertForm';
 import { createClient } from '@supabase/supabase-js';
 import { getFeaturedSlugs } from '@/lib/featured-properties';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+function NewsletterSignup() {
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState('idle');
+  const inputRef = useRef(null);
+  async function submit(event) {
+    event.preventDefault();
+    if (status === 'sending') return;
+    const email = inputRef.current.value.trim();
+    setStatus('sending');
+    try {
+      const response = await fetch('/api/newsletter/', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, locale: 'en', [HONEYPOT_FIELD]: event.currentTarget.elements[HONEYPOT_FIELD]?.value || '' }),
+      });
+      const data = await response.json();
+      setStatus(response.ok && data.ok ? 'success' : 'error');
+      if (response.ok && data.ok) {
+        saveUser({ email });
+        trackConversion('sign_up', 'Lead', { method: 'newsletter', locale: 'en' });
+        track('newsletter_signup', { locale: 'en' });
+      }
+    } catch { setStatus('error'); }
+  }
+  return <div className="rd-hero-signup">
+    {status === 'success' ? <div className="rd-hero-signup-success" role="status">You're on the list. Thank you.</div> : <>
+      <form className={`rd-hero-signup-field${open ? ' is-open' : ''}`} onSubmit={submit}>
+        <HoneypotField />
+        <input ref={inputRef} type="email" name="email" autoComplete="email" inputMode="email" aria-label="Email address for newsletter" placeholder="Your email address" required tabIndex={open ? 0 : -1} disabled={status === 'sending'} />
+        {open && <button type="submit" aria-label="Subscribe to newsletter" disabled={status === 'sending'}>{status === 'sending' ? '…' : '→'}</button>}
+        {!open && <button className="rd-hero-signup-open" type="button" onClick={() => { setOpen(true); inputRef.current.focus(); }}>Sign up to the newsletter</button>}
+      </form>
+      {status === 'error' && <p role="alert">Couldn't subscribe. Please try again.</p>}
+    </>}
+  </div>;
+}
+
+function NewsletterCopy() {
+  return <div className="rd-newsletter-copy">
+    <span className="rd-kicker">The Official Co-Ownership Newsletter</span>
+    <h2>Be the first to know.</h2>
+    <p>New homes, remarkable destinations, and a closer look at co-ownership. In your inbox.</p>
+  </div>;
+}
+
+function HeroVideo({ poster }) {
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  useEffect(() => {
+    const video = videoRef.current;
+    video.poster = window.matchMedia('(max-width: 760px)').matches
+      ? '/redesign/cop-home-mobile-first-frame.jpg'
+      : poster;
+    // Select once before loading: phones never fetch the larger desktop file.
+    // Keep this choice on resize/orientation changes to avoid a second download.
+    video.src = window.matchMedia('(max-width: 760px)').matches
+      ? '/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4'
+      : '/redesign/cop-home-uhd-v2.mp4';
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!reduced.matches) video.play().catch(() => {});
+    const onPreference = () => { if (reduced.matches) video.pause(); };
+    reduced.addEventListener('change', onPreference);
+    return () => reduced.removeEventListener('change', onPreference);
+  }, []);
+  return <>
+    <video ref={videoRef} muted loop playsInline preload="metadata" poster={poster} aria-hidden="true" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}}>
+    </video>
+    <button type="button" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={() => { const v=videoRef.current; if(v.paused) v.play().catch(() => {}); else v.pause(); }} style={{position:'absolute',right:20,bottom:20,zIndex:5,width:40,height:40,borderRadius:'50%',border:'1px solid #ffffff60',background:'#13121099',color:'#fff',cursor:'pointer'}}>{playing ? 'Ⅱ' : '▶'}</button>
+  </>;
+}
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
+
+// Keep the answer text unchanged for structured data; emphasis is presentational.
+function FaqAnswer({ text }) {
+  const emphasis = /(deeded share|not a timeshare or a membership|legal interest in the home itself|fully furnished and equipped|before you commit|around six weeks a year|booking rules differ by home|It depends on the home\.|managed rental programme|owners and their guests only|professional management team|owners' shared running costs|initial holding period|first refusal|Europe and the United States|New homes are added every week\.|A person replies|real availability, real figures)/g;
+  return text.split(emphasis).map((part, i) => i % 2 ? <strong key={i}>{part}</strong> : part);
+}
 
 // Single source of truth for the homepage FAQ — drives the FAQPage JSON-LD
 // below and the visible accordion. Nights: 42–45 depending on the home, so
@@ -41,7 +123,7 @@ const DESTINATION_ORDER = [
   { key: 'germany',  country: 'Germany',  label: 'Germany',       href: '/germany-fractional-ownership-properties/' },
   { key: 'mexico',   country: 'Mexico',   label: 'Mexico',        href: '/mexico-fractional-ownership-properties/' },
   { key: 'portugal', country: 'Portugal', label: 'Portugal',      href: '/portugal-fractional-ownership-properties/' },
-  { key: 'england',  country: 'England',  label: 'England',       href: '/england-fractional-ownership-properties/' },
+  { key: 'england',  country: 'England',  label: 'United Kingdom', href: '/england-fractional-ownership-properties/' },
   { key: 'sweden',   country: 'Sweden',   label: 'Sweden',        href: '/sweden-fractional-ownership-properties/' },
   { key: 'croatia',  country: 'Croatia',  label: 'Croatia',       href: '/croatia-fractional-ownership-properties/' },
 ];
@@ -49,14 +131,14 @@ const DESTINATION_ORDER = [
 // dark-graded set is for the hero only). Chosen by slug; if that home is no
 // longer live the tile falls back to the top-priced live listing's photo.
 const DEST_PICK = {
-  usa: 'vail-colorado-4-bed-house-with-hot-tub-2',
-  spain: 'nova-santa-ponsa-spain-4-bed-villa-with-infinity-pool',
+  usa: 'palm-desert-california-4-bed-house-with-pool',
+  spain: 'peguera-mallorca-spain-4-bed-villa-with-sea-views-infinity-pool',
   italy: 'castiglioncello-del-trinoro-si-italy-4-bed-house',
   france: '7th-arrondissement-paris-france-2-bed-apartment',
-  austria: 'stuben-vorarlberg-austria-2-bed-penthouse-with-mountain-views-sauna',
+  austria: 'burserberg-austria-3-bed-penthouse-with-mountain-views',
   germany: 'tegernsee-bavaria-germany-3-bed-penthouse-maisonette-with-lake-views',
   mexico: 'cabo-san-lucas-mexico-3-bed-villa-with-infinity-pool',
-  portugal: 'lagos-algarve-portugal-2-bed-terrace-apartment-with-sea-views',
+  portugal: 'albufeira-algarve-portugal-4-bed-villa-with-sea-view-roof-terrace',
   england: 'london-england-3-bed-house-2',
   sweden: 'norrnas-sweden-5-bed-villa-with-terrace',
   croatia: 'kukci-croatia-3-bed-villa-with-sea-views',
@@ -219,7 +301,7 @@ export async function getStaticProps() {
     .map(({ key, country, label, href }) => ({
       key, label, href,
       count: byCountry[country]?.count || 0,
-      img: imgBySlug[DEST_PICK[key]] || byCountry[country]?.img || '',
+      img: ({ usa: '/redesign/usa-palm-desert.jpg', spain: '/redesign/spain-sunny-v1.png', portugal: '/redesign/portugal-tidy-v1.png' })[key] || imgBySlug[DEST_PICK[key]] || byCountry[country]?.img || '',
     }))
     .filter(d => d.count > 0);
   const stats = {
@@ -245,8 +327,13 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [featuredProps]);
 
-  const homes = featured.slice(0, 8);
-  const tiles = destinations.slice(0, 8);
+  const homes = featured.slice(0, 6);
+  // Fixed editorial hero, independent of the rotating featured-home cards.
+  const heroHome = {
+    slug: 'breckenridge-colorado-4-bed-house-with-mountain-views',
+    title: 'Breckenridge, Colorado, USA',
+    img: 'https://iotzzoxyckpyatzqcjbo.supabase.co/storage/v1/object/public/property-images/breckenridge-colorado-4-bed-house-with-mountain-views/hero.jpg',
+  };
 
   return (
     <>
@@ -257,8 +344,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/" />
-        <link rel="preload" as="image" href="/redesign/hero-lounge.webp" media="(min-width: 861px)" />
-        <link rel="preload" as="image" href="/redesign/hero-lounge-m.webp" media="(max-width: 860px)" />
         <meta property="og:title" content="Co-Ownership Property | Luxury Fractional Ownership" />
         <meta property="og:description" content="Browse 300+ luxury fractional ownership homes across Europe and the USA. Real ownership from a fraction of the cost." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
@@ -300,52 +385,28 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
         }) }} />
       </Head>
 
-      <div className="rd rd-home">
+      <div className="rd rd-home rd-home-light">
         <Nav />
 
         {/* ── Hero ── */}
         <section className="rd-hero" aria-label="Introduction">
           <div className="rd-hero-media">
-            <picture>
-              <source media="(max-width: 860px)" srcSet="/redesign/hero-lounge-m.webp" />
-              <img src="/redesign/hero-lounge.webp" alt="A dark-wood living room with a fire lit, looking out onto autumn trees" fetchPriority="high" decoding="async" />
-            </picture>
+            <HeroVideo poster="/redesign/cop-home-first-frame.jpg" />
           </div>
           <div className="rd-hero-shade" />
           <div className="rd-hero-inner">
             <div className="rd-hero-copy">
-              <span className="rd-kicker" style={{ color: 'rgba(243,242,238,0.7)' }}>Luxury co-ownership · Europe &amp; the USA</span>
-              <h1 className="rd-h1">Own a share of somewhere extraordinary.</h1>
+              <h1 className="rd-h1">Your window to the world’s finest <span className="hero-ownership-accent">co-ownership.</span></h1>
               <p className="rd-lead">Real, deeded ownership of a fully managed second home — for a fraction of the price of buying it alone.</p>
               <div className="rd-btn-row">
-                <Link href="/our-homes/" className="rd-btn">Explore the homes</Link>
-                <a href="#speak-to-expert" className="rd-btn rd-btn-ghost">Speak to us</a>
+                <Link href="/our-homes/" className="rd-btn">Browse properties →</Link>
+                <Link href="/how-it-works/" className="rd-btn rd-btn-ghost">How it works</Link>
               </div>
             </div>
-            <aside className="rd-hero-proof" aria-label="At a glance">
-              <dl>
-                <div><dt>{stats.homes || propertyCount}</dt><dd>homes for sale</dd></div>
-                <div><dt>{stats.countries || 11}</dt><dd>countries</dd></div>
-                {stats.fromEur && <div><dt>from {fmtK(stats.fromEur)}</dt><dd>for a share</dd></div>}
-                <div><dt>1/8</dt><dd>typical share</dd></div>
-              </dl>
+            <aside className="rd-hero-proof rd-hero-newsletter" aria-label="Newsletter">
+              <NewsletterCopy />
+              <NewsletterSignup />
             </aside>
-          </div>
-        </section>
-
-        {/* ── Press (the operators' coverage, labelled as theirs) ── */}
-        <section className="rd-section-tight" aria-label="Press">
-          <div className="rd-container">
-            <div className="rd-press" data-rv>
-              <span className="rd-press-label">The homes we list have been covered in</span>
-              <div className="rd-press-track" aria-hidden="false">
-                {[0, 1].map(pass => (
-                  <div className="rd-press-logos" key={pass} aria-hidden={pass === 1 ? 'true' : undefined}>
-                    {PRESS.map(p => <img key={p.alt} src={p.src} alt={pass === 0 ? p.alt : ''} loading="lazy" />)}
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -354,17 +415,18 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
           <div className="rd-container">
             <div className="rd-head-row" data-rv>
               <div>
-                <span className="rd-kicker">This week</span>
+                <span className="rd-kicker">Featured homes</span>
                 <h2 className="rd-h2" id="h-homes">Homes worth owning a piece of.</h2>
                 <p className="rd-lead">A rotating selection from {propertyCount} co-ownership homes. Prices are for a single share, fully furnished.</p>
               </div>
-              <Link href="/our-homes/" className="rd-btn rd-btn-ghost">All {propertyCount} homes</Link>
+              <Link href="/our-homes/" className="rd-btn-link">All {propertyCount} homes →</Link>
             </div>
-            <div className="rd-grid-4 rd-cards">
+            <div className="rd-grid-3 rd-cards rd-editorial-cards">
               {homes.map((p, i) => (
-                <div key={p.slug} data-rv={String(Math.min(i % 4 + 1, 4))}><PropertyCard property={p} priority={i < 4} /></div>
+                <div key={p.slug} data-rv={String(i % 3 + 1)}><PropertyCard property={p} editorial /></div>
               ))}
             </div>
+            <Link href="/our-homes/" className="rd-featured-see-all">See all properties <span aria-hidden="true">→</span></Link>
           </div>
         </section>
 
@@ -374,33 +436,24 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
             <div className="rd-head-row" data-rv>
               <div>
                 <span className="rd-kicker">Where</span>
-                <h2 className="rd-h2" id="h-dest">Eleven countries. One way to own.</h2>
+                <h2 className="rd-h2" id="h-dest">Our destinations.</h2>
                 <p className="rd-lead">Every home we have in each country, on one page.</p>
               </div>
               <Link href="/our-homes/" className="rd-btn-link">All destinations →</Link>
             </div>
-            <div className="rd-dest-grid">
-              {tiles.map((d, i) => (
-                <Link key={d.key} href={d.href} className={`rd-dest${i < 2 ? ' is-wide' : ''}`} data-rv={String(Math.min(i % 3 + 1, 3))}>
-                  {d.img && (d.img.startsWith('/')
-                    ? <img src={d.img} alt="" loading="lazy" />
-                    : <Image src={d.img} alt="" fill sizes="(max-width: 1000px) 50vw, 33vw" style={{ objectFit: 'cover' }} loading="lazy" />)}
-                  <div className="rd-dest-label"><b>{d.label}</b><span>{d.count} {d.count === 1 ? 'home' : 'homes'}</span></div>
-                </Link>
-              ))}
-            </div>
+            <Destinations destinations={destinations} />
           </div>
         </section>
 
         {/* ── Values ── */}
-        <section className="rd-section" aria-labelledby="h-values" style={{ paddingTop: 0 }}>
+        <section className="rd-section rd-values-chapter" aria-labelledby="h-values" style={{ paddingTop: 0 }}>
           <div className="rd-container">
             <div className="rd-values" data-rv>
-              <div className="rd-values-media"><img src="/redesign/values-shelf.webp" alt="" loading="lazy" /></div>
+              <div className="rd-values-media"><Image src="/redesign/usa-palm-desert.jpg" alt="" fill sizes="100vw" loading="lazy" /></div>
               <div className="rd-values-inner">
                 <div className="rd-values-head">
                   <span className="rd-kicker">How it works</span>
-                  <h2 className="rd-h2" id="h-values">The difference is in the details.</h2>
+                  <h2 className="rd-h2" id="h-values"><span className="values-title-desktop">The difference is in the details.</span><span className="values-title-mobile">HOW IT WORKS</span></h2>
                   <p className="rd-lead">What co-ownership actually gives you.</p>
                 </div>
                 <div className="rd-values-grid">
@@ -412,7 +465,17 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
                     </div>
                   ))}
                 </div>
-                <div className="rd-btn-row"><Link href="/how-it-works/" className="rd-btn rd-btn-ghost">How co-ownership works</Link></div>
+                <div className="rd-btn-row">
+                  <Link href="/how-it-works/" className="rd-btn rd-btn-ghost">How co-ownership works</Link>
+                  <a href="#speak-to-expert" className="rd-btn rd-btn-ghost" onClick={(event) => {
+                    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                    const section = document.getElementById('speak-to-expert');
+                    if (!section) return;
+                    event.preventDefault();
+                    section.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+                    window.history.replaceState(window.history.state, '', '#speak-to-expert');
+                  }}>Speak to an expert</a>
+                </div>
               </div>
             </div>
           </div>
@@ -425,7 +488,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
               <div className="rd-head-row" data-rv>
                 <div>
                   <span className="rd-kicker">Reading</span>
-                  <h2 className="rd-h2" id="h-posts">Before you buy.</h2>
+                  <h2 className="rd-h2" id="h-posts">Our blog.</h2>
                 </div>
                 <Link href="/all-our-blog/" className="rd-btn-link">All articles →</Link>
               </div>
@@ -452,14 +515,14 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
             <div className="rd-head-row" data-rv>
               <div>
                 <span className="rd-kicker">Questions</span>
-                <h2 className="rd-h2" id="h-faq">Straight answers.</h2>
+                <h2 className="rd-h2" id="h-faq">Frequently asked questions.</h2>
               </div>
             </div>
             <div className="rd-faq" data-rv>
               {HOMEPAGE_FAQS.map((f, i) => (
                 <details key={i}>
                   <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+                  <p><FaqAnswer text={f.a} /></p>
                 </details>
               ))}
             </div>
@@ -467,36 +530,19 @@ export default function Home({ propertyCount, featuredProps, latestPosts, destin
         </section>
 
         {/* ── Newsletter ── */}
-        <section className="rd-section" aria-label="Newsletter" style={{ paddingTop: 0 }}>
+        <section id="newsletter" className="rd-section" aria-label="Newsletter" style={{ paddingTop: 0, scrollMarginTop: 110 }}>
           <div className="rd-container">
             <div className="rd-news" data-rv>
               <div className="rd-news-media"><img src="/redesign/hero-costa-azul.webp" alt="" loading="lazy" /></div>
-              <div className="rd-news-body"><Newsletter /></div>
+              <div className="rd-news-body"><Newsletter editorial /></div>
             </div>
           </div>
         </section>
 
         {/* ── Enquiry ── */}
         <section className="rd-section" aria-label="Enquiry" style={{ paddingTop: 0 }}>
-          <div className="rd-container" data-rv>
+          <div className="rd-container rd-enquiry-editorial" data-rv>
             <ExpertForm />
-          </div>
-        </section>
-
-        {/* ── Final CTA ── */}
-        <section className="rd-section" aria-label="Get started" style={{ paddingTop: 0 }}>
-          <div className="rd-container">
-            <div className="rd-cta" data-rv>
-              <img src="/redesign/cta-marble.webp" alt="" loading="lazy" />
-              <div>
-                <h2 className="rd-h2">Ready to find your share?</h2>
-                <p className="rd-lead" style={{ margin: '1rem auto 0' }}>Tell us where you would like to be and when. A person replies with real availability and real figures.</p>
-                <div className="rd-btn-row">
-                  <Link href="/our-homes/" className="rd-btn">Browse the homes</Link>
-                  <a href="#speak-to-expert" className="rd-btn rd-btn-ghost">Speak to us</a>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 

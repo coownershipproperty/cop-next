@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -28,11 +29,11 @@ export default function UeberUns() {
       </Head>
       <Header />
 {/* ===== HERO ===== */}
-    <section className="page-hero">
+    <PublicPageHeader>
         <p className="eyebrow">Unsere Geschichte</p>
         <h1>Über <em>uns</em></h1>
         <p className="subtitle">Lernen Sie das Team kennen, das luxuriösen Ferienimmobilien-Besitz zugänglich, transparent und intelligent macht.</p>
-    </section>
+    </PublicPageHeader>
 
     {/* ===== PRESS BAR ===== */}
     <div className="press-bar" role="region" aria-label="Bekannt aus">

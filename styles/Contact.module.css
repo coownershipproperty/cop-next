@@ -3,7 +3,7 @@
   --contact-paper: #f4f1eb;
   --contact-muted: #817a72;
   --contact-line: rgba(23, 35, 43, 0.16);
-  --contact-gold: #c9a84c;
+  --contact-gold: #6b6b6b;
   color: var(--contact-ink);
   background: #fff;
   font-family: var(--font-nunito), 'Nunito Sans', sans-serif;
@@ -271,7 +271,7 @@
 
 .formShell :global(.dest-tag) {
   border-color: rgba(154, 126, 50, 0.28);
-  background: rgba(201, 168, 76, 0.13);
+  background: rgba(107,107,107, 0.13);
   color: var(--contact-ink);
 }
 

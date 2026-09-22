@@ -1,3 +1,5 @@
+import PublicArticleBody from '@/components/PublicArticleBody';
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * pages/faq/index.js — FAQ / Q&A hub page (EN)
  *
@@ -111,7 +113,7 @@ export default function FaqIndexPage({ grouped, total }) {
       <Header />
 
       <article className="faq-page compare-page">
-        <section className="compare-hero">
+        <PublicPageHeader>
           <p className="compare-eyebrow">Buyer’s Q&A</p>
           <h1 className="compare-h1">Co-ownership buyer’s Q&amp;A</h1>
           <p className="compare-subtitle">Independent answers to the most-asked questions about fractional and co-ownership of luxury second homes. Updated regularly.</p>
@@ -119,9 +121,9 @@ export default function FaqIndexPage({ grouped, total }) {
             <span className="compare-byline">By <a href="/about-us/" rel="author">David Olsson</a></span>
             <span className="compare-wc-inline">{total} questions covered</span>
           </p>
-        </section>
+        </PublicPageHeader>
 
-        <section className="compare-body">
+        <PublicArticleBody>
           <div className="compare-body-inner">
             {orderedCategories.map(cat => (
               <div key={cat} className="faq-category-block">
@@ -136,7 +138,7 @@ export default function FaqIndexPage({ grouped, total }) {
               </div>
             ))}
           </div>
-        </section>
+        </PublicArticleBody>
       </article>
 
       <Newsletter />

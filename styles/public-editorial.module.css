@@ -1,0 +1,58 @@
+/* Component-owned layout: deliberately independent of the legacy page/FAQ classes. */
+.header.header { padding:144px 24px 56px; background:#fff; color:#171717; }
+.headerInner { width:100%; max-width:960px; margin-inline:auto; }
+.header .eyebrow { display:block; margin:0 0 24px; color:#6b6b6b; font:500 11px/1.5 var(--font-inter),sans-serif; letter-spacing:.18em; text-transform:uppercase; }
+.header .title { max-width:none; margin:0; color:#000; font:400 clamp(32px,3.5vw,52px)/1.18 var(--font-poppins),sans-serif; letter-spacing:-.035em; text-wrap:balance; }
+.header .title em { font:inherit; color:inherit; }
+.header .lead { max-width:760px; margin:24px 0 0; color:#595959; font:400 17px/1.75 var(--font-inter),sans-serif; }
+.header .lead + .lead { margin-top:16px; font-size:15px; }
+.header .meta { display:flex; flex-wrap:wrap; gap:8px 24px; margin:24px 0 0; color:#595959; font:400 13px/1.7 var(--font-inter),sans-serif; }
+.header a { color:inherit; text-decoration:underline; text-underline-offset:4px; }
+.faqSection.faqSection { background:#fff; padding:24px 24px 72px; }
+.faqInner { max-width:960px; margin-inline:auto; }
+.faqInner > p { margin:0 0 16px; color:#6b6b6b; font:500 11px/1.5 var(--font-inter),sans-serif; letter-spacing:.18em; text-transform:uppercase; text-align:left; }
+.faqInner > h2 { margin:0 0 32px; color:#171717; font:400 clamp(26px,2.7vw,38px)/1.25 var(--font-poppins),sans-serif; letter-spacing:-.025em; text-align:left; }
+.faqInner > h2 em { font:inherit; color:inherit; }
+.faqInner > :global(.cop-faq-description) { margin:0 0 28px; color:#595959; font:400 16px/1.8 var(--font-inter),sans-serif; text-transform:none; letter-spacing:0; }
+.faqList { border-top:1px solid #d4d4d4; }
+.faqItem { border-bottom:1px solid #d4d4d4; }
+.faqItem .questionHeading { margin:0; font:inherit; }
+.question { display:grid; grid-template-columns:32px minmax(0,1fr) 20px; align-items:start; gap:20px; width:100%; padding:24px 16px; border:0; border-radius:0; background:transparent; color:#171717; text-align:left; cursor:pointer; font:400 17px/1.6 var(--font-poppins),sans-serif; }
+.question:hover { background:#fafafa; }
+.question:focus-visible { outline:2px solid #6b6b6b; outline-offset:-2px; }
+.number { color:#6b6b6b; font:400 14px/1.95 var(--font-inter),sans-serif; }
+.questionText { min-width:0; overflow-wrap:anywhere; }
+.chevron { margin-top:4px; color:#6b6b6b; transition:transform .2s; }
+.chevron[data-open=true] { transform:rotate(180deg); }
+.answer { padding:0 56px 28px 68px; color:#595959; font:400 16px/1.8 var(--font-inter),sans-serif; }
+.answer[hidden] { display:none; }
+.answer p { margin:0; font:inherit; color:inherit; }
+.answer p + p { margin-top:16px; }
+.answer a { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.body.body { padding:16px 24px 64px; background:#fff; color:#505050; font:400 16px/1.8 var(--font-inter),sans-serif; }
+.body > div { max-width:960px; margin:0 auto; padding:0; }
+.body.body h2 { margin:40px 0 20px; color:#171717; font:400 clamp(26px,2.7vw,36px)/1.3 var(--font-poppins),sans-serif; letter-spacing:-.025em; }
+.body.body h3 { margin:32px 0 16px; color:#171717; font:400 23px/1.4 var(--font-poppins),sans-serif; }
+.body.body p { margin:0 0 20px; }
+.body.body > div > :first-child, .body.body > div > section:first-child > :first-child { margin-top:0; }
+.body.body li { margin-block:8px; }
+.body.body :is(ul,ol) { padding-left:24px; margin:0 0 24px; }
+.body.body th,.body.body td { padding:16px; vertical-align:top; line-height:1.6; }
+.body.body table { margin:24px 0; }
+.body.body :global(.cmp-group) { margin:0 0 48px; }
+.body.body :global(.cmp-list) { list-style:none; padding:0; }
+.body.body :global(.cmp-list a) { padding:20px 24px; }
+.body.body :global(.cmp-list span) { display:block; margin-top:8px; }
+@media(max-width:760px) {
+  .header.header { padding:120px 20px 40px; }
+  .header .eyebrow { margin-bottom:20px; }
+  .header .lead { font-size:16px; margin-top:20px; }
+  .faqSection.faqSection { padding:16px 20px 48px; }
+  .question { grid-template-columns:24px minmax(0,1fr) 18px; gap:12px; padding:20px 8px; font-size:15px; }
+  .answer { padding:0 38px 24px 44px; font-size:15px; }
+  .number { font-size:12px; }
+  .body.body { padding:16px 20px 40px; }
+  .body.body h2 { margin-top:32px; }
+  .body.body table { display:block; max-width:100%; overflow-x:auto; }
+}
+@media(prefers-reduced-motion:reduce) { .chevron { transition:none; } }

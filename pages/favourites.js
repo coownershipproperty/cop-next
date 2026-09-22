@@ -2,10 +2,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
+import Link from 'next/link';
+import s from '@/styles/saved-homes.module.css';
 import Footer from '@/components/Footer';
-import Newsletter from '@/components/Newsletter';
-import ExpertForm from '@/components/ExpertForm';
 import { FAV_KEY, FAV_EVENT, getFavSlugs, toggleFav, onFavsChange } from '@/lib/favs';
 import { t, propertyHref, DEFAULT_LOCALE, SUPPORTED_LOCALES, routePath, numberLocale } from '@/lib/i18n';
 
@@ -39,7 +39,7 @@ const SizeIcon = () => (
 );
 const HeartFilledIcon = () => (
   <svg viewBox="0 0 24 24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{width:16,height:16}}>
-    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="#C9A84C" stroke="#C9A84C"/>
+    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="#6b6b6b" stroke="#6b6b6b"/>
   </svg>
 );
 
@@ -67,6 +67,7 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
   const [slugs, setSlugs]       = useState(null);
   const [props, setProps]       = useState([]);
   const [loading, setLoading]   = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [slEmail, setSlEmail]   = useState('');
   const [slState, setSlState]   = useState('idle'); // idle | busy | done | error
 
@@ -119,10 +120,12 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
   useEffect(() => {
     if (!slugs || slugs.length === 0) {
       setProps([]);
+      setLoading(false);
       return;
     }
     let cancelled = false;
     setLoading(true);
+    setLoadError(false);
     getSupabase()
       .from('properties')
       .select('slug, title, img, images, price, currency, share_denominator, country, region, city, beds, size, status')
@@ -130,8 +133,9 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
       // Favourites keep sold homes visible (with the Sold badge) but must
       // never surface hidden/staged rows.
       .in('status', ['Live', 'for_sale', 'sold'])
-      .then(({ data }) => {
+      .then(({ data, error }) => {
         if (cancelled) return;
+        if (error) { setLoadError(true); setLoading(false); return; }
         // Preserve the order the user saved them (most recent last → show most recent first)
         const bySlug = Object.fromEntries((data || []).map(p => [p.slug, p]));
         const ordered = slugs.map(s => bySlug[s]).filter(Boolean).reverse();
@@ -156,7 +160,7 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
   const numberLocale = LOCALE_TAG[locale] || LOCALE_TAG.en;
 
   return (
-    <>
+    <div className={`rd ${s.page}`}>
       <Head>
         <title>{tr('meta_title')}</title>
         <meta name="description" content={tr('meta_description')} />
@@ -164,12 +168,14 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Nav ctaHref={routePath(locale, 'contact')} />
+      <main>
 
       <section className="page-hero">
-        <span className="page-hero-eyebrow">{tr('eyebrow')}</span>
-        <h1>{tr('heading_prefix')} <em>{tr('heading_em')}</em></h1>
-        <p className="page-hero-sub">{tr('subheading')}</p>
+        <span className="page-hero-eyebrow">{locale === 'en' ? 'Your shortlist' : tr('eyebrow')}</span>
+        <h1>{locale === 'en' ? 'Saved homes.' : <>{tr('heading_prefix')} {tr('heading_em')}</>}</h1>
+        <p className="page-hero-sub">{locale === 'en' ? 'The places you keep coming back to. All together, ready when you are.' : tr('subheading')}</p>
+        <Link className={s.browse} href={BROWSE_HREF[locale] || BROWSE_HREF.en}>{locale === 'en' ? 'Explore more homes' : tr('browse_button')} <span aria-hidden="true">↗</span></Link>
       </section>
 
       <section className="fav-sec">
@@ -181,7 +187,11 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
           {/* Empty state */}
           {isEmpty && (
             <div className="fav-empty">
-              <div className="fav-empty-icon">&#9825;</div>
+              <div className="fav-empty-icon" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                </svg>
+              </div>
               <h2>{tr('empty_heading')}</h2>
               <p>{tr('empty_subtext')}</p>
               <a href={BROWSE_HREF[locale] || BROWSE_HREF.en} className="btn-gold">{tr('browse_button')}</a>
@@ -196,7 +206,9 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
           )}
 
           {/* Saved grid */}
-          {props.length > 0 && (
+          {loadError && <p role="alert">We couldn’t load your saved homes. Please refresh to try again — your shortlist is still saved.</p>}
+          {hydrated && !isEmpty && !loading && !loadError && props.length === 0 && <div className="fav-empty"><h2>No longer available</h2><p>The homes in this shortlist are no longer listed.</p><Link className={s.browse} href={BROWSE_HREF[locale] || BROWSE_HREF.en}>{tr('browse_button')} ↗</Link><button className="clear-favs-btn" onClick={clearAll}>{tr('clear_button')}</button></div>}
+          {!isEmpty && props.length > 0 && (
             <>
               <div className="fav-header">
                 <p className="fav-count">
@@ -253,12 +265,11 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                     <article
                       key={p.slug}
                       className="prop-card"
-                      onClick={() => window.location.href = propUrl}
-                      role="link"
-                      aria-label={p.title}
                     >
                       <div className="prop-img-wrap">
+                        <Link href={propUrl} aria-label={p.title}>
                         <Image src={imgSrc} alt={p.title} fill quality={90} className="prop-img" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                        </Link>
                         {p.status === 'sold' && <span className="prop-badge sold">{tr('sold_badge')}</span>}
                         <button
                           className="prop-heart active"
@@ -270,7 +281,7 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                       </div>
                       <div className="prop-body">
                         {location && <p className="prop-location">{location}</p>}
-                        <h3 className="prop-title">{p.title}</h3>
+                        <h3 className="prop-title"><Link href={propUrl}>{p.title}</Link></h3>
                         {(p.beds > 0 || p.size > 0) && (
                           <div className="prop-stats">
                             {p.beds > 0 && (
@@ -304,9 +315,8 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
         </div>
       </section>
 
-      <Newsletter />
-      <ExpertForm />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }

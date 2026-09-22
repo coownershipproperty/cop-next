@@ -7,6 +7,8 @@ import { localeFromPath } from '@/lib/i18n';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
+import FilterSelect from '@/components/rd/FilterSelect';
+import { FORM_DESTINATIONS } from '@/lib/formDestinations';
 
 // ── Locale-specific copy ────────────────────────────────────────────────────
 const COPY = {
@@ -489,7 +491,14 @@ function DestinationPicker({ selected, onChange, locale, t }) {
   const [expanded, setExpanded] = useState({});
   const wrapRef = useRef(null);
 
-  const tree = DEST_TREES[locale] || DEST_TREES.en;
+  const tree = FORM_DESTINATIONS;
+  const labels = {};
+  DEST_TREES.en.forEach((group, index) => {
+    const translated = (DEST_TREES[locale] || DEST_TREES.en)[index];
+    labels[group.country] = translated.country;
+    group.children.forEach((child, childIndex) => { labels[child] = translated.children[childIndex] || child; });
+  });
+  const label = value => labels[value] || value;
 
   // Close on outside click
   useEffect(() => {
@@ -528,14 +537,14 @@ function DestinationPicker({ selected, onChange, locale, t }) {
         aria-haspopup="listbox"
         aria-expanded={open}
         tabIndex={0}
-        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setOpen(o => !o); }}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(o => !o); } if (e.key === 'Escape') setOpen(false); }}
       >
         {selected.length === 0 && (
           <span className="dest-placeholder">{t.destinations_placeholder}</span>
         )}
         {selected.map(val => (
           <span key={val} className="dest-tag">
-            {val}
+            {label(val)}
             <span className="dest-tag-x" onMouseDown={e => removeTag(val, e)}>×</span>
           </span>
         ))}
@@ -544,20 +553,21 @@ function DestinationPicker({ selected, onChange, locale, t }) {
       <div className="dest-dropdown" role="listbox" aria-multiselectable="true">
         {tree.map(({ country, children }) => (
           <div key={country} className="dest-group">
-            <div
+            <button type="button"
               className={`dest-group-header${expanded[country] ? ' expanded' : ''}`}
               onClick={() => toggleExpand(country)}
+              aria-expanded={!!expanded[country]}
             >
               <span className="dest-group-arrow">›</span>
-              {country}
-            </div>
+              {label(country)}
+            </button>
 
             {expanded[country] && (
               <div className="dest-group-children">
-                {children.map(child => {
+                {[country, ...children].map(child => {
                   const isSelected = selected.includes(child);
                   return (
-                    <div
+                    <button type="button"
                       key={child}
                       className={`dest-option${isSelected ? ' selected' : ''}`}
                       onClick={() => toggleOption(child)}
@@ -565,8 +575,8 @@ function DestinationPicker({ selected, onChange, locale, t }) {
                       aria-selected={isSelected}
                     >
                       <span className="dest-check" />
-                      {child}
-                    </div>
+                      {child === country ? label(country) : label(child)}
+                    </button>
                   );
                 })}
               </div>
@@ -588,6 +598,7 @@ export default function ExpertForm({ property, hideIntro = false }) {
   const [name, setName] = useState(saved.name);
   const [email, setEmail] = useState(saved.email);
   const [destinations, setDestinations] = useState([]);
+  const [budgetValue, setBudgetValue] = useState('');
   const [status, setStatus] = useState('idle');
   const [msg, setMsg] = useState('');
   const formRef = useRef(null);
@@ -622,6 +633,7 @@ export default function ExpertForm({ property, hideIntro = false }) {
         setStatus('success');
         setMsg(t.msg_success);
         form.reset();
+        setBudgetValue('');
         setDestinations([]);
         trackConversion('generate_lead', 'Lead', {
           event_category: 'enquiry',
@@ -646,7 +658,7 @@ export default function ExpertForm({ property, hideIntro = false }) {
   }
 
   return (
-    <section className="expert-section" id="speak-to-expert">
+    <section className={`expert-section${hideIntro ? '' : ' cop-enquiry'}`} id="speak-to-expert">
       <div className="expert-inner">
         {!hideIntro && (
           <>
@@ -676,13 +688,8 @@ export default function ExpertForm({ property, hideIntro = false }) {
             </div>
 
             <div className="expert-form-field">
-              <label htmlFor="ef-budget">{t.budget_label}</label>
-              <select id="ef-budget" name="budget">
-                <option value="">{t.budget_select}</option>
-                {budgetOptions.map(b => (
-                  <option key={b.value} value={b.value}>{b.label}</option>
-                ))}
-              </select>
+              <FilterSelect label={t.budget_label} value={budgetValue} onChange={setBudgetValue} options={[{value:'',label:t.budget_select}, ...budgetOptions]} />
+              <input type="hidden" name="budget" value={budgetValue} />
             </div>
 
             <div className="expert-form-field expert-form-field--wide">

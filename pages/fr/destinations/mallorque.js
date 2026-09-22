@@ -1,5 +1,6 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -44,7 +45,7 @@ export async function getStaticProps() {
 export default function MallorqueFR({ properties }) {
   const canonicalUrl = 'https://co-ownership-property.com/fr/destinations/mallorque/';
   return (
-    <>
+    <div className="rd rd-destination">
       <Head>
         <title>Résidence secondaire à Mallorque : copropriété et villas en quote-part [2026]</title>
         <meta name="description" content="Devenez copropriétaire d'une résidence secondaire à Mallorque — villas, appartements et fincas dans les meilleures zones (Palma, Pollensa, Andratx, Deià). À partir d'1/8 avec acte authentique." />
@@ -56,13 +57,13 @@ export default function MallorqueFR({ properties }) {
         <meta property="og:description" content="Villas et appartements de luxe en copropriété à Mallorque. Pour une fraction du prix." />
         <meta property="og:url" content={canonicalUrl} />
       </Head>
-      <Header />
+      <Nav />
 
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">Destination · Îles Baléares</p>
         <h1>Copropriété à <em>Mallorque</em></h1>
         <p className="subtitle">Villas, appartements et fincas en copropriété dans les zones les plus prisées de l'île préférée des acheteurs français à l'étranger.</p>
-      </section>
+      </PublicPageHeader>
 
       <section className="sec intro-sec">
         <div className="intro-center">
@@ -154,6 +155,6 @@ export default function MallorqueFR({ properties }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
-    </>
+    </div>
   );
 }

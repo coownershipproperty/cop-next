@@ -1,3 +1,4 @@
+import PublicPageHeader from '@/components/PublicPageHeader';
 import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -35,11 +36,11 @@ export default function CommentCaMarche() {
       <Header />
 
       {/* ===== HERO ===== */}
-      <section className="page-hero">
+      <PublicPageHeader>
         <p className="eyebrow">La copropriété expliquée</p>
         <h1>Comment ça <em>marche</em></h1>
         <p className="subtitle">Devenez copropriétaire d'une maison de vacances de luxe. Profitez-en plusieurs semaines par an. Partagez chaque coût. Gardez chaque souvenir.</p>
-      </section>
+      </PublicPageHeader>
 
       {/* ===== AS FEATURED IN ===== */}
       <div className="press-bar" role="region" aria-label="Vu dans">

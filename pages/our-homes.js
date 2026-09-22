@@ -1,9 +1,11 @@
 import Head from 'next/head';
+import { FORM_DESTINATIONS } from '@/lib/formDestinations';
 import hreflangLinks from '@/components/HreflangLinks';
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
+import FilterSelect from '@/components/rd/FilterSelect';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
@@ -139,7 +141,7 @@ const COUNTRY_FLAGS = {
 const FRANCE_CLUSTERS = [
   { label: 'Paris',           regions: ['Paris'] },
   { label: 'South of France', regions: ["Côte d'Azur"] },
-  { label: 'French Alps',     regions: ['French Alps', 'Portes du Soleil'] },
+  { label: 'French Alps',     regions: ['French Alps', 'Portes du Soleil', 'Mont Blanc', 'Chamonix', 'Megève', 'Tarentaise', 'Savoie', 'Haute-Savoie'] },
 ];
 
 /** Return the France cluster label for a raw region string, or null */
@@ -843,6 +845,11 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [regions,      setRegions]      = useState([]); // [] = all; array of selected region labels
   const [sort,         setSort]         = useState('newest');
   const [page,         setPage]         = useState(1);
+  const [availability, setAvailability] = useState('all');
+  const [minBeds, setMinBeds] = useState('');
+  const [maxBudget, setMaxBudget] = useState('');
+  const [budgetCurrency, setBudgetCurrency] = useState('EUR');
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [alertOpen,     setAlertOpen]     = useState(false);
   const [alertEmail,    setAlertEmail]    = useState('');
   const [alertName,     setAlertName]     = useState('');
@@ -854,12 +861,15 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [onlyDiscreet,  setOnlyDiscreet]  = useState(false);
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
+  const [alertMinBeds, setAlertMinBeds] = useState('');
+  const [alertExpanded, setAlertExpanded] = useState({});
 
   // Seed filter state from URL query on first render (router.isReady gate
   // ensures router.query is populated). Runs once.
   useEffect(() => {
     if (!router.isReady) return;
     const q = router.query;
+    // Each visit starts fresh; only explicit destination links preselect filters.
     if (q.country) {
       const c = Array.isArray(q.country) ? q.country : [q.country];
       setCountries(c);
@@ -877,11 +887,13 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
     if (c === '') { setCountries([]); setRegions([]); return; } // "All" resets
-    setCountries(prev => {
-      const next = prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c];
-      return next;
-    });
-    setRegions([]); // reset regions whenever country selection changes
+    const next = countries.includes(c) ? countries.filter(x => x !== c) : [...countries, c];
+    setCountries(next);
+    // Keep refinements for countries still selected when adding/removing another.
+    setRegions(prev => prev.filter(r => allProperties.some(p =>
+      next.some(country => country === 'OTHER' ? !TOP_COUNTRIES.includes(p.country) : p.country === country)
+      && propMatchesRegion(p, r)
+    )));
   }
 
   // ── Toggle a region in/out of selection ─────────────────────────────────────
@@ -943,8 +955,13 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   }
 
   // ── Filtered + sorted property list ────────────────────────────────────────
+  const curateNewest = sort === 'newest' && countries.length === 0 && regions.length === 0
+    && !onlyDiscreet && availability === 'all' && !minBeds && !maxBudget;
   const filtered = useMemo(() => {
     let list = [...allProperties];
+    if (availability !== 'all') list = list.filter(p => String(p.status).toLowerCase().includes('sold') === (availability === 'sold'));
+    if (minBeds) list = list.filter(p => minBeds.split(',').some(n => n === '6' ? Number(p.beds) >= 6 : Number(p.beds) === Number(n)));
+    if (maxBudget) list = list.filter(p => p.currency === budgetCurrency && Number(p.price) > 0 && (maxBudget === 'over-1m' ? Number(p.price) > 1000000 : Number(p.price) <= Number(maxBudget)));
 
     // Country filter — match any selected country
     if (countries.length > 0) {
@@ -958,7 +975,11 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
     // Region filter — match any selected region label
     if (regions.length > 0) {
-      list = list.filter(p => regions.some(r => propMatchesRegion(p, r)));
+      list = list.filter(p => {
+        const countryRegions = regions.filter(r => allProperties.some(home =>
+          home.country === p.country && propMatchesRegion(home, r)));
+        return countryRegions.length === 0 || countryRegions.some(r => propMatchesRegion(p, r));
+      });
     }
 
     // Discreet Sale only
@@ -971,18 +992,30 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
     // Never let the discreet homes monopolise a page of results — unless the
     // visitor has explicitly asked to see only those.
-    if (!onlyDiscreet) list = capDiscreet(list, PAGE_SIZE,
+    if (curateNewest) list = capDiscreet(list, PAGE_SIZE,
       discreetGrid.maxPerPage ?? MAX_DISCREET_PER_PAGE, { mode: discreetGrid.mode });
 
+    // Only the default newest view prioritises available homes.
+    if (curateNewest) list.sort((a,b) => Number(String(a.status).toLowerCase().includes('sold')) - Number(String(b.status).toLowerCase().includes('sold')));
     return list;
-  }, [allProperties, countries, regions, sort, onlyDiscreet, discreetGrid]);
+  }, [allProperties, countries, regions, sort, onlyDiscreet, discreetGrid, availability, minBeds, maxBudget, budgetCurrency, curateNewest]);
 
-  const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
+  const initialCollection = useMemo(() => {
+    const eligible = p => !curateNewest || (!p.discreet && !String(p.status).toLowerCase().includes('sold'));
+    const first = filtered.filter(eligible).slice(0, PAGE_SIZE);
+    const firstSlugs = new Set(first.map(p => p.slug));
+    return { first, remaining: filtered.filter(p => !firstSlugs.has(p.slug)) };
+  }, [filtered, curateNewest]);
+  const visible = useMemo(() => [
+    ...initialCollection.first,
+    ...initialCollection.remaining.slice(0, (page - 1) * PAGE_SIZE),
+  ], [initialCollection, page]);
   const hasMore = visible.length < filtered.length;
 
-  const hasActiveFilters = countries.length > 0 || sort !== 'newest' || onlyDiscreet;
+  const hasActiveFilters = countries.length > 0 || regions.length > 0 || sort !== 'newest' || onlyDiscreet || availability !== 'all' || minBeds || maxBudget;
 
   function clearAll() {
+    setAvailability('all'); setMinBeds(''); setMaxBudget('');
     setCountries([]);
     setRegions([]);
     setOnlyDiscreet(false);
@@ -1005,6 +1038,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     setAlertStatus('idle');
     setAlertRegions([]);
     setAlertMaxPrice('');
+    setAlertMinBeds('');
     setAlertExpanded({});
   }
 
@@ -1025,6 +1059,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           phone:    String(alertPhone || '').trim() || null,
           regions:  alertRegions.length > 0 ? alertRegions : ['All'],
           maxPrice: alertMaxPrice || null,
+          minBeds: alertMinBeds || null,
         }),
       });
       if (r.ok) {
@@ -1090,49 +1125,55 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           ],
         }) }} />
       </Head>
-      <Header />
+      <div className="rd rd-collection rd-home-light">
+      <Nav ctaHref="#speak-to-expert" />
 
       {/* Hero */}
       <section className="page-hero">
         <span className="page-hero-eyebrow">{t.eyebrow}</span>
-        <h1>{t.h1}</h1>
-        <p className="page-hero-sub">{t.sub}</p>
+        <h1>{locale === 'en' ? 'Our homes.' : t.h1}</h1>
+        <p className="page-hero-sub">{locale === 'en' ? 'Explore our co-ownership homes. Find your place, for a share of the price.' : t.sub}</p>
       </section>
 
       {/* ── Filter bar ── */}
-      <div className="filter-bar" id="filter-bar">
+      <div className={`filter-bar${filtersOpen ? ' filters-open' : ''}`} id="filter-bar">
+        <button type="button" className="collection-filter-toggle" aria-expanded={filtersOpen} aria-controls="collection-controls" onClick={() => setFiltersOpen(v => !v)}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="white"/><circle cx="15" cy="17" r="3" fill="white"/></svg><span>{filtersOpen ? 'Close filters' : 'Filters'}{hasActiveFilters ? ' · Active' : ''}</span></button>
+        <div id="collection-controls">
 
         {/* Row 1 — Country (multi-select) */}
-        <div className="filter-row">
+        <div className="compact-filter-group is-open" role="group" aria-label={t.label_country}><div className="compact-filter-content">
+        <div className="filter-row collection-countries">
           <span className="filter-label">{t.label_country}</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
               <button
                 className={`filter-btn${countries.length === 0 ? ' active' : ''}`}
                 onClick={() => toggleCountryAndReset('')}
-              >{t.all}</button>
+              >{locale === 'en' ? 'All destinations' : t.all}</button>
 
-              {TOP_COUNTRIES.map(c => (
+              {[...new Set(allProperties.map(p => p.country).filter(Boolean))].sort((a, b) => {
+                const priority = ['France', 'USA', 'Spain', 'Italy'];
+                const rank = c => priority.includes(c) ? priority.indexOf(c) : priority.length;
+                return rank(a) - rank(b) || a.localeCompare(b);
+              }).map(c => (
                 <button
                   key={c}
                   className={`filter-btn${countries.includes(c) ? ' active' : ''}`}
                   onClick={() => toggleCountryAndReset(c)}
                 >
-                  {COUNTRY_FLAGS[c]} {COUNTRY_LABELS[c] || c}
+                  {c === 'England' ? 'United Kingdom' : c === 'USA' ? 'United States' : COUNTRY_LABELS[c] || regionLabel(c,t)}
                 </button>
               ))}
 
-              <button
-                className={`filter-btn${countries.includes('OTHER') ? ' active' : ''}`}
-                onClick={() => toggleCountryAndReset('OTHER')}
-              >🌐 {t.other}</button>
             </div>
           </div>
         </div>
 
         {/* Row 2 — Region (multi-select, shown when any country selected) */}
+        </div></div>
         {showRegionRow && (
-          <div className="filter-row">
+          <div className="compact-filter-group is-open" role="group" aria-label={t.label_region}><div className="compact-filter-content">
+          <div className="filter-row collection-regions">
             <span className="filter-label">
               {countries.length === 1 && countries[0] === 'OTHER' ? t.label_country : t.label_region}
             </span>
@@ -1144,7 +1185,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
                     className={`filter-btn${regions.includes(r) ? ' active' : ''}`}
                     onClick={() => toggleRegionAndReset(r)}
                   >
-                    {COUNTRY_FLAGS[r] ? `${COUNTRY_FLAGS[r]} ` : ''}{regionLabel(r, t)}
+                    {r === 'England' ? 'United Kingdom' : regionLabel(r, t)}
                   </button>
                 ))}
                 {hasOtherRegions && (
@@ -1156,10 +1197,17 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
               </div>
             </div>
           </div>
+          </div></div>
         )}
 
+        <div className="collection-filters">
+          <FilterSelect label="Availability" value={availability} onChange={v => {setAvailability(v);setPage(1);}} options={[{value:'all',label:'All homes'},{value:'available',label:'Available'},{value:'sold',label:'Sold out · Resale Alerts'}]} />
+          <FilterSelect label="Bedrooms" multiple value={minBeds} onChange={v => {setMinBeds(v);setPage(1);}} options={[{value:'',label:'Any bedrooms'},...[1,2,3,4,5,6].map(n => ({value:String(n),label:n === 6 ? '6+ bedrooms' : `${n} bedroom${n === 1 ? '' : 's'}`}))]} />
+          <FilterSelect label="Share budget" value={maxBudget} onChange={v => {setMaxBudget(v);setPage(1);}} options={[{value:'',label:'Any budget'},...[200000,350000,500000,750000,1000000,1500000,2000000,3000000].map(n => ({value:String(n),label:`Up to ${n.toLocaleString('en-GB')}`})),{value:'over-1m',label:'Over 1,000,000'}]} />
+          <FilterSelect label="Budget currency" value={budgetCurrency} onChange={v => {setBudgetCurrency(v);setPage(1);}} options={['EUR','USD','GBP'].map(c => ({value:c,label:c}))} />
+        </div>
         {/* Row 3 — Sort + Clear + CTA */}
-        <div className="filter-row">
+        <div className="filter-row collection-sort-row">
           <span className="filter-label">{t.label_sort}</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
@@ -1184,9 +1232,14 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
         {/* Mobile: CTAs on their own centred row */}
         <div className="filter-cta-row">
+          <button type="button" className="collection-filter-done" onClick={() => {
+            setFiltersOpen(false);
+            requestAnimationFrame(() => document.querySelector('.results-bar')?.scrollIntoView({ block:'start', behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+          }}>{({en:'Show homes',fr:'Voir les biens',de:'Immobilien anzeigen',es:'Ver propiedades',it:'Mostra immobili'})[locale] || 'Show homes'}</button>
           <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>{t.get_alerts}</button>
         </div>
 
+        </div>
       </div>{/* end filter-bar */}
 
       {/* Cream section wrapper */}
@@ -1194,6 +1247,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
         {/* Results count */}
         <div className="results-bar">
+          <label className="collection-live-only"><input type="checkbox" checked={availability === 'available'} onChange={e => {setAvailability(e.target.checked ? 'available' : 'all');setPage(1);}} /><span>Live properties only</span></label>
           <p className="results-count">
             {onlyDiscreet && <span className="discreet-pill">Discreet Sale</span>}
             {t.showing} <strong>{visible.length}</strong> {t.of} <strong>{filtered.length}</strong> {filtered.length === 1 ? t.property_singular : t.property_plural}
@@ -1206,7 +1260,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           {filtered.length > 0 ? (
             <>
               <div className="homes-grid" id="homes-grid">
-                {visible.map(p => <PropertyCard key={p.slug} property={p} />)}
+                {visible.map(p => <div key={p.slug} className="collection-home"><PropertyCard property={p} />{String(p.status).toLowerCase().includes('sold') && <a className="collection-resale" href={`/property/${p.slug}/`}>Previously listed price · Get resale alerts ↗</a>}</div>)}
               </div>
               {hasMore && (
                 <div className="load-more-wrap">
@@ -1226,15 +1280,22 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
       </div>{/* end our-homes-section */}
 
-      <Newsletter />
-      <ExpertForm />
+      <section className="rd-section rd-collection-closing" aria-label="Newsletter">
+        <div className="rd-container rd-editorial-shared">
+          <div className="rd-news" data-rv>
+            <div className="rd-news-media"><img src="/redesign/hero-costa-azul.webp" alt="" loading="lazy" /></div>
+            <div className="rd-news-body"><Newsletter editorial /></div>
+          </div>
+        </div>
+      </section>
+      <section className="rd-section rd-collection-closing" aria-label="Enquiry"><div className="rd-container rd-enquiry-editorial rd-editorial-shared" data-rv><ExpertForm /></div></section>
       <Footer />
 
       {/* ── Save Alert Modal ── */}
       {alertOpen && (
-        <div className="ul-overlay" onClick={closeAlert}>
-          <div className="ul-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 460 }}>
-            <button className="ul-close" onClick={closeAlert}>×</button>
+        <div className="ul-overlay" onClick={closeAlert} onWheel={event => event.stopPropagation()}>
+          <div className="ul-modal rd-alert-modal" role="dialog" aria-modal="true" aria-label={t.alert_heading} onClick={e => e.stopPropagation()}>
+            <button className="ul-close" aria-label="Close property alerts" onClick={closeAlert}>×</button>
             {alertStatus === 'done' ? (
               <div className="ul-success">
                 <div className="ul-tick">✓</div>
@@ -1248,63 +1309,56 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
                 <p className="ul-sub">{t.alert_sub}</p>
 
                 <form onSubmit={submitAlert} className="ul-form">
-
+                  <div className="alert-form-scroll">
                   {/* Destinations */}
                   <div className="alert-field-label">{t.alert_destinations} <span style={{color:'#9EAFBC',fontWeight:300}}>{t.alert_optional}</span></div>
                   <div className="alert-dest-wrap">
-                    {[
-                      { country: 'Spain',           children: ['Mallorca','Ibiza','Menorca','Costa del Sol','Costa Blanca','Barcelona','Canary Islands'] },
-                      { country: 'France',          children: ['South of France','French Alps','Paris'] },
-                      { country: 'Italy',           children: ['Italian Lakes','Sardinia','Liguria'] },
-                      { country: 'USA',             children: ['Colorado','Florida','California','Utah'] },
-                      { country: 'United Kingdom',  children: ['London','England'] },
-                      { country: 'Other',           children: ['Austria','Croatia','Germany','Mexico','Portugal','Sweden'] },
-                    ].map(({ country, children }) => (
+                    {FORM_DESTINATIONS.map(({ country, children }) => (
                       <div key={country} className="alert-dest-group">
                         {/* Country row — selectable */}
-                        <label className="alert-check-row alert-check-country">
-                          <input
-                            type="checkbox"
-                            className="alert-check-input"
-                            checked={alertRegions.includes(country)}
-                            onChange={() => toggleAlertRegion(country)}
-                          />
-                          <span className="alert-check-box" />
-                          <span className="alert-check-label">{(t.alert_dest_countries && t.alert_dest_countries[country]) || country}</span>
-                        </label>
+                        <div className="alert-country-heading">
+                        <button type="button" className="alert-region-toggle"
+                          aria-label={`${alertExpanded[country] ? 'Hide' : 'Show'} regions for ${country}`}
+                          aria-expanded={!!alertExpanded[country]} aria-controls={`alert-regions-${country.replaceAll(' ', '-')}`}
+                          onClick={() => setAlertExpanded(prev => ({...prev, [country]: !prev[country]}))}>
+                          <span>{(t.alert_dest_countries && t.alert_dest_countries[country]) || country}</span>
+                          <span className="alert-country-summary">{alertRegions.includes(country) ? 'All selected' : children.filter(child => alertRegions.includes(child)).length ? `${children.filter(child => alertRegions.includes(child)).length} selected` : ''}</span>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.3" /></svg>
+                        </button>
+                        </div>
                         {/* Region rows — indented */}
+                        <div id={`alert-regions-${country.replaceAll(' ', '-')}`} hidden={!alertExpanded[country]}>
+                        {country !== 'Other' && <label className="alert-check-row alert-check-region">
+                          <input type="checkbox" className="alert-check-input" checked={alertRegions.includes(country)} onChange={() => {
+                            setAlertRegions(prev => prev.includes(country) ? prev.filter(v => v !== country) : [...prev.filter(v => !children.includes(v)), country]);
+                          }} />
+                          <span className="alert-check-box" />
+                          <span className="alert-check-label">All of {country}</span>
+                        </label>}
                         {children.map(child => (
                           <label key={child} className="alert-check-row alert-check-region">
                             <input
                               type="checkbox"
                               className="alert-check-input"
                               checked={alertRegions.includes(child)}
-                              onChange={() => toggleAlertRegion(child)}
+                              onChange={() => setAlertRegions(prev => prev.includes(child) ? prev.filter(v => v !== child) : [...prev.filter(v => v !== country), child])}
                             />
                             <span className="alert-check-box" />
                             <span className="alert-check-label">{(t.alert_dest_children && t.alert_dest_children[child]) || child}</span>
                           </label>
                         ))}
+                        </div>
                       </div>
                     ))}
                   </div>
 
                   {/* Budget */}
-                  <div className="alert-field">
-                    <div className="alert-field-label">{t.alert_max_budget} <span style={{color:'#9EAFBC',fontWeight:300}}>{t.alert_optional}</span></div>
-                    <select value={alertMaxPrice} onChange={e => setAlertMaxPrice(e.target.value)} className="alert-select" style={{width:'100%'}}>
-                      <option value="">{t.alert_any_budget}</option>
-                      <option value="100000">{t.alert_under_100}</option>
-                      <option value="200000">{t.alert_up_to} €200,000</option>
-                      <option value="350000">{t.alert_up_to} €350,000</option>
-                      <option value="500000">{t.alert_up_to} €500,000</option>
-                      <option value="750000">{t.alert_up_to} €750,000</option>
-                      <option value="1000000">{t.alert_up_to} €1,000,000</option>
-                      <option value="9999999">{t.alert_over_1m}</option>
-                    </select>
+                  <div className="alert-preferences">
+                  <FilterSelect label={`${t.alert_max_budget} ${t.alert_optional}`} value={alertMaxPrice} onChange={setAlertMaxPrice}
+                    options={[{value:'',label:t.alert_any_budget},{value:'100000',label:t.alert_under_100},...[200000,350000,500000,750000,1000000].map(n => ({value:String(n),label:`${t.alert_up_to} €${n.toLocaleString('en-US')}`})),{value:'9999999',label:t.alert_over_1m}]} />
+                  <FilterSelect label="Minimum bedrooms (optional)" value={alertMinBeds} onChange={setAlertMinBeds}
+                    options={[{value:'',label:'Any bedrooms'},...[1,2,3,4,5,6].map(n => ({value:String(n),label:`${n}+ bedrooms`}))]} />
                   </div>
-
-                  {/* Name + Email */}
                   <input
                     type="text"
                     placeholder={t.alert_name_ph}
@@ -1330,16 +1384,20 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
                     onChange={e => setAlertPhone(e.target.value)}
                   />
 
+                  </div>
+                  <div className="alert-form-footer">
                   <button type="submit" disabled={alertStatus === 'sending'}>
                     {alertStatus === 'sending' ? t.alert_saving : t.alert_save}
                   </button>
                   {alertStatus === 'error' && <p className="ul-err">{t.alert_error}</p>}
+                  </div>
                 </form>
               </>
             )}
           </div>
         </div>
       )}
+      </div>
     </>
   );
 }

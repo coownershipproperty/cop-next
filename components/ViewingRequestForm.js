@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
+import FilterSelect from '@/components/rd/FilterSelect';
 
 /**
  * ViewingRequestForm
@@ -198,32 +199,11 @@ export default function ViewingRequestForm({ viewings = [], selectedId = '' }) {
             </div>
 
             <div className="expert-form-field">
-              <label htmlFor="vr-mode">Format <span>*</span></label>
-              <select
-                id="vr-mode"
-                value={mode}
-                onChange={e => setMode(e.target.value)}
-              >
-                <option value="on-site">On-site viewing</option>
-                <option value="video">Live video call</option>
-              </select>
+              <FilterSelect label="Format *" value={mode} onChange={setMode} options={[{value:'on-site',label:'On-site viewing'},{value:'video',label:'Live video call'}]} />
             </div>
 
             <div className="expert-form-field full">
-              <label htmlFor="vr-viewing">Which viewing? <span>*</span></label>
-              <select
-                id="vr-viewing"
-                value={viewingId}
-                onChange={e => setViewingId(e.target.value)}
-                required
-              >
-                <option value="">Select a viewing…</option>
-                {viewings.map(v => (
-                  <option key={v.id} value={v.id}>
-                    {v.displayName} · {v.city}, {v.country} — {v.dateLabel}
-                  </option>
-                ))}
-              </select>
+              <FilterSelect label="Which viewing? *" value={viewingId} onChange={value => setViewingId(String(value))} options={[{value:'',label:'Select a viewing…'}, ...viewings.map(v => ({value:v.id,label:`${v.displayName} · ${v.city}, ${v.country} — ${v.dateLabel}`}))]} />
             </div>
 
             <div className="expert-form-field full">

@@ -1,100 +1,85 @@
-// Slide-up page transition for the redesigned (.rd) pages, in the manner of
-// Framer's "slide up": the page you are leaving stays put as a static ghost,
-// the nav pill stays where it is, and the new page rises over both.
-//
-// Mechanics: on routeChangeStart we clone the leaving .rd page's DOM into a
-// fixed, non-interactive layer (offset by the current scroll so nothing
-// jumps), and clone its nav into a second layer above everything. When the
-// new page mounts it is wrapped in .rd-page-enter, which animates from
-// translateY(100vh) to rest; its own nav is hidden until the animation ends,
-// then the ghost layers are removed and the real nav takes over in the same
-// spot. Only fires when the page being LEFT is an .rd page, so legacy pages
-// are untouched. Reduced-motion users get a plain swap.
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
-const DURATION_MS = 900;
-
+// Native snapshots keep video, fixed headers and the old scroll position intact.
 export default function PageTransition({ children }) {
   const router = useRouter();
-  const [enterKey, setEnterKey] = useState(0);
-  const [entering, setEntering] = useState(false);
-  const armed = useRef(false);
-  const ghosts = useRef([]);
-  const pathRef = useRef(router.asPath);
-  useEffect(() => { pathRef.current = router.asPath; }, [router.asPath]);
-
+  const pending = useRef(null);
+  const container = useRef(null);
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function clearGhosts() {
-      ghosts.current.forEach((g) => g.remove());
-      ghosts.current = [];
-      document.documentElement.classList.remove('rd-transitioning');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function fallback() {
+      const node = container.current;
+      if (!node || reduced.matches) return;
+      node.classList.remove('cop-transition-fallback');
+      void node.offsetWidth;
+      node.classList.add('cop-transition-fallback');
     }
-
-    function onStart(url, { shallow } = {}) {
-      if (shallow || reduced) return;
-      const page = document.querySelector('.rd');
-      if (!page) return;
-      if (url.split('?')[0] === (pathRef.current || '').split('?')[0]) return;
-      clearGhosts();
-
-      const nav = page.querySelector('.rd-nav-wrap');
-      const layer = document.createElement('div');
-      layer.className = 'rd-ghost';
-      const clone = page.cloneNode(true);
-      clone.querySelectorAll('.rd-nav-wrap, script, video').forEach((n) => n.remove());
-      clone.style.top = `-${window.scrollY}px`;
-      clone.querySelectorAll('[data-rv]').forEach((n) => n.classList.add('rv-in'));
-      layer.appendChild(clone);
-      document.body.appendChild(layer);
-      ghosts.current.push(layer);
-
-      if (nav) {
-        const navLayer = document.createElement('div');
-        navLayer.className = 'rd-ghost-nav';
-        navLayer.appendChild(nav.cloneNode(true));
-        document.body.appendChild(navLayer);
-        ghosts.current.push(navLayer);
+    function finish() {
+      const current = pending.current;
+      if (!current) document.documentElement.removeAttribute('data-cop-navigating');
+      // View transitions suspend rendering until this promise resolves. Waiting
+      // for requestAnimationFrame here deadlocks and makes the browser skip it.
+      current?.resolve();
+      if (current) {
+        current.complete = true;
+        if (current.failed) {
+          fallback();
+          pending.current = null;
+          document.documentElement.removeAttribute('data-cop-navigating');
+        }
       }
-      document.documentElement.classList.add('rd-transitioning');
-      armed.current = true;
     }
-
-    function onDone() {
-      if (!armed.current) return;
-      armed.current = false;
-      setEnterKey((k) => k + 1);
-      setEntering(true);
-      // Hold the ghost for the length of the slide, then hand over. The
-      // wrapper's transform/will-change must go too: while they are present
-      // the wrapper is the containing block for every position:fixed child
-      // (the nav pill, the legacy header) — the iPhone-menu lesson.
-      setTimeout(() => { clearGhosts(); setEntering(false); }, DURATION_MS + 60);
+    function error() {
+      document.documentElement.removeAttribute('data-cop-navigating');
+      pending.current?.transition?.skipTransition();
+      pending.current?.resolve();
+      pending.current = null;
     }
-
-    function onError() { armed.current = false; clearGhosts(); setEntering(false); }
-
-    router.events.on('routeChangeStart', onStart);
-    router.events.on('routeChangeComplete', onDone);
-    router.events.on('routeChangeError', onError);
+    function start(url, { shallow } = {}) {
+      window.dispatchEvent(new Event('rd:navigation'));
+      error();
+      if (shallow || reduced.matches || url.split(/[?#]/)[0] === location.pathname) return;
+      document.documentElement.setAttribute('data-cop-navigating', '');
+      const current = {};
+      const committed = new Promise(resolve => { current.resolve = resolve; });
+      pending.current = current;
+      if (!document.startViewTransition) { current.failed = true; return; }
+      current.transition = document.startViewTransition(() => committed);
+      current.transition.ready.catch(e => {
+        current.failed = true;
+        if (current.complete && pending.current === current) fallback();
+        if (process.env.NODE_ENV === 'development') console.warn('[COP transition] animation skipped:', e.message);
+      });
+      current.transition.finished.catch(() => {}).finally(() => {
+        if (pending.current === current && current.complete) {
+          pending.current = null;
+          document.documentElement.removeAttribute('data-cop-navigating');
+        }
+      });
+    }
+    function click(event) {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = event.target.closest?.('a[href]');
+      if (!anchor || anchor.hasAttribute('download') || anchor.hasAttribute('data-no-transition') || (anchor.target && anchor.target !== '_self')) return;
+      const url = new URL(anchor.href, location.href);
+      if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
+      if (url.pathname === location.pathname && url.search === location.search) return;
+      if (/^\/(api|auth|admin)(\/|$)/.test(url.pathname) || /\.[a-z0-9]{2,8}$/i.test(url.pathname)) return;
+      event.preventDefault();
+      router.push(url.pathname + url.search + url.hash).catch(e => { if (!e.cancelled) location.assign(url.href); });
+    }
+    router.events.on('routeChangeStart', start);
+    router.events.on('routeChangeComplete', finish);
+    router.events.on('routeChangeError', error);
+    document.addEventListener('click', click);
     return () => {
-      router.events.off('routeChangeStart', onStart);
-      router.events.off('routeChangeComplete', onDone);
-      router.events.off('routeChangeError', onError);
-      clearGhosts();
+      error();
+      router.events.off('routeChangeStart', start);
+      router.events.off('routeChangeComplete', finish);
+      router.events.off('routeChangeError', error);
+      document.removeEventListener('click', click);
     };
-    // Registered once: re-running this effect on every route change would
-    // run the cleanup — and remove the ghost — the instant the new page lands.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Re-key the wrapper on every transition so the CSS animation restarts.
-  return (
-    <div key={enterKey} className={entering ? 'rd-page-enter' : undefined}>
-      {children}
-    </div>
-  );
+  }, [router.events]);
+  return <div className="cop-page-content" ref={container} onAnimationEnd={e => { if (e.target === container.current) container.current.classList.remove('cop-transition-fallback'); }}>{children}</div>;
 }

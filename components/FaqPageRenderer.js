@@ -1,3 +1,5 @@
+import PublicArticleBody from '@/components/PublicArticleBody';
+import PublicPageHeader from '@/components/PublicPageHeader';
 /**
  * components/FaqPageRenderer.js
  *
@@ -205,7 +207,7 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
       <Header />
 
       <article className="faq-page compare-page">
-        <section className="compare-hero">
+        <PublicPageHeader>
           <p className="compare-eyebrow">{ui.faqEyebrow}</p>
           <h1 className="compare-h1">{entry.h1}</h1>
           {entry.subtitle && <p className="compare-subtitle">{entry.subtitle}</p>}
@@ -216,14 +218,14 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
             <span className="compare-date-inline">{ui.updatedPrefix} {new Date(entry.dateModified).toLocaleDateString(ui.dateLocale, { day: 'numeric', month: 'long', year: 'numeric' })}</span>
             <span className="compare-wc-inline">{Math.round(wordCount / 100) * 100} {ui.wordsLabel} · {Math.ceil(wordCount / 230)} {ui.minReadLabel}</span>
           </p>
-        </section>
+        </PublicPageHeader>
 
-        <section className="compare-body">
+        <PublicArticleBody>
           <div className="compare-body-inner" dangerouslySetInnerHTML={{ __html: body }} />
-        </section>
+        </PublicArticleBody>
 
         {Array.isArray(related) && related.length > 0 && (
-          <section className="compare-body" aria-label={ui.relatedQuestionsLabel}>
+          <PublicArticleBody aria-label={ui.relatedQuestionsLabel}>
             <div className="compare-body-inner">
               <h2 id="related-questions">{ui.relatedQuestionsLabel}</h2>
               <ul>
@@ -234,7 +236,7 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
                 ))}
               </ul>
             </div>
-          </section>
+          </PublicArticleBody>
         )}
       </article>
 

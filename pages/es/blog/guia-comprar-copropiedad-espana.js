@@ -76,7 +76,7 @@ export default function GuiaComprarCopropiedadEspana() {
 
             <p>El producto, como tal, se ha profesionalizado en España desde 2022, popularizado por operadores como los líderes del mercado europeo. Hoy hay catálogos consolidados de viviendas premium en copropiedad en Mallorca, Ibiza, Menorca, Costa Brava, Costa del Sol, Sotogrande, Baqueira, Madrid centro, Marbella y otras zonas prime. Los precios por fracción de 1/8 oscilan entre los 100.000 € (apartamentos de montaña, costa más asequible) y los 700.000 € (villas frente al mar en Mallorca, fincas de Ibiza, residencias de Sotogrande).</p>
 
-            <p style={{fontSize:'1.18rem', borderLeft:'4px solid #C9A84C', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>El concepto, en una frase: <strong>compras una octava parte real de una propiedad premium, registrada a tu nombre vía LLC, con derecho a uso de unas seis semanas al año y todos los costes compartidos proporcionalmente entre los ocho copropietarios.</strong></p>
+            <p style={{fontSize:'1.18rem', borderLeft:'4px solid #6b6b6b', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>El concepto, en una frase: <strong>compras una octava parte real de una propiedad premium, registrada a tu nombre vía LLC, con derecho a uso de unas seis semanas al año y todos los costes compartidos proporcionalmente entre los ocho copropietarios.</strong></p>
 
             <h2>Para quién tiene sentido — y para quién no</h2>
 

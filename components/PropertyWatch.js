@@ -128,16 +128,19 @@ export default function PropertyWatch({ slug, region, locale = 'en', mode = 'wat
   }
 
   return (
-    <div className={`pw-box${mode === 'waitlist' ? ' pw-waitlist' : ''}`}>
+    <div className={`pw-box${mode === 'waitlist' ? ' pw-waitlist' : !open ? ' pw-collapsed' : ''}`}>
       {mode === 'waitlist' ? (
         <>
           <p className="pw-title">{t.wait_title}</p>
           <p className="pw-sub">{t.wait_sub(region || 'this region')}</p>
         </>
       ) : !open ? (
-        <button className="pw-toggle" onClick={() => setOpen(true)}>
-          <BellIcon /> {t.watch_title}
-          <span className="pw-toggle-sub">{t.watch_sub}</span>
+        <button type="button" className="pw-toggle" aria-expanded={false} onClick={() => setOpen(true)}>
+          <span className="pw-toggle-icon" aria-hidden="true"><BellIcon /></span>
+          <span className="pw-toggle-copy"><span>{t.watch_title}</span>
+            <span className="pw-toggle-sub">{t.watch_sub}</span>
+          </span>
+          <span className="pw-toggle-action" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h16M14 6l6 6-6 6" /></svg></span>
         </button>
       ) : (
         <>
@@ -149,6 +152,7 @@ export default function PropertyWatch({ slug, region, locale = 'en', mode = 'wat
         <form className="pw-form" onSubmit={submit}>
           <input
             type="email"
+            autoFocus={open && mode !== 'waitlist'}
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}

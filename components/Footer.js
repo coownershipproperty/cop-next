@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { localeFromPath, t, routePath } from '@/lib/i18n';
 import { DESTINATIONS as DESTINATION_FILTERS, COUNTRY_PILLARS } from '@/lib/destinations';
 
@@ -93,6 +94,20 @@ const SOCIAL = [
   },
 ];
 
+function FooterGroup({ name, title, children, className = '' }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`footer-col ${className}`} data-expanded={open}>
+      <h4 className="footer-col-heading footer-desktop-heading">{title}</h4>
+      <button type="button" className="footer-mobile-toggle" aria-expanded={open}
+        aria-controls={`footer-${name}`} onClick={() => setOpen(!open)}>
+        {title}<span aria-hidden="true">{open ? '−' : '+'}</span>
+      </button>
+      <div className="footer-group-links" id={`footer-${name}`}>{children}</div>
+    </div>
+  );
+}
+
 export default function Footer() {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
@@ -115,55 +130,71 @@ export default function Footer() {
         </div>
 
         {/* Discover */}
-        <div className="footer-col">
-          <h4 className="footer-col-heading">{t('footer.discover_heading', locale)}</h4>
+        <FooterGroup name="discover" title={t('footer.discover_heading', locale)}>
           <ul>
             {links.discover.map(({ href, label }) => (
               <li key={href}><a href={href}>{label}</a></li>
             ))}
           </ul>
-        </div>
+        </FooterGroup>
 
         {/* Destinations — two sub-columns, because this list is eleven long
             against five in Company and Support, and a single column left the
             footer with a 700px ragged edge. */}
-        <div className="footer-col footer-col-destinations">
-          <h4 className="footer-col-heading">{t('footer.destinations_heading', locale)}</h4>
+        <FooterGroup name="destinations" className="footer-col-destinations" title={t('footer.destinations_heading', locale)}>
           <ul>
             {DESTINATIONS.map(({ href, label }) => (
               <li key={href}><a href={href}>{label[locale] || label.en}</a></li>
             ))}
           </ul>
-        </div>
+        </FooterGroup>
 
         {/* Company */}
-        <div className="footer-col">
-          <h4 className="footer-col-heading">{t('footer.company_heading', locale)}</h4>
+        <FooterGroup name="company" title={t('footer.company_heading', locale)}>
           <ul>
             {links.company.map(({ href, label }) => (
               <li key={href}><a href={href}>{label}</a></li>
             ))}
           </ul>
-        </div>
+        </FooterGroup>
 
         {/* Support */}
-        <div className="footer-col">
-          <h4 className="footer-col-heading">{t('footer.support_heading', locale)}</h4>
+        <FooterGroup name="support" title={t('footer.support_heading', locale)}>
           <ul>
             {links.support.map(({ href, label }) => (
               <li key={href}><a href={href}>{label}</a></li>
             ))}
           </ul>
-        </div>
+        </FooterGroup>
 
       </div>
 
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} {t('site.brand', locale)}. {t('footer.rights_reserved', locale)}</p>
-        <p className="footer-bottom-right">{t('site.tagline', locale)}</p>
       </div>
 
       <style jsx>{`
+        :global(.footer-mobile-toggle) { display: none; }
+        @media (max-width: 760px) {
+          :global(.rd .site-footer) { padding: 36px 0 28px; }
+          :global(.rd .footer-inner) { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+          :global(.rd .footer-brand) { padding-bottom: 28px; }
+          :global(.rd .footer-social a) { width: 44px; height: 44px; }
+          :global(.rd .footer-desktop-heading) { display: none; }
+          :global(.rd .footer-col) { border-top: 1px solid rgba(255,255,255,.14); }
+          :global(.rd .footer-mobile-toggle) {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; min-height: 60px; padding: 16px 0; border: 0;
+            background: transparent; color: #e6ded0; text-align: left;
+            font: inherit; font-size: 15px; cursor: pointer;
+          }
+          :global(.rd .footer-mobile-toggle span) { font-size: 22px; color: #bba983; }
+          :global(.rd .footer-group-links) { display: none; }
+          :global(.rd .footer-col[data-expanded="true"] .footer-group-links) { display: block; padding-bottom: 20px; }
+          :global(.rd .footer-col ul) { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; }
+          :global(.rd .footer-col li a) { min-height: 44px; font-size: 14px; }
+          :global(.rd .footer-bottom) { margin-top: 20px; padding: 22px 20px 52px; text-align: left; font-size: 12px; line-height: 1.7; }
+        }
         .footer-social {
           display: flex;
           gap: 0.6rem;

@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
 import DiscreetUnlockModal from '@/components/DiscreetUnlockModal';
@@ -22,8 +23,9 @@ const COPY = {
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
     new_badge: 'New This Week',
-    private_sale: 'Discreet Sale',
-    request_details: 'Unlock the full listing →',
+    private_sale: 'Private listing',
+    request_details: 'Request brochure by email →',
+    brochure_label: 'Brochure by email',
     share_property: 'Share this property',
     link_copied: 'Link copied',
   },
@@ -177,7 +179,7 @@ const SizeIcon = () => (
 const HeartIcon = ({ filled }) => (
   <svg viewBox="0 0 24 24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}>
     <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-      fill={filled ? '#C9A84C' : 'none'} stroke={filled ? '#C9A84C' : '#2C4A5E'} />
+      fill={filled ? '#111111' : 'none'} stroke={filled ? '#111111' : '#2C4A5E'} />
   </svg>
 );
 const ShareIcon = () => (
@@ -208,7 +210,7 @@ function formatApprox(amount, fmtLocale = 'en-GB') {
 
 // priority: true for the first 3 cards on a destination page — disables lazy loading
 // so Google's LCP score sees real content immediately.
-export default function PropertyCard({ property: p, priority = false }) {
+export default function PropertyCard({ property: p, priority = false, editorial = false }) {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
@@ -255,6 +257,18 @@ export default function PropertyCard({ property: p, priority = false }) {
   const totalImgs = isDiscreet ? imgSlides.length : (p.totalImages || imgSlides.length);
   const missingCount = totalImgs > imgSlides.length ? totalImgs - imgSlides.length : null;
 
+  const swipeStart = useRef(null);
+  const suppressClickUntil = useRef(0);
+  function finishSwipe(e) {
+    const start = swipeStart.current;
+    swipeStart.current = null;
+    if (!start || !e.changedTouches[0]) return;
+    const dx = e.changedTouches[0].clientX - start.x;
+    const dy = e.changedTouches[0].clientY - start.y;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+    suppressClickUntil.current = Date.now() + 600;
+    setSlide(i => Math.max(0, Math.min(totalSlides - 1, i + (dx < 0 ? 1 : -1))));
+  }
   function goTo(idx, e) { if (e) e.stopPropagation(); setSlide(idx); }
   function prev(e) { e.stopPropagation(); setSlide(i => Math.max(0, i - 1)); }
   function next(e) { e.stopPropagation(); setSlide(i => Math.min(totalSlides - 1, i + 1)); }
@@ -282,7 +296,7 @@ export default function PropertyCard({ property: p, priority = false }) {
     // the request popup and the full brochure arrives by email — every time,
     // for everyone, saved visitor or not.
     if (isDiscreet) { setDiscreetOpen(true); return; }
-    window.location.href = href;
+    router.push(href);
   }
 
   const fromCurrency = p.currency || 'EUR';
@@ -308,12 +322,22 @@ export default function PropertyCard({ property: p, priority = false }) {
     <>
       <article
         className="prop-card"
-        onClick={handleCardClick}
-        role="link"
-        aria-label={title}
+        onClick={isDiscreet ? handleCardClick : undefined}
         style={isLockSlide ? { cursor: 'default' } : {}}
       >
-        <div className="prop-img-wrap">
+        {!isDiscreet && <Link href={href} className="prop-card-link" aria-label={title}
+          onTouchStart={e => { swipeStart.current = e.touches.length === 1 ? { x:e.touches[0].clientX, y:e.touches[0].clientY } : null; }}
+          onTouchEnd={finishSwipe}
+          onTouchCancel={() => { swipeStart.current = null; }}
+          onClick={e => {
+            if (Date.now() < suppressClickUntil.current) { e.preventDefault(); return; }
+            if (isLockSlide && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) { e.preventDefault(); setUnlockOpen(true); }
+          }} />}
+        <div className="prop-img-wrap"
+          onTouchStart={e => { swipeStart.current = e.touches.length === 1 ? { x:e.touches[0].clientX, y:e.touches[0].clientY } : null; }}
+          onTouchEnd={finishSwipe}
+          onTouchCancel={() => { swipeStart.current = null; }}
+          onClickCapture={e => { if (Date.now() < suppressClickUntil.current) { e.preventDefault(); e.stopPropagation(); } }}>
           {imgSlides.map((src, i) => (
             <div
               key={i}
@@ -360,15 +384,9 @@ export default function PropertyCard({ property: p, priority = false }) {
           {p.status && String(p.status).toLowerCase().includes('sold') ? (
             <span className="prop-badge prop-badge-sold-out">Sold Out</span>
           ) : isDiscreet ? (
-            /* Discreet Sale — a centred, boxed label like MYNE's "Discreet
-               Marketing" tag (David, 15 Sep 2026: the corner text was not
-               obvious enough). */
+            /* Private inventory is requested by email, not a public listing page. */
             <span className="prop-badge discreet">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <rect x="4" y="11" width="16" height="10" rx="1.5" />
-                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-              </svg>
-              {t.private_sale}
+              <span>{t.private_sale}</span>
             </span>
           ) : p.label ? (
             <>
@@ -423,7 +441,13 @@ export default function PropertyCard({ property: p, priority = false }) {
         </div>
 
         <div className="prop-body">
-          <h3 className="prop-title">{title}</h3>
+          <h3 className="prop-title">{editorial ? <><span className="prop-title-desktop">{title.split(' — ')[0]}</span><span className="prop-title-mobile">{title}</span></> : title}</h3>
+          {editorial && title.includes(' — ') && <p className="prop-editorial-description">{title.split(' — ').slice(1).join(' — ')}</p>}
+          <div className="prop-mobile-facts">
+            {p.beds > 0 && <div><strong>{p.beds}</strong><small>{p.beds > 1 ? t.bed_plural : t.bed_singular}</small></div>}
+            {p.size > 0 && <div><strong>{p.size} <span>m²</span></strong><small>{{ en: 'Home size', es: 'Superficie', fr: 'Surface', de: 'Wohnfläche', it: 'Superficie', nl: 'Oppervlakte', pt: 'Área' }[locale] || 'Home size'}</small></div>}
+            {priceDisplay && <div><strong>{priceDisplay}</strong>{shareDisplay && <small>{shareDisplay} {t.share_label}</small>}</div>}
+          </div>
           {(p.beds > 0 || p.size > 0) && (
             <div className="prop-stats">
               {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} {p.beds > 1 ? t.bed_plural : t.bed_singular}</span>}
@@ -446,7 +470,7 @@ export default function PropertyCard({ property: p, priority = false }) {
           {isDiscreet ? (
             <button type="button" className="prop-view-btn prop-view-btn-discreet" onClick={e => { e.stopPropagation(); handleCardClick(); }}>{t.request_details}</button>
           ) : (
-            <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</a>
+            <Link href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</Link>
           )}
         </div>
       </article>
