@@ -8092,27 +8092,34 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   /* Dots */
   .pp-mob-dots {
     position: absolute;
-    bottom: 10px;
+    bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 6px;
+    gap: 0;
     z-index: 10;
   }
 
+  /* The dot you see stays 7px; the thing you hit is 23px. Measured at 390px
+     these were 7x7 with a 6px gap — well under the 24x24 that WCAG 2.2 AA
+     2.5.8 asks for, on the control that pages the photos. box-sizing and
+     background-clip keep the padding transparent, so nothing moves. */
   .pp-mob-dot {
-    width: 7px;
-    height: 7px;
+    /* border-box, because `.rd *` sets it later and wins on equal
+       specificity: 23 - 8 - 8 leaves the 7px dot. */
+    width: 23px;
+    height: 23px;
+    padding: 8px;
+    background-clip: content-box;
     border-radius: 50%;
     border: none;
-    background: rgba(255,255,255,0.45);
-    padding: 0;
+    background-color: rgba(255,255,255,0.45);
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    transition: background-color 0.2s, transform 0.2s;
   }
 
   .pp-mob-dot.active {
-    background: #fff;
+    background-color: #fff;
     transform: scale(1.25);
   }
 }

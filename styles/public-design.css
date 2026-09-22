@@ -626,6 +626,13 @@ html:has(.gallery-stage) { scrollbar-gutter:auto; background:#fff !important; }
   /* The qualifier is the least load-bearing word in the strip and the facts
      panel below states it in full. Off on phones. */
   .cop-public.cop-public.cop-public .pp-stat-lbl-qual { display:none; }
+  /* Two text controls measured under the 24px WCAG 2.2 AA floor at 390px:
+     the breadcrumb town and country links (17-20px tall) and the "Read more"
+     / "All N amenities" toggles (25px). Padding grows the hit box, the
+     matching negative margin keeps the line exactly where it was. */
+  .cop-public.cop-public .pp-crumb .pp-location-link,
+  .cop-public.cop-public .pp-location-text a { padding:7px 0; margin:-7px 0; display:inline-block; }
+  .cop-public.cop-public .pp-seemore { padding:10px 0; margin:-10px 0; }
   .cop-public.cop-public.cop-public .pp-mobile-contact { display:flex; align-items:center; justify-content:center; width:100%; box-sizing:border-box; margin:20px auto 24px; padding:14px 24px; background:#000; color:#fff; border:1px solid #000; border-radius:6px; text-decoration:none; min-height:48px; }
   .cop-public.cop-public.cop-public .pp-mobile-contact span { font-size:15px; font-weight:500; }
   .cop-public.cop-public.cop-public #property-enquiry { scroll-margin-top:90px; }
