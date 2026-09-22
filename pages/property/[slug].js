@@ -25,7 +25,7 @@ import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
 import hreflangLinks from '@/components/HreflangLinks';
 import { buildFactsPanel } from '@/lib/propertyFactsPanel';
-import { buildLockedPreviews } from '@/lib/lockedPreviews';
+import { lockedPreviewsFor } from '@/lib/lockedPreviews';
 
 // ── "The numbers" panel ────────────────────────────────────────────────────
 // The values arrive from the server as data ({kind:'minimum', nights:44}),
@@ -750,11 +750,8 @@ export async function getStaticProps({ params }) {
       dateAdded: property.date_added,
     };
     // Blurred 2×2 teaser of the gated photos (data URIs, not URLs) — see
-    // lib/lockedPreviews.js. Built before the gated fields are deleted.
-    prop.lockedPreviews = await buildLockedPreviews([
-      ...(Array.isArray(property.photos) ? property.photos : []),
-      ...(Array.isArray(property.extra_photos) ? property.extra_photos : []),
-    ].filter((ph) => !(property.images || []).includes(typeof ph === 'string' ? ph : ph?.url)));
+    // lib/lockedPreviews.js. Precomputed, so no image library in this bundle.
+    prop.lockedPreviews = lockedPreviewsFor(property.slug);
     delete prop.drive_url;
     delete prop.photos;
     delete prop.extra_photos;
