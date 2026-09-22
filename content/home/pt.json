@@ -37,18 +37,51 @@
     "heading": "Nossos Destinos",
     "lead": "Todas as nossas casas de cada país, numa só página.",
     "allLink": "Explorar Imóveis",
-    "labels": {
-      "spain": "Espanha",
-      "france": "França",
-      "usa": "EUA",
-      "italy": "Itália",
-      "portugal": "Portugal",
-      "austria": "Áustria",
-      "england": "Inglaterra",
-      "sweden": "Suécia",
-      "germany": "Alemanha",
-      "croatia": "Croácia",
-      "mexico": "México"
+    "tabs": {
+      "spain": {
+        "label": "Espanha",
+        "desc": "A Espanha reúne praias de classe mundial, cultura vibrante e sol o ano inteiro em Maiorca, Ibiza, na Costa del Sol e além — tudo com excelente custo-benefício para coproprietários exigentes."
+      },
+      "france": {
+        "label": "França",
+        "desc": "Do litoral ensolarado da Côte d'Azur às pistas de esqui dos Alpes Franceses e à elegância atemporal de Paris, a França é o endereço mais cobiçado da Europa para a multipropriedade."
+      },
+      "usa": {
+        "label": "EUA",
+        "desc": "Da cultura do surfe na Califórnia às pistas de esqui do Colorado e ao glamour à beira-mar da Flórida, o mercado imobiliário de luxo americano oferece oportunidades extraordinárias para coproprietários internacionais."
+      },
+      "italy": {
+        "label": "Itália",
+        "desc": "As paisagens extraordinárias da Itália — das águas espelhadas do Lago de Como aos vilarejos milenares da Ligúria e às colinas da Toscana — fazem dela uma eterna favorita dos coproprietários exigentes."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "Do litoral dourado do Algarve às elegantes avenidas de Lisboa e à beleza intocada da Costa de Prata, Portugal é um dos destinos mais empolgantes da Europa para a copropriedade de luxo."
+      },
+      "austria": {
+        "label": "Áustria",
+        "desc": "O esplendor alpino da Áustria — das estações de esqui de classe mundial do Tirol ao charme imperial de Viena — faz dela um dos destinos mais gratificantes da Europa para a multipropriedade de luxo."
+      },
+      "england": {
+        "label": "Inglaterra",
+        "desc": "Londres segue entre as grandes capitais mundiais do imóvel de luxo — das townhouses de Mayfair aos apartamentos à beira do rio — enquanto o interior inglês oferece refúgios idílicos para coproprietários exigentes."
+      },
+      "sweden": {
+        "label": "Suécia",
+        "desc": "As paisagens dramáticas da Suécia — do arquipélago de Estocolmo às regiões de lagos e florestas do norte — oferecem um cenário de paz singular para a copropriedade de luxo, longe das multidões."
+      },
+      "germany": {
+        "label": "Alemanha",
+        "desc": "Dos Alpes Bávaros e das margens do Lago de Constança às capitais culturais de Berlim e Munique, a Alemanha oferece um leque atraente de oportunidades imobiliárias de luxo para coproprietários."
+      },
+      "croatia": {
+        "label": "Croácia",
+        "desc": "O deslumbrante litoral adriático da Croácia, suas águas cristalinas e cidades muradas históricas como Dubrovnik fazem dela um dos destinos mais cobiçados do Mediterrâneo para a multipropriedade de luxo."
+      },
+      "mexico": {
+        "label": "México",
+        "desc": "Das águas turquesa da Riviera Maya ao glamour do Pacífico em Los Cabos, o México oferece luxo extraordinário a um valor excepcional — um dos mercados de copropriedade mais empolgantes do mundo."
+      }
     }
   },
   "values": {

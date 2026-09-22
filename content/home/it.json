@@ -37,18 +37,51 @@
     "heading": "Le Nostre Destinazioni",
     "lead": "Tutte le nostre case di ogni paese, in una sola pagina.",
     "allLink": "Esplora le Proprietà",
-    "labels": {
-      "spain": "Spagna",
-      "france": "Francia",
-      "usa": "USA",
-      "italy": "Italia",
-      "portugal": "Portogallo",
-      "austria": "Austria",
-      "england": "Inghilterra",
-      "sweden": "Svezia",
-      "germany": "Germania",
-      "croatia": "Croazia",
-      "mexico": "Messico"
+    "tabs": {
+      "spain": {
+        "label": "Spagna",
+        "desc": "La Spagna unisce spiagge di livello mondiale, cultura vibrante e sole tutto l'anno, tra Maiorca, Ibiza, la Costa del Sol e oltre — il tutto a un valore notevole per comproprietari esigenti."
+      },
+      "france": {
+        "label": "Francia",
+        "desc": "Dalle coste assolate della Côte d'Azur alle piste delle Alpi francesi, fino all'eleganza senza tempo di Parigi, la Francia è l'indirizzo più ambito d'Europa per la proprietà frazionata."
+      },
+      "usa": {
+        "label": "USA",
+        "desc": "Dalla cultura del surf della California alle piste da sci del Colorado, fino al glamour sul mare della Florida, il mercato immobiliare di lusso americano offre opportunità straordinarie ai comproprietari internazionali."
+      },
+      "italy": {
+        "label": "Italia",
+        "desc": "I paesaggi straordinari dell'Italia — dalle acque cristalline del Lago di Como agli antichi borghi della Liguria e alle colline toscane — la rendono una meta prediletta dai comproprietari più esigenti."
+      },
+      "portugal": {
+        "label": "Portogallo",
+        "desc": "Dalla costa dorata dell'Algarve agli eleganti viali di Lisbona, fino alla bellezza incontaminata della Costa d'Argento, il Portogallo è una delle destinazioni più entusiasmanti d'Europa per la comproprietà di lusso."
+      },
+      "austria": {
+        "label": "Austria",
+        "desc": "Lo splendore alpino dell'Austria — dalle rinomate stazioni sciistiche del Tirolo al grande fascino imperiale di Vienna — ne fa una delle destinazioni europee più gratificanti per la proprietà frazionata di lusso."
+      },
+      "england": {
+        "label": "Inghilterra",
+        "desc": "Londra resta una delle grandi capitali mondiali dell'immobiliare di lusso — dalle townhouse di Mayfair agli appartamenti sul fiume — mentre la campagna inglese offre rifugi idilliaci per comproprietari esigenti."
+      },
+      "sweden": {
+        "label": "Svezia",
+        "desc": "I paesaggi spettacolari della Svezia — dall'arcipelago di Stoccolma alle regioni di laghi e foreste del nord — offrono uno scenario di pace unico per la comproprietà di lusso, lontano dalla folla."
+      },
+      "germany": {
+        "label": "Germania",
+        "desc": "Dalle Alpi bavaresi e le rive del Lago di Costanza alle capitali culturali di Berlino e Monaco, la Germania offre ai comproprietari una gamma davvero interessante di opportunità immobiliari di lusso."
+      },
+      "croatia": {
+        "label": "Croazia",
+        "desc": "La spettacolare costa adriatica della Croazia, le acque cristalline e le storiche città murate come Dubrovnik ne fanno una delle destinazioni più ambite del Mediterraneo per la proprietà frazionata di lusso."
+      },
+      "mexico": {
+        "label": "Messico",
+        "desc": "Dalle acque turchesi della Riviera Maya al glamour del Pacifico di Los Cabos, il Messico offre un lusso straordinario a un valore eccezionale — uno dei mercati di comproprietà più entusiasmanti al mondo."
+      }
     }
   },
   "values": {

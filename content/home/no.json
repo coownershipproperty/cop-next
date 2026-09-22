@@ -37,18 +37,51 @@
     "heading": "Våre destinasjoner",
     "lead": "Alle boligene våre i hvert land, på én side.",
     "allLink": "Utforsk eiendommene",
-    "labels": {
-      "spain": "Spania",
-      "france": "Frankrike",
-      "usa": "USA",
-      "italy": "Italia",
-      "portugal": "Portugal",
-      "austria": "Østerrike",
-      "england": "England",
-      "sweden": "Sverige",
-      "germany": "Tyskland",
-      "croatia": "Kroatia",
-      "mexico": "Mexico"
+    "tabs": {
+      "spain": {
+        "label": "Spania",
+        "desc": "Spania byr på strender i verdensklasse, levende kultur og sol året rundt – på Mallorca, Ibiza, Costa del Sol og videre – alt til bemerkelsesverdig god verdi for kresne sameiere."
+      },
+      "france": {
+        "label": "Frankrike",
+        "desc": "Fra de solfylte strendene på Côte d'Azur til skibakkene i De franske alper og Paris' tidløse eleganse – Frankrike er Europas mest ettertraktede adresse for delt eierskap."
+      },
+      "usa": {
+        "label": "USA",
+        "desc": "Fra surfekulturen i California til skibakkene i Colorado og glamouren langs Floridas kyst – det amerikanske luksuseiendomsmarkedet byr på ekstraordinære muligheter for internasjonale sameiere."
+      },
+      "italy": {
+        "label": "Italia",
+        "desc": "Italias enestående landskap – fra Comosjøens blanke vann til Ligurias eldgamle landsbyer og de toskanske åsene – gjør landet til en evig favoritt blant kresne sameiere."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "Fra Algarves gylne kystlinje til Lisboas elegante bulevarder og den uberørte Sølvkysten – Portugal er en av Europas mest spennende destinasjoner for eksklusivt sameie."
+      },
+      "austria": {
+        "label": "Østerrike",
+        "desc": "Østerrikes alpeprakt – fra skianleggene i verdensklasse i Tyrol til Wiens storslåtte keiserlige sjarm – gjør landet til en av Europas mest givende destinasjoner for eksklusivt delt eierskap."
+      },
+      "england": {
+        "label": "England",
+        "desc": "London er fortsatt en av verdens store byer for luksuseiendom – fra byhus i Mayfair til leiligheter langs elven – mens den engelske landsbygda byr på idylliske tilfluktssteder for kresne sameiere."
+      },
+      "sweden": {
+        "label": "Sverige",
+        "desc": "Sveriges dramatiske landskap – fra Stockholms skjærgård til de skogkledde innsjøområdene i nord – gir en unikt fredelig ramme for eksklusivt sameie, langt fra folkemengdene."
+      },
+      "germany": {
+        "label": "Tyskland",
+        "desc": "Fra De bayerske alper og Bodensjøens bredder til kulturhovedstedene Berlin og München – Tyskland byr på et fristende utvalg av eksklusive eiendomsmuligheter for sameiere."
+      },
+      "croatia": {
+        "label": "Kroatia",
+        "desc": "Kroatias betagende adriaterhavskyst, krystallklare vann og historiske murbyer som Dubrovnik gjør landet til en av Middelhavets mest ettertraktede destinasjoner for eksklusivt delt eierskap."
+      },
+      "mexico": {
+        "label": "Mexico",
+        "desc": "Fra Riviera Mayas turkise strender til stillehavsglamouren i Los Cabos – Mexico byr på ekstraordinær luksus til usedvanlig god verdi, og er et av verdens mest spennende markeder for sameie."
+      }
     }
   },
   "values": {

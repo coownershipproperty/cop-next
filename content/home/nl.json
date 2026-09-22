@@ -37,18 +37,51 @@
     "heading": "Onze bestemmingen",
     "lead": "Al onze woningen per land, op één pagina.",
     "allLink": "Ontdek woningen",
-    "labels": {
-      "spain": "Spanje",
-      "france": "Frankrijk",
-      "usa": "VS",
-      "italy": "Italië",
-      "portugal": "Portugal",
-      "austria": "Oostenrijk",
-      "england": "Engeland",
-      "sweden": "Zweden",
-      "germany": "Duitsland",
-      "croatia": "Kroatië",
-      "mexico": "Mexico"
+    "tabs": {
+      "spain": {
+        "label": "Spanje",
+        "desc": "Spanje combineert stranden van wereldklasse, een bruisende cultuur en het hele jaar door zon — op Mallorca, Ibiza, aan de Costa del Sol en daarbuiten — en dat tegen een opvallend gunstige prijs voor veeleisende mede-eigenaren."
+      },
+      "france": {
+        "label": "Frankrijk",
+        "desc": "Van de zonovergoten kust van de Côte d'Azur tot de skipistes van de Franse Alpen en de tijdloze elegantie van Parijs: Frankrijk is het meest begeerde adres van Europa voor mede-eigendom."
+      },
+      "usa": {
+        "label": "VS",
+        "desc": "Van de surfcultuur van Californië tot de skipistes van Colorado en de glamour aan het water van Florida: de Amerikaanse luxevastgoedmarkt biedt buitengewone kansen voor internationale mede-eigenaren."
+      },
+      "italy": {
+        "label": "Italië",
+        "desc": "De buitengewone landschappen van Italië — van het spiegelgladde water van het Comomeer tot de eeuwenoude dorpjes van Ligurië en de Toscaanse heuvels — maken het land een blijvende favoriet onder veeleisende mede-eigenaren."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "Van de gouden kustlijn van de Algarve tot de elegante boulevards van Lissabon en de ongerepte schoonheid van de Costa de Prata: Portugal is een van de meest opwindende bestemmingen van Europa voor luxueus mede-eigendom."
+      },
+      "austria": {
+        "label": "Oostenrijk",
+        "desc": "De Alpenpracht van Oostenrijk — van de wereldberoemde skigebieden van Tirol tot de keizerlijke grandeur van Wenen — maakt het tot een van de meest lonende bestemmingen van Europa voor luxueus mede-eigendom."
+      },
+      "england": {
+        "label": "Engeland",
+        "desc": "Londen blijft een van de grootste steden ter wereld voor luxevastgoed — van herenhuizen in Mayfair tot appartementen aan de Theems — terwijl het Engelse platteland idyllische toevluchtsoorden biedt voor veeleisende mede-eigenaren."
+      },
+      "sweden": {
+        "label": "Zweden",
+        "desc": "De dramatische landschappen van Zweden — van de scherenkust van Stockholm tot de beboste merengebieden van het noorden — vormen een uniek serene omgeving voor luxueus mede-eigendom, ver van de drukte."
+      },
+      "germany": {
+        "label": "Duitsland",
+        "desc": "Van de Beierse Alpen en de oevers van het Bodenmeer tot de culturele hoofdsteden Berlijn en München: Duitsland biedt een aantrekkelijk aanbod aan luxevastgoed voor mede-eigenaren."
+      },
+      "croatia": {
+        "label": "Kroatië",
+        "desc": "De adembenemende Adriatische kust van Kroatië, het kristalheldere water en historische ommuurde steden als Dubrovnik maken het tot een van de meest begeerde bestemmingen van de Middellandse Zee voor luxueus mede-eigendom."
+      },
+      "mexico": {
+        "label": "Mexico",
+        "desc": "Van de turquoise kusten van de Riviera Maya tot de Pacifische glamour van Los Cabos: Mexico biedt buitengewone luxe tegen een uitzonderlijk gunstige prijs — en is daarmee een van de meest opwindende markten ter wereld voor mede-eigendom."
+      }
     }
   },
   "values": {

@@ -37,18 +37,51 @@
     "heading": "Nuestros destinos",
     "lead": "Todas nuestras casas de cada país, en una sola página.",
     "allLink": "Todos los destinos →",
-    "labels": {
-      "usa": "Estados Unidos",
-      "spain": "España",
-      "italy": "Italia",
-      "france": "Francia",
-      "austria": "Austria",
-      "germany": "Alemania",
-      "mexico": "México",
-      "portugal": "Portugal",
-      "england": "Reino Unido",
-      "sweden": "Suecia",
-      "croatia": "Croacia"
+    "tabs": {
+      "spain": {
+        "label": "España",
+        "desc": "España combina playas de primer nivel, una cultura vibrante y sol todo el año en Mallorca, Ibiza, la Costa del Sol y más allá — todo a un valor extraordinario para copropietarios exigentes."
+      },
+      "france": {
+        "label": "Francia",
+        "desc": "Desde las costas bañadas por el sol de la Costa Azul hasta las pistas de los Alpes franceses y la elegancia atemporal de París, Francia es la dirección más codiciada de Europa para la propiedad fraccionada."
+      },
+      "usa": {
+        "label": "Estados Unidos",
+        "desc": "Desde el desierto de California y las montañas de Colorado hasta la costa de Florida, Estados Unidos ofrece la mayor variedad de casas en copropiedad de nuestra colección."
+      },
+      "italy": {
+        "label": "Italia",
+        "desc": "Los lagos del norte, las colinas de la Toscana y la costa de Liguria: Italia reúne paisaje, gastronomía y arquitectura en casas pensadas para quedarse semanas, no días."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "El Algarve, la costa de Lisboa y el interior alentejano ofrecen sol durante casi todo el año, una comunidad internacional consolidada y algunos de los precios más razonables de Europa occidental."
+      },
+      "austria": {
+        "label": "Austria",
+        "desc": "Los Alpes austríacos dan acceso directo a pistas en invierno y senderos en verano, con una gestión impecable y pueblos que siguen siendo pueblos fuera de temporada."
+      },
+      "england": {
+        "label": "Reino Unido",
+        "desc": "Londres y el campo inglés: casas urbanas para escapadas cortas y propiedades rurales para fines de semana largos, a poca distancia para quienes viven en el Reino Unido."
+      },
+      "sweden": {
+        "label": "Suecia",
+        "desc": "Archipiélagos, lagos y bosques. Las casas suecas de nuestra colección son refugios de verano con embarcadero propio y una luz que dura hasta bien entrada la noche."
+      },
+      "germany": {
+        "label": "Alemania",
+        "desc": "Los lagos de Baviera y la costa báltica combinan naturaleza y buenas comunicaciones, con propiedades que funcionan igual de bien en invierno que en verano."
+      },
+      "croatia": {
+        "label": "Croacia",
+        "desc": "La costa dálmata ofrece aguas transparentes, ciudades históricas y precios que todavía están por debajo de los del Mediterráneo occidental."
+      },
+      "mexico": {
+        "label": "México",
+        "desc": "Los Cabos y la costa del Pacífico: villas con piscina infinita, sol garantizado en invierno y vuelos directos desde buena parte de Norteamérica."
+      }
     }
   },
   "values": {

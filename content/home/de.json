@@ -37,18 +37,51 @@
     "heading": "Unsere Destinationen",
     "lead": "Alle unsere Häuser, nach Ländern, auf einer Seite.",
     "allLink": "Alle Destinationen →",
-    "labels": {
-      "usa": "USA",
-      "spain": "Spanien",
-      "italy": "Italien",
-      "france": "Frankreich",
-      "austria": "Österreich",
-      "germany": "Deutschland",
-      "mexico": "Mexiko",
-      "portugal": "Portugal",
-      "england": "Vereinigtes Königreich",
-      "sweden": "Schweden",
-      "croatia": "Kroatien"
+    "tabs": {
+      "spain": {
+        "label": "Spanien",
+        "desc": "Spanien verbindet erstklassige Strände, lebendige Kultur und ganzjährige Sonne auf Mallorca, Ibiza, an der Costa del Sol und darüber hinaus — zu einem bemerkenswerten Gegenwert für anspruchsvolle Miteigentümer."
+      },
+      "france": {
+        "label": "Frankreich",
+        "desc": "Von den sonnenverwöhnten Küsten der Côte d'Azur über die Pisten der französischen Alpen bis zur zeitlosen Eleganz von Paris ist Frankreich Europas begehrteste Adresse für Miteigentum."
+      },
+      "usa": {
+        "label": "USA",
+        "desc": "Von der kalifornischen Wüste über die Berge Colorados bis an die Küste Floridas bieten die USA die größte Bandbreite an Miteigentums-Immobilien in unserer Kollektion."
+      },
+      "italy": {
+        "label": "Italien",
+        "desc": "Die oberitalienischen Seen, die Hügel der Toskana und die ligurische Küste: Italien vereint Landschaft, Küche und Architektur in Häusern, in denen man Wochen bleibt, nicht Tage."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "Die Algarve, die Küste bei Lissabon und das Hinterland des Alentejo bieten fast ganzjährig Sonne, eine gewachsene internationale Gemeinschaft und einige der vernünftigsten Preise Westeuropas."
+      },
+      "austria": {
+        "label": "Österreich",
+        "desc": "Die österreichischen Alpen bieten im Winter direkten Zugang zur Piste und im Sommer zu den Wanderwegen, mit tadelloser Verwaltung und Orten, die außerhalb der Saison Orte bleiben."
+      },
+      "england": {
+        "label": "Vereinigtes Königreich",
+        "desc": "London und die englische Landschaft: Stadthäuser für Kurztrips und Landhäuser für lange Wochenenden, für Briten in kurzer Anreise erreichbar."
+      },
+      "sweden": {
+        "label": "Schweden",
+        "desc": "Schären, Seen und Wälder. Die schwedischen Häuser unserer Kollektion sind Sommerrefugien mit eigenem Steg und einem Licht, das bis tief in die Nacht reicht."
+      },
+      "germany": {
+        "label": "Deutschland",
+        "desc": "Die bayerischen Seen und die Ostseeküste verbinden Natur mit guter Erreichbarkeit — Immobilien, die im Winter so gut funktionieren wie im Sommer."
+      },
+      "croatia": {
+        "label": "Kroatien",
+        "desc": "Die dalmatinische Küste bietet klares Wasser, historische Städte und Preise, die noch unter denen des westlichen Mittelmeers liegen."
+      },
+      "mexico": {
+        "label": "Mexiko",
+        "desc": "Los Cabos und die Pazifikküste: Villen mit Infinity-Pool, garantierte Wintersonne und Direktflüge aus weiten Teilen Nordamerikas."
+      }
     }
   },
   "values": {

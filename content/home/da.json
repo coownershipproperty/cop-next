@@ -37,18 +37,51 @@
     "heading": "Vores destinationer",
     "lead": "Alle vores boliger i hvert land, på én side.",
     "allLink": "Udforsk boligerne",
-    "labels": {
-      "spain": "Spanien",
-      "france": "Frankrig",
-      "usa": "USA",
-      "italy": "Italien",
-      "portugal": "Portugal",
-      "austria": "Østrig",
-      "england": "England",
-      "sweden": "Sverige",
-      "germany": "Tyskland",
-      "croatia": "Kroatien",
-      "mexico": "Mexico"
+    "tabs": {
+      "spain": {
+        "label": "Spanien",
+        "desc": "Spanien forener strande i verdensklasse, levende kultur og solskin året rundt — på Mallorca, Ibiza, Costa del Sol og videre endnu — alt sammen til bemærkelsesværdig værdi for kræsne medejere."
+      },
+      "france": {
+        "label": "Frankrig",
+        "desc": "Fra Côte d'Azurs solbeskinnede kyster til skiløjperne i de franske Alper og Paris' tidløse elegance er Frankrig Europas mest eftertragtede adresse for delt ejerskab."
+      },
+      "usa": {
+        "label": "USA",
+        "desc": "Fra surfkulturen i Californien til skiløjperne i Colorado og glamouren langs Floridas kyster byder USA's luksusboligmarked på enestående muligheder for internationale medejere."
+      },
+      "italy": {
+        "label": "Italien",
+        "desc": "Italiens enestående landskaber — fra Comosøens blanke vand til Liguriens ældgamle landsbyer og de toscanske bakker — gør landet til en evig favorit blandt kræsne medejere."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "Fra Algarves gyldne kystlinje til Lissabons elegante boulevarder og Sølvkystens uberørte skønhed er Portugal en af Europas mest spændende destinationer for eksklusivt medejerskab."
+      },
+      "austria": {
+        "label": "Østrig",
+        "desc": "Østrigs alpepragt — fra Tyrols skisportssteder i verdensklasse til Wiens storslåede kejserlige charme — gør landet til en af Europas mest givende destinationer for eksklusivt delt ejerskab."
+      },
+      "england": {
+        "label": "England",
+        "desc": "London er fortsat en af verdens store byer for eksklusive boliger — fra byhuse i Mayfair til lejligheder ved floden — mens det engelske landskab byder på idylliske tilflugtssteder for kræsne medejere."
+      },
+      "sweden": {
+        "label": "Sverige",
+        "desc": "Sveriges dramatiske landskaber — fra Stockholms skærgård til de skovklædte søområder mod nord — danner en helt særligt fredfyldt ramme om eksklusivt medejerskab, langt fra mængden."
+      },
+      "germany": {
+        "label": "Tyskland",
+        "desc": "Fra de bayerske Alper og Bodensøens bredder til kulturmetropolerne Berlin og München byder Tyskland på et overbevisende udvalg af eksklusive boligmuligheder for medejere."
+      },
+      "croatia": {
+        "label": "Kroatien",
+        "desc": "Kroatiens betagende adriaterhavskyst, krystalklare vand og historiske fæstningsbyer som Dubrovnik gør landet til en af Middelhavets mest eftertragtede destinationer for eksklusivt delt ejerskab."
+      },
+      "mexico": {
+        "label": "Mexico",
+        "desc": "Fra Riviera Mayas turkisblå kyster til Los Cabos' glamour ved Stillehavet byder Mexico på enestående luksus til exceptionel værdi — og er dermed et af verdens mest spændende markeder for medejerskab."
+      }
     }
   },
   "values": {

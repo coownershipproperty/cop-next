@@ -37,18 +37,51 @@
     "heading": "Våra resmål",
     "lead": "Alla våra hem i varje land, på en och samma sida.",
     "allLink": "Utforska bostäder",
-    "labels": {
-      "spain": "Spanien",
-      "france": "Frankrike",
-      "usa": "USA",
-      "italy": "Italien",
-      "portugal": "Portugal",
-      "austria": "Österrike",
-      "england": "England",
-      "sweden": "Sverige",
-      "germany": "Tyskland",
-      "croatia": "Kroatien",
-      "mexico": "Mexiko"
+    "tabs": {
+      "spain": {
+        "label": "Spanien",
+        "desc": "Spanien förenar stränder i världsklass, sprudlande kultur och sol året om — på Mallorca, Ibiza, Costa del Sol och långt därutöver — allt till ett anmärkningsvärt värde för kräsna delägare."
+      },
+      "france": {
+        "label": "Frankrike",
+        "desc": "Från Côte d'Azurs solstänkta stränder till skidbackarna i Franska Alperna och Paris tidlösa elegans — Frankrike är Europas mest eftertraktade adress för delägarskap."
+      },
+      "usa": {
+        "label": "USA",
+        "desc": "Från Kaliforniens surfkultur till Colorados skidbackar och Floridas glamorösa vattenlinje — USA:s exklusiva bostadsmarknad bjuder på enastående möjligheter för internationella delägare."
+      },
+      "italy": {
+        "label": "Italien",
+        "desc": "Italiens enastående landskap — från Comosjöns spegelblanka vatten till Liguriens uråldriga byar och Toscanas kullar — gör landet till en evig favorit bland kräsna delägare."
+      },
+      "portugal": {
+        "label": "Portugal",
+        "desc": "Från Algarves gyllene kust till Lissabons eleganta boulevarder och Silverkustens orörda skönhet — Portugal är ett av Europas mest spännande resmål för exklusivt samägande."
+      },
+      "austria": {
+        "label": "Österrike",
+        "desc": "Österrikes alpina prakt — från Tyrolens skidorter i världsklass till Wiens kejserliga charm — gör landet till ett av Europas mest givande resmål för exklusivt delägarskap."
+      },
+      "england": {
+        "label": "England",
+        "desc": "London är alltjämt en av världens främsta städer för exklusiva bostäder — från stadshus i Mayfair till våningar vid floden — medan den engelska landsbygden bjuder på idylliska tillflykter för kräsna delägare."
+      },
+      "sweden": {
+        "label": "Sverige",
+        "desc": "Sveriges dramatiska landskap — från Stockholms skärgård till norrlands skogklädda sjölandskap — erbjuder en unikt fridfull miljö för exklusivt samägande, långt från trängseln."
+      },
+      "germany": {
+        "label": "Tyskland",
+        "desc": "Från Bayerska Alperna och Bodensjöns stränder till kulturmetropolerna Berlin och München — Tyskland bjuder på ett lockande utbud av exklusiva bostadsmöjligheter för delägare."
+      },
+      "croatia": {
+        "label": "Kroatien",
+        "desc": "Kroatiens hisnande adriatiska kust, kristallklara vatten och historiska muromgärdade städer som Dubrovnik gör landet till ett av Medelhavets mest eftertraktade resmål för exklusivt delägarskap."
+      },
+      "mexico": {
+        "label": "Mexiko",
+        "desc": "Från Riviera Mayas turkosa stränder till Los Cabos glamorösa Stillahavskust — Mexiko bjuder på enastående lyx till exceptionellt värde och är en av världens mest spännande marknader för samägande."
+      }
     }
   },
   "values": {
