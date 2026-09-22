@@ -5,6 +5,7 @@ import "@/styles/admin.css";
 import "@/styles/redesign.css";
 import "@/styles/destination-redesign.css";
 import "@/styles/public-design.css";
+import "@/styles/buttons.css";
 import { Playfair_Display, Nunito_Sans, Poppins, Inter } from 'next/font/google';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';

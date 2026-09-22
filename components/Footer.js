@@ -112,6 +112,23 @@ export default function Footer() {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const links = footerLinks(locale);
+  const newsletterLabel = {
+    en: 'Join newsletter', es: 'Suscribirse al boletín',
+    fr: 'S’inscrire à la newsletter', de: 'Newsletter abonnieren',
+    it: 'Iscriviti alla newsletter', nl: 'Aanmelden voor de nieuwsbrief',
+    pt: 'Subscrever a newsletter', sv: 'Prenumerera på nyhetsbrevet',
+    da: 'Tilmeld dig nyhedsbrevet', no: 'Abonner på nyhetsbrevet',
+  }[locale] || 'Join newsletter';
+
+  function openNewsletter(event) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    const newsletter = document.getElementById('newsletter');
+    if (!newsletter) return;
+    event.preventDefault();
+    newsletter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    newsletter.querySelector('input[type="email"]')?.focus({ preventScroll: true });
+  }
+
 
   return (
     <footer className="site-footer">
@@ -176,9 +193,13 @@ export default function Footer() {
           <span aria-hidden="true">·</span>
           <a href="/terms-and-conditions/">{t('footer.terms', locale)}</a>
         </p>
+        <a className="footer-newsletter" href={`${routePath(locale, 'contact')}#newsletter`} onClick={openNewsletter}>{newsletterLabel} →</a>
       </div>
 
       <style jsx>{`
+        .footer-newsletter { margin-left: auto; color: #fff; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+        .footer-newsletter:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+        @media (max-width: 760px) { .footer-newsletter { margin-left: 0; } }
         :global(.footer-mobile-toggle) { display: none; }
         /* Copyright left, the two policies right. */
         :global(.footer-legal) { display: flex; align-items: center; gap: 10px; }

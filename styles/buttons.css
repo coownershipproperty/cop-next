@@ -1,0 +1,71 @@
+/* A named layer lets these explicit CTA colours override legacy unlayered
+   !important colour rules without escalating selector specificity. */
+@layer cop-button-colours {
+/* Shared public call-to-action colours. Keep navigation, icon controls and
+   selected filter states in their own component styles. */
+:root body :is(
+  .rd-nav-cta, .rd-hero-signup-field button, .rd-btn, .hero-cta-primary, .cta-band-primary, .newsletter-btn, .expert-submit-btn,
+  .interested-btn, .save-alert-btn, .btn-gold, .btn-blue, .dest-cta-btn-gold,
+  .load-more-btn, .geo-visit-submit, .pgal-modal-btn, .prop-map-overlay-btn,
+  .prop-form-btn, .wpresidence_button, .prop-unlock-btn, .enquiry-submit,
+  .unlock-submit, .pp-lock-cta-btn, .pp-lb-lock-btn, .eq-submit,
+  .ul-form button[type="submit"], .pp-mob-lock-btn, .compare-cta-buttons a.primary,
+  .art-prop-cta-btn, .bsb-cta-btn, .pc-viewall-btn, .viewing-card-btn.primary,
+  .viewings-close-btn, .pp-look-btn, .cp-form button[type="submit"],
+  .pw-form button, .fav-save-form button, .lw-submit, .pp-bell-form button,
+  .cop-pillar-cta a.cop-cta-primary
+) {
+  --cop-button-bg: #171717;
+  --cop-button-text: #fff;
+  background: var(--cop-button-bg) !important;
+  color: var(--cop-button-text) !important;
+  border-color: #171717 !important;
+  box-shadow: inset 0 0 0 1px #171717;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+:root body :is(
+  .rd-btn-ghost, .rd-hero .rd-btn, .rd-values .rd-btn, .btn-outline, .dest-cta-btn-outline, .expert-btn, .show-more-btn,
+  .wpresidence_button_inverse, .compare-cta-buttons a.ghost,
+  .viewing-card-btn.ghost, .pc-btn, .cop-pillar-cta a.cop-cta-secondary,
+  .dest-explore-btn, .lp-all-btn, .prop-see-more-cta
+) {
+  --cop-button-bg: #fff;
+  --cop-button-text: #171717;
+  background: var(--cop-button-bg) !important;
+  color: var(--cop-button-text) !important;
+  border-color: #171717 !important;
+  box-shadow: inset 0 0 0 1px #171717;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+:root body :is(
+  .rd-nav-cta, .rd-hero-signup-field button, .rd-btn, .hero-cta-primary, .cta-band-primary, .newsletter-btn, .expert-submit-btn,
+  .interested-btn, .save-alert-btn, .btn-gold, .btn-blue, .dest-cta-btn-gold,
+  .load-more-btn, .geo-visit-submit, .pgal-modal-btn, .prop-map-overlay-btn,
+  .prop-form-btn, .wpresidence_button, .prop-unlock-btn, .enquiry-submit,
+  .unlock-submit, .pp-lock-cta-btn, .pp-lb-lock-btn, .eq-submit,
+  .ul-form button[type="submit"], .pp-mob-lock-btn, .compare-cta-buttons a.primary,
+  .art-prop-cta-btn, .bsb-cta-btn, .pc-viewall-btn, .viewing-card-btn.primary,
+  .viewings-close-btn, .pp-look-btn, .cp-form button[type="submit"],
+  .pw-form button, .fav-save-form button, .lw-submit, .pp-bell-form button,
+  .cop-pillar-cta a.cop-cta-primary,
+  .rd-btn-ghost, .rd-hero .rd-btn, .rd-values .rd-btn, .btn-outline, .dest-cta-btn-outline, .expert-btn, .show-more-btn,
+  .wpresidence_button_inverse, .compare-cta-buttons a.ghost,
+  .viewing-card-btn.ghost, .pc-btn, .cop-pillar-cta a.cop-cta-secondary,
+  .dest-explore-btn, .lp-all-btn, .prop-see-more-cta
+):is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) {
+  background: var(--cop-button-text) !important;
+  color: var(--cop-button-bg) !important;
+  border-color: #171717 !important;
+}
+
+}
+
+@layer cop-button-colours {
+  :root body .rd-hero-newsletter .rd-hero-signup-field button,
+  :root body .rd-hero-newsletter .rd-hero-signup-field button:is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]) {
+    border: 1px solid #fff !important;
+    box-shadow: none;
+  }
+}
