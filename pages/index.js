@@ -70,11 +70,10 @@ function HeroVideo({ poster }) {
     video.poster = window.matchMedia('(max-width: 760px)').matches
       ? '/redesign/cop-home-mobile-first-frame.jpg'
       : poster;
-    // Select once before loading: phones never fetch the larger desktop file.
-    // Keep this choice on resize/orientation changes to avoid a second download.
-    video.src = window.matchMedia('(max-width: 760px)').matches
-      ? '/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4'
-      : '/redesign/cop-home-uhd-v2.mp4';
+    // One 4.8 MB 720p loop for every screen — the same file the previous site
+    // used. The 75 MB UHD render was pulled on 22 Sep 2026: bandwidth cost and
+    // seconds of poster before playback, for no visible gain in a blurred hero.
+    video.src = '/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4';
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!reduced.matches) video.play().catch(() => {});
     const onPreference = () => { if (reduced.matches) video.pause(); };
