@@ -957,7 +957,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
   // ── Filtered + sorted property list ────────────────────────────────────────
   const curateNewest = sort === 'newest' && countries.length === 0 && regions.length === 0
-    && !onlyDiscreet && availability === 'all' && !minBeds && !maxBudget;
+    && !onlyDiscreet && availability === 'available' && !minBeds && !maxBudget;
   const filtered = useMemo(() => {
     let list = [...allProperties];
     if (availability !== 'all') list = list.filter(p => String(p.status).toLowerCase().includes('sold') === (availability === 'sold'));
@@ -1030,7 +1030,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   ], [initialCollection, page]);
   const hasMore = visible.length < filtered.length;
 
-  const hasActiveFilters = countries.length > 0 || regions.length > 0 || sort !== 'newest' || onlyDiscreet || availability !== 'all' || minBeds || maxBudget;
+  const hasActiveFilters = countries.length > 0 || regions.length > 0 || sort !== 'newest' || onlyDiscreet || availability !== 'available' || minBeds || maxBudget;
 
   function clearAll() {
     setAvailability('all'); setMinBeds(''); setMaxBudget('');
