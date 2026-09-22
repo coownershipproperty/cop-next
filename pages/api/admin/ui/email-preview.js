@@ -12,18 +12,8 @@
 import { requireAdmin } from '@/lib/newsletter/auth';
 import { render } from '@react-email/render';
 import React from 'react';
+import { TEMPLATES } from '@/lib/email/templateList';
 
-// An explicit list, not a directory read: the name comes off a query string and
-// this is the whole of the validation.
-export const TEMPLATES = [
-  'newsletter', 'new-listings-digest', 'personalised-newsletter',
-  'property-alert', 'price-drop-alert', 'seasonal-spotlight',
-  'gallery-nurture', 'nurture-day3', 'nurture-day7', 'nurture-day14',
-  'nurture-floor-plan', 'floor-plan', 'discreet-brochure',
-  'welcome-1', 'welcome-2', 'welcome-3',
-  're-engagement', 'destination-market-report', 'collection-access',
-  'viewings-france', 'year-of-weekends',
-];
 
 const loaders = {
   'newsletter':                 () => import('@/emails/newsletter'),
@@ -56,7 +46,9 @@ export default async function handler(req, res) {
   if (!ctx) return;
 
   const name = String(req.query.name || '');
-  if (!loaders[name]) return res.status(400).json({ error: 'Unknown template' });
+  if (!TEMPLATES.includes(name) || !loaders[name]) {
+    return res.status(400).json({ error: 'Unknown template' });
+  }
 
   try {
     const mod = await loaders[name]();
