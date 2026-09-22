@@ -174,6 +174,27 @@ const FACTS_COPY = {
   },
 };
 
+// The usage stat in the hero strip: a number in the big slot and a unit
+// underneath, the same shape as beds / baths / m².
+//
+// This used to be gated on `locale === 'en'`. Every other language fell
+// through to the sentence branch, so French rendered the whole phrase in the
+// value slot — "44 nuits par an, au minimum" wrapped over three lines, with
+// "PAR AN" underneath it saying it again. A number is a number in every
+// language; only the unit needs translating.
+const NIGHTS_LABEL = {
+  en: { unit: 'Nights / year',  minimum: ' · minimum' },
+  es: { unit: 'Noches / año',   minimum: ' · mínimo' },
+  fr: { unit: 'Nuits / an',     minimum: ' · minimum' },
+  de: { unit: 'Nächte / Jahr',  minimum: ' · mindestens' },
+  it: { unit: 'Notti / anno',   minimum: ' · minimo' },
+  nl: { unit: 'Nachten / jaar', minimum: ' · minimaal' },
+  pt: { unit: 'Noites / ano',   minimum: ' · no mínimo' },
+  sv: { unit: 'Nätter / år',    minimum: ' · som lägst' },
+  da: { unit: 'Nætter / år',    minimum: ' · minimum' },
+  no: { unit: 'Netter / år',    minimum: ' · minimum' },
+};
+
 // ── Locale-specific UI copy ────────────────────────────────────────────────
 const COPY = {
   en: {
@@ -1408,6 +1429,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   const detected = useLocaleFromCookie(localeFromPath(router.asPath || router.pathname));
   const locale = forceLocale || detected;
   const t = COPY[locale] || COPY.en;
+  const nightsLabel = NIGHTS_LABEL[locale] || NIGHTS_LABEL.en;
   const localeNumberFmt = numberLocale(locale);
 
   const local = localizedFields(p, locale);
@@ -1894,10 +1916,10 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                 which are floors. Removed 17 Sep 2026; an empty slot is better
                 than an invented one. */}
             {usageText
-              ? <div className="pp-stat" aria-label={usageText}>{locale === 'en' && facts?.usage?.nights && ['minimum', 'fixed'].includes(facts.usage.kind)
-                ? <><span className="pp-stat-val">{facts.usage.nights}</span><span className="pp-stat-lbl">Nights / year{facts.usage.kind === 'minimum' ? ' · minimum' : ''}</span></>
+              ? <div className="pp-stat" aria-label={usageText}>{facts?.usage?.nights && ['minimum', 'fixed'].includes(facts.usage.kind)
+                ? <><span className="pp-stat-val">{facts.usage.nights}</span><span className="pp-stat-lbl">{nightsLabel.unit}{facts.usage.kind === 'minimum' ? nightsLabel.minimum : ''}</span></>
                 : facts?.usage?.kind === 'uncapped'
-                  ? <><span className="pp-stat-val">~45</span><span className="pp-stat-lbl">{({ en:'Nights / year', es:'Noches / año', fr:'Nuits / an', de:'Nächte / Jahr', it:'Notti / anno', nl:'Nachten / jaar', pt:'Noites / ano', sv:'Nätter / år', da:'Nætter / år', no:'Netter / år' })[locale] || 'Nights / year'}</span></>
+                  ? <><span className="pp-stat-val">~45</span><span className="pp-stat-lbl">{nightsLabel.unit}</span></>
                   : <><span className="pp-stat-val pp-stat-val-sm">{usageText}</span><span className="pp-stat-lbl">{t.per_year}</span></>}</div>
               : null}
             <div className="pp-stat pp-share-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
