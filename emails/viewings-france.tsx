@@ -12,7 +12,7 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
-import BRAND from '../lib/email/brand';
+import BRAND from '@/lib/email/brand';
 import { EmailColorScheme } from './_color-scheme';
 
 // ── Types ─────────────────────────────────────────────────────────────────────

@@ -17,7 +17,6 @@ import {
 import * as React from 'react';
 import { t } from '@/lib/i18n';
 import { BRAND } from '@/lib/email/brand';
-import BRAND from '../lib/email/brand';
 import { EmailColorScheme } from './_color-scheme';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
