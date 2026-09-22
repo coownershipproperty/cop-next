@@ -82,7 +82,11 @@
         "label": "Messico",
         "desc": "Dalle acque turchesi della Riviera Maya al glamour del Pacifico di Los Cabos, il Messico offre un lusso straordinario a un valore eccezionale — uno dei mercati di comproprietà più entusiasmanti al mondo."
       }
-    }
+    },
+    "countLabel": "{count} case nella collezione",
+    "countLabelOne": "{count} casa nella collezione",
+    "exploreCta": "Scopri gli immobili",
+    "swipeHint": "Scorri per altri paesi"
   },
   "values": {
     "kicker": "Come funziona",

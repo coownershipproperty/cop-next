@@ -82,7 +82,11 @@
         "label": "Mexico",
         "desc": "Van de turquoise kusten van de Riviera Maya tot de Pacifische glamour van Los Cabos: Mexico biedt buitengewone luxe tegen een uitzonderlijk gunstige prijs — en is daarmee een van de meest opwindende markten ter wereld voor mede-eigendom."
       }
-    }
+    },
+    "countLabel": "{count} woningen in de collectie",
+    "countLabelOne": "{count} woning in de collectie",
+    "exploreCta": "Bekijk woningen",
+    "swipeHint": "Veeg voor meer landen"
   },
   "values": {
     "kicker": "Hoe het werkt",

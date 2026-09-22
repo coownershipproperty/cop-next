@@ -82,7 +82,11 @@
         "label": "Mexico",
         "desc": "Fra Riviera Mayas turkisblå kyster til Los Cabos' glamour ved Stillehavet byder Mexico på enestående luksus til exceptionel værdi — og er dermed et af verdens mest spændende markeder for medejerskab."
       }
-    }
+    },
+    "countLabel": "{count} boliger i samlingen",
+    "countLabelOne": "{count} bolig i samlingen",
+    "exploreCta": "Se boligerne",
+    "swipeHint": "Stryg for flere lande"
   },
   "values": {
     "kicker": "Sådan fungerer det",

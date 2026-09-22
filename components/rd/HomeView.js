@@ -264,7 +264,7 @@ export default function HomeView({
                 </div>
                 <Link href={homesHref} className="rd-btn-link">{copy.destinations.allLink}</Link>
               </div>
-              <Destinations destinations={destinations} tabs={copy.destinations.tabs} exploreLabel={copy.destinations.exploreAria || 'Explore homes in'} />
+              <Destinations destinations={destinations} tabs={copy.destinations.tabs} exploreLabel={copy.destinations.exploreAria || 'Explore homes in'} copy={copy.destinations} />
             </div>
           </section>
         )}

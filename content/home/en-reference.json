@@ -82,7 +82,11 @@
         "label": "Mexico",
         "desc": "From the turquoise shores of the Riviera Maya to the Pacific glamour of Los Cabos, Mexico offers extraordinary luxury at exceptional value — making it one of the most exciting co-ownership markets in the world."
       }
-    }
+    },
+    "countLabel": "{count} homes in the collection",
+    "countLabelOne": "{count} home in the collection",
+    "exploreCta": "Explore properties",
+    "swipeHint": "Swipe for more countries"
   },
   "values": {
     "kicker": "How it works",

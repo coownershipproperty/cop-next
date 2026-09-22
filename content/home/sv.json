@@ -82,7 +82,11 @@
         "label": "Mexiko",
         "desc": "Från Riviera Mayas turkosa stränder till Los Cabos glamorösa Stillahavskust — Mexiko bjuder på enastående lyx till exceptionellt värde och är en av världens mest spännande marknader för samägande."
       }
-    }
+    },
+    "countLabel": "{count} hem i samlingen",
+    "countLabelOne": "{count} hem i samlingen",
+    "exploreCta": "Se bostäderna",
+    "swipeHint": "Svep för fler länder"
   },
   "values": {
     "kicker": "Så fungerar det",

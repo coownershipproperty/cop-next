@@ -82,7 +82,11 @@
         "label": "Mexiko",
         "desc": "Los Cabos und die Pazifikküste: Villen mit Infinity-Pool, garantierte Wintersonne und Direktflüge aus weiten Teilen Nordamerikas."
       }
-    }
+    },
+    "countLabel": "{count} Häuser in der Kollektion",
+    "countLabelOne": "{count} Haus in der Kollektion",
+    "exploreCta": "Immobilien ansehen",
+    "swipeHint": "Wischen für weitere Länder"
   },
   "values": {
     "kicker": "So funktioniert's",

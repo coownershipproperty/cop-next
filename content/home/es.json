@@ -82,7 +82,11 @@
         "label": "México",
         "desc": "Los Cabos y la costa del Pacífico: villas con piscina infinita, sol garantizado en invierno y vuelos directos desde buena parte de Norteamérica."
       }
-    }
+    },
+    "countLabel": "{count} casas en la colección",
+    "countLabelOne": "{count} casa en la colección",
+    "exploreCta": "Ver propiedades",
+    "swipeHint": "Desliza para ver más países"
   },
   "values": {
     "kicker": "Cómo funciona",

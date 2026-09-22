@@ -82,7 +82,11 @@
         "label": "Mexique",
         "desc": "Los Cabos et la côte pacifique : des villas à piscine à débordement, du soleil garanti en hiver et des vols directs depuis une grande partie de l'Amérique du Nord."
       }
-    }
+    },
+    "countLabel": "{count} biens dans la collection",
+    "countLabelOne": "{count} bien dans la collection",
+    "exploreCta": "Voir les biens",
+    "swipeHint": "Faites glisser pour voir d’autres pays"
   },
   "values": {
     "kicker": "Comment ça marche",

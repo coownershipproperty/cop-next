@@ -82,7 +82,11 @@
         "label": "Mexico",
         "desc": "Fra Riviera Mayas turkise strender til stillehavsglamouren i Los Cabos – Mexico byr på ekstraordinær luksus til usedvanlig god verdi, og er et av verdens mest spennende markeder for sameie."
       }
-    }
+    },
+    "countLabel": "{count} boliger i samlingen",
+    "countLabelOne": "{count} bolig i samlingen",
+    "exploreCta": "Se boligene",
+    "swipeHint": "Sveip for flere land"
   },
   "values": {
     "kicker": "Slik fungerer det",

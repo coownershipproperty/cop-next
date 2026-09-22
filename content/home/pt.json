@@ -82,7 +82,11 @@
         "label": "México",
         "desc": "Das águas turquesa da Riviera Maya ao glamour do Pacífico em Los Cabos, o México oferece luxo extraordinário a um valor excepcional — um dos mercados de copropriedade mais empolgantes do mundo."
       }
-    }
+    },
+    "countLabel": "{count} casas na coleção",
+    "countLabelOne": "{count} casa na coleção",
+    "exploreCta": "Ver imóveis",
+    "swipeHint": "Deslize para ver mais países"
   },
   "values": {
     "kicker": "Como funciona",

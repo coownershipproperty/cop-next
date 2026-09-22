@@ -10,9 +10,15 @@ const PHOTOS = Object.fromEntries(ORDER.map(key => [key, `/redesign/countries/${
 // It used to be imported straight from content/home/en-reference.json, which
 // meant every language got English country names and English descriptions
 // under them. It comes in as a prop now so each locale shows its own.
-export default function Destinations({ destinations, tabs, exploreLabel = 'Explore homes in' }) {
+export default function Destinations({ destinations, tabs, exploreLabel = 'Explore homes in', copy = {} }) {
   const label = key => tabs?.[key]?.label || key;
   const desc = key => tabs?.[key]?.desc || '';
+  // The count line and the panel's own link used to be written in English
+  // here, so a German reader got "22 homes in the collection" and "Explore
+  // properties" under a German heading, beside a German description.
+  const countLine = n => ((n === 1 ? copy.countLabelOne : copy.countLabel)
+    || `{count} ${n === 1 ? 'home' : 'homes'} in the collection`).replace('{count}', n);
+  const exploreCta = copy.exploreCta || 'Explore properties';
   const countries = ORDER.map(key => destinations.find(d => d.key === key)).filter(Boolean);
   const [selected, setSelected] = useState('spain');
   const buttons = useRef({});
@@ -79,6 +85,14 @@ export default function Destinations({ destinations, tabs, exploreLabel = 'Explo
     buttons.current[countries[next].key]?.focus();
   }
   return <div className={s.showcase} ref={wrap}>
+    {/* On a phone the tab strip is 1,047px of content (1,277px in German) in
+        a 390px window: four of eleven countries are visible in English,
+        three in German, and nothing said the rest were there. The CSS for
+        this hint has existed since the redesign — no component ever rendered
+        the element. */}
+    <p className="destination-swipe-hint" aria-hidden="true">
+      <span>{copy.swipeHint || 'Swipe for more countries'}</span><span>→</span>
+    </p>
     <div className={s.tabs} role="tablist" aria-label="Choose a country">
       {countries.map((d,i) => <button key={d.key} ref={el => { buttons.current[d.key] = el; }} type="button" role="tab" id={`country-tab-${d.key}`} aria-controls={`country-panel-${d.key}`} aria-selected={active.key === d.key} tabIndex={active.key === d.key ? 0 : -1} onPointerEnter={e => { if (e.pointerType === 'mouse') setSelected(d.key); }} onClick={() => setSelected(d.key)} onKeyDown={e => onKeyDown(e,i)}>{label(d.key)}</button>)}
     </div>
@@ -101,10 +115,10 @@ export default function Destinations({ destinations, tabs, exploreLabel = 'Explo
           <Image src={PHOTOS[d.key] || d.img || `/wp-content/uploads/dest-${d.key}.webp`} alt={label(d.key)} fill sizes="(max-width: 760px) 90vw, 42vw" style={{objectFit:'cover'}} />
         </Link>
         <div className={s.copy}>
-          <span className={s.count}>{d.count} {d.count === 1 ? 'home' : 'homes'} in the collection</span>
+          <span className={s.count}>{countLine(d.count)}</span>
           <h3>{label(d.key)}</h3>
           <p>{desc(d.key)}</p>
-          <Link className={s.explore} href={d.href}>Explore properties <span aria-hidden="true">↗</span></Link>
+          <Link className={s.explore} href={d.href}>{exploreCta} <span aria-hidden="true">↗</span></Link>
         </div>
         <div className={s.map} aria-hidden="true"><Image src={`/wp-content/uploads/${d.key}-line.webp`} alt="" fill sizes="(max-width: 760px) 35vw, 20vw" style={{objectFit:'contain'}} /></div>
       </>}

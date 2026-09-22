@@ -606,6 +606,11 @@ html:has(.gallery-stage) { scrollbar-gutter:auto; background:#fff !important; }
 .pp-mobile-contact { display:none; }
 @media(max-width:760px) {
   .cop-public.cop-public .destination-swipe-hint { display:flex; align-items:center; justify-content:center; gap:10px; text-align:center; color:#000; font-size:12px; font-weight:500; margin:0 0 16px; }
+  /* Snap the country tabs so a swipe lands on a tab rather than halfway
+     through one, and let the strip bleed to the screen edge — a scroller
+     inset from both edges reads as a finished row, not a scroller. */
+  .cop-public.cop-public #destinations [role="tablist"] { scroll-snap-type:x mandatory; scroll-padding-left:20px; }
+  .cop-public.cop-public #destinations [role="tablist"] > button { scroll-snap-align:start; }
   .cop-public.cop-public.cop-public .rd-collection .collection-sort-row .sort-btn { display:flex; align-items:center; justify-content:center; text-align:center; }
   .cop-public.cop-public.cop-public .pp-tabs { display:none; }
   .cop-public.cop-public.cop-public .pp-stats .pp-contact-stat { display:none; }
