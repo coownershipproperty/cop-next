@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "title": "Comment fonctionne la copropriété | COP",
+    "description": "Comment fonctionne la copropriété d'une résidence secondaire : ce que vous possédez, le temps dont vous disposez, ce que coûte l'entretien et comment se déroule l'achat.",
+    "ogTitle": "Comment fonctionne la copropriété | COP",
+    "ogDescription": "Ce que vous possédez, le temps dont vous disposez, ce que coûte l'entretien et comment se déroule l'achat."
+  },
+  "hero": {
+    "kicker": "Une autre façon d'être propriétaire",
+    "headingTop": "La maison est à vous.",
+    "headingAccent": "Le coût est partagé.",
+    "lead": "Une résidence secondaire remarquable. Une part du prix d'achat et des charges courantes. Et une équipe professionnelle qui s'en occupe, pour que le temps passé là-bas soit vraiment du temps libre.",
+    "ctaBrowse": "Voir les maisons",
+    "ctaAsk": "Posez-nous une question",
+    "foot": "Moins à gérer. Plus à attendre avec impatience.",
+    "sharesFrom": "Parts à partir de",
+    "homesForSale": "maisons à vendre",
+    "countries": "pays",
+    "imageAlt": "Villa de Mouans-Sartoux, terrasses paysagées et piscine sur la Côte d'Azur"
+  },
+  "chapterNav": {
+    "label": "Sur cette page",
+    "items": [
+      {
+        "id": "comparison",
+        "label": "Pourquoi la copropriété ?"
+      },
+      {
+        "id": "ownership",
+        "label": "Ce que vous possédez"
+      },
+      {
+        "id": "stays",
+        "label": "Votre temps sur place"
+      },
+      {
+        "id": "buying",
+        "label": "Le processus d'achat"
+      },
+      {
+        "id": "questions",
+        "label": "Vos questions"
+      }
+    ]
+  },
+  "comparison": {
+    "kicker": "Acheter seul ou en copropriété",
+    "headingTop": "La même maison.",
+    "headingBottom": "Une fraction de l'engagement.",
+    "clarifierHeading": "Une vraie propriété. Pas une multipropriété.",
+    "clarifierBody": "Vous achetez une part réelle du bien, et non le seul droit d'y séjourner. Selon la maison, les copropriétaires détiennent leur part directement ou via la société propriétaire du bien, et les documents d'achat précisent exactement ce qui est détenu.",
+    "lead": "Les estimations du secteur indiquent que beaucoup de propriétaires de résidences secondaires n'y passent que quatre à six semaines par an. Une part de ⅛ vous donne environ six semaines — sans acheter la maison entière.",
+    "fullLabel": "Pleine propriété",
+    "sharedLabel": "Copropriété",
+    "budget": {
+      "wholeLabel": "Acheter la maison entière",
+      "wholePrice": "1,2 million €",
+      "wholeNote": "Pleine propriété du bien.",
+      "shareLabel": "Détenir une part de ⅛ de la même maison",
+      "sharePrice": "150 000 €",
+      "shareNote": "1,05 million € de moins engagés sur un seul bien."
+    },
+    "rows": [
+      {
+        "h": "La même belle maison",
+        "fullHeading": "La même belle maison",
+        "alone": "1,2 million € engagés pour posséder le bien entier.",
+        "shared": "150 000 € pour une part de ⅛. La même maison, le même emplacement et la même qualité — pour un huitième du prix d'achat."
+      },
+      {
+        "h": "Plus de capital disponible",
+        "fullHeading": "Plus de capital immobilisé sur une seule maison",
+        "alone": "Le prix d'achat entier est immobilisé sur une seule résidence secondaire.",
+        "shared": "Gardez 1,05 million € disponibles pour d'autres investissements, une part dans une autre destination, ou des parts supplémentaires pour disposer de plus de temps ici."
+      },
+      {
+        "h": "Une part des charges courantes",
+        "fullHeading": "Payer toutes les charges courantes",
+        "alone": "Financer l'entretien, l'assurance et les factures de toute la maison sur l'année — même quand vous n'y êtes pas.",
+        "shared": "Avec une part de ⅛, vous payez ⅛ des charges courantes partagées du bien, au lieu de porter la maison entière vous-même."
+      },
+      {
+        "h": "Un temps qui correspond à vos vacances",
+        "fullHeading": "Payer des semaines que vous n'utiliserez peut-être pas",
+        "alone": "Vous achetez les cinquante-deux semaines, même si vous n'y allez que quatre à six.",
+        "shared": "Environ six semaines par an avec une part de ⅛ classique. Vous voulez des séjours plus longs ? Des parts supplémentaires peuvent vous donner plus de temps, selon les disponibilités."
+      },
+      {
+        "h": "Vos vacances, pas un second métier",
+        "fullHeading": "L'entretien est votre affaire",
+        "alone": "Fuites, réparations, ménage, jardin et piscine : à organiser vous-même, ou à faire faire et superviser à distance.",
+        "shared": "L'équipe coordonne l'entretien, le ménage et la préparation entre les séjours. Vous arrivez dans une maison prête pour vous."
+      },
+      {
+        "h": "La location sans le travail quotidien",
+        "fullHeading": "Gérer la location — ou superviser un gestionnaire",
+        "alone": "S'occuper des annonces, des messages des voyageurs, des arrivées et des changements — ou recruter et superviser un gestionnaire locatif.",
+        "shared": "Lorsque la licence et le modèle de propriété autorisent la location, l'équipe gère les réservations, les voyageurs et les changements dans le cadre du programme géré."
+      },
+      {
+        "h": "Une propriété avec un potentiel à long terme",
+        "fullHeading": "Toute l'exposition sur un seul bien",
+        "alone": "Vous possédez le bien entier et toute son exposition aux variations de valeur.",
+        "shared": "Vous possédez une part réelle qui peut profiter d'une appréciation de la maison, avec la possibilité de la revendre — et pas seulement de payer des vacances."
+      }
+    ],
+    "emphasise": [
+      "1,05 million € disponibles",
+      "⅛ des charges courantes partagées du bien",
+      "Environ six semaines"
+    ],
+    "notes": [
+      "Comparaison illustrative du prix d'achat : 1 200 000 € ÷ 8 = 150 000 €, hors frais et taxes d'acquisition. Ne constitue pas une offre de vente.",
+      "Les charges partagées suivent le budget de la maison ; les frais de gestion et les frais liés à chaque séjour varient. L'usage suit les règles de réservation, et les parts supplémentaires dépendent des disponibilités. La valeur du bien et des parts peut baisser comme augmenter ; la revente est soumise aux conditions de propriété et à la recherche d'un acquéreur."
+    ]
+  },
+  "strip": {
+    "caption": "Un endroit où revenir.",
+    "imageAlt": "Maison et piscine à Santa Barbara, montagnes et ciel de coucher de soleil en arrière-plan"
+  },
+  "fit": {
+    "kicker": "À qui cela convient",
+    "headingTop": "Une résidence secondaire.",
+    "headingBottom": "Pas un second métier.",
+    "forHeading": "Un endroit où vous reviendrez.",
+    "forBody": "Pour celles et ceux qui veulent une véritable résidence secondaire environ quatre à huit semaines par an, avec une taille de part et des règles de réservation adaptées à leurs projets. Vous voulez retrouver votre chez-vous, sans le gérer à distance.",
+    "notForHeading": "Pas pour tous les profils d'acheteur.",
+    "notForBody": "Si vous avez besoin d'un logement à l'année, d'un accès sans restriction ou d'un achat destiné avant tout au rendement locatif, ce n'est pas la même proposition."
+  },
+  "ownership": {
+    "kicker": "01 / La propriété",
+    "heading": "Une belle maison.\nUne part plus modeste\nde la responsabilité.",
+    "body": "Vous n'avez pas besoin d'une résidence secondaire entière pour avoir un endroit à vous. En copropriété, un petit groupe de propriétaires partage une maison, ses coûts et le temps qu'on y passe.",
+    "imageAlt": "Piscine et jardin bordé de palmiers à Cala Codolar, Ibiza, face à la mer et à Es Vedrà",
+    "detailsLabel": "Ce que comprend la propriété",
+    "details": [
+      {
+        "h": "Une vraie propriété. Un endroit à vous.",
+        "p": "Vous possédez une part réelle de la maison — pas une réservation ni un abonnement. La propriété est détenue directement ou via la société propriétaire du bien, et vos droits figurent dans les documents d'achat."
+      },
+      {
+        "h": "Joliment conçue. Prête à vivre.",
+        "p": "Des intérieurs signés, un mobilier de qualité et un équipement choisi avec soin rendent la maison particulière dès le premier séjour. Nos partenaires s'occupent des détails, des pièces de vie aux finitions."
+      },
+      {
+        "h": "À vous d'en profiter. À vous de la transmettre.",
+        "p": "Votre part est un actif, pas un quota de vacances. Profitez-en aujourd'hui, avec la possibilité de la vendre, de la donner ou de la transmettre à votre famille plus tard, selon les conditions de propriété de votre maison."
+      }
+    ]
+  },
+  "stays": {
+    "kicker": "02 / Votre temps sur place",
+    "heading": "Faites de la place\naux bonnes semaines.",
+    "body": "Une part d'un huitième vous donne environ six semaines par an dans votre propre résidence secondaire, réparties sur les saisons. Organisez de longues vacances, de courtes escapades et du temps en famille ou entre amis via le système de réservation des propriétaires.",
+    "imageAlt": "Terrasse et piscine ensoleillées d'une villa dominant une baie méditerranéenne",
+    "details": [
+      {
+        "h": "Anticipez. Ou partez sur un coup de tête.",
+        "p": "Réservez via le système des propriétaires. Les délais d'anticipation et les séjours de dernière minute varient selon la maison ; nous vous expliquons l'allocation et les règles exactes."
+      },
+      {
+        "h": "La haute saison fait partie du tableau.",
+        "p": "Votre temps comprend un accès à la haute, à la moyenne et à la basse saison — pas seulement aux semaines dont personne ne veut. Les dates prisées sont réparties par le système de réservation de la maison, et nous vous expliquons l'allocation et les délais avant l'achat."
+      },
+      {
+        "h": "Des propriétaires différents. Des rythmes différents.",
+        "p": "Lorsque les groupes de propriétaires sont constitués, des préférences de voyage complémentaires aident : certains foyers s'organisent autour des vacances scolaires, d'autres préfèrent les semaines plus calmes. Un mélange réfléchi réduit la concurrence sur les mêmes dates ; les règles de réservation garantissent un accès équitable."
+      },
+      {
+        "h": "Emmenez ceux que vous aimez.",
+        "p": "Famille et amis peuvent séjourner avec votre accord. Profitez-en ensemble, ou laissez-leur un séjour à eux."
+      }
+    ]
+  },
+  "journey": {
+    "kicker": "03 / De l'intérêt à l'arrivée",
+    "heading": "Quatre étapes.\nUn endroit à vous.",
+    "link": "Commençons la conversation",
+    "steps": [
+      {
+        "h": "Trouvez votre place.",
+        "p": "Parcourez la collection ou dites-nous les destinations, les saisons et le type de maison que vous avez en tête. Nous vous aidons à resserrer le choix."
+      },
+      {
+        "h": "Voyez le tableau complet.",
+        "p": "Examinez la disponibilité, les frais d'achat, le budget des charges courantes et les règles de réservation de cette maison précise — pas une promesse illustrative."
+      },
+      {
+        "h": "Faites-en la vôtre.",
+        "p": "Confirmez les conditions de réservation, puis examinez les documents d'achat et de propriété avec vos propres conseils. Votre contrat d'achat est conclu avec l'équipe responsable de la maison."
+      },
+      {
+        "h": "Arrivez. Installez-vous.",
+        "p": "Une fois l'achat finalisé, organisez vos séjours via le système de réservation des propriétaires. L'équipe de gestion prépare la maison pour votre arrivée."
+      }
+    ]
+  },
+  "faq": {
+    "kicker": "04 / Vos questions",
+    "heading": "Des réponses claires.",
+    "body": "Et si votre question porte sur une maison en particulier, demandez-nous.",
+    "link": "Parlez-nous",
+    "items": [
+      {
+        "q": "Qu'est-ce que la copropriété d'une résidence secondaire ?",
+        "a": "Vous achetez une part de propriété légale dans une maison avec un petit groupe d'autres propriétaires. Votre part vous donne un volume d'usage convenu et vous partagez les charges courantes. Une équipe professionnelle gère la maison. La structure juridique et les documents de propriété dépendent du bien et du pays."
+      },
+      {
+        "q": "En quoi est-ce différent d'une multipropriété ?",
+        "a": "Les maisons de notre collection offrent un droit de propriété sur un bien précis, souvent via la société qui le détient, plutôt qu'un abonnement à points. Les formules de multipropriété varient et certaines sont également actées, il est donc important de comparer la propriété, l'usage et les conditions de revente réels — pas seulement l'étiquette."
+      },
+      {
+        "q": "Que comprend le prix de la part ?",
+        "a": "La maison est entièrement meublée et équipée. Les droits d'acquisition, frais juridiques et autres frais varient selon la maison et le pays et peuvent s'ajouter. Nous détaillons le prix de la part, les frais d'achat et le budget courant avant que vous ne décidiez."
+      },
+      {
+        "q": "De combien de temps est-ce que je dispose ?",
+        "a": "Une part d'un huitième donne généralement environ six semaines par an. Votre allocation exacte, le délai de réservation à l'avance, l'accès à la haute saison et les éventuels séjours de dernière minute sont fixés par le contrat de votre maison. Des parts supplémentaires donnent en général davantage d'usage."
+      },
+      {
+        "q": "La famille et les amis peuvent-ils séjourner ?",
+        "a": "Oui. Famille et amis peuvent séjourner avec votre accord. Nous vous expliquons les conditions d'accueil, les limites d'occupation et les éventuels frais pour la maison que vous choisissez."
+      },
+      {
+        "q": "Puis-je louer les semaines que je n'utilise pas ?",
+        "a": "Là où la location est autorisée, le programme locatif est entièrement géré : l'équipe s'occupe des réservations, de la communication avec les voyageurs, des arrivées et des changements. D'autres maisons sont réservées aux propriétaires et à leurs invités. Nous confirmons l'éligibilité, les frais et les modalités de location de votre maison avant l'achat."
+      },
+      {
+        "q": "Aurai-je tout de même des séjours en haute saison ?",
+        "a": "Oui — la copropriété inclut un accès à la haute saison, le temps étant réparti entre haute, moyenne et basse saison selon les règles de réservation de la maison. Les dates prisées sont partagées équitablement plutôt que réservées en permanence à un propriétaire. Nous vous expliquons l'allocation et les délais de réservation de la maison que vous choisissez."
+      },
+      {
+        "q": "Comment les propriétaires se partagent-ils les dates prisées ?",
+        "a": "Des préférences de voyage différentes aident. Lorsque l'équipe de gestion constitue le groupe de propriétaires, elle recherche des besoins complémentaires — par exemple un mélange de foyers qui s'organisent autour des vacances scolaires et de propriétaires qui préfèrent voyager en dehors. Ce n'est pas un quota fixe de quatre et quatre ; le système de réservation continue de régir l'accès aux dates prisées."
+      },
+      {
+        "q": "Qui s'occupe du bien ?",
+        "a": "L'équipe qui gère la maison coordonne le ménage, l'entretien, les réparations et la préparation de chaque séjour. Les propriétaires financent les charges courantes selon le budget convenu. Nous vous expliquons les services, les frais et le fonds de réserve avant l'achat."
+      },
+      {
+        "q": "Que se passe-t-il si un autre propriétaire cesse de payer ?",
+        "a": "L'équipe de gestion couvre le manque pendant qu'elle règle l'impayé. Votre usage de la maison n'est pas affecté."
+      },
+      {
+        "q": "Le bien est-il hypothéqué ?",
+        "a": "La situation d'endettement du bien fait partie des vérifications d'achat. Demandez-nous les documents de propriété confirmant tout emprunt, les restrictions à l'hypothèque de la maison et la manière dont le financement de chaque part reste séparé. L'existence d'une société propriétaire ne signifie pas en soi que la maison est sans dette."
+      },
+      {
+        "q": "Puis-je revendre ma part plus tard ?",
+        "a": "Oui, dans les conditions du contrat de propriété. Il peut exister une période de détention initiale et un droit de préemption pour les propriétaires en place. Nous vous expliquons le processus de revente et ses coûts pour votre maison. Trouver un acquéreur prend du temps, et ni la date ni le prix de vente ne sont garantis."
+      },
+      {
+        "q": "Puis-je étaler le prix d'achat ?",
+        "a": "Certaines maisons proposent un paiement échelonné sans intérêts en direct, sans prêt bancaire. Demandez-nous quelles maisons sont éligibles et quel est l'échéancier. Le financement par crédit immobilier est une option distincte sur certaines maisons, selon votre pays de résidence et les critères du prêteur."
+      },
+      {
+        "q": "Puis-je acheter plus d'une part ?",
+        "a": "Oui, lorsque des parts supplémentaires sont disponibles. Détenir plus de parts vous donne plus de temps dans la maison, votre allocation étant fixée par ses règles de réservation. Vous pouvez aussi envisager une part dans une autre destination."
+      }
+    ]
+  },
+  "_note": "How-it-works copy for /fr/. Rendered by components/rd/HowItWorksView.js — the same component the English page uses. Translated from content/how/en.json on 22 Sep 2026. The English hedges every claim about ownership, costs and usage (\"varies by home\", \"we explain before you buy\"); that hedging is kept here deliberately and must stay."
+}

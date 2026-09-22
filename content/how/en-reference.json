@@ -1,0 +1,263 @@
+{
+  "_note": "Shape reference for content/how/<locale>.json. Only en, es, fr and de exist: the other six locales route howItWorks to their pillar page instead (ROUTE_SLUGS in lib/i18n.js). Headings that span lines carry the break as a newline in the string. comparison.emphasise lists phrases to bold inside the co-ownership column and must match that language’s own wording. This page makes claims about ownership, costs and usage and the English hedges every one of them — keep the hedging.",
+  "meta": {
+    "title": "How Co-Ownership Works | COP",
+    "description": "How co-ownership of a second home works: what you own, how much time you get, what it costs to run and how the buying process goes.",
+    "ogTitle": "How Co-Ownership Works | COP",
+    "ogDescription": "What you own, how much time you get, what it costs to run, and how the buying process goes."
+  },
+  "hero": {
+    "kicker": "A different way to own",
+    "headingTop": "Own the home.",
+    "headingAccent": "Share the cost.",
+    "lead": "A remarkable second home. A share of the purchase price and running costs. And a professional team taking care of it, so your time there feels like time off.",
+    "ctaBrowse": "Browse the homes",
+    "ctaAsk": "Ask us a question",
+    "foot": "Less to look after. More to look forward to.",
+    "sharesFrom": "Shares from",
+    "homesForSale": "homes for sale",
+    "countries": "countries",
+    "imageAlt": "Mouans-Sartoux villa, landscaped terraces and swimming pool on the Côte d’Azur"
+  },
+  "chapterNav": {
+    "label": "On this page",
+    "items": [
+      {
+        "id": "comparison",
+        "label": "Why co-own?"
+      },
+      {
+        "id": "ownership",
+        "label": "What you own"
+      },
+      {
+        "id": "stays",
+        "label": "Your time there"
+      },
+      {
+        "id": "buying",
+        "label": "The buying process"
+      },
+      {
+        "id": "questions",
+        "label": "Your questions"
+      }
+    ]
+  },
+  "comparison": {
+    "kicker": "Buying alone vs co-owning",
+    "headingTop": "The same home.",
+    "headingBottom": "A fraction of the commitment.",
+    "clarifierHeading": "Real ownership. Not a timeshare.",
+    "clarifierBody": "You buy a real share of the property—not just the right to stay there. Depending on the home, ownership is held directly on the deed or through the company that owns it, with your rights recorded in the purchase documents.",
+    "lead": "Industry estimates suggest many second-home owners use their properties for just four to six weeks a year. A typical ⅛ share gives you around six weeks—without buying the whole home.",
+    "fullLabel": "Full ownership",
+    "sharedLabel": "Co-ownership",
+    "rows": [
+      {
+        "h": "The same beautiful home",
+        "fullHeading": "The same beautiful home",
+        "alone": "€1.2 million committed to owning the whole property.",
+        "shared": "€150,000 for a ⅛ share. The same home, location and quality—for an eighth of the purchase price."
+      },
+      {
+        "h": "More capital available",
+        "fullHeading": "More capital tied to one home",
+        "alone": "The full purchase price is tied to one second home.",
+        "shared": "Keep €1.05 million available for other investments, a share in another destination, or additional shares for more time here."
+      },
+      {
+        "h": "A share of the running costs",
+        "fullHeading": "Pay all the running costs",
+        "alone": "Fund the whole home’s upkeep, insurance and property bills throughout the year—even when you are away.",
+        "shared": "Pay ⅛ of the shared property running costs with a ⅛ share, rather than carrying the whole home yourself."
+      },
+      {
+        "h": "Time that fits your holidays",
+        "fullHeading": "Pay for weeks you may not use",
+        "alone": "Buy all fifty-two weeks, even if you only visit for four to six.",
+        "shared": "Around six weeks a year with a typical ⅛ share. Want longer stays? Additional shares can give you more time, where available."
+      },
+      {
+        "h": "Your holiday—not another job",
+        "fullHeading": "The upkeep is your responsibility",
+        "alone": "Leaks, repairs, cleaners, garden and pool care: organise it yourself or find and oversee people from a distance.",
+        "shared": "The team coordinates maintenance, housekeeping and preparations between stays. Arrive to a home that is ready for you."
+      },
+      {
+        "h": "Rentals without the day-to-day work",
+        "fullHeading": "Manage rentals—or oversee a manager",
+        "alone": "Handle listings, guest messages, check-ins and changeovers—or appoint and oversee a rental manager.",
+        "shared": "Where licensing and the ownership model permit rentals, the team handles bookings, guests and changeovers through the managed programme."
+      },
+      {
+        "h": "Ownership with long-term potential",
+        "fullHeading": "All the exposure in one property",
+        "alone": "Own the entire property and its exposure to changes in value.",
+        "shared": "Own a real share that can benefit if the home appreciates, with the option to resell—not simply pay for holidays."
+      }
+    ],
+    "emphasise": [
+      "€1.05 million available",
+      "⅛ of the shared property running costs",
+      "Around six weeks"
+    ],
+    "notes": [
+      "Illustrative purchase-price comparison: €1,200,000 ÷ 8 = €150,000, before acquisition fees and taxes. Not a property offer.",
+      "Shared costs follow the home’s ownership budget; management fees and individual stay charges vary. Usage follows the booking rules, and additional shares depend on availability. Property and share values can fall as well as rise; resale is subject to ownership terms and finding a buyer."
+    ],
+    "budget": {
+      "wholeLabel": "Buy the whole home",
+      "wholePrice": "€1.2 million",
+      "wholeNote": "Full ownership of the property.",
+      "shareLabel": "Own a ⅛ share of the same home",
+      "sharePrice": "€150,000",
+      "shareNote": "€1.05 million less committed to one property."
+    }
+  },
+  "strip": {
+    "caption": "A place to come back to.",
+    "imageAlt": "Santa Barbara home and pool beneath mountains and a sunset sky"
+  },
+  "fit": {
+    "kicker": "Who this suits",
+    "headingTop": "A second home.",
+    "headingBottom": "Not a second job.",
+    "forHeading": "A place you will return to.",
+    "forBody": "For people who want a real second home for roughly four to eight weeks a year, with a share size and booking arrangement that fit their plans. You want the familiarity of your own place, without managing it from a distance.",
+    "notForHeading": "Not for every kind of buyer.",
+    "notForBody": "If you need a year-round home, unrestricted access or a purchase primarily for rental yield, this is not the same proposition."
+  },
+  "ownership": {
+    "kicker": "01 / The ownership",
+    "heading": "One beautiful home.\nA smaller share\nof the responsibility.",
+    "body": "You do not need a whole second home to have a place of your own. With co-ownership, a small group of owners shares one home, its costs and the time spent there.",
+    "imageAlt": "Pool and palm-lined garden at Cala Codolar, Ibiza, overlooking the sea and Es Vedrà",
+    "detailsLabel": "What ownership includes",
+    "details": [
+      {
+        "h": "Real ownership. A place of your own.",
+        "p": "You own a real share of the home—not a booking or a membership. Ownership is held directly or through the company that owns the property, with your rights recorded in the purchase documents."
+      },
+      {
+        "h": "Beautifully designed. Ready to enjoy.",
+        "p": "Designer interiors, quality furnishings and carefully chosen equipment make the home feel special from your first stay. Our partners take care of the details, from the living spaces to the finishing touches."
+      },
+      {
+        "h": "Yours to enjoy. Yours to pass on.",
+        "p": "Your share is an asset, not a holiday allowance. Enjoy it today, with the option to sell, gift or pass it on to family in the future, under the ownership terms for your home."
+      }
+    ]
+  },
+  "stays": {
+    "kicker": "02 / Your time there",
+    "heading": "Make room for\nthe good weeks.",
+    "body": "A one-eighth share gives you around six weeks a year in your own second home, spread across the seasons. Plan longer holidays, shorter escapes and time with family and friends through the owners’ booking system.",
+    "imageAlt": "A sunlit villa terrace and pool overlooking a Mediterranean bay",
+    "details": [
+      {
+        "h": "Plan ahead. Or be spontaneous.",
+        "p": "Reserve through the owners’ booking system. Advance windows and short-notice stays vary by home; we explain the exact allowance and rules."
+      },
+      {
+        "h": "Peak season is part of the picture.",
+        "p": "Your time includes access to high, mid and quieter seasons—not just the weeks nobody else wants. Popular dates are shared through the home’s booking system, with the allocation and booking windows explained before you buy."
+      },
+      {
+        "h": "Different owners. Different rhythms.",
+        "p": "Where owner groups are matched, complementary travel preferences help: some households plan around school holidays, while others prefer quieter weeks. A thoughtful mix reduces competition for the same dates; the booking rules keep access fair."
+      },
+      {
+        "h": "Bring the people you love.",
+        "p": "Family and friends can stay with your permission. Enjoy the home together, or let them have a stay of their own."
+      }
+    ]
+  },
+  "journey": {
+    "kicker": "03 / From interest to arrival",
+    "heading": "Four steps.\nA place of your own.",
+    "link": "Let’s start a conversation",
+    "steps": [
+      {
+        "h": "Find your place.",
+        "p": "Browse the collection or tell us the destinations, seasons and kind of home you have in mind. We help you narrow the choice."
+      },
+      {
+        "h": "See the full picture.",
+        "p": "Review availability, purchase costs, the running-cost budget and booking rules for the exact home—not an illustrative promise."
+      },
+      {
+        "h": "Make it yours.",
+        "p": "Confirm the reservation terms, then review the purchase and ownership documents with your own advisers. Your purchase contract is with the team responsible for the home."
+      },
+      {
+        "h": "Arrive. Settle in.",
+        "p": "Once the purchase is complete, arrange your stays through the owners’ booking system. The management team prepares the home for your arrival."
+      }
+    ]
+  },
+  "faq": {
+    "kicker": "04 / Your questions",
+    "heading": "Straight answers.",
+    "body": "And if your question is about a particular home, just ask.",
+    "link": "Speak to us",
+    "items": [
+      {
+        "q": "What is co-ownership of a holiday home?",
+        "a": "You buy a legal ownership share in a home with a small group of other owners. Your share gives you an agreed amount of use, and you share the running costs. A professional team manages the home. The legal structure and ownership documents depend on the property and country."
+      },
+      {
+        "q": "How is it different from a timeshare?",
+        "a": "The homes in our collection offer an ownership interest in a specific property, often through a property-owning company, rather than a holiday points membership. Timeshare arrangements vary and some are deeded too, so it is important to compare the actual ownership, usage and resale terms—not just the label."
+      },
+      {
+        "q": "What does the share price include?",
+        "a": "The home is fully furnished and equipped. Purchase taxes, legal fees and other acquisition costs vary by home and country and may be additional. We set out the share price, purchase costs and ongoing budget before you decide."
+      },
+      {
+        "q": "How much time do I get?",
+        "a": "A one-eighth share typically gives you around six weeks a year. Your exact allocation, advance-booking window, peak-season access and any short-notice stays are set by the agreement for your home. Additional shares generally provide additional use."
+      },
+      {
+        "q": "Can family and friends stay?",
+        "a": "Yes. Family and friends can stay with your permission. We explain the guest arrangements, occupancy limits and any charges for the home you choose."
+      },
+      {
+        "q": "Can I rent out unused weeks?",
+        "a": "Where rentals are permitted, the rental programme is fully managed: the team handles bookings, guest communication, arrivals and changeovers. Other homes are reserved for owners and their guests. We confirm eligibility, fees and the rental arrangements for your home before you buy."
+      },
+      {
+        "q": "Will I still get peak-season stays?",
+        "a": "Yes—co-ownership includes access to peak season, with time spread across high, mid and quieter seasons under the home’s booking rules. Popular dates are shared fairly rather than reserved permanently for one owner. We explain the allocation and booking windows for the home you choose."
+      },
+      {
+        "q": "How do owners share popular dates?",
+        "a": "Different travel preferences help. Where the managing team matches the owner group, it looks for complementary needs—for example, a mix of households planning around school holidays and owners who prefer travelling outside them. It is not a fixed four-and-four quota; the booking system still governs access to popular dates."
+      },
+      {
+        "q": "Who looks after the property?",
+        "a": "The team managing the home coordinates housekeeping, maintenance, repairs and the arrangements for each stay. Owners fund the running costs under the agreed budget. We explain the services, fees and reserve arrangements before purchase."
+      },
+      {
+        "q": "What if another owner stops paying?",
+        "a": "The managing team covers the shortfall while they resolve the missed payment. Your use of the home is not affected."
+      },
+      {
+        "q": "Is the property mortgaged?",
+        "a": "The property’s debt position is part of the purchase checks. Ask us for the ownership documents confirming any borrowing, restrictions on mortgaging the home and how individual share financing is kept separate. A property-owning company does not, by itself, mean the home has no debt."
+      },
+      {
+        "q": "Can I sell my share later?",
+        "a": "Yes, subject to the ownership agreement. There may be an initial holding period and a right of first refusal for existing owners. We explain the resale process and costs for your home. Finding a buyer takes time, and neither a sale date nor a sale price is guaranteed."
+      },
+      {
+        "q": "Can I spread the purchase price?",
+        "a": "Some homes offer interest-free instalments directly, without a bank loan. Ask us which homes qualify and for the payment schedule. Mortgage financing is a separate option on selected homes, depending on your residence and the lender’s criteria."
+      },
+      {
+        "q": "Can I buy more than one share?",
+        "a": "Yes, where additional shares are available. Owning more shares gives you more time in the home, with your allocation set out in its booking rules. You can also explore a share in another destination."
+      }
+    ]
+  }
+}

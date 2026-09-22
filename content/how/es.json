@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "title": "Cómo funciona la copropiedad | COP",
+    "description": "Cómo funciona la copropiedad de una segunda residencia: qué posees, cuánto tiempo te corresponde, qué cuesta mantenerla y cómo es el proceso de compra.",
+    "ogTitle": "Cómo funciona la copropiedad | COP",
+    "ogDescription": "Qué posees, cuánto tiempo te corresponde, qué cuesta mantenerla y cómo es el proceso de compra."
+  },
+  "hero": {
+    "kicker": "Otra forma de ser propietario",
+    "headingTop": "La casa es tuya.",
+    "headingAccent": "El coste, compartido.",
+    "lead": "Una segunda residencia extraordinaria. Una parte del precio de compra y de los gastos corrientes. Y un equipo profesional que la cuida, para que tu tiempo allí sea tiempo libre de verdad.",
+    "ctaBrowse": "Ver las casas",
+    "ctaAsk": "Haznos una pregunta",
+    "foot": "Menos de qué ocuparse. Más que esperar con ganas.",
+    "sharesFrom": "Participaciones desde",
+    "homesForSale": "casas a la venta",
+    "countries": "países",
+    "imageAlt": "Villa en Mouans-Sartoux, con terrazas ajardinadas y piscina en la Costa Azul"
+  },
+  "chapterNav": {
+    "label": "En esta página",
+    "items": [
+      {
+        "id": "comparison",
+        "label": "¿Por qué copropiedad?"
+      },
+      {
+        "id": "ownership",
+        "label": "Qué posees"
+      },
+      {
+        "id": "stays",
+        "label": "Tu tiempo allí"
+      },
+      {
+        "id": "buying",
+        "label": "El proceso de compra"
+      },
+      {
+        "id": "questions",
+        "label": "Tus preguntas"
+      }
+    ]
+  },
+  "comparison": {
+    "kicker": "Comprar solo frente a copropiedad",
+    "headingTop": "La misma casa.",
+    "headingBottom": "Una fracción del compromiso.",
+    "clarifierHeading": "Propiedad real. No es multipropiedad.",
+    "clarifierBody": "Compras una participación real en la propiedad, no solo el derecho a alojarte. Según la casa, los propietarios poseen su participación directamente o a través de la sociedad titular del inmueble, y los documentos de compra recogen exactamente qué se posee.",
+    "lead": "Las estimaciones del sector apuntan a que muchos propietarios de segundas residencias las usan solo entre cuatro y seis semanas al año. Una participación de ⅛ te da alrededor de seis semanas — sin comprar la casa entera.",
+    "fullLabel": "Propiedad completa",
+    "sharedLabel": "Copropiedad",
+    "budget": {
+      "wholeLabel": "Comprar la casa entera",
+      "wholePrice": "1,2 millones €",
+      "wholeNote": "Propiedad completa del inmueble.",
+      "shareLabel": "Poseer una participación de ⅛ de la misma casa",
+      "sharePrice": "150.000 €",
+      "shareNote": "1,05 millones € menos comprometidos en un solo inmueble."
+    },
+    "rows": [
+      {
+        "h": "La misma casa excepcional",
+        "fullHeading": "La misma casa excepcional",
+        "alone": "1,2 millones € comprometidos para poseer todo el inmueble.",
+        "shared": "150.000 € por una participación de ⅛. La misma casa, la misma ubicación y la misma calidad — por una octava parte del precio de compra."
+      },
+      {
+        "h": "Más capital disponible",
+        "fullHeading": "Más capital inmovilizado en una sola casa",
+        "alone": "El precio íntegro queda ligado a una única segunda residencia.",
+        "shared": "Mantén 1,05 millones € disponibles para otras inversiones, una participación en otro destino o participaciones adicionales para disponer de más tiempo aquí."
+      },
+      {
+        "h": "Una parte de los gastos corrientes",
+        "fullHeading": "Pagar todos los gastos corrientes",
+        "alone": "Financiar el mantenimiento, el seguro y los recibos de toda la casa durante todo el año — también cuando no estás.",
+        "shared": "Con una participación de ⅛ pagas ⅛ de los gastos corrientes compartidos del inmueble, en lugar de sostener la casa entera tú solo."
+      },
+      {
+        "h": "Un tiempo que encaja con tus vacaciones",
+        "fullHeading": "Pagar semanas que quizá no uses",
+        "alone": "Compras las cincuenta y dos semanas, aunque solo vayas cuatro o seis.",
+        "shared": "Alrededor de seis semanas al año con una participación habitual de ⅛. ¿Quieres estancias más largas? Participaciones adicionales pueden darte más tiempo, según disponibilidad."
+      },
+      {
+        "h": "Tus vacaciones, no otro trabajo",
+        "fullHeading": "El mantenimiento es cosa tuya",
+        "alone": "Fugas, reparaciones, limpieza, jardín y piscina: organizarlo tú mismo o buscar y supervisar a alguien a distancia.",
+        "shared": "El equipo coordina el mantenimiento, la limpieza y la preparación entre estancias. Llegas a una casa lista para ti."
+      },
+      {
+        "h": "Alquiler sin el trabajo diario",
+        "fullHeading": "Gestionar el alquiler — o supervisar a un gestor",
+        "alone": "Ocuparte de los anuncios, los mensajes de los huéspedes, las entradas y los cambios — o contratar y supervisar a un gestor de alquileres.",
+        "shared": "Cuando la licencia y el modelo de propiedad permiten el alquiler, el equipo se ocupa de las reservas, los huéspedes y los cambios dentro del programa gestionado."
+      },
+      {
+        "h": "Propiedad con recorrido a largo plazo",
+        "fullHeading": "Toda la exposición en un solo inmueble",
+        "alone": "Posees el inmueble entero y toda su exposición a los cambios de valor.",
+        "shared": "Posees una participación real que puede beneficiarse si la casa se revaloriza, con la opción de revenderla — no simplemente pagar por unas vacaciones."
+      }
+    ],
+    "emphasise": [
+      "1,05 millones € disponibles",
+      "⅛ de los gastos corrientes compartidos del inmueble",
+      "Alrededor de seis semanas"
+    ],
+    "notes": [
+      "Comparación ilustrativa de precio de compra: 1.200.000 € ÷ 8 = 150.000 €, antes de gastos e impuestos de adquisición. No constituye una oferta de venta.",
+      "Los gastos compartidos siguen el presupuesto de propiedad de la casa; las comisiones de gestión y los cargos por estancia varían. El uso se rige por las normas de reserva, y las participaciones adicionales dependen de la disponibilidad. El valor del inmueble y de las participaciones puede bajar además de subir; la reventa está sujeta a las condiciones de propiedad y a encontrar comprador."
+    ]
+  },
+  "strip": {
+    "caption": "Un lugar al que volver.",
+    "imageAlt": "Casa y piscina en Santa Bárbara, con montañas y un cielo de atardecer al fondo"
+  },
+  "fit": {
+    "kicker": "A quién le encaja",
+    "headingTop": "Una segunda casa.",
+    "headingBottom": "No un segundo trabajo.",
+    "forHeading": "Un lugar al que volverás.",
+    "forBody": "Para quien quiere una segunda residencia de verdad durante unas cuatro a ocho semanas al año, con un tamaño de participación y unas normas de reserva que encajen con sus planes. Quieres la familiaridad de tu propia casa, sin gestionarla a distancia.",
+    "notForHeading": "No es para todo tipo de comprador.",
+    "notForBody": "Si necesitas una vivienda para todo el año, acceso sin restricciones o una compra pensada sobre todo para obtener rentabilidad por alquiler, esta no es la misma propuesta."
+  },
+  "ownership": {
+    "kicker": "01 / La propiedad",
+    "heading": "Una casa excepcional.\nUna parte menor\nde la responsabilidad.",
+    "body": "No hace falta una segunda casa entera para tener un lugar propio. Con la copropiedad, un pequeño grupo de propietarios comparte una casa, sus costes y el tiempo que se pasa en ella.",
+    "imageAlt": "Piscina y jardín con palmeras en Cala Codolar, Ibiza, con vistas al mar y a Es Vedrà",
+    "detailsLabel": "Qué incluye la propiedad",
+    "details": [
+      {
+        "h": "Propiedad real. Un lugar propio.",
+        "p": "Posees una participación real de la casa, no una reserva ni una membresía. La propiedad se mantiene directamente o a través de la sociedad titular del inmueble, y tus derechos quedan recogidos en los documentos de compra."
+      },
+      {
+        "h": "Bien diseñada. Lista para disfrutar.",
+        "p": "Interiorismo de autor, mobiliario de calidad y un equipamiento elegido con cuidado hacen que la casa se sienta especial desde la primera estancia. Nuestros socios cuidan los detalles, de los espacios comunes a los últimos acabados."
+      },
+      {
+        "h": "Tuya para disfrutar. Tuya para transmitir.",
+        "p": "Tu participación es un activo, no una asignación de vacaciones. Disfrútala hoy, con la opción de venderla, donarla o transmitirla a tu familia en el futuro, conforme a las condiciones de propiedad de tu casa."
+      }
+    ]
+  },
+  "stays": {
+    "kicker": "02 / Tu tiempo allí",
+    "heading": "Haz sitio para\nlas buenas semanas.",
+    "body": "Una participación de un octavo te da alrededor de seis semanas al año en tu propia segunda residencia, repartidas entre las estaciones. Planifica vacaciones largas, escapadas cortas y tiempo con familia y amigos a través del sistema de reservas de los propietarios.",
+    "imageAlt": "Terraza y piscina de una villa soleada con vistas a una bahía mediterránea",
+    "details": [
+      {
+        "h": "Planifica con tiempo. O improvisa.",
+        "p": "Reserva a través del sistema de los propietarios. Los plazos de antelación y las estancias de última hora varían según la casa; te explicamos la asignación y las normas exactas."
+      },
+      {
+        "h": "La temporada alta forma parte del trato.",
+        "p": "Tu tiempo incluye acceso a temporada alta, media y baja — no solo a las semanas que nadie quiere. Las fechas más solicitadas se reparten mediante el sistema de reservas de la casa, y te explicamos la asignación y los plazos antes de comprar."
+      },
+      {
+        "h": "Distintos propietarios. Distintos ritmos.",
+        "p": "Cuando se forman los grupos de propietarios, las preferencias de viaje complementarias ayudan: unas familias organizan sus vacaciones en torno al calendario escolar y otros propietarios prefieren semanas más tranquilas. Una mezcla bien pensada reduce la competencia por las mismas fechas; las normas de reserva mantienen el acceso equitativo."
+      },
+      {
+        "h": "Trae a quien quieras.",
+        "p": "Familia y amigos pueden alojarse con tu permiso. Disfrutad juntos de la casa, o déjales una estancia para ellos."
+      }
+    ]
+  },
+  "journey": {
+    "kicker": "03 / Del interés a la llegada",
+    "heading": "Cuatro pasos.\nUn lugar propio.",
+    "link": "Empecemos a hablar",
+    "steps": [
+      {
+        "h": "Encuentra tu sitio.",
+        "p": "Explora la colección o cuéntanos los destinos, las temporadas y el tipo de casa que tienes en mente. Te ayudamos a acotar la elección."
+      },
+      {
+        "h": "Ve el cuadro completo.",
+        "p": "Revisa la disponibilidad, los gastos de compra, el presupuesto de gastos corrientes y las normas de reserva de esa casa concreta — no una promesa ilustrativa."
+      },
+      {
+        "h": "Hazla tuya.",
+        "p": "Confirma las condiciones de reserva y después revisa los documentos de compra y de propiedad con tus propios asesores. Tu contrato de compra es con el equipo responsable de la casa."
+      },
+      {
+        "h": "Llega. Instálate.",
+        "p": "Una vez completada la compra, organiza tus estancias a través del sistema de reservas de los propietarios. El equipo de gestión prepara la casa para tu llegada."
+      }
+    ]
+  },
+  "faq": {
+    "kicker": "04 / Tus preguntas",
+    "heading": "Respuestas claras.",
+    "body": "Y si tu pregunta es sobre una casa concreta, pregúntanos sin más.",
+    "link": "Habla con nosotros",
+    "items": [
+      {
+        "q": "¿Qué es la copropiedad de una casa vacacional?",
+        "a": "Compras una participación legal en una casa junto a un pequeño grupo de propietarios. Tu participación te da una cantidad de uso acordada y compartís los gastos corrientes. Un equipo profesional gestiona la casa. La estructura jurídica y los documentos de propiedad dependen del inmueble y del país."
+      },
+      {
+        "q": "¿En qué se diferencia de la multipropiedad?",
+        "a": "Las casas de nuestra colección ofrecen un derecho de propiedad sobre un inmueble concreto, a menudo a través de la sociedad titular, y no una membresía por puntos. Las fórmulas de multipropiedad varían y algunas también son escrituradas, así que conviene comparar la propiedad, el uso y las condiciones de reventa reales, no solo la etiqueta."
+      },
+      {
+        "q": "¿Qué incluye el precio de la participación?",
+        "a": "La casa está totalmente amueblada y equipada. Los impuestos de compra, los honorarios legales y otros gastos de adquisición varían según la casa y el país y pueden ser adicionales. Te detallamos el precio de la participación, los gastos de compra y el presupuesto corriente antes de que decidas."
+      },
+      {
+        "q": "¿De cuánto tiempo dispongo?",
+        "a": "Una participación de un octavo suele dar alrededor de seis semanas al año. Tu asignación exacta, el plazo de reserva anticipada, el acceso a temporada alta y las posibles estancias de última hora los fija el acuerdo de tu casa. Las participaciones adicionales suelen aportar más uso."
+      },
+      {
+        "q": "¿Pueden alojarse familia y amigos?",
+        "a": "Sí. Familia y amigos pueden alojarse con tu permiso. Te explicamos las condiciones para invitados, los límites de ocupación y los posibles cargos de la casa que elijas."
+      },
+      {
+        "q": "¿Puedo alquilar las semanas que no use?",
+        "a": "Donde se permite el alquiler, el programa está totalmente gestionado: el equipo se ocupa de las reservas, la comunicación con los huéspedes, las llegadas y los cambios. Otras casas están reservadas a los propietarios y sus invitados. Confirmamos la elegibilidad, las comisiones y las condiciones de alquiler de tu casa antes de comprar."
+      },
+      {
+        "q": "¿Tendré estancias en temporada alta?",
+        "a": "Sí: la copropiedad incluye acceso a temporada alta, con el tiempo repartido entre temporada alta, media y baja según las normas de reserva de la casa. Las fechas más solicitadas se reparten de forma equitativa en lugar de quedar reservadas permanentemente para un propietario. Te explicamos la asignación y los plazos de reserva de la casa que elijas."
+      },
+      {
+        "q": "¿Cómo se reparten los propietarios las fechas más solicitadas?",
+        "a": "Ayuda que las preferencias de viaje sean distintas. Cuando el equipo gestor forma el grupo de propietarios, busca necesidades complementarias — por ejemplo, una mezcla de familias que se organizan en torno al calendario escolar y propietarios que prefieren viajar fuera de él. No es una cuota fija de cuatro y cuatro; el sistema de reservas sigue rigiendo el acceso a las fechas más solicitadas."
+      },
+      {
+        "q": "¿Quién cuida del inmueble?",
+        "a": "El equipo que gestiona la casa coordina la limpieza, el mantenimiento, las reparaciones y la preparación de cada estancia. Los propietarios financian los gastos corrientes conforme al presupuesto acordado. Te explicamos los servicios, las comisiones y el fondo de reserva antes de la compra."
+      },
+      {
+        "q": "¿Qué pasa si otro propietario deja de pagar?",
+        "a": "El equipo gestor cubre el desfase mientras resuelve el impago. Tu uso de la casa no se ve afectado."
+      },
+      {
+        "q": "¿El inmueble tiene hipoteca?",
+        "a": "La situación de deuda del inmueble forma parte de las comprobaciones de compra. Pídenos los documentos de propiedad que confirman cualquier préstamo, las restricciones para hipotecar la casa y cómo se mantiene separada la financiación de cada participación. Que exista una sociedad titular no significa por sí solo que la casa esté libre de deuda."
+      },
+      {
+        "q": "¿Puedo vender mi participación más adelante?",
+        "a": "Sí, conforme al acuerdo de propiedad. Puede haber un periodo mínimo de permanencia y un derecho de tanteo para los propietarios actuales. Te explicamos el proceso de reventa y sus costes para tu casa. Encontrar comprador lleva tiempo, y ni la fecha ni el precio de venta están garantizados."
+      },
+      {
+        "q": "¿Puedo fraccionar el precio de compra?",
+        "a": "Algunas casas ofrecen pagos aplazados sin intereses directamente, sin préstamo bancario. Pregúntanos qué casas cumplen los requisitos y por el calendario de pagos. La financiación hipotecaria es una opción aparte en casas seleccionadas, según tu país de residencia y los criterios del prestamista."
+      },
+      {
+        "q": "¿Puedo comprar más de una participación?",
+        "a": "Sí, cuando hay participaciones disponibles. Tener más participaciones te da más tiempo en la casa, con tu asignación fijada en sus normas de reserva. También puedes plantearte una participación en otro destino."
+      }
+    ]
+  },
+  "_note": "How-it-works copy for /es/. Rendered by components/rd/HowItWorksView.js — the same component the English page uses. Translated from content/how/en.json on 22 Sep 2026. The English hedges every claim about ownership, costs and usage (\"varies by home\", \"we explain before you buy\"); that hedging is kept here deliberately and must stay."
+}

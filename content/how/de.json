@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "title": "So funktioniert Miteigentum | COP",
+    "description": "Wie Miteigentum an einer Ferienimmobilie funktioniert: was Sie besitzen, wie viel Zeit Ihnen zusteht, was der Unterhalt kostet und wie der Kauf abläuft.",
+    "ogTitle": "So funktioniert Miteigentum | COP",
+    "ogDescription": "Was Sie besitzen, wie viel Zeit Ihnen zusteht, was der Unterhalt kostet und wie der Kauf abläuft."
+  },
+  "hero": {
+    "kicker": "Eine andere Art, zu besitzen",
+    "headingTop": "Die Immobilie gehört Ihnen.",
+    "headingAccent": "Die Kosten teilen Sie.",
+    "lead": "Eine bemerkenswerte Zweitimmobilie. Ein Anteil am Kaufpreis und an den laufenden Kosten. Und ein professionelles Team, das sich darum kümmert, damit Ihre Zeit dort wirklich freie Zeit ist.",
+    "ctaBrowse": "Immobilien ansehen",
+    "ctaAsk": "Stellen Sie uns eine Frage",
+    "foot": "Weniger zu verwalten. Mehr, worauf man sich freut.",
+    "sharesFrom": "Anteile ab",
+    "homesForSale": "Immobilien im Angebot",
+    "countries": "Länder",
+    "imageAlt": "Villa in Mouans-Sartoux mit angelegten Terrassen und Pool an der Côte d'Azur"
+  },
+  "chapterNav": {
+    "label": "Auf dieser Seite",
+    "items": [
+      {
+        "id": "comparison",
+        "label": "Warum Miteigentum?"
+      },
+      {
+        "id": "ownership",
+        "label": "Was Sie besitzen"
+      },
+      {
+        "id": "stays",
+        "label": "Ihre Zeit vor Ort"
+      },
+      {
+        "id": "buying",
+        "label": "Der Kaufprozess"
+      },
+      {
+        "id": "questions",
+        "label": "Ihre Fragen"
+      }
+    ]
+  },
+  "comparison": {
+    "kicker": "Allein kaufen oder gemeinsam besitzen",
+    "headingTop": "Dieselbe Immobilie.",
+    "headingBottom": "Ein Bruchteil der Verpflichtung.",
+    "clarifierHeading": "Echtes Eigentum. Keine Timesharing-Lösung.",
+    "clarifierBody": "Sie kaufen einen echten Anteil an der Immobilie, nicht nur das Recht, dort zu übernachten. Je nach Objekt halten die Eigentümer ihren Anteil direkt oder über die Gesellschaft, der die Immobilie gehört; die Kaufunterlagen halten fest, was genau Sie besitzen.",
+    "lead": "Schätzungen der Branche zufolge nutzen viele Besitzer einer Zweitimmobilie sie nur vier bis sechs Wochen im Jahr. Ein üblicher ⅛-Anteil gibt Ihnen rund sechs Wochen — ohne die ganze Immobilie zu kaufen.",
+    "fullLabel": "Alleineigentum",
+    "sharedLabel": "Miteigentum",
+    "budget": {
+      "wholeLabel": "Die ganze Immobilie kaufen",
+      "wholePrice": "1,2 Mio. €",
+      "wholeNote": "Alleineigentum an der Immobilie.",
+      "shareLabel": "Einen ⅛-Anteil derselben Immobilie besitzen",
+      "sharePrice": "150.000 €",
+      "shareNote": "1,05 Mio. € weniger in einer einzigen Immobilie gebunden."
+    },
+    "rows": [
+      {
+        "h": "Dieselbe schöne Immobilie",
+        "fullHeading": "Dieselbe schöne Immobilie",
+        "alone": "1,2 Mio. € gebunden, um die ganze Immobilie zu besitzen.",
+        "shared": "150.000 € für einen ⅛-Anteil. Dieselbe Immobilie, dieselbe Lage, dieselbe Qualität — für ein Achtel des Kaufpreises."
+      },
+      {
+        "h": "Mehr freies Kapital",
+        "fullHeading": "Mehr Kapital in einer Immobilie gebunden",
+        "alone": "Der gesamte Kaufpreis ist an eine einzige Zweitimmobilie gebunden.",
+        "shared": "Halten Sie 1,05 Mio. € frei für andere Anlagen, einen Anteil an einem weiteren Ziel oder zusätzliche Anteile für mehr Zeit hier."
+      },
+      {
+        "h": "Ein Anteil an den laufenden Kosten",
+        "fullHeading": "Alle laufenden Kosten tragen",
+        "alone": "Instandhaltung, Versicherung und Nebenkosten der ganzen Immobilie das Jahr über tragen — auch wenn Sie nicht da sind.",
+        "shared": "Mit einem ⅛-Anteil zahlen Sie ⅛ der geteilten laufenden Kosten der Immobilie, statt die ganze Immobilie allein zu tragen."
+      },
+      {
+        "h": "Zeit, die zu Ihrem Urlaub passt",
+        "fullHeading": "Wochen bezahlen, die Sie vielleicht nicht nutzen",
+        "alone": "Sie kaufen alle zweiundfünfzig Wochen, auch wenn Sie nur vier bis sechs da sind.",
+        "shared": "Rund sechs Wochen im Jahr mit einem üblichen ⅛-Anteil. Sie möchten länger bleiben? Zusätzliche Anteile können Ihnen mehr Zeit geben, sofern verfügbar."
+      },
+      {
+        "h": "Ihr Urlaub — kein zweiter Job",
+        "fullHeading": "Die Instandhaltung ist Ihre Sache",
+        "alone": "Undichte Stellen, Reparaturen, Reinigung, Garten und Pool: selbst organisieren oder aus der Ferne Leute suchen und beaufsichtigen.",
+        "shared": "Das Team koordiniert Instandhaltung, Reinigung und Vorbereitung zwischen den Aufenthalten. Sie kommen in eine Immobilie, die für Sie bereit ist."
+      },
+      {
+        "h": "Vermietung ohne die tägliche Arbeit",
+        "fullHeading": "Vermietung selbst managen — oder einen Verwalter beaufsichtigen",
+        "alone": "Inserate, Gästenachrichten, Check-ins und Wechsel selbst erledigen — oder einen Vermietungsverwalter beauftragen und beaufsichtigen.",
+        "shared": "Wo Lizenz und Eigentumsmodell die Vermietung erlauben, übernimmt das Team Buchungen, Gäste und Wechsel im Rahmen des verwalteten Programms."
+      },
+      {
+        "h": "Eigentum mit langfristigem Potenzial",
+        "fullHeading": "Das gesamte Risiko in einer Immobilie",
+        "alone": "Sie besitzen die ganze Immobilie und tragen deren Wertentwicklung vollständig.",
+        "shared": "Sie besitzen einen echten Anteil, der von einer Wertsteigerung profitieren kann, mit der Möglichkeit zum Weiterverkauf — und zahlen nicht einfach nur für Urlaub."
+      }
+    ],
+    "emphasise": [
+      "1,05 Mio. € frei",
+      "⅛ der geteilten laufenden Kosten der Immobilie",
+      "Rund sechs Wochen"
+    ],
+    "notes": [
+      "Beispielhafter Kaufpreisvergleich: 1.200.000 € ÷ 8 = 150.000 €, vor Erwerbsnebenkosten und Steuern. Kein Angebot.",
+      "Die geteilten Kosten richten sich nach dem Wirtschaftsplan der Immobilie; Verwaltungsgebühren und Kosten je Aufenthalt variieren. Die Nutzung folgt den Buchungsregeln, zusätzliche Anteile hängen von der Verfügbarkeit ab. Immobilien- und Anteilswerte können fallen wie steigen; der Weiterverkauf richtet sich nach den Eigentumsbedingungen und setzt einen Käufer voraus."
+    ]
+  },
+  "strip": {
+    "caption": "Ein Ort, an den man zurückkehrt.",
+    "imageAlt": "Haus und Pool in Santa Barbara vor Bergen und Abendhimmel"
+  },
+  "fit": {
+    "kicker": "Für wen das passt",
+    "headingTop": "Eine Zweitimmobilie.",
+    "headingBottom": "Kein zweiter Job.",
+    "forHeading": "Ein Ort, an den Sie zurückkehren.",
+    "forBody": "Für alle, die etwa vier bis acht Wochen im Jahr eine echte Zweitimmobilie möchten, mit einer Anteilsgröße und Buchungsregelung, die zu ihren Plänen passt. Sie wollen die Vertrautheit eines eigenen Zuhauses, ohne es aus der Ferne zu verwalten.",
+    "notForHeading": "Nicht für jeden Käufer.",
+    "notForBody": "Wenn Sie ein ganzjähriges Zuhause, uneingeschränkten Zugang oder einen Kauf vor allem wegen der Mietrendite suchen, ist dies nicht dasselbe Angebot."
+  },
+  "ownership": {
+    "kicker": "01 / Das Eigentum",
+    "heading": "Eine schöne Immobilie.\nEin kleinerer Anteil\nan der Verantwortung.",
+    "body": "Sie brauchen keine ganze Zweitimmobilie, um einen Ort für sich zu haben. Beim Miteigentum teilt sich eine kleine Gruppe von Eigentümern eine Immobilie, ihre Kosten und die Zeit dort.",
+    "imageAlt": "Pool und palmengesäumter Garten in Cala Codolar, Ibiza, mit Blick aufs Meer und Es Vedrà",
+    "detailsLabel": "Was zum Eigentum gehört",
+    "details": [
+      {
+        "h": "Echtes Eigentum. Ein Ort für Sie.",
+        "p": "Sie besitzen einen echten Anteil an der Immobilie — keine Buchung und keine Mitgliedschaft. Das Eigentum wird direkt oder über die Eigentümergesellschaft gehalten, und Ihre Rechte stehen in den Kaufunterlagen."
+      },
+      {
+        "h": "Schön gestaltet. Bereit zum Genießen.",
+        "p": "Designer-Interieurs, hochwertige Möbel und sorgfältig gewähltes Zubehör machen die Immobilie vom ersten Aufenthalt an besonders. Unsere Partner kümmern sich um die Details, von den Wohnräumen bis zur letzten Feinheit."
+      },
+      {
+        "h": "Zum Genießen. Und zum Weitergeben.",
+        "p": "Ihr Anteil ist ein Vermögenswert, kein Urlaubskontingent. Genießen Sie ihn heute — mit der Möglichkeit, ihn später zu verkaufen, zu verschenken oder in der Familie weiterzugeben, nach den Eigentumsbedingungen Ihrer Immobilie."
+      }
+    ]
+  },
+  "stays": {
+    "kicker": "02 / Ihre Zeit vor Ort",
+    "heading": "Machen Sie Platz\nfür die guten Wochen.",
+    "body": "Ein Achtelanteil gibt Ihnen rund sechs Wochen im Jahr in Ihrer eigenen Zweitimmobilie, über die Jahreszeiten verteilt. Planen Sie längere Urlaube, kurze Auszeiten und Zeit mit Familie und Freunden über das Buchungssystem der Eigentümer.",
+    "imageAlt": "Sonnige Villenterrasse mit Pool über einer Mittelmeerbucht",
+    "details": [
+      {
+        "h": "Planen Sie voraus. Oder spontan.",
+        "p": "Buchen Sie über das Eigentümersystem. Vorlaufzeiten und kurzfristige Aufenthalte unterscheiden sich je Immobilie; wir erklären Ihnen das genaue Kontingent und die Regeln."
+      },
+      {
+        "h": "Die Hochsaison gehört dazu.",
+        "p": "Ihre Zeit umfasst Zugang zur Haupt-, Zwischen- und Nebensaison — nicht nur die Wochen, die sonst niemand will. Begehrte Termine werden über das Buchungssystem der Immobilie verteilt; Kontingent und Buchungsfenster erklären wir vor dem Kauf."
+      },
+      {
+        "h": "Andere Eigentümer. Andere Rhythmen.",
+        "p": "Wenn Eigentümergruppen zusammengestellt werden, helfen sich ergänzende Reisegewohnheiten: Manche Haushalte planen um die Schulferien herum, andere bevorzugen ruhigere Wochen. Eine durchdachte Mischung verringert die Konkurrenz um dieselben Termine; die Buchungsregeln halten den Zugang fair."
+      },
+      {
+        "h": "Bringen Sie mit, wen Sie mögen.",
+        "p": "Familie und Freunde können mit Ihrer Erlaubnis dort wohnen. Genießen Sie die Immobilie gemeinsam, oder überlassen Sie ihnen einen eigenen Aufenthalt."
+      }
+    ]
+  },
+  "journey": {
+    "kicker": "03 / Vom Interesse bis zur Ankunft",
+    "heading": "Vier Schritte.\nEin Ort für Sie.",
+    "link": "Beginnen wir das Gespräch",
+    "steps": [
+      {
+        "h": "Finden Sie Ihren Ort.",
+        "p": "Sehen Sie sich die Kollektion an oder nennen Sie uns Ziele, Jahreszeiten und die Art von Immobilie, die Ihnen vorschwebt. Wir helfen, die Auswahl einzugrenzen."
+      },
+      {
+        "h": "Sehen Sie das ganze Bild.",
+        "p": "Prüfen Sie Verfügbarkeit, Kaufnebenkosten, den Wirtschaftsplan der laufenden Kosten und die Buchungsregeln für genau diese Immobilie — kein beispielhaftes Versprechen."
+      },
+      {
+        "h": "Machen Sie sie zu Ihrer.",
+        "p": "Bestätigen Sie die Reservierungsbedingungen und prüfen Sie dann die Kauf- und Eigentumsunterlagen mit Ihren eigenen Beratern. Ihr Kaufvertrag besteht mit dem Team, das für die Immobilie verantwortlich ist."
+      },
+      {
+        "h": "Ankommen. Einrichten.",
+        "p": "Sobald der Kauf abgeschlossen ist, planen Sie Ihre Aufenthalte über das Buchungssystem der Eigentümer. Das Verwaltungsteam bereitet die Immobilie für Ihre Ankunft vor."
+      }
+    ]
+  },
+  "faq": {
+    "kicker": "04 / Ihre Fragen",
+    "heading": "Klare Antworten.",
+    "body": "Und wenn Ihre Frage eine bestimmte Immobilie betrifft, fragen Sie einfach.",
+    "link": "Sprechen Sie mit uns",
+    "items": [
+      {
+        "q": "Was ist Miteigentum an einer Ferienimmobilie?",
+        "a": "Sie kaufen gemeinsam mit einer kleinen Gruppe weiterer Eigentümer einen rechtlichen Eigentumsanteil an einer Immobilie. Ihr Anteil gibt Ihnen ein vereinbartes Nutzungsmaß, und Sie teilen sich die laufenden Kosten. Ein professionelles Team verwaltet die Immobilie. Rechtsform und Eigentumsunterlagen hängen von Objekt und Land ab."
+      },
+      {
+        "q": "Worin unterscheidet es sich von Timesharing?",
+        "a": "Die Immobilien unserer Kollektion bieten ein Eigentumsrecht an einem konkreten Objekt, oft über die Eigentümergesellschaft, statt einer Punkte-Mitgliedschaft. Timesharing-Modelle sind unterschiedlich und manche ebenfalls verbrieft, daher lohnt der Vergleich von tatsächlichem Eigentum, Nutzung und Weiterverkaufsbedingungen — nicht nur der Bezeichnung."
+      },
+      {
+        "q": "Was ist im Anteilspreis enthalten?",
+        "a": "Die Immobilie ist vollständig möbliert und ausgestattet. Grunderwerbsteuer, Notar- und Rechtskosten sowie weitere Erwerbsnebenkosten unterscheiden sich je nach Immobilie und Land und können hinzukommen. Wir legen Anteilspreis, Kaufnebenkosten und laufenden Wirtschaftsplan dar, bevor Sie entscheiden."
+      },
+      {
+        "q": "Wie viel Zeit steht mir zu?",
+        "a": "Ein Achtelanteil gibt in der Regel rund sechs Wochen im Jahr. Ihr genaues Kontingent, das Vorbuchungsfenster, der Zugang zur Hochsaison und mögliche kurzfristige Aufenthalte ergeben sich aus dem Vertrag Ihrer Immobilie. Zusätzliche Anteile bringen in der Regel zusätzliche Nutzung."
+      },
+      {
+        "q": "Dürfen Familie und Freunde dort wohnen?",
+        "a": "Ja. Familie und Freunde können mit Ihrer Erlaubnis dort wohnen. Wir erklären Gästeregelungen, Belegungsgrenzen und mögliche Gebühren für die Immobilie, die Sie wählen."
+      },
+      {
+        "q": "Kann ich ungenutzte Wochen vermieten?",
+        "a": "Wo die Vermietung erlaubt ist, ist das Programm vollständig verwaltet: Das Team übernimmt Buchungen, Gästekommunikation, Anreisen und Wechsel. Andere Immobilien sind Eigentümern und ihren Gästen vorbehalten. Wir bestätigen Zulässigkeit, Gebühren und Vermietungsregelung Ihrer Immobilie vor dem Kauf."
+      },
+      {
+        "q": "Bekomme ich auch Aufenthalte in der Hochsaison?",
+        "a": "Ja — Miteigentum schließt Zugang zur Hochsaison ein, wobei sich die Zeit nach den Buchungsregeln der Immobilie auf Haupt-, Zwischen- und Nebensaison verteilt. Begehrte Termine werden fair geteilt und nicht dauerhaft für einen Eigentümer reserviert. Wir erklären Kontingent und Buchungsfenster der Immobilie, die Sie wählen."
+      },
+      {
+        "q": "Wie teilen sich die Eigentümer begehrte Termine?",
+        "a": "Unterschiedliche Reisegewohnheiten helfen. Wenn das Verwaltungsteam die Eigentümergruppe zusammenstellt, achtet es auf sich ergänzende Bedürfnisse — etwa eine Mischung aus Haushalten, die um die Schulferien herum planen, und Eigentümern, die lieber außerhalb reisen. Es ist keine feste Quote von vier zu vier; der Zugang zu begehrten Terminen richtet sich weiterhin nach dem Buchungssystem."
+      },
+      {
+        "q": "Wer kümmert sich um die Immobilie?",
+        "a": "Das Team, das die Immobilie verwaltet, koordiniert Reinigung, Instandhaltung, Reparaturen und die Vorbereitung jedes Aufenthalts. Die Eigentümer finanzieren die laufenden Kosten nach dem vereinbarten Wirtschaftsplan. Wir erklären Leistungen, Gebühren und Rücklagen vor dem Kauf."
+      },
+      {
+        "q": "Was passiert, wenn ein anderer Eigentümer nicht mehr zahlt?",
+        "a": "Das Verwaltungsteam deckt die Lücke, während es den Zahlungsausfall klärt. Ihre Nutzung der Immobilie ist davon nicht betroffen."
+      },
+      {
+        "q": "Ist die Immobilie mit einer Hypothek belastet?",
+        "a": "Die Verschuldung der Immobilie gehört zu den Kaufprüfungen. Fragen Sie uns nach den Eigentumsunterlagen, die etwaige Darlehen belegen, nach Beschränkungen für eine Belastung der Immobilie und danach, wie die Finanzierung einzelner Anteile getrennt gehalten wird. Eine Eigentümergesellschaft bedeutet für sich genommen nicht, dass die Immobilie schuldenfrei ist."
+      },
+      {
+        "q": "Kann ich meinen Anteil später verkaufen?",
+        "a": "Ja, nach Maßgabe des Eigentumsvertrags. Es kann eine anfängliche Haltefrist und ein Vorkaufsrecht der übrigen Eigentümer geben. Wir erklären Ablauf und Kosten des Weiterverkaufs für Ihre Immobilie. Einen Käufer zu finden dauert, und weder Verkaufszeitpunkt noch Verkaufspreis sind garantiert."
+      },
+      {
+        "q": "Kann ich den Kaufpreis in Raten zahlen?",
+        "a": "Bei manchen Immobilien gibt es zinsfreie Ratenzahlung direkt, ohne Bankdarlehen. Fragen Sie uns, welche Immobilien dafür infrage kommen, und nach dem Zahlungsplan. Eine Finanzierung über eine Bank ist bei ausgewählten Immobilien eine separate Möglichkeit, abhängig von Ihrem Wohnsitz und den Kriterien des Kreditgebers."
+      },
+      {
+        "q": "Kann ich mehr als einen Anteil kaufen?",
+        "a": "Ja, sofern weitere Anteile verfügbar sind. Mehr Anteile geben Ihnen mehr Zeit in der Immobilie; Ihr Kontingent ergibt sich aus deren Buchungsregeln. Ebenso können Sie einen Anteil an einem anderen Ziel in Betracht ziehen."
+      }
+    ]
+  },
+  "_note": "How-it-works copy for /de/. Rendered by components/rd/HowItWorksView.js — the same component the English page uses. Translated from content/how/en.json on 22 Sep 2026. The English hedges every claim about ownership, costs and usage (\"varies by home\", \"we explain before you buy\"); that hedging is kept here deliberately and must stay."
+}
