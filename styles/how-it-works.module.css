@@ -36,7 +36,7 @@
 .page h2 { font-size:clamp(2rem,3.5vw,3.5rem); line-height:1.15; letter-spacing:-.045em; margin:0 0 24px; }
 .page h3 { font-size:1.14rem; line-height:1.35; letter-spacing:-.025em; margin:0 0 14px; }
 .page p { line-height:1.75; }
-.page :is(a,summary):focus-visible { outline:2px solid #d8c7a6; outline-offset:5px; }
+.page :is(a,summary):focus-visible { outline:2px solid #111111; outline-offset:5px; }
 .kicker { text-transform:uppercase; letter-spacing:.17em; font-size:10px; font-weight:500; color:#cfcfcf; margin:0 0 24px; }
 .hero { display:grid; grid-template-columns:.9fr 1.1fr; gap:5%; padding-top:142px; padding-bottom:64px; align-items:center; }
 .heroCopy { padding:30px 0; }
@@ -160,7 +160,7 @@
 .budgetExample > div > span { display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:22px; color:#b7b2a8; }
 .budgetExample strong { display:block; font:400 clamp(2.8rem,4.7vw,4.8rem)/1.1 var(--rd-head); letter-spacing:-.055em; }
 .budgetExample > div:first-child strong { color:#b7b2a8; }
-.budgetExample > div:last-of-type strong { color:#d8c7a6; }
+.budgetExample > div:last-of-type strong { color:#111111; }
 .budgetExample p { font-size:14px; margin:20px 0 0; max-width:380px; color:#b7b2a8; }
 .budgetArrow { align-self:center; display:grid; place-items:center; width:48px; height:48px; padding:0; box-sizing:border-box; border:1px solid #cfcfcf40; border-radius:50%; font-size:24px; line-height:1; color:#cfcfcf; }
 .budgetArrow svg { display:block; margin:0; }
@@ -223,7 +223,7 @@
 .page .flowRow > div:last-child h3 { color:#000; font-weight:500; }
 .flowRow > div:last-child p strong { color:#000; font-weight:600; }
 .flowRow p span { display:none; }
-.flowArrow { align-self:center; justify-self:center; font-size:20px; color:#a17a2f; }
+.flowArrow { align-self:center; justify-self:center; font-size:20px; color:#6b6b6b; }
 .comparisonLabel { display:none; }
 .ownershipClarifier { max-width:720px; margin:28px 0; padding:22px 24px; border:1px solid #ddd; border-radius:6px; background:#fafafa; }
 .page .ownershipClarifier h3 { color:#000; margin:0 0 10px; font-size:20px; }

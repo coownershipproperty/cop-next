@@ -65,13 +65,22 @@ function NewsletterCopy() {
 function HeroVideo({ poster }) {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [videoOff, setVideoOff] = useState(false);
   useEffect(() => {
     const video = videoRef.current;
-    video.poster = window.matchMedia('(max-width: 760px)').matches
-      ? '/redesign/cop-home-mobile-first-frame.jpg'
-      : poster;
-    // One 4.8 MB 720p loop for every screen — the same file the previous site
-    // used. The 75 MB UHD render was pulled on 22 Sep 2026: bandwidth cost and
+    const small = window.matchMedia('(max-width: 760px)').matches;
+    video.poster = small ? '/redesign/cop-home-mobile-first-frame.jpg' : poster;
+
+    // Phones get the poster frame and nothing else. The loop is 4.8 MB — on a
+    // phone that was the whole page weight (5.0 MB of 5.05 MB, measured
+    // 22 Sep 2026) for a background that is blurred behind the headline anyway.
+    // Data Saver and metered connections are treated the same way on any screen.
+    const conn = navigator.connection || {};
+    const thrifty = conn.saveData === true || /^(slow-)?2g$/.test(conn.effectiveType || '');
+    if (small || thrifty) { setVideoOff(true); return; }
+
+    // One 4.8 MB 720p loop for desktop — the same file the previous site used.
+    // The 75 MB UHD render was pulled on 22 Sep 2026: bandwidth cost and
     // seconds of poster before playback, for no visible gain in a blurred hero.
     video.src = '/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4';
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -83,7 +92,7 @@ function HeroVideo({ poster }) {
   return <>
     <video ref={videoRef} muted loop playsInline preload="metadata" poster={poster} aria-hidden="true" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} style={{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover'}}>
     </video>
-    <button type="button" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={() => { const v=videoRef.current; if(v.paused) v.play().catch(() => {}); else v.pause(); }} style={{position:'absolute',right:20,bottom:20,zIndex:5,width:40,height:40,borderRadius:'50%',border:'1px solid #ffffff60',background:'#13121099',color:'#fff',cursor:'pointer'}}>{playing ? 'Ⅱ' : '▶'}</button>
+    {!videoOff && <button type="button" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={() => { const v=videoRef.current; if(v.paused) v.play().catch(() => {}); else v.pause(); }} style={{position:'absolute',right:20,bottom:20,zIndex:5,width:40,height:40,borderRadius:'50%',border:'1px solid #ffffff60',background:'#13121099',color:'#fff',cursor:'pointer'}}>{playing ? 'Ⅱ' : '▶'}</button>}
   </>;
 }
 

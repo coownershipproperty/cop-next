@@ -20,7 +20,7 @@
 .page :global(.pp-gallery-access) { position:relative; z-index:1; color:#ffffffb3; font:400 12px/1.5 var(--rd-body); }
 .page :global(.pp-lock-cta-btn),.page :global(.pp-mob-lock-btn) { margin-top:8px; min-width:160px; }
 .page :global(.pp-lock-title),.page :global(.pp-mob-lock-title),.page :global(.pp-lb-lock-title) { font-family:var(--rd-head); font-size:clamp(20px,2vw,30px); color:var(--rd-ink); font-weight:400; letter-spacing:-.025em; }
-.page :global(.pp-lock-sub),.page :global(.pp-mob-lock-sub) { color:#d0ccc3; font-family:var(--rd-body); letter-spacing:0; }
+.page :global(.pp-lock-sub),.page :global(.pp-mob-lock-sub) { color:#dcdcdc; font-family:var(--rd-body); letter-spacing:0; }
 .page :global(.pp-lock-icon) { color:var(--rd-gold); }
 .page :global(.pp-lock-cta-btn),.page :global(.pp-mob-lock-btn),.page :global(.pp-lb-lock-btn) { background:#ffffff; color:#111; border:0; border-radius:0; padding:18px 40px; font:500 16px var(--rd-body); text-transform:none; letter-spacing:0; box-shadow:0 8px 28px #00000055; animation:ppLockPulse 2.6s ease-in-out infinite; }
 @keyframes ppLockPulse { 0%,100% { transform:scale(1); box-shadow:0 8px 28px #00000055; } 50% { transform:scale(1.035); box-shadow:0 12px 36px #00000070; } }
