@@ -23,7 +23,7 @@ const CONFIRM = {
   en: {
     watch_subject: (title) => `You're tracking ${title}`,
     watch_body: (title, url) =>
-      `You're now tracking <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. If the price changes or availability moves, you'll hear from us first — no spam, only news about this home.`,
+      `You're now tracking <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. If the price changes or availability moves, you'll hear from us first — no spam, only news about this home.`,
     wait_subject: (region) => `You're on the waitlist — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> is fully sold — but you're now first in line. The moment a new home in <strong>${region}</strong> joins our collection, you'll see it before anyone else.`,
@@ -33,7 +33,7 @@ const CONFIRM = {
   es: {
     watch_subject: (title) => `Estás siguiendo ${title}`,
     watch_body: (title, url) =>
-      `Ahora sigues <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Si el precio cambia o se mueve la disponibilidad, serás el primero en saberlo.`,
+      `Ahora sigues <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Si el precio cambia o se mueve la disponibilidad, serás el primero en saberlo.`,
     wait_subject: (region) => `Estás en la lista de espera — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> está vendida — pero ahora eres el primero de la lista. En cuanto llegue una nueva propiedad en <strong>${region}</strong>, la verás antes que nadie.`,
@@ -43,7 +43,7 @@ const CONFIRM = {
   fr: {
     watch_subject: (title) => `Vous suivez ${title}`,
     watch_body: (title, url) =>
-      `Vous suivez désormais <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Si le prix change ou si la disponibilité évolue, vous serez averti en premier.`,
+      `Vous suivez désormais <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Si le prix change ou si la disponibilité évolue, vous serez averti en premier.`,
     wait_subject: (region) => `Vous êtes sur la liste d'attente — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> est entièrement vendu — mais vous êtes désormais premier sur la liste. Dès qu'un nouveau bien arrive en <strong>${region}</strong>, vous le verrez avant tout le monde.`,
@@ -54,7 +54,7 @@ const CONFIRM = {
   de: {
     watch_subject: (title) => `Sie beobachten ${title}`,
     watch_body: (title, url) =>
-      `Sie beobachten jetzt <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Ändert sich der Preis oder die Verfügbarkeit, erfahren Sie es als Erste(r) — kein Spam, nur Neuigkeiten zu diesem Haus.`,
+      `Sie beobachten jetzt <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Ändert sich der Preis oder die Verfügbarkeit, erfahren Sie es als Erste(r) — kein Spam, nur Neuigkeiten zu diesem Haus.`,
     wait_subject: (region) => `Sie stehen auf der Warteliste — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> ist vollständig verkauft — aber Sie stehen jetzt ganz oben auf der Liste. Sobald ein neues Haus in <strong>${region}</strong> in unsere Kollektion kommt, sehen Sie es vor allen anderen.`,
@@ -65,7 +65,7 @@ const CONFIRM = {
   it: {
     watch_subject: (title) => `Sta seguendo ${title}`,
     watch_body: (title, url) =>
-      `Ora sta seguendo <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Se cambia il prezzo o la disponibilità, la avviseremo prima di tutti — niente spam, solo notizie su questa casa.`,
+      `Ora sta seguendo <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Se cambia il prezzo o la disponibilità, la avviseremo prima di tutti — niente spam, solo notizie su questa casa.`,
     wait_subject: (region) => `È in lista d'attesa — ${region}`,
     wait_body: (title, region) =>
       `Tutte le quote di <strong>${title}</strong> sono state vendute — ma ora lei è in cima alla lista. Non appena una nuova casa in <strong>${region}</strong> entrerà nella nostra collezione, la vedrà prima di chiunque altro.`,
@@ -75,7 +75,7 @@ const CONFIRM = {
   nl: {
     watch_subject: (title) => `U volgt ${title}`,
     watch_body: (title, url) =>
-      `U volgt nu <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Verandert de prijs of komt er beweging in de beschikbaarheid, dan hoort u het als eerste van ons — geen spam, alleen nieuws over deze woning.`,
+      `U volgt nu <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Verandert de prijs of komt er beweging in de beschikbaarheid, dan hoort u het als eerste van ons — geen spam, alleen nieuws over deze woning.`,
     wait_subject: (region) => `U staat op de wachtlijst — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> is volledig verkocht — maar u staat nu vooraan in de rij. Zodra er een nieuwe <strong>${region}</strong>-woning aan onze collectie wordt toegevoegd, ziet u die als eerste.`,
@@ -85,7 +85,7 @@ const CONFIRM = {
   pt: {
     watch_subject: (title) => `Está a acompanhar ${title}`,
     watch_body: (title, url) =>
-      `Está agora a acompanhar <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Se o preço mudar ou a disponibilidade se alterar, terá notícias nossas em primeiro lugar — sem spam, apenas novidades sobre esta casa.`,
+      `Está agora a acompanhar <a href="${url}" style="color:#111111"><strong>${title}</strong></a>. Se o preço mudar ou a disponibilidade se alterar, terá notícias nossas em primeiro lugar — sem spam, apenas novidades sobre esta casa.`,
     wait_subject: (region) => `Está na lista de espera — ${region}`,
     wait_body: (title, region) =>
       `As quotas de <strong>${title}</strong> estão todas vendidas — mas está agora à frente da fila. Assim que uma nova casa em <strong>${region}</strong> entrar na nossa coleção, será a primeira pessoa a vê-la.`,
@@ -117,27 +117,27 @@ function homesListHtml(homes) {
   const rows = homes.map((h) => {
     const sym = { EUR: '€', USD: '$', GBP: '£' }[h.currency] || '€';
     const price = h.price ? ` — ${sym}${Number(h.price).toLocaleString('en-GB')}` : '';
-    return `<li style="margin:0 0 8px"><a href="${SITE}/property/${h.slug}/" style="color:#1E3448">${h.title}</a>${price}</li>`;
+    return `<li style="margin:0 0 8px"><a href="${SITE}/property/${h.slug}/" style="color:#111111">${h.title}</a>${price}</li>`;
   }).join('');
   return `<ul style="margin:0 0 22px;padding-left:20px;font-size:14px;line-height:1.6">${rows}</ul>`;
 }
 
 function confirmationHtml({ bodyHtml, cta, email, extraHtml = '', ctaHref = `${SITE}/our-homes/`, secondaryHtml = '' }) {
   return `
-  <div style="background:#F7F4EE;padding:40px 16px;font-family:Georgia,'Times New Roman',serif;color:#1E3448">
-    <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #E8E3DC">
-      <div style="background:#ffffff;padding:26px 32px 22px;text-align:center;border-bottom:1px solid #E8E3DC">
+  <div style="background:#f5f5f5;padding:40px 16px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;color:#111111">
+    <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e6e6e6">
+      <div style="background:#ffffff;padding:26px 32px 22px;text-align:center;border-bottom:1px solid #e6e6e6">
         <img src="${SITE}/images/email-logo-dark.png" width="132" alt="Co-Ownership Property" style="display:inline-block;width:132px;height:auto">
       </div>
       <div style="padding:36px 32px 28px">
-        <div style="width:36px;border-top:2px solid #C9A84C;margin:0 0 18px"></div>
+        <div style="width:36px;border-top:2px solid #111111;margin:0 0 18px"></div>
         <p style="font-size:15px;line-height:1.7;margin:0 0 22px">${bodyHtml}</p>${extraHtml}
-        <a href="${ctaHref}" style="display:inline-block;background:#1E3448;color:#F4EFE4;text-decoration:none;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:13px 26px">${cta} &rarr;</a>${secondaryHtml}
+        <a href="${ctaHref}" style="display:inline-block;background:#111111;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:13px 26px">${cta} &rarr;</a>${secondaryHtml}
       </div>
-      <div style="padding:18px 32px;border-top:1px solid #E8E3DC">
-        <p style="font-family:Arial,sans-serif;font-size:11px;color:#8a9aaa;margin:0">
+      <div style="padding:18px 32px;border-top:1px solid #e6e6e6">
+        <p style="font-family:Arial,sans-serif;font-size:11px;color:#6b6b6b;margin:0">
           Co-Ownership Properties · co-ownership-property.com<br/>
-          <a href="${unsubUrl(email)}" style="color:#8a9aaa">Unsubscribe</a>
+          <a href="${unsubUrl(email)}" style="color:#6b6b6b">Unsubscribe</a>
         </p>
       </div>
     </div>
@@ -234,7 +234,7 @@ export default async function handler(req, res) {
         bodyHtml: isWait ? c.wait_body(prop.title, region) : c.watch_body(prop.title, homeUrl),
         cta: isWait ? c.cta : c.view_home,
         ctaHref: isWait ? `${SITE}/our-homes/` : homeUrl,
-        secondaryHtml: isWait ? '' : `<p style="font-family:Arial,sans-serif;font-size:12px;margin:16px 0 0"><a href="${SITE}/our-homes/" style="color:#8a9aaa">${c.cta} &rarr;</a></p>`,
+        secondaryHtml: isWait ? '' : `<p style="font-family:Arial,sans-serif;font-size:12px;margin:16px 0 0"><a href="${SITE}/our-homes/" style="color:#6b6b6b">${c.cta} &rarr;</a></p>`,
         email: cleanEmail,
         extraHtml,
       }),
@@ -258,7 +258,7 @@ export default async function handler(req, res) {
   try {
     await sendTeamNotification({
       subject: `${kind === 'waitlist' ? 'Waitlist' : 'Watch'} — ${cleanEmail} — ${prop.title}`,
-      html: `<p style="font-family:Arial,sans-serif;font-size:14px;color:#1E3448"><strong>${cleanEmail}</strong> ${kind === 'waitlist' ? 'joined the waitlist from the sold page of' : 'is now tracking'} <a href="${SITE}/property/${prop.slug}/">${prop.title}</a>.</p>`,
+      html: `<p style="font-family:Arial,sans-serif;font-size:14px;color:#111111"><strong>${cleanEmail}</strong> ${kind === 'waitlist' ? 'joined the waitlist from the sold page of' : 'is now tracking'} <a href="${SITE}/property/${prop.slug}/">${prop.title}</a>.</p>`,
     });
   } catch (e) { /* non-fatal */ }
 

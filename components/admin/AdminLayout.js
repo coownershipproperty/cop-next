@@ -25,6 +25,7 @@ const NAV_GROUPS = [
     label: 'MARKETING',
     items: [
       { href: '/admin/templates', label: 'Email templates', icon: '✎' },
+      { href: '/admin/email-previews', label: 'Email design', icon: '◐' },
       { href: '/admin/newsletters', label: 'Newsletters', icon: '✉' },
       { href: '/admin/replies', label: 'Replies to review', icon: '✎' },
       { href: '/admin/gmail-connect', label: 'Gmail drafts', icon: 'M' },

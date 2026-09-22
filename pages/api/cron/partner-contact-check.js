@@ -138,7 +138,7 @@ async function handler(req, res) {
       const propertyUrl   = (ref.payload && (ref.payload.url || ref.payload.propertyUrl)) || null;
       const propertyLink  = propertyTitle
         ? (propertyUrl
-            ? `<a href="${esc(propertyUrl)}" style="color:#1E3448;text-decoration:underline;">${esc(propertyTitle)}</a>`
+            ? `<a href="${esc(propertyUrl)}" style="color:#111111;text-decoration:underline;">${esc(propertyTitle)}</a>`
             : `<strong>${esc(propertyTitle)}</strong>`)
         : 'the home you were interested in';
 

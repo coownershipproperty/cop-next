@@ -89,11 +89,11 @@ export default async function handler(req, res) {
       Portfolio: portfolioSize, Message: message,
     })
       .filter(([, v]) => v)
-      .map(([k, v]) => `<tr><td style="padding:8px 14px;background:#F5F2EC;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6B8A9E;width:120px">${k}</td><td style="padding:8px 14px;background:#FAF8F5;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:13px;color:#1E3448">${String(v).slice(0, 500)}</td></tr>`)
+      .map(([k, v]) => `<tr><td style="padding:8px 14px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6b6b6b;width:120px">${k}</td><td style="padding:8px 14px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:13px;color:#111111">${String(v).slice(0, 500)}</td></tr>`)
       .join('');
     await sendTeamNotification({
       subject: `${kind === 'resale' ? 'Resale' : 'Partner'} application — ${name || company || cleanEmail}`,
-      html: `<h2 style="font-family:Georgia,serif;color:#1E3448;margin:0 0 18px">New ${kind} application</h2><table style="border-collapse:collapse;width:100%;max-width:560px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;margin:16px 0 0"><a href="https://co-ownership-property.com/admin/applications" style="color:#C9A84C">Review in admin →</a></p>`,
+      html: `<h2 style="font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;color:#111111;margin:0 0 18px">New ${kind} application</h2><table style="border-collapse:collapse;width:100%;max-width:560px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;margin:16px 0 0"><a href="https://co-ownership-property.com/admin/applications" style="color:#111111">Review in admin →</a></p>`,
     });
   } catch (e) { /* non-fatal */ }
 
@@ -106,14 +106,14 @@ export default async function handler(req, res) {
         ? 'We received your listing — Co-Ownership Properties'
         : 'We received your partnership application — Co-Ownership Properties',
       html: `
-      <div style="background:#F7F4EE;padding:40px 16px;font-family:Georgia,'Times New Roman',serif;color:#1E3448">
-        <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #E8E3DC">
-          <div style="background:#1E3448;padding:26px 32px;text-align:center">
-            <span style="color:#F4EFE4;font-size:20px;letter-spacing:0.35em">C O P</span><br/>
-            <span style="color:#C9A84C;font-size:10px;letter-spacing:0.2em;text-transform:uppercase">Co-Ownership Properties</span>
+      <div style="background:#f5f5f5;padding:40px 16px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;color:#111111">
+        <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e6e6e6">
+          <div style="background:#111111;padding:26px 32px;text-align:center">
+            <span style="color:#ffffff;font-size:20px;letter-spacing:0.35em">C O P</span><br/>
+            <span style="color:#b3b3b3;font-size:10px;letter-spacing:0.2em;text-transform:uppercase">Co-Ownership Properties</span>
           </div>
           <div style="padding:36px 32px 30px">
-            <div style="width:36px;border-top:2px solid #C9A84C;margin:0 0 18px"></div>
+            <div style="width:36px;border-top:2px solid #111111;margin:0 0 18px"></div>
             <p style="font-size:15px;line-height:1.7;margin:0 0 16px">${name ? `${String(name).split(' ')[0]}, thank` : 'Thank'} you — your ${kind === 'resale' ? 'listing application' : 'partnership application'} has arrived safely.</p>
             <p style="font-size:15px;line-height:1.7;margin:0 0 16px">We review every application personally. Because we curate rather than aggregate, this usually takes a day or two — you'll hear from us either way, and we may come back with a question or two first.</p>
             <p style="font-size:15px;line-height:1.7;margin:0">— The Co-Ownership Property Team</p>

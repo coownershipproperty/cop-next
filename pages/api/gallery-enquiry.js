@@ -33,12 +33,12 @@ function signatureHtml(locale) {
         alt="Dylan Olsson">
     </td>
     <td valign="middle">
-      <p style="margin:0 0 3px;font-family:Georgia,serif;font-size:18px;font-weight:700;color:#1E3448;">Dylan Olsson</p>
-      <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:11px;color:#999;letter-spacing:0.08em;text-transform:uppercase;">${role}</p>
+      <p style="margin:0 0 3px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:18px;font-weight:700;color:#111111;">Dylan Olsson</p>
+      <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:11px;color:#6b6b6b;letter-spacing:0.08em;text-transform:uppercase;">${role}</p>
       <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:13px;color:#555;">+44 7901 002763</p>
       <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:13px;color:#555;">dylan@co-ownership-property.com</p>
       <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;">
-        <a href="https://co-ownership-property.com" style="color:#C9A84C;text-decoration:none;">co-ownership-property.com</a>
+        <a href="https://co-ownership-property.com" style="color:#111111;text-decoration:none;">co-ownership-property.com</a>
       </p>
     </td>
   </tr>
@@ -66,7 +66,7 @@ function firstReplyHtml({ firstName, propertyTitle, propertyUrl, locale }) {
   const greeting = firstName ? tr('greeting_name', locale, { firstName: escapeHtml(firstName) }) : tr('greeting_no_name', locale);
   const safeHref = /^https:\/\/co-ownership-property\.com\//.test(String(propertyUrl || '')) ? propertyUrl : null;
   const propLink = safeHref
-    ? `<a href="${safeHref}" style="color:#1E3448;text-decoration:underline;">${escapeHtml(propertyTitle)}</a>`
+    ? `<a href="${safeHref}" style="color:#111111;text-decoration:underline;">${escapeHtml(propertyTitle)}</a>`
     : `<strong>${escapeHtml(propertyTitle)}</strong>`;
   const intro    = tr('first_intro',  locale, { propertyLink: propLink });
   const offer    = tr('first_offer',  locale);
@@ -165,18 +165,18 @@ export default async function handler(req, res) {
     await sendTeamNotification({
       subject: `Gallery Enquiry — ${name || email} — ${propertyTitle || propertySlug}`,
       html: `
-        <h2 style="font-family:Georgia,serif;color:#1E3448;margin:0 0 24px">Gallery Enquiry</h2>
+        <h2 style="font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;color:#111111;margin:0 0 24px">Gallery Enquiry</h2>
         <table style="border-collapse:collapse;width:100%;max-width:500px">
-          <tr><td style="padding:10px 16px;background:#F5F2EC;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6B8A9E;letter-spacing:1px;text-transform:uppercase;width:120px">Property</td>
-              <td style="padding:10px 16px;background:#FAF8F5;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:14px;color:#1E3448">${propertyTitle || propertySlug}${propertyUrl ? ` — <a href="${propertyUrl}" style="color:#C9A84C">${propertyUrl}</a>` : ''}</td></tr>
-          <tr><td style="padding:10px 16px;background:#F5F2EC;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6B8A9E;letter-spacing:1px;text-transform:uppercase">Name</td>
-              <td style="padding:10px 16px;background:#FAF8F5;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:14px;color:#1E3448">${name || 'Not provided'}</td></tr>
-          <tr><td style="padding:10px 16px;background:#F5F2EC;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6B8A9E;letter-spacing:1px;text-transform:uppercase">Email</td>
-              <td style="padding:10px 16px;background:#FAF8F5;border-bottom:1px solid #E8E3DC;font-family:Arial,sans-serif;font-size:14px;color:#1E3448"><a href="mailto:${email}" style="color:#C9A84C">${email}</a></td></tr>
-          <tr><td style="padding:10px 16px;background:#F5F2EC;${message ? 'border-bottom:1px solid #E8E3DC;' : ''}font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6B8A9E;letter-spacing:1px;text-transform:uppercase">Phone</td>
-              <td style="padding:10px 16px;background:#FAF8F5;${message ? 'border-bottom:1px solid #E8E3DC;' : ''}font-family:Arial,sans-serif;font-size:14px;color:#1E3448"><a href="tel:${phone}" style="color:#C9A84C">${phone}</a></td></tr>
-          ${message ? `<tr><td style="padding:10px 16px;background:#F5F2EC;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6B8A9E;letter-spacing:1px;text-transform:uppercase">Message</td>
-              <td style="padding:10px 16px;background:#FAF8F5;font-family:Arial,sans-serif;font-size:14px;color:#1E3448">${message}</td></tr>` : ''}
+          <tr><td style="padding:10px 16px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6b6b6b;letter-spacing:1px;text-transform:uppercase;width:120px">Property</td>
+              <td style="padding:10px 16px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:14px;color:#111111">${propertyTitle || propertySlug}${propertyUrl ? ` — <a href="${propertyUrl}" style="color:#111111">${propertyUrl}</a>` : ''}</td></tr>
+          <tr><td style="padding:10px 16px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6b6b6b;letter-spacing:1px;text-transform:uppercase">Name</td>
+              <td style="padding:10px 16px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:14px;color:#111111">${name || 'Not provided'}</td></tr>
+          <tr><td style="padding:10px 16px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6b6b6b;letter-spacing:1px;text-transform:uppercase">Email</td>
+              <td style="padding:10px 16px;background:#f5f5f5;border-bottom:1px solid #e6e6e6;font-family:Arial,sans-serif;font-size:14px;color:#111111"><a href="mailto:${email}" style="color:#111111">${email}</a></td></tr>
+          <tr><td style="padding:10px 16px;background:#f5f5f5;${message ? 'border-bottom:1px solid #e6e6e6;' : ''}font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6b6b6b;letter-spacing:1px;text-transform:uppercase">Phone</td>
+              <td style="padding:10px 16px;background:#f5f5f5;${message ? 'border-bottom:1px solid #e6e6e6;' : ''}font-family:Arial,sans-serif;font-size:14px;color:#111111"><a href="tel:${phone}" style="color:#111111">${phone}</a></td></tr>
+          ${message ? `<tr><td style="padding:10px 16px;background:#f5f5f5;font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#6b6b6b;letter-spacing:1px;text-transform:uppercase">Message</td>
+              <td style="padding:10px 16px;background:#f5f5f5;font-family:Arial,sans-serif;font-size:14px;color:#111111">${message}</td></tr>` : ''}
         </table>`,
     });
   } catch (e) { console.error('[Mail] team notification failed:', e.message); }
@@ -216,7 +216,7 @@ export default async function handler(req, res) {
       const title    = escapeHtml(rawTitle);
       const safeUrl  = resolvedSlug ? `https://co-ownership-property.com/property/${resolvedSlug}/` : null;
       const propLink = safeUrl
-        ? `<a href="${safeUrl}" style="color:#1E3448;text-decoration:underline;">${title}</a>`
+        ? `<a href="${safeUrl}" style="color:#111111;text-decoration:underline;">${title}</a>`
         : `<strong>${title}</strong>`;
 
       const { subject, html, text, source } = await buildStudioEmail(

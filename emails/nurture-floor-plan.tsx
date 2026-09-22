@@ -11,6 +11,8 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import BRAND from '../lib/email/brand';
+import { EmailColorScheme } from './_color-scheme';
 
 interface NurtureProperty {
   slug?:     string | null;
@@ -27,14 +29,9 @@ interface NurtureFloorPlanProps {
   unsubscribeUrl?: string;
 }
 
-const C = {
-  navy:   '#1E3448',
-  navy60: '#6B8A9E',
-  gold:   '#C9A84C',
-  cream:  '#F7F4EE',
-  white:  '#FFFFFF',
-  border: '#E8E3DC',
-};
+// Palette and type come from lib/email/brand.js — see the note at the top of
+// that file. Nothing about COP's email design is declared in this file.
+const C = BRAND;
 
 const base = 'https://co-ownership-property.com';
 const whatsappNumber = '447901002763';
@@ -70,8 +67,9 @@ export default function NurtureFloorPlan({
   return (
     <Html lang="en">
       <Head>
+        <EmailColorScheme />
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
           @media only screen and (max-width: 600px) {
             .hero-img   { height: 240px !important; }
             .prop-title { font-size: 26px !important; }
@@ -114,7 +112,7 @@ export default function NurtureFloorPlan({
               <Section style={{ backgroundColor: C.navy, padding: 0, margin: 0 }}>
                 <Container style={{ maxWidth: 600, margin: '0 auto', padding: 0 }}>
                   {primary.url ? (
-                    <Link href={primary.url} style={{ display: 'block', lineHeight: '0' }}>
+                    <Link href={primary.url} style={{ color: 'inherit', display: 'block', lineHeight: '0' }}>
                       <Img
                         src={primary.img}
                         alt={primaryTitle || 'Property'}
@@ -204,7 +202,7 @@ export default function NurtureFloorPlan({
                         <tr>
                           <td style={{ padding: 0, lineHeight: 0 }}>
                             {prop.url ? (
-                              <Link href={prop.url} style={{ display: 'block', lineHeight: 0 }}>
+                              <Link href={prop.url} style={{ color: 'inherit', display: 'block', lineHeight: 0 }}>
                                 <Img
                                   src={prop.img}
                                   alt={prop.title || 'Property'}
@@ -299,7 +297,7 @@ export default function NurtureFloorPlan({
               You're receiving this because you requested photos on co-ownership-property.com.
             </Text>
             <Text style={s.footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.onDark, textDecoration: 'none' }}>Unsubscribe</Link>
             </Text>
           </Container>
         </Section>
@@ -314,102 +312,102 @@ const s: Record<string, React.CSSProperties> = {
   body: {
     backgroundColor: C.cream,
     margin: 0, padding: 0,
-    fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   },
   wrap:     { maxWidth: 600, margin: '0 auto', padding: '0 20px' },
   wrapBody: { maxWidth: 600, margin: '0 auto', padding: '8px 24px 40px' },
 
   header:   { backgroundColor: C.navy, padding: '48px 0 40px' },
   wordmark: {
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
-    color: C.white, fontSize: 22, fontWeight: 300,
-    letterSpacing: '0.3em', textTransform: 'uppercase',
+    fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    color: C.white, fontSize: 22, fontWeight: 500,
+    letterSpacing: '-0.02em',
     textAlign: 'center', margin: '20px 0',
   },
 
   locationLabel: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 10, fontWeight: 600, letterSpacing: '0.28em',
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 10, fontWeight: 600, letterSpacing: '0.16em',
     textTransform: 'uppercase', color: C.gold,
     margin: '0 0 10px',
   },
   propTitle: {
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
     fontSize: 30, fontWeight: 400, color: C.navy,
-    margin: '12px 0 8px', lineHeight: '1.25', letterSpacing: '0.01em',
+    margin: '12px 0 8px', lineHeight: '1.25', letterSpacing: '-0.02em',
   },
   cardTitle: {
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
     fontSize: 22, fontWeight: 400, color: C.navy,
-    margin: '8px 0 4px', lineHeight: '1.3', letterSpacing: '0.01em',
+    margin: '8px 0 4px', lineHeight: '1.3', letterSpacing: '-0.02em',
   },
   cardBtn: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 10, fontWeight: 500, letterSpacing: '0.18em',
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 10, fontWeight: 500, letterSpacing: '0.16em',
     textTransform: 'uppercase', color: C.gold,
     textDecoration: 'none',
   },
   divider: { borderColor: C.border, margin: '20px 0 0' },
 
   greeting: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 15, color: '#4A6070', margin: '24px 0 16px',
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 15, color: '#3d3d3d', margin: '24px 0 16px',
   },
   bodyText: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 15, color: '#4A6070', lineHeight: '1.85', margin: '0 0 16px',
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 15, color: '#3d3d3d', lineHeight: '1.85', margin: '0 0 16px',
   },
 
   viewBtn: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 11, fontWeight: 600, letterSpacing: '0.22em',
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 11, fontWeight: 600, letterSpacing: '0.16em',
     textTransform: 'uppercase', color: C.white,
     backgroundColor: C.navy, textDecoration: 'none',
     padding: '14px 48px', display: 'inline-block',
   },
   emailBtn: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 10, fontWeight: 400, letterSpacing: '0.22em',
-    textTransform: 'uppercase', color: C.navy,
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 10, fontWeight: 600, letterSpacing: '0.16em',
+    textTransform: 'uppercase', color: C.onDark,
     backgroundColor: C.gold, textDecoration: 'none',
     padding: '10px 0', display: 'block', textAlign: 'center',
   },
   waBtn: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 10, fontWeight: 400, letterSpacing: '0.22em',
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    fontSize: 10, fontWeight: 600, letterSpacing: '0.16em',
     textTransform: 'uppercase', color: C.white,
-    backgroundColor: '#25D366', textDecoration: 'none',
+    backgroundColor: '#075e54', textDecoration: 'none',
     padding: '10px 0', display: 'block', textAlign: 'center',
   },
 
   goldRule: { borderColor: C.gold, borderTopWidth: 1, width: 32, margin: '32px 0 20px' },
   signoffName: {
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
     fontSize: 16, fontWeight: 400, color: C.navy, margin: '0 0 4px',
   },
   signoffSite: {
-    fontFamily: "'Jost', Arial, sans-serif",
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
     fontSize: 12, color: C.navy60, margin: 0,
   },
 
   footer:   { backgroundColor: C.navy, padding: '48px 0 40px', borderTop: `2px solid ${C.gold}` },
   footLogo: {
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
     color: C.white, fontSize: 19, fontWeight: 300,
     letterSpacing: '0.26em', textTransform: 'uppercase',
     textAlign: 'center', margin: '0 0 20px',
   },
   footLinks: {
-    fontFamily: "'Jost', Arial, sans-serif",
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
     fontSize: 10, fontWeight: 300, letterSpacing: '0.1em',
     textAlign: 'center', margin: '14px 0 4px',
-    color: 'rgba(255,255,255,0.4)',
+    color: 'rgba(255,255,255,0.72)',
   },
   footLink:    { color: 'rgba(255,255,255,0.5)', textDecoration: 'none' },
   footDivider: { borderColor: 'rgba(255,255,255,0.08)', margin: '22px 0' },
   footFine: {
-    fontFamily: "'Jost', Arial, sans-serif",
-    color: 'rgba(255,255,255,0.3)', fontSize: 11, fontWeight: 300,
+    fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+    color: 'rgba(255,255,255,0.68)', fontSize: 11, fontWeight: 300,
     textAlign: 'center', margin: '6px 0 0', lineHeight: '1.8', letterSpacing: '0.04em',
   },
 };

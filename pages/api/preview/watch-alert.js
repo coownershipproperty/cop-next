@@ -41,7 +41,7 @@ export default function handler(req, res) {
     `<!doctype html><meta charset="utf-8"><title>${subject}</title>` +
     `<div style="max-width:640px;margin:24px auto;font-family:Arial,sans-serif">` +
     `<p style="font-size:12px;color:#8a9aaa;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px">Subject line</p>` +
-    `<p style="font-size:16px;color:#1E3448;margin:0 0 20px"><strong>${subject}</strong></p></div>` +
+    `<p style="font-size:16px;color:#111111;margin:0 0 20px"><strong>${subject}</strong></p></div>` +
     html
   );
 }

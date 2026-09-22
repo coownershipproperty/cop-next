@@ -14,6 +14,8 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import BRAND from '../lib/email/brand';
+import { EmailColorScheme } from './_color-scheme';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface KeyStat {
@@ -43,14 +45,9 @@ interface DestinationMarketReportProps {
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
-const C = {
-  navy:   '#1E3448',
-  navy60: '#6B8A9E',
-  gold:   '#C9A84C',
-  cream:  '#F7F4EE',
-  white:  '#FFFFFF',
-  border: '#E8E3DC',
-};
+// Palette and type come from lib/email/brand.js — see the note at the top of
+// that file. Nothing about COP's email design is declared in this file.
+const C = BRAND;
 
 const base = 'https://co-ownership-property.com';
 
@@ -91,7 +88,7 @@ function trendSymbol(trend?: KeyStat['trend']): string {
 function trendColor(trend?: KeyStat['trend']): string {
   if (trend === 'up')   return C.gold;
   if (trend === 'down') return C.navy60;
-  return 'rgba(255,255,255,0.4)';
+  return 'rgba(255,255,255,0.72)';
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -109,8 +106,9 @@ export default function DestinationMarketReport({
   return (
     <Html lang="en">
       <Head>
+        <EmailColorScheme />
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
           @media only screen and (max-width: 600px) {
             p { font-size: 17px !important; line-height: 1.75 !important; }
             h1, h2, h3 { font-size: 26px !important; line-height: 1.35 !important; }
@@ -185,7 +183,7 @@ export default function DestinationMarketReport({
                 <Section key={i} style={hCard}>
                   <Row>
                     <Column style={hCardImgCol}>
-                      <Link href={`${base}/property/${p.slug}`} style={{ display: 'block' }}>
+                      <Link href={`${base}/property/${p.slug}`} style={{ color: 'inherit', display: 'block' }}>
                         <Section style={hCardImgPlaceholder}> </Section>
                       </Link>
                     </Column>
@@ -275,7 +273,7 @@ export default function DestinationMarketReport({
               You're receiving this email because you signed up at co-ownership-property.com
             </Text>
             <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.onDark, textDecoration: 'none' }}>Unsubscribe</Link>
             </Text>
           </Container>
         </Section>
@@ -291,7 +289,7 @@ const body: React.CSSProperties = {
   backgroundColor: C.cream,
   margin: 0,
   padding: 0,
-  fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
 };
 
 const wrap: React.CSSProperties = {
@@ -306,12 +304,11 @@ const header: React.CSSProperties = {
 };
 
 const wordmark: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   color: C.white,
   fontSize: 26,
-  fontWeight: 300,
-  letterSpacing: '0.24em',
-  textTransform: 'uppercase' as const,
+  fontWeight: 500,
+  letterSpacing: '-0.02em',
   textAlign: 'center' as const,
   margin: '20px 0',
 };
@@ -324,17 +321,17 @@ const goldRuleHeader: React.CSSProperties = {
 };
 
 const eyebrow: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   fontWeight: 600,
-  letterSpacing: '0.18em',
+  letterSpacing: '0.16em',
   textTransform: 'uppercase' as const,
   color: C.gold,
   margin: '0 0 10px',
 };
 
 const mainHeading: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 28,
   fontWeight: 700,
   color: C.navy,
@@ -350,9 +347,9 @@ const goldBar: React.CSSProperties = {
 };
 
 const bodyText: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
-  color: '#4A6070',
+  color: '#3d3d3d',
   lineHeight: '1.8',
   margin: '0 0 12px',
 };
@@ -370,25 +367,25 @@ const statCol: React.CSSProperties = {
 };
 
 const statValue: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 32,
   fontWeight: 400,
-  color: C.gold,
+  color: C.onDark,
   margin: '0 0 6px',
   lineHeight: '1',
 };
 
 const statTrend: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 14,
   fontWeight: 700,
 };
 
 const statLabel: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   fontWeight: 600,
-  letterSpacing: '0.1em',
+  letterSpacing: '0.16em',
   textTransform: 'uppercase' as const,
   color: C.white,
   margin: 0,
@@ -411,7 +408,7 @@ const hCardImgCol: React.CSSProperties = {
 const hCardImgPlaceholder: React.CSSProperties = {
   width: 160,
   height: 130,
-  background: 'linear-gradient(150deg,#4A6A7E,#2C4A5E)',
+  background: 'linear-gradient(150deg,#2e2e2e,#111111)',
   display: 'block',
 };
 
@@ -421,17 +418,17 @@ const hCardContent: React.CSSProperties = {
 };
 
 const hCardLocation: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   fontWeight: 600,
-  letterSpacing: '0.2em',
+  letterSpacing: '0.16em',
   textTransform: 'uppercase' as const,
   color: C.gold,
   margin: '0 0 6px',
 };
 
 const hCardTitle: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 14,
   fontWeight: 400,
   color: C.navy,
@@ -440,14 +437,14 @@ const hCardTitle: React.CSSProperties = {
 };
 
 const hCardStats: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   color: C.navy60,
   margin: 0,
 };
 
 const hCardPrice: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   fontWeight: 600,
   color: C.navy,
@@ -455,10 +452,10 @@ const hCardPrice: React.CSSProperties = {
 };
 
 const viewLink: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   fontWeight: 600,
-  letterSpacing: '0.14em',
+  letterSpacing: '0.16em',
   textTransform: 'uppercase' as const,
   color: C.gold,
   textDecoration: 'underline',
@@ -472,18 +469,17 @@ const insightBox: React.CSSProperties = {
 };
 
 const insightText: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
-  fontStyle: 'italic',
   fontWeight: 400,
-  color: '#4A6070',
+  color: '#3d3d3d',
   lineHeight: '1.8',
   margin: 0,
 };
 
 // CTA
 const ctaBtn: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   backgroundColor: C.navy,
   color: C.white,
   fontSize: 13,
@@ -496,9 +492,9 @@ const ctaBtn: React.CSSProperties = {
 
 // Sign-off
 const signOffBody: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 14,
-  color: '#4A6070',
+  color: '#3d3d3d',
   lineHeight: '1.8',
   margin: '0 0 24px',
 };
@@ -511,7 +507,7 @@ const goldRule: React.CSSProperties = {
 };
 
 const signOffName: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
   fontWeight: 400,
   color: C.navy,
@@ -519,17 +515,16 @@ const signOffName: React.CSSProperties = {
 };
 
 const signOffSite: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   color: C.navy60,
   margin: 0,
 };
 
 const reportAttrib: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   color: C.navy60,
-  fontStyle: 'italic',
   textAlign: 'center' as const,
   margin: 0,
 };
@@ -542,12 +537,11 @@ const footer: React.CSSProperties = {
 };
 
 const footLogo: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   color: C.white,
   fontSize: 22,
-  fontWeight: 300,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
+  fontWeight: 500,
+  letterSpacing: '-0.02em',
   textAlign: 'center' as const,
   margin: '0 0 20px',
 };
@@ -560,13 +554,13 @@ const footGoldRule: React.CSSProperties = {
 };
 
 const footLinks: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 11,
   fontWeight: 300,
   letterSpacing: '0.1em',
   textAlign: 'center' as const,
   margin: '0 0 4px',
-  color: 'rgba(255,255,255,0.4)',
+  color: 'rgba(255,255,255,0.72)',
 };
 
 const footLink: React.CSSProperties = {
@@ -580,8 +574,8 @@ const footDivider: React.CSSProperties = {
 };
 
 const footFine: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.3)',
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+  color: 'rgba(255,255,255,0.68)',
   fontSize: 12,
   fontWeight: 300,
   textAlign: 'center' as const,

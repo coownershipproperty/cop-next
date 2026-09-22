@@ -65,3 +65,6 @@ Claude outputs/
 # Local preview renders, never committed. (17 Sep 2026)
 /previews/
 .worktrees/
+
+# Rendered email previews from scripts/render-emails.mjs
+.email-render/

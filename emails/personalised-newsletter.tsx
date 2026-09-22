@@ -2,6 +2,8 @@ import {
   Body, Container, Head, Html, Img, Link, Preview, Section, Text,
 } from '@react-email/components';
 import * as React from 'react';
+import BRAND from '../lib/email/brand';
+import { EmailColorScheme } from './_color-scheme';
 
 /**
  * Personalised new-listings newsletter — redesigned 9 Sep 2026.
@@ -64,21 +66,15 @@ interface PersonalisedNewsletterEmailProps {
 }
 
 // Two colours. Ink for everything that is read, gold for the hairlines.
-const C = {
-  paper: '#F6F3ED',
-  card:  '#FFFFFF',
-  ink:   '#1C2B3A',
-  soft:  '#5D6B78',
-  line:  '#E2DCD0',
-  gold:  '#A98A45',
-  goldD: '#8C6F30',
-};
+// Palette and type come from lib/email/brand.js — see the note at the top of
+// that file. Nothing about COP's email design is declared in this file.
+const C = BRAND;
 
 const base = 'https://co-ownership-property.com';
 // Didot and Baskerville ship on macOS and iOS; Bodoni MT comes with Office on
 // Windows. Georgia is the last stop, never a sans.
-const DISPLAY = "Didot, 'Didot LT STD', 'Bodoni MT', 'Playfair Display', Georgia, serif";
-const TEXT    = "Georgia, 'Times New Roman', serif";
+const DISPLAY = "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif";
+const TEXT    = "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif";
 
 const WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty','twenty-one','twenty-two','twenty-three','twenty-four','twenty-five','twenty-six','twenty-seven','twenty-eight','twenty-nine','thirty'];
 const numWord = (n: number) => (n >= 0 && n < WORDS.length ? WORDS[n] : String(n));
@@ -141,13 +137,13 @@ function LeadCard({ p, homeLabel, ctaLabel, placeInTitle }: { p: Property; homeL
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
       <tbody>
         <tr><td>
-          <Link href={href} style={{ display: 'block' }}>
+          <Link href={href} style={{ color: 'inherit', display: 'block' }}>
             <Img src={crop(p.imageUrl, 1120, 720)} alt={p.title} width="560" style={leadImg} />
           </Link>
         </td></tr>
         <tr><td style={{ padding: '30px 10px 0', textAlign: 'center' as const }}>
           <Text style={place1}>{label}</Text>
-          <Link href={href} style={{ textDecoration: 'none' }}>
+          <Link href={href} style={{ color: 'inherit', textDecoration: 'none' }}>
             <Text className="leadtitle" style={leadTitle}>{name}</Text>
           </Link>
           <Text style={priceLine}>{p.price} <span style={perShare}>per 1/8 share</span></Text>
@@ -167,13 +163,13 @@ function RowCard({ p, homeLabel, ctaLabel, placeInTitle }: { p: Property; homeLa
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={rowBox}>
       <tbody><tr>
         <td className="rowcell" width="230" style={{ verticalAlign: 'middle', paddingRight: 28 }}>
-          <Link href={href} style={{ display: 'block' }}>
+          <Link href={href} style={{ color: 'inherit', display: 'block' }}>
             <Img src={crop(p.imageUrl, 460, 345)} alt={p.title} width="230" className="rowimg" style={rowImg} />
           </Link>
         </td>
         <td className="rowcell rowtext" style={{ verticalAlign: 'middle' }}>
           <Text style={place2}>{label}</Text>
-          <Link href={href} style={{ textDecoration: 'none' }}>
+          <Link href={href} style={{ color: 'inherit', textDecoration: 'none' }}>
             <Text className="rowtitle" style={rowTitle}>{name}</Text>
           </Link>
           <Text style={rowPrice}>{p.price} <span style={perShare}>per share</span></Text>
@@ -234,6 +230,7 @@ export default function PersonalisedNewsletterEmail({
   return (
     <Html lang="en">
       <Head>
+        <EmailColorScheme />
         <style>{`
           @media only screen and (max-width: 520px) {
             .rowcell { display: block !important; width: 100% !important; padding: 0 !important; }
@@ -256,7 +253,7 @@ export default function PersonalisedNewsletterEmail({
 
           {/* Masthead — the wordmark, nothing else */}
           <Section className="pad" style={masthead}>
-            <Link href={base} style={{ textDecoration: 'none' }}>
+            <Link href={base} style={{ color: 'inherit', textDecoration: 'none' }}>
               <Text style={wordmark}>Co-Ownership Property</Text>
             </Link>
           </Section>
@@ -333,33 +330,33 @@ const sheet: React.CSSProperties = { backgroundColor: C.card, border: `1px solid
 const masthead: React.CSSProperties = { padding: '46px 56px 40px', textAlign: 'center' as const, borderBottom: `1px solid ${C.line}` };
 const wordmark: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.ink, margin: 0, paddingLeft: '0.34em', lineHeight: '1.4' };
 
-const issueStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.soft, margin: '0 0 22px' };
+const issueStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.soft, margin: '0 0 22px' };
 const h1: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 42, lineHeight: '1.14', fontWeight: 400, color: C.ink, margin: '0 0 26px' };
-const greetingStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, fontStyle: 'italic', color: C.ink, margin: '26px 0 12px' };
+const greetingStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, color: C.ink, margin: '26px 0 12px' };
 const introStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 18, lineHeight: '1.75', color: C.ink, margin: 0 };
 
 const leadImg: React.CSSProperties = { width: '100%', maxWidth: 560, height: 'auto', display: 'block' };
-const place1: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 14px' };
+const place1: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 14px' };
 const leadTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 31, lineHeight: '1.25', fontWeight: 400, color: C.ink, margin: '0 0 16px' };
 const priceLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 22, color: C.ink, margin: '0 0 22px' };
-const perShare: React.CSSProperties = { fontFamily: TEXT, fontSize: 15, fontStyle: 'italic', color: C.soft };
+const perShare: React.CSSProperties = { fontFamily: TEXT, fontSize: 15, color: C.soft };
 // Letterspaced caps on a gold hairline — David preferred this to a filled button.
 const cta: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 7 };
 const ctaSm: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 6, marginTop: 18 };
 
 const rowBox: React.CSSProperties = { borderTop: `1px solid ${C.line}`, paddingTop: 36, marginBottom: 36 };
 const rowImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
-const place2: React.CSSProperties = { fontFamily: TEXT, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 10px' };
+const place2: React.CSSProperties = { fontFamily: TEXT, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 10px' };
 const rowTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 24, lineHeight: '1.3', fontWeight: 400, color: C.ink, margin: '0 0 12px' };
 const rowPrice: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, color: C.ink, margin: 0 };
 
 
-const moreLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, fontStyle: 'italic', color: C.soft, margin: '0 0 26px' };
+const moreLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, color: C.soft, margin: '0 0 26px' };
 const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.ink, color: '#FFFFFF', fontFamily: TEXT, fontSize: 14, letterSpacing: '0.22em', textTransform: 'uppercase' as const, padding: '20px 40px', textDecoration: 'none' };
-const nudge: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, fontStyle: 'italic', lineHeight: '1.7', color: C.ink, margin: '26px 0 0' };
+const nudge: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, lineHeight: '1.7', color: C.ink, margin: '26px 0 0' };
 
 const footer: React.CSSProperties = { padding: '48px 56px 44px', marginTop: 48, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const };
-const footMark: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.3em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px', paddingLeft: '0.3em' };
+const footMark: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px', paddingLeft: '0.3em' };
 const footText: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px' };
 const footLink: React.CSSProperties = { color: C.ink, textDecoration: 'none' };
-const footSmall: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, fontStyle: 'italic', lineHeight: '1.8', color: C.soft, margin: 0 };
+const footSmall: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, lineHeight: '1.8', color: C.soft, margin: 0 };

@@ -148,22 +148,22 @@ export default async function handler(req, res) {
       subject: c.subject(cleanSlugs.length),
       log: { trigger: 'shortlist_saved', type: 'shortlist_link', templateProps: { slugs: cleanSlugs, locale }, notes: 'Saved shortlist link' },
       html: `
-      <div style="background:#F7F4EE;padding:40px 16px;font-family:Georgia,'Times New Roman',serif;color:#1E3448">
-        <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #E8E3DC">
-          <div style="background:#1E3448;padding:26px 32px;text-align:center">
-            <span style="color:#F4EFE4;font-size:20px;letter-spacing:0.35em;font-weight:400">C O P</span><br/>
-            <span style="color:#C9A84C;font-size:10px;letter-spacing:0.2em;text-transform:uppercase">Co-Ownership Properties</span>
+      <div style="background:#f5f5f5;padding:40px 16px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;color:#111111">
+        <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e6e6e6">
+          <div style="background:#111111;padding:26px 32px;text-align:center">
+            <span style="color:#ffffff;font-size:20px;letter-spacing:0.35em;font-weight:400">C O P</span><br/>
+            <span style="color:#b3b3b3;font-size:10px;letter-spacing:0.2em;text-transform:uppercase">Co-Ownership Properties</span>
           </div>
           <div style="padding:36px 32px 28px">
-            <div style="width:36px;border-top:2px solid #C9A84C;margin:0 0 18px"></div>
+            <div style="width:36px;border-top:2px solid #111111;margin:0 0 18px"></div>
             <p style="font-size:15px;line-height:1.7;margin:0 0 22px">${c.intro(cleanSlugs.length)}</p>
-            <a href="${link}" style="display:inline-block;background:#1E3448;color:#F4EFE4;text-decoration:none;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:13px 26px">${c.cta} &rarr;</a>
-            <p style="font-family:Arial,sans-serif;font-size:12px;color:#8a9aaa;line-height:1.6;margin:24px 0 0">${c.tip}</p>
+            <a href="${link}" style="display:inline-block;background:#111111;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:13px 26px">${c.cta} &rarr;</a>
+            <p style="font-family:Arial,sans-serif;font-size:12px;color:#6b6b6b;line-height:1.6;margin:24px 0 0">${c.tip}</p>
           </div>
-          <div style="padding:18px 32px;border-top:1px solid #E8E3DC">
-            <p style="font-family:Arial,sans-serif;font-size:11px;color:#8a9aaa;margin:0">
+          <div style="padding:18px 32px;border-top:1px solid #e6e6e6">
+            <p style="font-family:Arial,sans-serif;font-size:11px;color:#6b6b6b;margin:0">
               Co-Ownership Properties · co-ownership-property.com<br/>
-              <a href="${unsubUrl(cleanEmail)}" style="color:#8a9aaa">Unsubscribe</a>
+              <a href="${unsubUrl(cleanEmail)}" style="color:#6b6b6b">Unsubscribe</a>
             </p>
           </div>
         </div>

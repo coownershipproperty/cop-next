@@ -226,9 +226,9 @@ export default async function handler(req, res) {
   try {
     const regionList = regions.join(', ');
     const criteriaLines = [
-      `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d;width:130px">Destinations</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${regionList}</td></tr>`,
-      maxPrice ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Max budget</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">\u20ac${parseInt(maxPrice).toLocaleString()}</td></tr>` : '',
-      minBeds  ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Min bedrooms</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${minBeds}+</td></tr>` : '',
+      `<tr><td style="padding:6px 0;font-size:13px;color:#5c5c5c;width:130px">Destinations</td><td style="padding:6px 0;font-size:13px;color:#111111;font-weight:600">${regionList}</td></tr>`,
+      maxPrice ? `<tr><td style="padding:6px 0;font-size:13px;color:#5c5c5c">Max budget</td><td style="padding:6px 0;font-size:13px;color:#111111;font-weight:600">\u20ac${parseInt(maxPrice).toLocaleString()}</td></tr>` : '',
+      minBeds  ? `<tr><td style="padding:6px 0;font-size:13px;color:#5c5c5c">Min bedrooms</td><td style="padding:6px 0;font-size:13px;color:#111111;font-weight:600">${minBeds}+</td></tr>` : '',
     ].filter(Boolean).join('');
 
     const firstName = (name || '').trim().split(' ')[0] || null;
@@ -237,9 +237,9 @@ export default async function handler(req, res) {
     // Build property cards HTML
     const propCardsHtml = matchingProperties.length > 0 ? `
         <!-- Matching Properties -->
-        <tr><td style="background:#F7F4EE;padding:40px 48px 8px">
-          <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#C9A84C;font-family:Georgia,serif">Matching your search right now</p>
-          <div style="width:36px;height:1px;background:#C9A84C;margin:0 0 24px"></div>
+        <tr><td style="background:#f5f5f5;padding:40px 48px 8px">
+          <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#111111;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif">Matching your search right now</p>
+          <div style="width:36px;height:1px;background:#111111;margin:0 0 24px"></div>
         </td></tr>
         ${matchingProperties.map(p => {
           const sym = { EUR: '\u20ac', USD: '$', GBP: '\u00a3' }[p.currency] || '\u20ac';
@@ -250,25 +250,25 @@ export default async function handler(req, res) {
           const img  = p.img || '';
           const href = `${base}/property/${p.slug}`;
           return `
-        <tr><td style="background:#F7F4EE;padding:0 48px 16px">
+        <tr><td style="background:#f5f5f5;padding:0 48px 16px">
           <table width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff">
             <tr>
               ${img ? `<td style="width:140px;vertical-align:top">
                 <a href="${href}"><img src="${img}" width="140" height="105" alt="${loc}" style="display:block;width:140px;height:105px;object-fit:cover"></a>
               </td>` : ''}
               <td style="vertical-align:top;padding:16px 20px">
-                <p style="margin:0 0 5px;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C9A84C">${loc}</p>
-                <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:15px;font-weight:400;color:#1E3448;line-height:1.4">${name}</p>
-                ${p.beds ? `<p style="margin:0 0 6px;font-size:11px;color:#6B8A9E">${p.beds} beds${p.size ? ` &nbsp;&middot;&nbsp; ${p.size} m\u00b2` : ''}</p>` : ''}
-                ${priceStr ? `<p style="margin:0 0 10px;font-family:Georgia,serif;font-size:18px;color:#1E3448">${priceStr}</p>` : ''}
-                <a href="${href}" style="font-size:11px;font-weight:600;letter-spacing:0.1em;color:#C9A84C;text-decoration:none">View Property \u2192</a>
+                <p style="margin:0 0 5px;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#111111">${loc}</p>
+                <p style="margin:0 0 8px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;color:#111111;line-height:1.4">${name}</p>
+                ${p.beds ? `<p style="margin:0 0 6px;font-size:11px;color:#6b6b6b">${p.beds} beds${p.size ? ` &nbsp;&middot;&nbsp; ${p.size} m\u00b2` : ''}</p>` : ''}
+                ${priceStr ? `<p style="margin:0 0 10px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:18px;color:#111111">${priceStr}</p>` : ''}
+                <a href="${href}" style="font-size:11px;font-weight:600;letter-spacing:0.1em;color:#111111;text-decoration:none">View Property \u2192</a>
               </td>
             </tr>
           </table>
         </td></tr>`;
         }).join('')}
-        <tr><td style="background:#F7F4EE;padding:16px 48px 40px;text-align:center">
-          <a href="${base}/our-homes/" style="font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#C9A84C;text-decoration:none">See All Properties \u2192</a>
+        <tr><td style="background:#f5f5f5;padding:16px 48px 40px;text-align:center">
+          <a href="${base}/our-homes/" style="font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#111111;text-decoration:none">See All Properties \u2192</a>
         </td></tr>
     ` : '';
 
@@ -289,35 +289,35 @@ export default async function handler(req, res) {
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#F7F4EE;font-family:'Helvetica Neue',Arial,sans-serif">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F4EE;padding:40px 0">
+<body style="margin:0;padding:0;background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:40px 0">
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
 
         <!-- Header -->
-        <tr><td style="background:#ffffff;padding:30px 48px 26px;text-align:center;border-bottom:1px solid #E8E3DC">
+        <tr><td style="background:#ffffff;padding:30px 48px 26px;text-align:center;border-bottom:1px solid #e6e6e6">
           <img src="${base}/images/email-logo-dark.png" width="140" alt="Co-Ownership Property" style="display:inline-block;width:140px;height:auto">
         </td></tr>
 
         <!-- Body -->
         <tr><td style="background:#ffffff;padding:48px 48px 40px;text-align:center">
-          <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:#C9A84C">Property Alert</p>
-          <h1 style="margin:0 0 24px;font-family:Georgia,serif;font-size:28px;font-weight:400;color:#1E3448;line-height:1.3">
+          <p style="margin:0 0 8px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:#111111">Property Alert</p>
+          <h1 style="margin:0 0 24px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:28px;font-weight:400;color:#111111;line-height:1.3">
             <em>Your alert is active${firstName ? `, ${firstName}` : ''}</em>
           </h1>
-          <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto 28px"></div>
-          <p style="margin:0 0 28px;font-size:14px;font-weight:300;color:#4A6070;line-height:1.8;text-align:center">
+          <div style="width:40px;height:1px;background:#111111;margin:0 auto 28px"></div>
+          <p style="margin:0 0 28px;font-size:14px;font-weight:300;color:#3d3d3d;line-height:1.8;text-align:center">
             We'll email you the moment a new property matching your criteria is listed on the site.
           </p>
 
           <!-- Criteria box -->
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F4EE;padding:20px 24px;margin-bottom:32px;text-align:left">
-            <tr><td colspan="2" style="padding-bottom:10px;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C">Your search criteria</td></tr>
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:20px 24px;margin-bottom:32px;text-align:left">
+            <tr><td colspan="2" style="padding-bottom:10px;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#111111">Your search criteria</td></tr>
             ${criteriaLines}
           </table>
 
           <!-- CTA -->
-          <a href="${base}/our-homes/" style="display:inline-block;background:#1E3448;color:#ffffff;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:18px 48px;text-decoration:none">
+          <a href="${base}/our-homes/" style="display:inline-block;background:#111111;color:#ffffff;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:18px 48px;text-decoration:none">
             Browse Properties Now
           </a>
         </td></tr>
@@ -325,9 +325,9 @@ export default async function handler(req, res) {
         ${propCardsHtml}
 
         <!-- Footer -->
-        <tr><td style="background:#1E3448;border-top:1px solid #C9A84C;padding:36px 48px;text-align:center">
-          <p style="margin:0 0 12px;font-family:Georgia,serif;font-size:15px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff">Co-Ownership Property</p>
-          <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.35);line-height:1.7">
+        <tr><td style="background:#111111;border-top:1px solid #111111;padding:36px 48px;text-align:center">
+          <p style="margin:0 0 12px;font-family:'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff">Co-Ownership Property</p>
+          <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.72);line-height:1.7">
             You're receiving this because you set up a property alert on co-ownership-property.com.<br>
             Reply to this email to update or cancel your alert at any time.
           </p>

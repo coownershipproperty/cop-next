@@ -11,6 +11,8 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 import { t } from '@/lib/i18n';
+import BRAND from '../lib/email/brand';
+import { EmailColorScheme } from './_color-scheme';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function interp(s: string, vars?: Record<string, string>) {
@@ -28,14 +30,9 @@ interface NurtureDay3Props {
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
-const C = {
-  navy:   '#1E3448',
-  navy60: '#6B8A9E',
-  gold:   '#C9A84C',
-  cream:  '#F7F4EE',
-  white:  '#FFFFFF',
-  border: '#E8E3DC',
-};
+// Palette and type come from lib/email/brand.js — see the note at the top of
+// that file. Nothing about COP's email design is declared in this file.
+const C = BRAND;
 
 const base = 'https://co-ownership-property.com';
 
@@ -59,8 +56,9 @@ export default function NurtureDay3({
   return (
     <Html lang={htmlLang}>
       <Head>
+        <EmailColorScheme />
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
           @media only screen and (max-width: 600px) {
             p { font-size: 17px !important; line-height: 1.75 !important; }
             h1, h2, h3 { font-size: 26px !important; line-height: 1.35 !important; }
@@ -113,13 +111,13 @@ export default function NurtureDay3({
 
             <Section style={questionsBlock}>
               <Text style={questionItem}>
-                <em>{tr('nurture_day3.question1')}</em>
+                {tr('nurture_day3.question1')}
               </Text>
               <Text style={questionItem}>
-                <em>{tr('nurture_day3.question2')}</em>
+                {tr('nurture_day3.question2')}
               </Text>
               <Text style={questionItem}>
-                <em>{tr('nurture_day3.question3')}</em>
+                {tr('nurture_day3.question3')}
               </Text>
             </Section>
 
@@ -160,7 +158,7 @@ export default function NurtureDay3({
             <Hr style={footDivider} />
             <Text style={footFine}>{tr('nurture_day3.footer_fine_print')}</Text>
             <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.onDark, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>
@@ -176,7 +174,7 @@ const body: React.CSSProperties = {
   backgroundColor: C.cream,
   margin: 0,
   padding: 0,
-  fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
 };
 
 const wrap: React.CSSProperties = {
@@ -197,12 +195,11 @@ const header: React.CSSProperties = {
 };
 
 const wordmark: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   color: C.white,
   fontSize: 26,
-  fontWeight: 300,
-  letterSpacing: '0.24em',
-  textTransform: 'uppercase' as const,
+  fontWeight: 500,
+  letterSpacing: '-0.02em',
   textAlign: 'center' as const,
   margin: '20px 0',
 };
@@ -215,16 +212,16 @@ const goldRuleHeader: React.CSSProperties = {
 };
 
 const greeting: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
-  color: '#4A6070',
+  color: '#3d3d3d',
   margin: '0 0 20px',
 };
 
 const bodyText: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
-  color: '#4A6070',
+  color: '#3d3d3d',
   lineHeight: '1.8',
   margin: '0 0 16px',
 };
@@ -236,9 +233,8 @@ const questionsBlock: React.CSSProperties = {
 };
 
 const questionItem: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
-  fontStyle: 'italic',
   color: C.gold,
   margin: '0 0 8px',
   lineHeight: '1.6',
@@ -252,7 +248,7 @@ const goldRule: React.CSSProperties = {
 };
 
 const signoffName: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 16,
   fontWeight: 400,
   color: C.navy,
@@ -260,7 +256,7 @@ const signoffName: React.CSSProperties = {
 };
 
 const signoffSite: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   color: C.navy60,
   margin: '0 0 24px',
@@ -272,7 +268,7 @@ const signoffLink: React.CSSProperties = {
 };
 
 const smallCta: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 13,
   margin: '8px 0 0',
 };
@@ -290,12 +286,11 @@ const footer: React.CSSProperties = {
 };
 
 const footLogo: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Poppins','Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   color: C.white,
   fontSize: 22,
-  fontWeight: 300,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
+  fontWeight: 500,
+  letterSpacing: '-0.02em',
   textAlign: 'center' as const,
   margin: '0 0 20px',
 };
@@ -308,13 +303,13 @@ const footGoldRule: React.CSSProperties = {
 };
 
 const footLinks: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
   fontSize: 11,
   fontWeight: 300,
   letterSpacing: '0.1em',
   textAlign: 'center' as const,
   margin: '0 0 4px',
-  color: 'rgba(255,255,255,0.4)',
+  color: 'rgba(255,255,255,0.72)',
 };
 
 const footLink: React.CSSProperties = {
@@ -328,8 +323,8 @@ const footDivider: React.CSSProperties = {
 };
 
 const footFine: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.3)',
+  fontFamily: "'Inter','Helvetica Neue',Helvetica,Arial,sans-serif",
+  color: 'rgba(255,255,255,0.68)',
   fontSize: 12,
   fontWeight: 300,
   textAlign: 'center' as const,
