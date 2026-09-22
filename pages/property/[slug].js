@@ -2102,7 +2102,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                 than an invented one. */}
             {usageText
               ? <div className="pp-stat" aria-label={usageText}>{facts?.usage?.nights && ['minimum', 'fixed'].includes(facts.usage.kind)
-                ? <><span className="pp-stat-val">{facts.usage.nights}</span><span className="pp-stat-lbl">{nightsLabel.unit}{facts.usage.kind === 'minimum' ? nightsLabel.minimum : ''}</span></>
+                ? <><span className="pp-stat-val">{facts.usage.nights}</span><span className="pp-stat-lbl">{nightsLabel.unit}{facts.usage.kind === 'minimum' ? <span className="pp-stat-lbl-qual">{nightsLabel.minimum}</span> : ''}</span></>
                 : facts?.usage?.kind === 'uncapped'
                   ? <><span className="pp-stat-val">~45</span><span className="pp-stat-lbl">{nightsLabel.unit}</span></>
                   : <><span className="pp-stat-val pp-stat-val-sm">{usageText}</span><span className="pp-stat-lbl">{t.per_year}</span></>}</div>

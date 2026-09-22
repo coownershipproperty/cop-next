@@ -612,7 +612,15 @@ html:has(.gallery-stage) { scrollbar-gutter:auto; background:#fff !important; }
   .cop-public.cop-public.cop-public .pp-stats .pp-share-stat { display:none; }
   .cop-public.cop-public.cop-public .pp-price-qualifier { font-size:14px; line-height:1.5; }
   .cop-public.cop-public.cop-public .pp-stats { display:flex; flex-wrap:wrap; justify-content:center; gap:20px 12px; margin-bottom:0; }
-  .cop-public.cop-public.cop-public .pp-stats > .pp-stat:not(.pp-contact-stat) { flex:1 1 calc(25% - 12px); min-width:64px; }
+  /* Cells used to be forced to an equal quarter each. "3" and "2.5" do not
+     need 79px and "NIGHTS / YEAR · MINIMUM" cannot live in it — the label
+     wrapped to three lines under a one-line number, in English and worse in
+     German. Let each cell take the width its own label needs; the row wraps
+     if the language is long enough to need a second line. */
+  .cop-public.cop-public.cop-public .pp-stats > .pp-stat:not(.pp-contact-stat) { flex:0 1 auto; min-width:56px; max-width:100%; }
+  /* The qualifier is the least load-bearing word in the strip and the facts
+     panel below states it in full. Off on phones. */
+  .cop-public.cop-public.cop-public .pp-stat-lbl-qual { display:none; }
   .cop-public.cop-public.cop-public .pp-mobile-contact { display:flex; align-items:center; justify-content:center; width:100%; box-sizing:border-box; margin:20px auto 24px; padding:14px 24px; background:#000; color:#fff; border:1px solid #000; border-radius:6px; text-decoration:none; min-height:48px; }
   .cop-public.cop-public.cop-public .pp-mobile-contact span { font-size:15px; font-weight:500; }
   .cop-public.cop-public.cop-public #property-enquiry { scroll-margin-top:90px; }
