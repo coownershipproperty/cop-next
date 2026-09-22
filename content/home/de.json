@@ -1,0 +1,136 @@
+{
+  "_note": "Homepage copy for /de/. Rendered by components/rd/HomeView.js — the same component the English homepage uses. Lifted from the hand-written pages/de/index.js it replaced on 22 Sep 2026, so the SEO wording and keyword choices are unchanged. {count} is the live property count.",
+  "meta": {
+    "title": "Luxus-Co-Ownership in Europa | Ferienimmobilie im Miteigentum — COP",
+    "description": "Entdecken Sie Co-Ownership- und Miteigentum-Ferienimmobilien auf Mallorca, Ibiza, an der Costa del Sol und in weiteren europäischen Destinationen. Echtes Eigentum mit notarieller Eintragung.",
+    "ogTitle": "Luxus-Co-Ownership in Europa | Ferienimmobilie im Miteigentum — COP",
+    "ogDescription": "Entdecken Sie Co-Ownership- und Miteigentum-Ferienimmobilien in ganz Europa. Echtes Eigentum, kein Timesharing."
+  },
+  "hero": {
+    "pre": "Ihr Tor zu den",
+    "em": "besten Ferienimmobilien",
+    "post": "im Miteigentum",
+    "lead": "Echtes, im Grundbuch eingetragenes Eigentum an einem vollständig verwalteten Zweitwohnsitz — zu einem Bruchteil des Preises eines Alleinkaufs.",
+    "ctaPrimary": "Immobilien ansehen →",
+    "ctaSecondary": "So funktioniert's"
+  },
+  "heroNewsletter": {
+    "kicker": "Der offizielle Miteigentums-Newsletter",
+    "heading": "Erfahren Sie es als Erste.",
+    "sub": "Neue Häuser, außergewöhnliche Reiseziele und ein genauerer Blick auf Miteigentum. In Ihrem Postfach.",
+    "open": "Newsletter abonnieren",
+    "placeholder": "Ihre E-Mail-Adresse",
+    "emailAria": "E-Mail-Adresse für den Newsletter",
+    "subscribeAria": "Newsletter abonnieren",
+    "success": "Sie stehen auf der Liste. Vielen Dank.",
+    "error": "Anmeldung nicht möglich. Bitte erneut versuchen."
+  },
+  "featured": {
+    "kicker": "Ausgewählte Häuser",
+    "heading": "Ferienimmobilien im Miteigentum kaufen",
+    "lead": "Villen, Apartments und Ferienhäuser im Anteilskauf auf Mallorca, Ibiza, an der Costa del Sol, am Gardasee, in der Toskana, in Tirol und mehr — mit Preisen ab einem Bruchteil des Vollkaufpreises.",
+    "allLink": "Alle {count} Immobilien ansehen →",
+    "seeAll": "Alle Immobilien ansehen"
+  },
+  "destinations": {
+    "kicker": "Wo",
+    "heading": "Unsere Destinationen",
+    "lead": "Alle unsere Häuser, nach Ländern, auf einer Seite.",
+    "allLink": "Alle Destinationen →",
+    "labels": {
+      "usa": "USA",
+      "spain": "Spanien",
+      "italy": "Italien",
+      "france": "Frankreich",
+      "austria": "Österreich",
+      "germany": "Deutschland",
+      "mexico": "Mexiko",
+      "portugal": "Portugal",
+      "england": "Vereinigtes Königreich",
+      "sweden": "Schweden",
+      "croatia": "Kroatien"
+    }
+  },
+  "values": {
+    "kicker": "So funktioniert's",
+    "heading": "Der Unterschied liegt im Detail.",
+    "headingMobile": "So funktioniert's",
+    "lead": "Was Miteigentum Ihnen tatsächlich bietet.",
+    "items": [
+      {
+        "n": "01",
+        "h": "Sie erwerben einen rechtlich verbrieften Anteil",
+        "p": "Sie kaufen 1/8 der Immobilie. Es handelt sich um echtes Eigentum, im Grundbuch auf Ihren Namen eingetragen, mit vollem rechtlichem Schutz. Unsere Immobilien sind so konzipiert, dass sie im Wert steigen — Sie profitieren von einer echten Immobilieninvestition. Sie haben volle Flexibilität, Ihren Anteil jederzeit zu verkaufen — Sie bestimmen den Preis, wir helfen beim Käufer-Matching."
+      },
+      {
+        "n": "02",
+        "h": "Garantierte Nutzungszeit",
+        "p": "Ihre Wochen gehören Ihnen. Ein faires, strukturiertes Buchungssystem stellt sicher, dass jeder Miteigentümer seine Wunschtermine ohne Konkurrenz nutzen kann — auch in der Hochsaison. Kein Timesharing, keine Punkte, keine Bindungen. Sie kommen an und Ihre Sachen sind da, alles ist vorbereitet, die Immobilie vollständig verwaltet — Sie müssen nur noch genießen."
+      },
+      {
+        "n": "03",
+        "h": "Geteilte Betriebskosten",
+        "p": "Wartung, Verwaltungsgebühren und laufende Kosten werden fair zwischen allen Miteigentümern aufgeteilt. Bei vielen Immobilien können Sie ungenutzte Wochen vermieten — und so Einnahmen erzielen, die Ihre Kosten weiter ausgleichen. Wir kümmern uns um alles."
+      },
+      {
+        "n": "04",
+        "h": "Zusätzliche Vorteile",
+        "p": "Co-Ownership bietet weitere Vorteile — von steuerlich günstigen Strukturen über vereinfachte Nachfolgeplanung bis zur Flexibilität, Wochen mit anderen Miteigentümern aus unserem internationalen Portfolio zu tauschen."
+      }
+    ],
+    "ctaHowItWorks": "So funktioniert Miteigentum",
+    "ctaExpert": "Mit einem Experten sprechen"
+  },
+  "blog": {
+    "kicker": "Zum Lesen",
+    "heading": "Neueste Beiträge",
+    "allLink": "Alle Artikel →"
+  },
+  "faq": {
+    "kicker": "Häufige Fragen",
+    "heading": "Häufig gestellte Fragen",
+    "items": [
+      {
+        "q": "Was ist Co-Ownership oder Miteigentum an einer Ferienimmobilie?",
+        "a": "Beim Co-Ownership erwerben Sie zusammen mit einer kleinen Anzahl weiterer Miteigentümer einen im Grundbuch eingetragenen Anteil an einer professionell verwalteten Luxus-Ferienimmobilie. Sie besitzen einen echten Bruchteil der Immobilie — typischerweise 1/8 — und im Gegensatz zum Timesharing haben Sie ein rechtlich verbrieftes Eigentum an der Immobilie. Es kombiniert den Stolz und die finanziellen Vorteile echten Immobilieneigentums mit dem Komfort eines Fünf-Sterne-Hotels — zu einem Bruchteil des Vollkaufpreises."
+      },
+      {
+        "q": "Wie unterscheidet sich Co-Ownership von Timesharing?",
+        "a": "Im Gegensatz zum Timesharing erhalten Sie beim Co-Ownership einen echten, im Grundbuch eingetragenen Anteil an der Immobilie. Das bedeutet, Sie profitieren von jeglicher Wertsteigerung und können Ihren Anteil jederzeit auf dem freien Markt verkaufen. Da es sich um Luxusimmobilien in stark nachgefragten Lagen handelt, steigen die Preise typischerweise mit der Zeit. Es gibt kein Mitgliedschaftsmodell, kein Punktesystem und keine langfristige vertragliche Bindung. Sie sind ein echter Immobilieneigentümer mit allen rechtlichen Befugnissen über Ihren Anteil."
+      },
+      {
+        "q": "Was ist im Kaufpreis enthalten?",
+        "a": "Ihr Kaufpreis umfasst Ihren im Grundbuch eingetragenen Anteil an der Immobilie sowie das gesamte Mobiliar, die Innenausstattung und die Geräte. Viele unserer Immobilien sind professionell eingerichtet — vom ersten Tag an bezugsfertig. Die laufenden Kosten — Wartung, Versicherungen, Verwaltung und kommunale Steuern — werden anteilig auf alle Miteigentümer verteilt, sodass Ihre individuellen Ausgaben sehr gering bleiben."
+      },
+      {
+        "q": "Wie wird die Nutzungszeit zwischen den Miteigentümern aufgeteilt?",
+        "a": "Jeder 1/8-Anteil gibt Ihnen 45 Tage — etwa sechs Wochen — pro Jahr, also genau 1/8 des Kalenders. Jede Immobilie hat einen klaren Nutzungskalender, der fair rotiert, sodass alle Miteigentümer im Zeitverlauf Zugang zur Hochsaison erhalten. Die meisten Anbieter stellen zudem eine digitale Buchungsplattform zur Verfügung, mit der Sie Wochen flexibel tauschen, erweitern oder mit anderen Miteigentümern abstimmen können."
+      },
+      {
+        "q": "Kann ich meine Wochen vermieten, wenn ich sie nicht selbst nutze?",
+        "a": "In vielen Fällen ja. Viele unserer Immobilien erlauben es Eigentümern, ungenutzte Wochen in ein verwaltetes Vermietungsprogramm einzubringen. Die Verwaltung kümmert sich um Gästescreening, Anreise, Reinigung und Wartung — die Mieteinnahmen fließen anteilig an Sie zurück. Das kann Ihre jährlichen Betriebskosten deutlich reduzieren und in beliebten Destinationen sogar einen Nettoertrag erzeugen. Hinweis: Ab 20. Mai 2026 gilt das deutsche Kurzzeitvermietungs-Daten-Gesetz (KVDG), das eine Registrierungsnummer für Plattform-Buchungen verlangt — wir unterstützen Sie dabei."
+      },
+      {
+        "q": "Wer übernimmt die laufende Verwaltung der Immobilie?",
+        "a": "Jede Immobilie auf unserer Plattform wird von einer professionellen Hausverwaltung betreut. Sie kümmert sich um alles: von routinemäßiger Wartung und Reinigung bis hin zu Gartenpflege, Poolservice und dringenden Reparaturen. Bei jeder Anreise erwartet Sie ein makelloses Zuhause auf Hotelniveau — ohne dass Sie einen Finger rühren müssen."
+      },
+      {
+        "q": "Kann ich meinen Anteil später verkaufen?",
+        "a": "Selbstverständlich. Da Sie einen im Grundbuch eingetragenen Anteil halten, können Sie diesen jederzeit auf dem freien Markt verkaufen — wie jede andere Immobilie auch. Ist die Immobilie im Wert gestiegen, profitieren Sie anteilig von der Wertsteigerung. Unser Team unterstützt Sie auch beim Wiederverkauf über unser Netzwerk qualifizierter Käufer."
+      },
+      {
+        "q": "Welche Destinationen und Immobilientypen bieten Sie an?",
+        "a": "Wir kuratieren Co-Ownership-Ferienimmobilien in ganz Europa und den USA — darunter Spanien, Frankreich, Italien, Portugal, Österreich, England und mehrere US-Destinationen. Die Immobilien reichen von Küstenvillen und Pariser Apartments bis zu alpinen Chalets und toskanischen Landhäusern. Jede Immobilie wird sorgfältig nach Lage, Bauqualität und Lebensstil-Attraktivität ausgewählt."
+      },
+      {
+        "q": "Ist Co-Ownership eine gute Investition?",
+        "a": "Co-Ownership ermöglicht Ihnen den Zugang zu hochwertigen Immobilien zu einem Bruchteil der Vollkaufkosten und setzt Kapital für andere Investments frei. Sie profitieren von potenzieller Wertsteigerung, möglichen Mieteinnahmen und dem persönlichen Wert einer Luxus-Ferienimmobilie — und teilen gleichzeitig die Kosten mit anderen Miteigentümern. Es wird zunehmend als eine der finanziell sinnvollsten Wege anerkannt, eine Ferienimmobilie zu besitzen."
+      },
+      {
+        "q": "Wie fange ich an?",
+        "a": "Stöbern Sie einfach in unserer Auswahl oder sprechen Sie mit einem unserer Spezialisten über das Kontaktformular. Wir zeigen Ihnen die verfügbaren Immobilien, beantworten Ihre Fragen und begleiten Sie durch den gesamten Kaufprozess — mit voller rechtlicher und finanzieller Transparenz in jedem Schritt."
+      }
+    ],
+    "emphasise": []
+  }
+}

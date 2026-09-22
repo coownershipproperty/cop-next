@@ -1,0 +1,136 @@
+{
+  "_note": "Homepage copy for /es/. Rendered by components/rd/HomeView.js — the same component the English homepage uses. Lifted from the hand-written pages/es/index.js it replaced on 22 Sep 2026, so the SEO wording and keyword choices are unchanged. {count} is the live property count.",
+  "meta": {
+    "title": "Casas vacacionales de lujo | Copropiedad inmobiliaria",
+    "description": "Descubre casas vacacionales en propiedad fraccionada en Mallorca, Ibiza, Costa del Sol, Baqueira, Costa Azul, París, Italia y otros destinos europeos. Propiedad real con escritura ante notario, no es \"tiempo compartido\".",
+    "ogTitle": "Casas exclusivas en España, Francia, Italia, Estados Unidos y más | Propiedad fraccionada — COP",
+    "ogDescription": "Descubre casas exclusivas en copropiedad por toda Europa. Propiedad real, no es \"Tiempo Compartido o Timeshare\"."
+  },
+  "hero": {
+    "pre": "Tu ventana a las",
+    "em": "casas vacacionales más exclusivas",
+    "post": "en copropiedad",
+    "lead": "Propiedad real y escriturada de una segunda residencia totalmente gestionada — por una fracción del precio de comprarla en solitario.",
+    "ctaPrimary": "Ver propiedades →",
+    "ctaSecondary": "Cómo funciona"
+  },
+  "heroNewsletter": {
+    "kicker": "El boletín oficial de la copropiedad",
+    "heading": "Sé el primero en saberlo.",
+    "sub": "Nuevas casas, destinos extraordinarios y una mirada más cercana a la copropiedad. En tu bandeja de entrada.",
+    "open": "Suscríbete al boletín",
+    "placeholder": "Tu correo electrónico",
+    "emailAria": "Correo electrónico para el boletín",
+    "subscribeAria": "Suscribirse al boletín",
+    "success": "Ya estás en la lista. Gracias.",
+    "error": "No hemos podido suscribirte. Inténtalo de nuevo."
+  },
+  "featured": {
+    "kicker": "Casas destacadas",
+    "heading": "Comprar una casa exclusiva en copropiedad",
+    "lead": "Villas, apartamentos y chalets exclusivos en copropiedad fraccionada por Mallorca, Ibiza, Costa del Sol, Baqueira, Costa Azul y otros destinos europeos — con precios desde una fracción de 1/8 de la compra entera.",
+    "allLink": "Ver las {count} propiedades →",
+    "seeAll": "Ver todas las propiedades"
+  },
+  "destinations": {
+    "kicker": "Dónde",
+    "heading": "Nuestros destinos",
+    "lead": "Todas nuestras casas de cada país, en una sola página.",
+    "allLink": "Todos los destinos →",
+    "labels": {
+      "usa": "Estados Unidos",
+      "spain": "España",
+      "italy": "Italia",
+      "france": "Francia",
+      "austria": "Austria",
+      "germany": "Alemania",
+      "mexico": "México",
+      "portugal": "Portugal",
+      "england": "Reino Unido",
+      "sweden": "Suecia",
+      "croatia": "Croacia"
+    }
+  },
+  "values": {
+    "kicker": "Cómo funciona",
+    "heading": "La diferencia está en los detalles.",
+    "headingMobile": "Cómo funciona",
+    "lead": "Lo que la copropiedad te da realmente.",
+    "items": [
+      {
+        "n": "01",
+        "h": "Eres dueño de una participación legal",
+        "p": "Compras 1/8 de la propiedad. Es propiedad real, registrada a tu nombre, con plenas garantías legales. Nuestras propiedades están diseñadas para revalorizarse, dándote los beneficios de la inversión inmobiliaria. Tienes total flexibilidad para vender tu fracción cuando quieras — tú pones el precio y nosotros te ayudamos a encontrar comprador."
+      },
+      {
+        "n": "02",
+        "h": "Uso garantizado",
+        "p": "Tus semanas son tuyas. Un calendario justo y estructurado garantiza que cada copropietario disfrute de sus fechas sin competir — incluida la temporada alta. Sin multipropiedad, sin puntos, sin compromisos. Te sentirás como en casa: llegas y tus cosas están allí, todo está preparado y la propiedad totalmente gestionada para que solo tengas que disfrutar."
+      },
+      {
+        "n": "03",
+        "h": "Gastos compartidos",
+        "p": "El mantenimiento, las cuotas de gestión y los gastos corrientes se reparten equitativamente entre los copropietarios. En muchas propiedades, cuando no la usas, se puede alquilar — generando ingresos que compensan aún más tus costes. Nosotros nos encargamos de todo."
+      },
+      {
+        "n": "04",
+        "h": "Beneficios añadidos",
+        "p": "La copropiedad ofrece ventajas adicionales — desde un tratamiento fiscal favorable y una planificación sucesoria simplificada, hasta la flexibilidad de intercambios con otros copropietarios de nuestro porfolio internacional."
+      }
+    ],
+    "ctaHowItWorks": "Cómo funciona la copropiedad",
+    "ctaExpert": "Habla con un experto"
+  },
+  "blog": {
+    "kicker": "Lectura",
+    "heading": "Últimas publicaciones",
+    "allLink": "Todos los artículos →"
+  },
+  "faq": {
+    "kicker": "Preguntas habituales",
+    "heading": "Preguntas frecuentes",
+    "items": [
+      {
+        "q": "¿Qué es la copropiedad o propiedad fraccionada de una vivienda vacacional?",
+        "a": "La copropiedad significa que tú y un pequeño número de otros propietarios compráis una participación registrada de una propiedad de lujo totalmente gestionada. Posees una fracción real de la vivienda — típicamente 1/8 — y, a diferencia de la multipropiedad, tienes una titularidad legal genuina de la propiedad. Combina el orgullo y los beneficios financieros de la propiedad inmobiliaria real con la comodidad de un hotel de cinco estrellas, por una fracción del precio de la compra íntegra."
+      },
+      {
+        "q": "¿En qué se diferencia la copropiedad de la multipropiedad?",
+        "a": "A diferencia de la multipropiedad, la copropiedad te da una participación real de la escritura de la propiedad, lo que significa que te beneficias de cualquier revalorización y puedes vender tu fracción en el mercado libre cuando quieras. Como son propiedades de lujo en ubicaciones muy demandadas, los precios típicamente suben con el tiempo. No hay club de membresía, no hay sistema de puntos, ni vinculación contractual a largo plazo. Eres un propietario inmobiliario auténtico con plenos derechos legales sobre tu fracción."
+      },
+      {
+        "q": "¿Qué incluye el precio de compra?",
+        "a": "Tu precio de compra cubre tu fracción registrada de la propiedad junto con todo el mobiliario, el diseño de interiores y el equipamiento. Muchas de nuestras propiedades están profesionalmente decoradas con un estándar listo para entrar a vivir desde el primer día. Los costes recurrentes — mantenimiento, seguros, gestión y impuestos locales — se reparten proporcionalmente entre todos los copropietarios, manteniendo los gastos individuales muy bajos."
+      },
+      {
+        "q": "¿Cómo se reparte el tiempo de uso entre propietarios?",
+        "a": "Cada fracción de 1/8 te da 45 días — aproximadamente seis semanas — que es 1/8 del año. Cada propiedad tiene un calendario de uso claro que rota equitativamente para que todos los copropietarios disfruten del acceso a la temporada alta a lo largo del tiempo. Muchos operadores ofrecen también una plataforma de reservas digital para intercambiar, ampliar o canjear semanas con otros copropietarios con flexibilidad."
+      },
+      {
+        "q": "¿Puedo alquilar mis semanas cuando no las uso?",
+        "a": "En muchos casos, sí. Muchas de nuestras propiedades permiten que los propietarios cedan sus semanas no utilizadas a un programa de alquiler gestionado. La gestora se encarga del filtrado de huéspedes, la entrada, la limpieza y el mantenimiento, mientras los ingresos del alquiler se devuelven al propietario. Esto puede compensar significativamente tus gastos anuales y, en destinos populares, incluso generar un retorno neto."
+      },
+      {
+        "q": "¿Quién gestiona la propiedad en el día a día?",
+        "a": "Cada vivienda en nuestra plataforma está cuidada por una gestora profesional. Se encargan de todo: desde el mantenimiento rutinario y la limpieza hasta la jardinería, el cuidado de la piscina y las reparaciones urgentes. Llegas a una casa impecable, con calidad de hotel, en cada visita — sin levantar un dedo."
+      },
+      {
+        "q": "¿Puedo vender mi fracción más adelante?",
+        "a": "Por supuesto. Como tienes una participación registrada, puedes venderla cuando quieras en el mercado libre — igual que cualquier otra propiedad. Si la vivienda se ha revalorizado, te beneficias de ese crecimiento en proporción a tu participación. Nuestro equipo también puede ayudarte con las reventas a través de nuestra red de compradores cualificados."
+      },
+      {
+        "q": "¿Qué destinos y tipos de propiedad ofrecéis?",
+        "a": "Curamos propiedades en copropiedad de lujo por toda Europa y EE. UU., incluyendo España, Francia, Italia, Portugal, Austria, Inglaterra y varios destinos estadounidenses. Las propiedades van desde villas costeras y apartamentos parisinos hasta chalets alpinos y casas de campo toscanas. Cada vivienda está seleccionada a mano por su ubicación, calidad de construcción y atractivo de estilo de vida."
+      },
+      {
+        "q": "¿Es la copropiedad una buena inversión?",
+        "a": "La copropiedad te permite acceder a una propiedad de alto valor por una fracción del coste de la compra íntegra, liberando capital para otras inversiones. Disfrutas de la potencial revalorización, posibles ingresos por alquiler y el valor personal de una segunda residencia de lujo — todo mientras compartes los gastos con otros copropietarios. Cada vez se reconoce más como una de las formas financieramente más sensatas de tener una segunda vivienda."
+      },
+      {
+        "q": "¿Cómo empiezo?",
+        "a": "Simplemente explora nuestra colección o habla con uno de nuestros asesores especializados a través del formulario de contacto. Te guiaremos por las propiedades disponibles, responderemos a tus preguntas y te acompañaremos en el proceso de compra de principio a fin — con total transparencia legal y financiera en cada paso."
+      }
+    ],
+    "emphasise": []
+  }
+}

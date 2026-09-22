@@ -1,5 +1,5 @@
 {
-  "_note": "Shape reference for content/home/<locale>.json. Every key here must exist in every locale file; components/rd/HomeView.js renders them and does no fallback except for values.headingMobile and faq.emphasise. {count} is substituted with the live property count and must survive translation. destinations.labels keys are fixed — translate the values only. faq.emphasise lists phrases to bold inside the rendered answers; the JSON-LD always uses the plain text, so this is presentation only and an empty list is fine.",
+  "_note": "English homepage copy. components/rd/HomeView.js renders this and the nine translated siblings; content/home/en-reference.json documents the shape for translators. {count} is the live property count.",
   "meta": {
     "title": "Co-Ownership Property | Luxury Fractional Ownership",
     "description": "Browse {count}+ luxury co-ownership homes across Europe and the USA. Real, deeded ownership of a managed second home — for a fraction of the price of buying alone.",

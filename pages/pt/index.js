@@ -1,12 +1,15 @@
-// /pt/ — homepage. The real COP homepage (video hero, carousel, destinations,
-// testimonials, FAQ), translated. Copy lives in content/home/pt.json;
-// markup in components/LocaleHome.js. Replaces the earlier text-first
-// LocalePage landing, which looked nothing like the site (28 Aug).
-import LocaleHome from '@/components/LocaleHome';
-import { localeHomeStaticProps } from '@/lib/home-page-data';
+// /pt/ — homepage.
+//
+// The same component the English homepage renders, with this locale's copy.
+// Until 22 Sep 2026 this was a hand-written page mirroring the design the site
+// had before the redesign, which is how nine locales ended up looking like a
+// different company from the English site. Copy lives in
+// content/home/pt.json; markup in components/rd/HomeView.js.
+import HomeView from '@/components/rd/HomeView';
+import { homeStaticProps } from '@/lib/home-page-data';
 
-export const getStaticProps = localeHomeStaticProps('pt');
+export const getStaticProps = homeStaticProps('pt');
 
-export default function Home_pt(props) {
-  return <LocaleHome locale="pt" {...props} />;
+export default function HomePT(props) {
+  return <HomeView {...props} />;
 }

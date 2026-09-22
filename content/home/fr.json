@@ -1,0 +1,136 @@
+{
+  "_note": "Homepage copy for /fr/. Rendered by components/rd/HomeView.js — the same component the English homepage uses. Lifted from the hand-written pages/fr/index.js it replaced on 22 Sep 2026, so the SEO wording and keyword choices are unchanged. {count} is the live property count.",
+  "meta": {
+    "title": "Copropriété résidence secondaire | Maison de vacances en co-ownership — COP",
+    "description": "Devenez copropriétaire d'une résidence secondaire de luxe en Espagne, France ou Italie. Plateforme indépendante regroupant les principaux opérateurs européens.",
+    "ogTitle": "Copropriété résidence secondaire | Maison de vacances en co-ownership — COP",
+    "ogDescription": "Devenez copropriétaire d'une résidence secondaire de luxe en Espagne, France ou Italie. Plateforme indépendante."
+  },
+  "hero": {
+    "pre": "Votre fenêtre sur",
+    "em": "les plus belles résidences",
+    "post": "secondaires en copropriété",
+    "lead": "La pleine propriété, actée chez le notaire, d'une résidence secondaire entièrement gérée — pour une fraction du prix d'un achat en solo.",
+    "ctaPrimary": "Voir les propriétés →",
+    "ctaSecondary": "Comment ça marche"
+  },
+  "heroNewsletter": {
+    "kicker": "La newsletter officielle de la copropriété",
+    "heading": "Soyez les premiers informés.",
+    "sub": "De nouvelles maisons, des destinations remarquables et un regard de près sur la copropriété. Dans votre boîte mail.",
+    "open": "S'inscrire à la newsletter",
+    "placeholder": "Votre adresse e-mail",
+    "emailAria": "Adresse e-mail pour la newsletter",
+    "subscribeAria": "S'abonner à la newsletter",
+    "success": "Vous êtes inscrit. Merci.",
+    "error": "Inscription impossible. Merci de réessayer."
+  },
+  "featured": {
+    "kicker": "Maisons à la une",
+    "heading": "Découvrez nos biens de prestige",
+    "lead": "Parcourez notre sélection de biens en copropriété dans les destinations les plus recherchées au monde.",
+    "allLink": "Voir les {count} propriétés →",
+    "seeAll": "Voir toutes les propriétés"
+  },
+  "destinations": {
+    "kicker": "Où",
+    "heading": "Nos destinations",
+    "lead": "Toutes nos maisons, pays par pays, sur une seule page.",
+    "allLink": "Toutes les destinations →",
+    "labels": {
+      "usa": "États-Unis",
+      "spain": "Espagne",
+      "italy": "Italie",
+      "france": "France",
+      "austria": "Autriche",
+      "germany": "Allemagne",
+      "mexico": "Mexique",
+      "portugal": "Portugal",
+      "england": "Royaume-Uni",
+      "sweden": "Suède",
+      "croatia": "Croatie"
+    }
+  },
+  "values": {
+    "kicker": "Comment ça marche",
+    "heading": "La différence est dans les détails.",
+    "headingMobile": "Comment ça marche",
+    "lead": "Ce que la copropriété vous apporte concrètement.",
+    "items": [
+      {
+        "n": "01",
+        "h": "Vous détenez une part réelle",
+        "p": "Vous achetez une part de 1/8 dans un bien de prestige (maximum 4 parts, puisqu'il y a 8 parts au total et au minimum deux copropriétaires). Il s'agit d'un bien réel, enregistré au nom d'une société type SCI ou votre nom figure pour 1/8 ou plus, avec toutes les protections juridiques associées. Nos biens sont sélectionnés pour leur potentiel de valorisation, afin de vous offrir les avantages patrimoniaux de l'immobilier. Vous pouvez revendre votre part à tout moment : vous fixez le prix, et vendez sur le marché."
+      },
+      {
+        "n": "02",
+        "h": "Un temps d'usage garanti",
+        "p": "Vos semaines vous appartiennent. Un calendrier clair et équitable garantit à chaque copropriétaire son temps d'usage, sans concurrence pour les dates, y compris en haute saison. Vous êtes le seul à utiliser le bien lorsque vous y séjournez. Vous arrivez chez vous : vos affaires sont là, tout est prêt, et le bien est entièrement géré pour que vous puissiez simplement en profiter."
+      },
+      {
+        "n": "03",
+        "h": "Des frais partagés",
+        "p": "L'entretien, les frais de gestion et les coûts courants sont répartis équitablement entre les copropriétaires (8 parts). Sur de nombreux biens, les périodes que vous n'utilisez pas peuvent être mises en location, générant des revenus qui contribuent à compenser vos frais."
+      },
+      {
+        "n": "04",
+        "h": "Des avantages complémentaires",
+        "p": "La copropriété offre aussi des avantages plus larges : traitement fiscal potentiellement favorable, transmission simplifiée, et possibilité d'échanger des séjours avec d'autres copropriétaires au sein d'un portefeuille international."
+      }
+    ],
+    "ctaHowItWorks": "Comment fonctionne la copropriété",
+    "ctaExpert": "Parler à un expert"
+  },
+  "blog": {
+    "kicker": "À lire",
+    "heading": "Dernières analyses",
+    "allLink": "Tous les articles →"
+  },
+  "faq": {
+    "kicker": "Questions fréquentes",
+    "heading": "Questions fréquentes",
+    "items": [
+      {
+        "q": "Qu'est-ce que la copropriété (ou co-ownership) d'une résidence secondaire ?",
+        "a": "La copropriété signifie que vous et un petit nombre d'autres copropriétaires achetez chacun une quote-part enregistrée d'un bien de prestige entièrement géré. Vous possédez une véritable fraction du bien — typiquement 1/8 — et contrairement au timeshare, vous détenez un véritable bien immobilier. Cela combine la fierté et les avantages financiers du bien immobilier réel avec la facilité d'un hôtel cinq étoiles, à une fraction du coût d'achat complet."
+      },
+      {
+        "q": "En quoi la copropriété est-elle différente du timeshare ?",
+        "a": "Contrairement au timeshare, la copropriété vous donne une véritable part de l'acte notarié — vous bénéficiez donc de toute appréciation de valeur et pouvez revendre votre quote-part sur le marché libre quand vous voulez. Comme il s'agit de biens de luxe dans des emplacements très demandés, les prix augmentent typiquement avec le temps. Pas de club d'adhérents, pas de système de points, pas de verrouillage contractuel à long terme. Vous êtes un véritable propriétaire avec tous les droits légaux sur votre fraction."
+      },
+      {
+        "q": "Que comprend le prix d'achat ?",
+        "a": "Votre prix d'achat couvre votre quote-part enregistrée de le bien ainsi que tout le mobilier, la décoration intérieure et l'équipement. Beaucoup de nos maisons sont décorées par des professionnels selon un standard clé en main, donc prêtes à habiter dès le premier jour. Les coûts récurrents — entretien, assurance, gestion immobilière, taxes locales — sont partagés proportionnellement entre tous les copropriétaires, maintenant les frais individuels très bas."
+      },
+      {
+        "q": "Comment le temps d'usage est-il réparti entre les copropriétaires ?",
+        "a": "Chaque quote-part de 1/8 vous donne 45 jours — environ six semaines — soit 1/8 de l'année. Chaque bien a un calendrier d'usage clair qui tourne équitablement pour que tous les copropriétaires bénéficient d'accès en haute saison au fil du temps. De nombreux opérateurs proposent aussi une plateforme de réservation numérique pour échanger, prolonger ou troquer des semaines avec d'autres copropriétaires en toute flexibilité."
+      },
+      {
+        "q": "Puis-je louer mes semaines lorsque je ne les utilise pas ?",
+        "a": "Dans de nombreux cas, oui. Beaucoup de nos biens permettent aux copropriétaires de placer leurs semaines non utilisées dans un programme de location géré. La société de gestion s'occupe de la sélection des locataires, de l'arrivée, du ménage et de l'entretien, tandis que les revenus locatifs vous reviennent. Cela peut compenser significativement vos frais annuels et, dans des destinations populaires, même générer un retour net."
+      },
+      {
+        "q": "Qui gère le bien au quotidien ?",
+        "a": "Chaque maison sur notre plateforme est confiée à une société de gestion immobilière professionnelle. Elle s'occupe de tout : entretien régulier, ménage, jardinage, entretien de la piscine, réparations urgentes. Vous arrivez à une maison impeccable de qualité hôtelière à chaque visite — sans lever le petit doigt."
+      },
+      {
+        "q": "Puis-je revendre ma quote-part plus tard ?",
+        "a": "Absolument. Comme vous détenez une quote-part enregistrée, vous pouvez la revendre à tout moment sur le marché libre — comme n'importe quelle autre bien. Si la maison s'est valorisée, vous bénéficiez de cette croissance proportionnellement à votre part. Notre équipe peut aussi vous aider à la revente via notre réseau d'acquéreurs qualifiés."
+      },
+      {
+        "q": "Quelles destinations et types de biens proposez-vous ?",
+        "a": "Nous sélectionnons des résidences en copropriété de luxe à travers l'Europe et les États-Unis, dont la France, l'Espagne, l'Italie, le Portugal, l'Autriche, l'Angleterre et plusieurs destinations américaines. Les biens vont des villas côtières et appartements parisiens aux chalets alpins et fermes toscanes. Chaque maison est sélectionnée à la main pour son emplacement, sa qualité de construction et son attrait de mode de vie."
+      },
+      {
+        "q": "La copropriété est-elle un bon investissement ?",
+        "a": "La copropriété vous permet d'accéder à un bien de grande valeur à une fraction du coût d'achat complet, libérant du capital pour d'autres investissements. Vous bénéficiez de l'appréciation potentielle, de revenus locatifs possibles, et de la valeur personnelle d'une résidence secondaire de luxe — tout en partageant les coûts avec d'autres copropriétaires. C'est de plus en plus reconnu comme l'une des façons les plus financièrement sensées de posséder une résidence secondaire."
+      },
+      {
+        "q": "Comment commencer ?",
+        "a": "Parcourez simplement notre collection ci-dessus ou parlez à l'un de nos spécialistes via le formulaire de contact. Nous vous accompagnons à travers les maisons disponibles, répondons à vos questions et vous guidons dans le processus d'achat de bout en bout — avec une transparence légale et financière totale à chaque étape."
+      }
+    ],
+    "emphasise": []
+  }
+}
