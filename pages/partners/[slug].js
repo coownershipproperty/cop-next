@@ -6,6 +6,7 @@
  */
 
 import fs from 'fs';
+import { getInventory, fillInventoryDeep, inventorySummary } from '@/lib/inventory';
 import path from 'path';
 import PartnerPageRenderer from '@/components/PartnerPageRenderer';
 
@@ -54,11 +55,14 @@ export async function getStaticProps({ params }) {
   if (!entry) return { notFound: true };
   const contentPath = path.join(process.cwd(), CONTENT_DIR, `${slug}.html`);
   if (!fs.existsSync(contentPath)) return { notFound: true };
+  const inv = await getInventory();
   let body = fs.readFileSync(contentPath, 'utf-8');
-  body = injectH2Ids(body);
+  body = fillInventoryDeep(injectH2Ids(body), inv, { locale: 'en' });
+  const filledEntry = fillInventoryDeep(entry, inv, { locale: 'en' });
+  const inventory = inventorySummary(inv, { partner: slug, locale: 'en' });
   const faqs = extractFaqsFromHtml(body);
   const wordCount = stripTags(body).split(/\s+/).filter(Boolean).length;
-  return { props: { locale: LOCALE, slug, entry, body, faqs, wordCount }, revalidate: 3600 };
+  return { props: { locale: LOCALE, slug, entry: filledEntry, body, faqs, wordCount, inventory }, revalidate: 3600 };
 }
 
 export default function EnPartnerPage(props) {

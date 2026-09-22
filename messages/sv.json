@@ -12,7 +12,10 @@
     "favourites": "Mina favoriter",
     "contact": "Kontakta oss",
     "language": "Språk",
-    "list_with_cop": "Anmäl din bostad"
+    "list_with_cop": "Anmäl din bostad",
+    "cta": "Prata med oss",
+    "email_us": "Mejla oss",
+    "saved": "Sparade bostäder"
   },
   "footer": {
     "discover_heading": "Upptäck",
@@ -227,5 +230,31 @@
     "sold_badge": "Såld",
     "bed_one": "{count} sovrum",
     "bed_other": "{count} sovrum"
+  },
+  "listings": {
+    "availability": "Tillgänglighet",
+    "all_homes": "Alla bostäder",
+    "available": "Tillgängliga",
+    "sold_resale": "Slutsålda · återförsäljningsbevakning",
+    "bedrooms": "Sovrum",
+    "any_bedrooms": "Alla",
+    "bedroom": "sovrum",
+    "bedrooms_plural": "sovrum",
+    "share_budget": "Budget per andel",
+    "any_budget": "Alla budgetar",
+    "up_to": "Upp till",
+    "over": "Över",
+    "currency": "Valuta",
+    "available_only": "Endast tillgängliga bostäder",
+    "get_alerts": "Få bevakningar",
+    "showing": "Visar",
+    "of": "av",
+    "available_count": "{n} tillgängliga",
+    "previously_listed": "{n} tidigare sålda"
+  },
+  "not_found": {
+    "title": "Den här sidan har flyttats eller har aldrig funnits.",
+    "body": "Bostaden du letade efter kan vara såld, eller så är länken inaktuell. Alla tillgängliga bostäder finns ett klick bort.",
+    "cta": "Se bostäderna"
   }
 }

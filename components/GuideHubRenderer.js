@@ -19,9 +19,10 @@ const SITE_URL = 'https://co-ownership-property.com';
 const HOMES_PATH = { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/', de: '/de/immobilien/' };
 const HOME_PATH = { en: '/', es: '/es/', fr: '/fr/', de: '/de/' };
 
-export default function GuideHubRenderer({ locale, items, altLocales }) {
+export default function GuideHubRenderer({ locale, items, altLocales, copy: copyProp }) {
   const ui = UI_STRINGS[locale];
-  const copy = GUIDE_HUB_COPY[locale];
+  // `copy` arrives from getStaticProps with the {{inventory}} tokens filled.
+  const copy = copyProp || GUIDE_HUB_COPY[locale];
   const sectionPath = URL_PATHS[locale].guide;
   const canonical = `${SITE_URL}${sectionPath}/`;
   const comparePath = URL_PATHS[locale].compare;

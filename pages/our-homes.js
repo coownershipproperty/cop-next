@@ -11,7 +11,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { track } from '@vercel/analytics';
-import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor, t as translate } from '@/lib/i18n';
 import { capDiscreet, GRID_PAGE_SIZE, MAX_DISCREET_PER_PAGE, DEFAULT_DISCREET_MODE } from '@/lib/discreetMix';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
@@ -833,6 +833,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   // forceLocale wins (set by /es/propiedades/ and /fr/proprietes/ wrappers).
   // Otherwise derive from URL path — /our-homes/ always returns 'en'.
   const locale = forceLocale || localeFromPath(router.asPath || router.pathname);
+  const filterLabel = key => translate(`listings.${key}`, locale);
   const t = COPY[locale] || COPY.en;
   // Maps internal English country keys to localised display labels for the
   // top-row filter buttons. Keys (e.g. 'France') are still used to filter
@@ -1201,10 +1202,10 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         )}
 
         <div className="collection-filters">
-          <FilterSelect label="Availability" value={availability} onChange={v => {setAvailability(v);setPage(1);}} options={[{value:'all',label:'All homes'},{value:'available',label:'Available'},{value:'sold',label:'Sold out · Resale Alerts'}]} />
-          <FilterSelect label="Bedrooms" multiple value={minBeds} onChange={v => {setMinBeds(v);setPage(1);}} options={[{value:'',label:'Any bedrooms'},...[1,2,3,4,5,6].map(n => ({value:String(n),label:n === 6 ? '6+ bedrooms' : `${n} bedroom${n === 1 ? '' : 's'}`}))]} />
-          <FilterSelect label="Share budget" value={maxBudget} onChange={v => {setMaxBudget(v);setPage(1);}} options={[{value:'',label:'Any budget'},...[200000,350000,500000,750000,1000000,1500000,2000000,3000000].map(n => ({value:String(n),label:`Up to ${n.toLocaleString('en-GB')}`})),{value:'over-1m',label:'Over 1,000,000'}]} />
-          <FilterSelect label="Budget currency" value={budgetCurrency} onChange={v => {setBudgetCurrency(v);setPage(1);}} options={['EUR','USD','GBP'].map(c => ({value:c,label:c}))} />
+          <FilterSelect label={filterLabel('availability')} value={availability} onChange={v => {setAvailability(v);setPage(1);}} options={[{value:'all',label:filterLabel('all_homes')},{value:'available',label:filterLabel('available')},{value:'sold',label:filterLabel('sold_resale')}]} />
+          <FilterSelect label={filterLabel('bedrooms')} multiple value={minBeds} onChange={v => {setMinBeds(v);setPage(1);}} options={[{value:'',label:filterLabel('any_bedrooms')},...[1,2,3,4,5,6].map(n => ({value:String(n),label:`${n}${n === 6 ? '+' : ''} ${filterLabel(n === 1 ? 'bedroom' : 'bedrooms_plural')}`}))]} />
+          <FilterSelect label={filterLabel('share_budget')} value={maxBudget} onChange={v => {setMaxBudget(v);setPage(1);}} options={[{value:'',label:filterLabel('any_budget')},...[200000,350000,500000,750000,1000000,1500000,2000000,3000000].map(n => ({value:String(n),label:`${filterLabel('up_to')} ${n.toLocaleString('en-GB')}`})),{value:'over-1m',label:`${filterLabel('over')} 1,000,000`}]} />
+          <FilterSelect label={filterLabel('currency')} value={budgetCurrency} onChange={v => {setBudgetCurrency(v);setPage(1);}} options={['EUR','USD','GBP'].map(c => ({value:c,label:c}))} />
         </div>
         {/* Row 3 — Sort + Clear + CTA */}
         <div className="filter-row collection-sort-row">
@@ -1247,7 +1248,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
         {/* Results count */}
         <div className="results-bar">
-          <label className="collection-live-only"><input type="checkbox" checked={availability === 'available'} onChange={e => {setAvailability(e.target.checked ? 'available' : 'all');setPage(1);}} /><span>Live properties only</span></label>
+          <label className="collection-live-only"><input type="checkbox" checked={availability === 'available'} onChange={e => {setAvailability(e.target.checked ? 'available' : 'all');setPage(1);}} /><span>{filterLabel('available_only')}</span></label>
           <p className="results-count">
             {onlyDiscreet && <span className="discreet-pill">Discreet Sale</span>}
             {t.showing} <strong>{visible.length}</strong> {t.of} <strong>{filtered.length}</strong> {filtered.length === 1 ? t.property_singular : t.property_plural}

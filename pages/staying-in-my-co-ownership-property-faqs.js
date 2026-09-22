@@ -18,7 +18,7 @@ const FAQS = [
   },
   {
     q: 'How many days per year can I stay in my co-ownership property?',
-    a: `Your annual allowance is directly proportional to the number of shares you own. One 1/8 share entitles you to 1/8 of the calendar year — typically 42 to 45 nights, equivalent to around six weeks or 1.5 months per year. These nights are divided across the property's seasons (high, mid, and low for most ski and coastal properties) to ensure all owners receive a fair share of peak-time access on a rotating basis. If you own more than one share, your total allowance scales proportionally: 2 shares = approximately 3 months per year, 3 shares = 4.5 months, and 4 shares (the maximum 50%) = 6 months. Some properties are structured into 1/4 shares, doubling the per-share allowance. Contact us for specific details on the property you are interested in.`,
+    a: `Your annual allowance is directly proportional to the number of shares you own. One 1/8 share gives you around six weeks a year — the exact allowance and booking rules are set per home, and some homes have no fixed annual limit at all. These nights are divided across the property's seasons (high, mid, and low for most ski and coastal properties) to ensure all owners receive a fair share of peak-time access on a rotating basis. If you own more than one share, your time scales with it: two shares, twice the time. How many shares one owner may hold is set per home. Some properties are structured into 1/4 shares, doubling the per-share allowance. Contact us for specific details on the property you are interested in.`,
   },
   {
     q: 'Can I use unused days to generate rental income?',

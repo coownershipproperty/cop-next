@@ -18,7 +18,7 @@ const FAQS = [
   },
   {
     q: 'How many shares can I buy, and how many days does each share give me?',
-    a: `Most properties are structured into eight equal shares, with each 1/8 share entitling you to around 42–45 days of private use per year — roughly six weeks. You can typically purchase between one and four shares of the same property (up to 50%), allowing you to accumulate 44, 88, 132, or up to 176 days per year. Owning more than 50% is avoided to ensure no single shareholder can dominate company decisions. If you want to own more time overall, you can purchase shares across multiple properties in different destinations. Usage is usually managed via a rotating schedule or digital booking platform that ensures all owners enjoy fair access to peak-season dates over time.`,
+    a: `Most properties are structured into eight equal shares, with each 1/8 share giving you around six weeks of private use a year. Most operators let you buy more than one share of the same home, and each extra share adds the same amount of time; how many you may hold is set per home, and we confirm it for any home you ask about. If you want to own more time overall, you can purchase shares across multiple properties in different destinations. Usage is usually managed via a rotating schedule or digital booking platform that ensures all owners enjoy fair access to peak-season dates over time.`,
   },
   {
     q: 'What is included in the purchase price of a fractional ownership share?',
@@ -50,7 +50,7 @@ const FAQS = [
   },
   {
     q: 'How is usage time divided fairly between co-owners?',
-    a: `Usage is allocated through a clearly defined and fair rotation system. Each 1/8 share entitles you to around 42–45 days per year, structured so that all co-owners access high-season and shoulder-season weeks equitably over a multi-year cycle. Many properties also use a digital booking platform that allows owners to reserve specific dates, swap weeks with other owners, or extend stays where availability permits. The property management company administers the schedule and handles all coordination, so owners never need to negotiate directly with each other.`,
+    a: `Usage is allocated through a clearly defined and fair rotation system. Each 1/8 share gives you around six weeks a year, structured so that all co-owners access high-season and shoulder-season weeks equitably over a multi-year cycle. Many properties also use a digital booking platform that allows owners to reserve specific dates, swap weeks with other owners, or extend stays where availability permits. The property management company administers the schedule and handles all coordination, so owners never need to negotiate directly with each other.`,
   },
   {
     q: 'Can I rent out my weeks when I am not using the property?',
@@ -86,7 +86,7 @@ const FAQS = [
   },
   {
     q: 'Can I get a mortgage to finance a fractional ownership share?',
-    a: `Yes, financing is available for fractional ownership purchases. A bullet mortgage structure is currently the most common option, where you borrow against the value of your share. The majority of our buyers are cash purchasers or release equity from their primary residence to fund the purchase — making it accessible without the complexity of arranging a new mortgage. That said, the mortgage market for fractional ownership is evolving rapidly, and more flexible options are becoming available. Contact our team to discuss the latest financing options relevant to your situation and the country of purchase.`,
+    a: `Sometimes. For some homes, financing may be available through a partner bank depending on where you live and where the home is — it is not available in every country, and the terms differ from a standard mortgage. Most of our buyers purchase outright or release equity from their main residence. Tell us which home you are looking at and where you are resident, and we will confirm what applies before you rely on it. Take independent financial advice before you commit.`,
   },
 ];
 

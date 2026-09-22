@@ -86,7 +86,7 @@ const FAQS = [
   },
   {
     q: 'Kann ich eine Hypothek aufnehmen, um einen Co-Ownership-Anteil zu finanzieren?',
-    a: `Ja, Finanzierung ist für Co-Ownership-Käufe verfügbar. Eine endfällige Hypothek-Struktur ist derzeit die häufigste Option, bei der Sie gegen den Wert Ihres Anteils Kredit aufnehmen. Die Mehrheit unserer Käufer sind Barkäufer oder lösen Eigenkapital aus ihrer Hauptwohnung aus, um den Kauf zu finanzieren — was es ohne die Komplexität einer neuen Hypothek-Vereinbarung zugänglich macht. Allerdings entwickelt sich der Hypothekenmarkt für Co-Ownership rasch weiter, und es werden flexiblere Optionen verfügbar — auch über deutsche Banken mit Erfahrung im internationalen Immobiliengeschäft. Kontaktieren Sie unser Team, um die neuesten Finanzierungsoptionen für Ihre Situation und das Land des Kaufs zu besprechen.`,
+    a: `Manchmal. Für einige Immobilien kann eine Finanzierung über eine Partnerbank möglich sein — abhängig davon, wo Sie wohnen und wo die Immobilie liegt. Sie ist nicht in jedem Land verfügbar, und die Konditionen unterscheiden sich von einer klassischen Hypothek. Die meisten unserer Käufer zahlen bar oder lösen Eigenkapital aus ihrem Hauptwohnsitz. Nennen Sie uns die Immobilie und Ihren Wohnsitz, und wir bestätigen, was für Sie gilt, bevor Sie sich darauf verlassen. Holen Sie vor einer Entscheidung unabhängigen Finanzrat ein.`,
   },
 ];
 

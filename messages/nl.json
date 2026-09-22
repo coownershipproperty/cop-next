@@ -12,7 +12,10 @@
     "favourites": "Mijn favorieten",
     "contact": "Contact",
     "language": "Taal",
-    "list_with_cop": "Meld uw woning aan"
+    "list_with_cop": "Meld uw woning aan",
+    "cta": "Spreek ons",
+    "email_us": "Mail ons",
+    "saved": "Bewaarde woningen"
   },
   "footer": {
     "discover_heading": "Ontdekken",
@@ -227,5 +230,31 @@
     "sold_badge": "Verkocht",
     "bed_one": "{count} slaapkamer",
     "bed_other": "{count} slaapkamers"
+  },
+  "listings": {
+    "availability": "Beschikbaarheid",
+    "all_homes": "Alle woningen",
+    "available": "Beschikbaar",
+    "sold_resale": "Uitverkocht · resale-alerts",
+    "bedrooms": "Slaapkamers",
+    "any_bedrooms": "Alle",
+    "bedroom": "slaapkamer",
+    "bedrooms_plural": "slaapkamers",
+    "share_budget": "Budget per aandeel",
+    "any_budget": "Elk budget",
+    "up_to": "Tot",
+    "over": "Meer dan",
+    "currency": "Valuta",
+    "available_only": "Alleen beschikbare woningen",
+    "get_alerts": "Ontvang alerts",
+    "showing": "Getoond",
+    "of": "van",
+    "available_count": "{n} beschikbaar",
+    "previously_listed": "{n} eerder verkocht"
+  },
+  "not_found": {
+    "title": "Deze pagina is verplaatst of heeft nooit bestaan.",
+    "body": "De woning die u zocht is misschien verkocht, of de link is verouderd. Alle beschikbare woningen zijn één klik verwijderd.",
+    "cta": "Bekijk de woningen"
   }
 }

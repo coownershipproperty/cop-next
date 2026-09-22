@@ -12,7 +12,10 @@
     "favourites": "Meus favoritos",
     "contact": "Fale conosco",
     "language": "Idioma",
-    "list_with_cop": "Anuncie seu imóvel"
+    "list_with_cop": "Anuncie seu imóvel",
+    "cta": "Fale connosco",
+    "email_us": "Envie-nos um e-mail",
+    "saved": "Imóveis guardados"
   },
   "footer": {
     "discover_heading": "Descubra",
@@ -227,5 +230,31 @@
     "sold_badge": "Vendido",
     "bed_one": "{count} quarto",
     "bed_other": "{count} quartos"
+  },
+  "listings": {
+    "availability": "Disponibilidade",
+    "all_homes": "Todos os imóveis",
+    "available": "Disponíveis",
+    "sold_resale": "Esgotados · alertas de revenda",
+    "bedrooms": "Quartos",
+    "any_bedrooms": "Qualquer",
+    "bedroom": "quarto",
+    "bedrooms_plural": "quartos",
+    "share_budget": "Orçamento por fração",
+    "any_budget": "Qualquer orçamento",
+    "up_to": "Até",
+    "over": "Mais de",
+    "currency": "Moeda",
+    "available_only": "Só imóveis disponíveis",
+    "get_alerts": "Receber alertas",
+    "showing": "A mostrar",
+    "of": "de",
+    "available_count": "{n} disponíveis",
+    "previously_listed": "{n} já vendidos"
+  },
+  "not_found": {
+    "title": "Esta página mudou ou nunca existiu.",
+    "body": "O imóvel que procurava pode ter sido vendido, ou o link está desatualizado. Todos os imóveis disponíveis estão a um clique.",
+    "cta": "Ver os imóveis"
   }
 }

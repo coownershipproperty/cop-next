@@ -91,7 +91,7 @@ const FAQS = [
   },
   {
     q: 'Puis-je financer l\'achat d\'une part fractionnée par un prêt ?',
-    a: `Oui, un financement est disponible pour les achats en copropriété fractionnée. La structure aujourd'hui la plus répandue est le prêt in fine, où vous empruntez contre la valeur de votre part. La majorité de nos acheteurs paient au comptant ou libèrent du capital de leur résidence principale pour financer l'achat — ce qui rend le modèle accessible sans la complexité d'arranger un nouveau prêt. Cela dit, le marché du crédit pour la copropriété fractionnée évolue rapidement, et des options plus souples apparaissent. Contactez notre équipe pour discuter des options de financement les plus récentes adaptées à votre situation et au pays d'achat.`,
+    a: `Parfois. Pour certains biens, un financement peut être possible via une banque partenaire, selon votre pays de résidence et celui du bien — ce n’est pas disponible dans tous les pays et les conditions diffèrent d’un prêt immobilier classique. La plupart de nos acheteurs paient au comptant ou libèrent du capital de leur résidence principale. Indiquez-nous le bien qui vous intéresse et votre pays de résidence : nous confirmerons ce qui s’applique avant que vous ne comptiez dessus. Prenez un conseil financier indépendant avant de vous engager.`,
   },
 ];
 

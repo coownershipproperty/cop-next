@@ -45,6 +45,7 @@ export default function Nav({ ctaHref, ctaLabel = 'Speak to us', propertyHero = 
   const router = useRouter();
   const path = router.asPath || router.pathname || '/';
   const locale = localeFromPath(path);
+  const localizedCtaLabel = ctaLabel === 'Speak to us' ? t('nav.cta', locale) : ctaLabel;
   // The global contact action must not change meaning from page to page.
   // Explicitly labelled alternatives (such as "Email us") retain their target.
   const contactHref = ctaLabel === 'Speak to us'
@@ -129,7 +130,7 @@ export default function Nav({ ctaHref, ctaLabel = 'Speak to us', propertyHero = 
           <div className="rd-nav-lang">
             <LanguagePicker locale={locale} />
           </div>
-          <a href={contactHref} className="rd-nav-cta">{ctaLabel}</a>
+          <a href={contactHref} className="rd-nav-cta">{localizedCtaLabel}</a>
           <button
             type="button"
             className="rd-nav-burger"
@@ -146,7 +147,7 @@ export default function Nav({ ctaHref, ctaLabel = 'Speak to us', propertyHero = 
           <Link className="rd-mobile-saved" href={routePath(locale, 'favourites')} aria-current={clean === routePath(locale, 'favourites') ? 'page' : undefined} onClick={() => setOpen(false)}>{locale === 'en' ? 'Saved homes' : t('nav.favourites', locale)} · {savedCount}</Link>
           <div className="rd-nav-lang"><LanguagePicker locale={locale} /></div>
         </div>
-        <a href={contactHref} className="rd-nav-cta" onClick={() => setOpen(false)}>{ctaLabel}</a>
+        <a href={contactHref} className="rd-nav-cta" onClick={() => setOpen(false)}>{localizedCtaLabel}</a>
       </div>
     </div>
   );
