@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
 import savedStyles from '@/styles/saved-nav.module.css';
-import { localeFromPath, t, routePath, SUPPORTED_LOCALES, LOCALE_META } from '@/lib/i18n';
+import { localeFromPath, t, routePath, SUPPORTED_LOCALES, LOCALE_META, switchLocalePath, NOT_AVAILABLE_LABEL } from '@/lib/i18n';
 
 const ITEMS = [
   { key: 'home',       labelKey: 'nav.home' },
@@ -18,7 +18,7 @@ const ITEMS = [
   { key: 'contact',    labelKey: 'nav.contact' },
 ];
 
-function LanguagePicker({ locale }) {
+function LanguagePicker({ locale, path }) {
   const [expanded, setExpanded] = useState(false);
   const ref = useRef(null);
   const trigger = useRef(null);
@@ -36,7 +36,13 @@ function LanguagePicker({ locale }) {
       {locale.toUpperCase()}<svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.3" /></svg>
     </button>
     {expanded && <div className="rd-language-panel" id={id} aria-label="Choose a language">
-      {SUPPORTED_LOCALES.map(loc => <Link key={loc} href={routePath(loc,'home')} lang={loc} hrefLang={loc} aria-current={locale === loc ? 'true' : undefined} onClick={() => setExpanded(false)}><span>{LOCALE_META[loc].name}</span><span aria-hidden="true">{locale === loc ? '✓' : loc.toUpperCase()}</span></Link>)}
+      {SUPPORTED_LOCALES.map(loc => {
+        // Stay on the page you are reading. A reader on /fr/proprietes/ who
+        // picks Spanish wants /es/propiedades/, not the Spanish homepage.
+        const target = switchLocalePath(path, locale, loc);
+        if (!target) return <span key={loc} className="rd-language-unavailable" title={NOT_AVAILABLE_LABEL[loc]} aria-disabled="true"><span>{LOCALE_META[loc].name}</span><span aria-hidden="true">—</span></span>;
+        return <Link key={loc} href={target} lang={loc} hrefLang={loc} aria-current={locale === loc ? 'true' : undefined} onClick={() => setExpanded(false)}><span>{LOCALE_META[loc].name}</span><span aria-hidden="true">{locale === loc ? '✓' : loc.toUpperCase()}</span></Link>;
+      })}
     </div>}
   </div>;
 }
@@ -128,7 +134,7 @@ export default function Nav({ ctaHref, ctaLabel = 'Speak to us', propertyHero = 
             <span className={savedStyles.count} aria-hidden="true">{savedCount}</span>
           </Link>
           <div className="rd-nav-lang">
-            <LanguagePicker locale={locale} />
+            <LanguagePicker locale={locale} path={path} />
           </div>
           <a href={contactHref} className="rd-nav-cta">{localizedCtaLabel}</a>
           <button
@@ -145,7 +151,7 @@ export default function Nav({ ctaHref, ctaLabel = 'Speak to us', propertyHero = 
         {links.map(({ href, label }) => <Link key={href} href={href} onClick={() => setOpen(false)} aria-current={clean === href ? 'page' : undefined}>{label}</Link>)}
         <div className="rd-mobile-menu-tools">
           <Link className="rd-mobile-saved" href={routePath(locale, 'favourites')} aria-current={clean === routePath(locale, 'favourites') ? 'page' : undefined} onClick={() => setOpen(false)}>{locale === 'en' ? 'Saved homes' : t('nav.favourites', locale)} · {savedCount}</Link>
-          <div className="rd-nav-lang"><LanguagePicker locale={locale} /></div>
+          <div className="rd-nav-lang"><LanguagePicker locale={locale} path={path} /></div>
         </div>
         <a href={contactHref} className="rd-nav-cta" onClick={() => setOpen(false)}>{localizedCtaLabel}</a>
       </div>

@@ -957,7 +957,7 @@ html.rd-transitioning { overflow: hidden; }
 .rd.rd-home-light .rd-values-chapter { background:#fff; margin-bottom:clamp(40px,4vw,56px); padding-bottom:0; }
 .rd.rd-home-light .rd-values-chapter .rd-values-inner { padding-bottom:24px; }
 .rd.rd-home-light .rd-values .rd-btn-row { justify-content:center; margin-top:36px; padding-top:clamp(44px,5vw,64px); border-top:1px solid #e8e8e8; }
-.rd.rd-home-light .rd-values .rd-btn-row .rd-btn { width:245px; max-width:100%; justify-content:center; }
+.rd.rd-home-light .rd-values .rd-btn-row .rd-btn { min-width:245px; max-width:100%; justify-content:center; padding-left:1.6rem; padding-right:1.6rem; }
 .rd.rd-home-light .rd-values-chapter > .rd-container { max-width:none; padding:0; }
 .rd.rd-home-light .rd-values { border-radius:0; background:#fff; }
 .rd.rd-home-light .rd-values-grid { color:#000000; --rd-line:#e5e5e5; }
@@ -1155,3 +1155,8 @@ html:has(.rd-home-light) { scroll-behavior:smooth; }
     transition-delay: 0s !important;
   }
 }
+
+/* A language with no version of the current page: shown, not linked. The
+   redesign nav used to send every choice to that locale's homepage, so this
+   state did not exist. */
+.rd-language-panel .rd-language-unavailable { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.5rem 0.85rem; opacity:0.38; cursor:default; }

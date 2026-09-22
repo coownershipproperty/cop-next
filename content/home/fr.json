@@ -7,9 +7,9 @@
     "ogDescription": "Devenez copropriétaire d'une résidence secondaire de luxe en Espagne, France ou Italie. Plateforme indépendante."
   },
   "hero": {
-    "pre": "Votre fenêtre sur",
-    "em": "les plus belles résidences",
-    "post": "secondaires en copropriété",
+    "pre": "",
+    "em": "Les plus beaux biens",
+    "post": "en copropriété",
     "lead": "La pleine propriété, actée chez le notaire, d'une résidence secondaire entièrement gérée — pour une fraction du prix d'un achat en solo.",
     "ctaPrimary": "Voir les propriétés →",
     "ctaSecondary": "Comment ça marche"
@@ -133,7 +133,7 @@
       },
       {
         "q": "Que comprend le prix d'achat ?",
-        "a": "Votre prix d'achat couvre votre quote-part enregistrée de le bien ainsi que tout le mobilier, la décoration intérieure et l'équipement. Beaucoup de nos maisons sont décorées par des professionnels selon un standard clé en main, donc prêtes à habiter dès le premier jour. Les coûts récurrents — entretien, assurance, gestion immobilière, taxes locales — sont partagés proportionnellement entre tous les copropriétaires, maintenant les frais individuels très bas."
+        "a": "Votre prix d'achat couvre votre quote-part enregistrée du bien ainsi que tout le mobilier, la décoration intérieure et l'équipement. Beaucoup de nos maisons sont décorées par des professionnels selon un standard clé en main, donc prêtes à habiter dès le premier jour. Les coûts récurrents — entretien, assurance, gestion immobilière, taxes locales — sont partagés proportionnellement entre tous les copropriétaires, maintenant les frais individuels très bas."
       },
       {
         "q": "Comment le temps d'usage est-il réparti entre les copropriétaires ?",
@@ -149,7 +149,7 @@
       },
       {
         "q": "Puis-je revendre ma quote-part plus tard ?",
-        "a": "Absolument. Comme vous détenez une quote-part enregistrée, vous pouvez la revendre à tout moment sur le marché libre — comme n'importe quelle autre bien. Si la maison s'est valorisée, vous bénéficiez de cette croissance proportionnellement à votre part. Notre équipe peut aussi vous aider à la revente via notre réseau d'acquéreurs qualifiés."
+        "a": "Absolument. Comme vous détenez une quote-part enregistrée, vous pouvez la revendre à tout moment sur le marché libre — comme n'importe quel autre bien. Si la maison s'est valorisée, vous bénéficiez de cette croissance proportionnellement à votre part. Notre équipe peut aussi vous aider à la revente via notre réseau d'acquéreurs qualifiés."
       },
       {
         "q": "Quelles destinations et types de biens proposez-vous ?",
