@@ -846,7 +846,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [regions,      setRegions]      = useState([]); // [] = all; array of selected region labels
   const [sort,         setSort]         = useState('newest');
   const [page,         setPage]         = useState(1);
-  const [availability, setAvailability] = useState('all');
+  const [availability, setAvailability] = useState('available');
   const [minBeds, setMinBeds] = useState('');
   const [maxBudget, setMaxBudget] = useState('');
   const [budgetCurrency, setBudgetCurrency] = useState('EUR');
@@ -1000,6 +1000,23 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     if (curateNewest) list.sort((a,b) => Number(String(a.status).toLowerCase().includes('sold')) - Number(String(b.status).toLowerCase().includes('sold')));
     return list;
   }, [allProperties, countries, regions, sort, onlyDiscreet, discreetGrid, availability, minBeds, maxBudget, budgetCurrency, curateNewest]);
+
+  // "N available · N previously listed" — the same filters as `filtered`
+  // minus availability, so the two numbers always add up to what the
+  // visitor could see by toggling the checkbox (David, 21 Sep 2026).
+  const inventoryCounts = useMemo(() => {
+    let list = allProperties;
+    if (minBeds) list = list.filter(p => minBeds.split(',').some(n => n === '6' ? Number(p.beds) >= 6 : Number(p.beds) === Number(n)));
+    if (maxBudget) list = list.filter(p => p.currency === budgetCurrency && Number(p.price) > 0 && (maxBudget === 'over-1m' ? Number(p.price) > 1000000 : Number(p.price) <= Number(maxBudget)));
+    if (countries.length > 0) list = list.filter(p => countries.some(c => c === 'OTHER' ? !TOP_COUNTRIES.includes(p.country) : p.country === c));
+    if (regions.length > 0) list = list.filter(p => {
+      const countryRegions = regions.filter(r => allProperties.some(home => home.country === p.country && propMatchesRegion(home, r)));
+      return countryRegions.length === 0 || countryRegions.some(r => propMatchesRegion(p, r));
+    });
+    if (onlyDiscreet) list = list.filter(p => p.discreet);
+    const sold = list.filter(p => String(p.status).toLowerCase().includes('sold')).length;
+    return { available: list.length - sold, sold };
+  }, [allProperties, countries, regions, onlyDiscreet, minBeds, maxBudget, budgetCurrency]);
 
   const initialCollection = useMemo(() => {
     const eligible = p => !curateNewest || (!p.discreet && !String(p.status).toLowerCase().includes('sold'));
@@ -1251,7 +1268,8 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           <label className="collection-live-only"><input type="checkbox" checked={availability === 'available'} onChange={e => {setAvailability(e.target.checked ? 'available' : 'all');setPage(1);}} /><span>{filterLabel('available_only')}</span></label>
           <p className="results-count">
             {onlyDiscreet && <span className="discreet-pill">Discreet Sale</span>}
-            {t.showing} <strong>{visible.length}</strong> {t.of} <strong>{filtered.length}</strong> {filtered.length === 1 ? t.property_singular : t.property_plural}
+            <strong>{inventoryCounts.available}</strong> {filterLabel('available_count').replace('{n}', '').trim()}
+            {inventoryCounts.sold > 0 && <> · <strong>{inventoryCounts.sold}</strong> {filterLabel('previously_listed').replace('{n}', '').trim()}</>}
             {onlyDiscreet && <> · <button type="button" className="discreet-clear" onClick={clearAll}>{t.clear_filters}</button></>}
           </p>
         </div>
