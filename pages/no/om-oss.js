@@ -1,10 +1,10 @@
-// /no/om-oss/ — about us. The real about page (team, story, press,
-// testimonials), translated. Copy: content/about/no.json.
-import LocaleAbout from '@/components/LocaleAbout';
+// /no/ — about page. The same component the English about page renders,
+// with this locale's copy from content/about/no.json.
+import AboutView from '@/components/rd/AboutView';
 import { localeJsonStaticProps } from '@/lib/home-page-data';
 
 export const getStaticProps = localeJsonStaticProps('about', 'no');
 
-export default function About_no(props) {
-  return <LocaleAbout locale="no" {...props} />;
+export default function AboutNO(props) {
+  return <AboutView locale="no" {...props} />;
 }

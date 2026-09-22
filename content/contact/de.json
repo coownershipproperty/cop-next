@@ -1,0 +1,46 @@
+{
+  "_note": "Contact page copy for /de/. Rendered by components/rd/ContactView.js — the same component the English contact page uses. Meta text lifted from the hand-written page it replaced on 22 Sep 2026.",
+  "meta": {
+    "title": "Kontakt | Co-Ownership Property",
+    "description": "Sprechen Sie mit dem COP-Team. Fragen zu Co-Ownership oder Miteigentum an Ferienimmobilien? Wir antworten innerhalb weniger Stunden — ohne Verkaufsdruck, ohne Verpflichtung.",
+    "ogTitle": "Co-Ownership Property kontaktieren",
+    "ogDescription": "Fragen zu Co-Ownership-Ferienimmobilien? Sprechen Sie mit unserem Team — ohne Verkaufsdruck, ohne Verpflichtung. Wir antworten innerhalb weniger Stunden."
+  },
+  "nav": {
+    "emailUs": "Schreiben Sie uns"
+  },
+  "hero": {
+    "kicker": "Kontakt",
+    "headingTop": "Sprechen wir über",
+    "headingAccent": "Ihre nächste Immobilie.",
+    "description": "Eine Immobilie, die Ihnen aufgefallen ist. Eine Region, die Sie lieben. Oder eine Frage zum Miteigentum. Sagen Sie uns, was Ihnen vorschwebt.",
+    "replyPromise": "Eine persönliche Antwort innerhalb eines Werktags.",
+    "emailKicker": "Lieber per E-Mail?"
+  },
+  "form": {
+    "kicker": "Schreiben Sie uns eine Nachricht",
+    "note": "Einfach ein Gespräch. Ohne Verpflichtung."
+  },
+  "next": {
+    "kicker": "Wie es weitergeht",
+    "heading": "Ab Ihrem ersten Hallo.",
+    "teamLink": "Das Team kennenlernen",
+    "steps": [
+      {
+        "n": "01",
+        "h": "Wir lernen Ihre Pläne kennen.",
+        "p": "Wo Sie gerne wären, wie Sie Ihre Immobilie nutzen würden und worauf es Ihnen ankommt."
+      },
+      {
+        "n": "02",
+        "h": "Sie bekommen die echten Zahlen.",
+        "p": "Verfügbarkeit, Anteilspreise und laufende Kosten der passenden Immobilien. Passt eine nicht, sagen wir das."
+      },
+      {
+        "n": "03",
+        "h": "Sie entscheiden, wie es weitergeht.",
+        "p": "Stellen Sie weitere Fragen, lassen Sie sich dem verwaltenden Team vorstellen, oder lassen Sie sich Zeit."
+      }
+    ]
+  }
+}

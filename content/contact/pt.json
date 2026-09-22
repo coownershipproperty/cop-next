@@ -1,27 +1,46 @@
 {
- "meta": {
-  "title": "Fale Conosco | Co-Ownership Property",
-  "description": "Fale com a equipe da COP. Dúvidas sobre multipropriedade? Respondemos em poucas horas — sem pressão de vendas, sem compromisso.",
-  "ogTitle": "Fale com a Co-Ownership Property",
-  "ogDescription": "Dúvidas sobre multipropriedade? Fale com nossa equipe — sem pressão de vendas, sem compromisso."
- },
- "hero": {
-  "eyebrow": "Estamos Aqui para Ajudar",
-  "headingHtml": "Entre em <em>Contato</em>",
-  "subtitle": "Dúvidas sobre multipropriedade, sobre um imóvel específico ou simplesmente sobre como tudo funciona? Você terá respostas claras — sem pressão de vendas."
- },
- "trust": {
-  "eyebrow": "Como Trabalhamos",
-  "heading": "O que esperar quando você fala conosco",
-  "card1": { "h": "Escreva diretamente para nós", "pTop": "Prefere escrever? Fale conosco pelo e-mail", "pBottom": "Lemos cada mensagem pessoalmente." },
-  "card2": { "h": "Resposta rápida", "p": "Normalmente respondemos em poucas horas — muitas vezes antes. Para consultas dos Estados Unidos, considere a diferença de fuso horário. Você sempre terá uma resposta nossa." },
-  "card3": { "h": "Sem pressão, sem compromisso", "p": "Fazemos perguntas, indicamos as casas certas e deixamos a decisão inteiramente em suas mãos. Somos independentes — não vinculados a nenhuma plataforma ou incorporadora." }
- },
- "links": {
-  "eyebrow": "Ainda Pesquisando?",
-  "heading": "Ainda não está pronto para falar conosco?",
-  "card1": { "cat": "Como Funciona", "title": "O processo de compra, passo a passo", "desc": "Da primeira consulta à assinatura do contrato — o que acontece, em que ordem e o que você precisa preparar.", "arrow": "Leia o guia →" },
-  "card2": { "cat": "Nossas Casas", "title": "Veja todos os imóveis em um só lugar", "desc": "Vilas, apartamentos e chalés na Europa e nos Estados Unidos — todos com o preço da cota informado desde o início.", "arrow": "Veja as casas →" },
-  "card3": { "cat": "Nosso Blog", "title": "Análises de mercado e guias para compradores", "desc": "Artigos aprofundados sobre destinos, estruturas jurídicas, retorno do investimento e tudo o que um comprador inteligente precisa saber.", "arrow": "Veja os artigos →" }
- }
+  "_note": "Contact page copy for /pt/. Rendered by components/rd/ContactView.js — the same component the English contact page uses.",
+  "meta": {
+    "title": "Fale Conosco | Co-Ownership Property",
+    "description": "Fale com a equipe da COP. Dúvidas sobre multipropriedade? Respondemos em poucas horas — sem pressão de vendas, sem compromisso.",
+    "ogTitle": "Fale com a Co-Ownership Property",
+    "ogDescription": "Dúvidas sobre multipropriedade? Fale com nossa equipe — sem pressão de vendas, sem compromisso."
+  },
+  "nav": {
+    "emailUs": "Escreva-nos"
+  },
+  "hero": {
+    "kicker": "Contacto",
+    "headingTop": "Vamos falar da",
+    "headingAccent": "sua próxima casa.",
+    "description": "Uma casa que viu. Um destino de que gosta. Ou uma dúvida sobre copropriedade. Diga-nos o que tem em mente.",
+    "replyPromise": "Uma resposta pessoal no prazo de um dia útil.",
+    "emailKicker": "Prefere e-mail?"
+  },
+  "form": {
+    "kicker": "Envie-nos uma mensagem",
+    "note": "Apenas uma conversa. Sem compromisso."
+  },
+  "next": {
+    "kicker": "O que acontece a seguir",
+    "heading": "Desde o seu primeiro olá.",
+    "teamLink": "Conheça a equipa",
+    "steps": [
+      {
+        "n": "01",
+        "h": "Ficamos a conhecer os seus planos.",
+        "p": "Onde gostaria de estar, como usaria a sua casa e o que é importante para si."
+      },
+      {
+        "n": "02",
+        "h": "Recebe os números reais.",
+        "p": "Disponibilidade, preço da quota e custos correntes das casas que se enquadram. Se uma casa não servir, dizemos."
+      },
+      {
+        "n": "03",
+        "h": "Decide o que vem a seguir.",
+        "p": "Faça mais perguntas, peça uma apresentação à equipa que gere a casa, ou leve o tempo que precisar."
+      }
+    ]
+  }
 }

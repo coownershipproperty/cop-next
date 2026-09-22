@@ -34,7 +34,7 @@
 //
 // Every string is already in the target language. Nothing here translates.
 import Head from 'next/head';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import hreflangLinks from '@/components/HreflangLinks';
 import { LOCALE_META, DEFAULT_LOCALE } from '@/lib/i18n';
@@ -143,7 +143,8 @@ export default function PillarPage({ locale = DEFAULT_LOCALE, doc }) {
         )}
       </Head>
 
-      <Header />
+      <div className="rd rd-home-light rd-pillar">
+      <Nav />
 
       <main className="cop-pillar">
         <article className="cop-pillar-inner">
@@ -204,6 +205,7 @@ export default function PillarPage({ locale = DEFAULT_LOCALE, doc }) {
       </main>
 
       <Footer />
+      </div>
     </>
   );
 }

@@ -1,10 +1,10 @@
-// /it/chi-siamo/ — about us. The real about page (team, story, press,
-// testimonials), translated. Copy: content/about/it.json.
-import LocaleAbout from '@/components/LocaleAbout';
+// /it/ — about page. The same component the English about page renders,
+// with this locale's copy from content/about/it.json.
+import AboutView from '@/components/rd/AboutView';
 import { localeJsonStaticProps } from '@/lib/home-page-data';
 
 export const getStaticProps = localeJsonStaticProps('about', 'it');
 
-export default function About_it(props) {
-  return <LocaleAbout locale="it" {...props} />;
+export default function AboutIT(props) {
+  return <AboutView locale="it" {...props} />;
 }

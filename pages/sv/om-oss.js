@@ -1,10 +1,10 @@
-// /sv/om-oss/ — about us. The real about page (team, story, press,
-// testimonials), translated. Copy: content/about/sv.json.
-import LocaleAbout from '@/components/LocaleAbout';
+// /sv/ — about page. The same component the English about page renders,
+// with this locale's copy from content/about/sv.json.
+import AboutView from '@/components/rd/AboutView';
 import { localeJsonStaticProps } from '@/lib/home-page-data';
 
 export const getStaticProps = localeJsonStaticProps('about', 'sv');
 
-export default function About_sv(props) {
-  return <LocaleAbout locale="sv" {...props} />;
+export default function AboutSV(props) {
+  return <AboutView locale="sv" {...props} />;
 }

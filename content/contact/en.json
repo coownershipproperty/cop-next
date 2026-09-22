@@ -1,5 +1,5 @@
 {
-  "_note": "Shape reference for content/contact/<locale>.json. Every key here must exist in every locale file; components/rd/ContactView.js does no fallback. The email address and the two portraits are the same in every language and live in the component.",
+  "_note": "Contact page copy for /en/. Rendered by components/rd/ContactView.js — the same component the English contact page uses.",
   "meta": {
     "title": "Contact Us | Co-Ownership Property",
     "description": "Get in touch with David and Dylan at COP. Ask about a home, share your plans or find out more about co-ownership.",

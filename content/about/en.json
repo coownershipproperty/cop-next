@@ -1,5 +1,5 @@
 {
-  "_note": "Shape reference for content/about/<locale>.json. Every key here must exist in every locale file; components/rd/AboutView.js does no fallback. team.people keys (david/dylan/poppy) select the portrait and must not change — translate name, role and paragraphs only. story.paragraphs may contain <strong>; nothing else may contain HTML.",
+  "_note": "About page copy for /. Rendered by components/rd/AboutView.js — the same component the nine locale about pages use. Paragraphs in story.paragraphs may contain <strong>; everything else is plain text.",
   "meta": {
     "title": "About Us | Co-Ownership Property",
     "description": "Meet David and Dylan Olsson. Founded by father and son in 2022, COP grew from twenty years helping buyers find a place in the French Alps.",

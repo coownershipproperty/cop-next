@@ -1,0 +1,83 @@
+{
+  "_note": "About page copy for /de/. Rendered by components/rd/AboutView.js — the same component the English about page uses. Text lifted from the hand-written page it replaced on 22 Sep 2026.",
+  "meta": {
+    "title": "Über uns | Co-Ownership Property",
+    "description": "Lernen Sie das Team hinter Co-Ownership Property kennen. 2022 von David Olsson gegründet — wir helfen smarten Käufern, über Miteigentum-Anteile in europäische Luxus-Ferienimmobilien zu investieren.",
+    "ogTitle": "Über uns | Co-Ownership Property",
+    "ogDescription": "Lernen Sie das Team hinter Co-Ownership Property kennen. Wir helfen smarten Käufern beim Zugang zu Luxus-Ferienimmobilien über Miteigentum."
+  },
+  "hero": {
+    "kicker": "Unsere Geschichte · Seit 2022",
+    "headingTop": "Eine andere Art, zu besitzen.",
+    "headingAccent": "Ein sehr persönlicher Grund.",
+    "lead": "Wir agieren zu 100% auf der Käuferseite und arbeiten ausschließlich mit den renommiertesten, transparentesten und professionell verwalteten Anbietern in Europa und den USA zusammen. Wir sind an keine ",
+    "teamLink": "Mehr über das Team"
+  },
+  "story": {
+    "kicker": "Von den Alpen zu einer neuen Idee",
+    "headingTop": "Eine neue Art zu besitzen.",
+    "headingBottom": "Derselbe Wunsch nach einem Zuhause.",
+    "quote": "Die Kunden, mit denen ich jahrelang gearbeitet hatte, wollten immer noch kaufen — sie konnten es sich nur einfach nicht mehr leisten. Sie wurden schlicht aus dem Markt gedrängt.",
+    "quoteAttr": "David Olsson · Gründer",
+    "paragraphs": [
+      "Wir agieren zu 100% auf der Käuferseite und arbeiten ausschließlich mit den renommiertesten, transparentesten und professionell verwalteten Anbietern in Europa und den USA zusammen. Wir sind an keine einzelne Plattform und keinen Bauträger gebunden. Erfüllt eine Immobilie unseren Standard nicht, erscheint sie nicht auf dieser Seite.",
+      "Über 20 Jahre Erfahrung im Verkauf von Premium-Skiimmobilien in mehr als 40 französischen Alpenresorts. David erlebte, wie sich der Markt veränderte und Kunden, die früher kaufen konnten, zunehmend aus dem Markt gedrängt wurden. Er gründete COP 2022, weil er überzeugt war, dass außergewöhnliche Immobilien Menschen gehören sollten, die sie lieben — nicht nur denen, die sie sich vollständig leisten können.",
+      "Aufgewachsen zwischen London und Marbella, mit Wurzeln in vier Ländern, entwickelte Dylan ein instinktives Gespür für den internationalen Käufer. Nach seinem Wirtschaftsstudium an der University of Manchester machte er es sich zur Aufgabe, die Lücke zwischen Wunsch und Realität zu schließen — und hochwertige Ferienimmobilien durch einen transparenten, kundenorientierten Ansatz für mehr Menschen zugänglich zu machen.",
+      "David verbrachte über zwei Jahrzehnte mit dem Verkauf von Premium-Immobilien in den französischen Alpen. In den frühen Jahren lagen die französischen Hypothekenzinsen unter 2%, Laufzeiten erstreckten sich über 25 Jahre und die Preise in den Alpenresorts standen — auch wenn nie billig — noch in einem sinnvollen Verhältnis zu denen in Paris. Eine Skiimmobilie zu kaufen war für eine berufstätige Familie ein realistisches Ziel."
+    ],
+    "howLink": "So funktioniert Miteigentum"
+  },
+  "team": {
+    "kicker": "Die Menschen hinter COP",
+    "heading": "Lernen Sie das Team kennen.",
+    "people": [
+      {
+        "key": "david",
+        "name": "David Olsson",
+        "role": "Gründer",
+        "paragraphs": [
+          "Über 20 Jahre Erfahrung im Verkauf von Premium-Skiimmobilien in mehr als 40 französischen Alpenresorts. David erlebte, wie sich der Markt veränderte und Kunden, die früher kaufen konnten, zunehmend aus dem Markt gedrängt wurden. Er gründete COP 2022, weil er überzeugt war, dass außergewöhnliche Immobilien Menschen gehören sollten, die sie lieben — nicht nur denen, die sie sich vollständig leisten können."
+        ]
+      },
+      {
+        "key": "dylan",
+        "name": "Dylan Olsson",
+        "role": "Mitgründer & Vertriebsleiter",
+        "paragraphs": [
+          "Aufgewachsen zwischen London und Marbella, mit Wurzeln in vier Ländern, entwickelte Dylan ein instinktives Gespür für den internationalen Käufer. Nach seinem Wirtschaftsstudium an der University of Manchester machte er es sich zur Aufgabe, die Lücke zwischen Wunsch und Realität zu schließen — und hochwertige Ferienimmobilien durch einen transparenten, kundenorientierten Ansatz für mehr Menschen zugänglich zu machen."
+        ]
+      },
+      {
+        "key": "poppy",
+        "name": "Poppy",
+        "role": "Sicherheitschefin",
+        "paragraphs": [
+          "Verfolgt eine Null-Toleranz-Politik gegenüber Eichhörnchen, Postboten und unautorisierten Katzen. Bekannt dafür, Bestechung in Form von Cheddar-Käse oder Bauchkraulen anzunehmen."
+        ]
+      }
+    ]
+  },
+  "process": {
+    "kicker": "Wie wir mit Ihnen arbeiten",
+    "headingTop": "Ein Gespräch.",
+    "headingBottom": "Kein Verkaufsfließband.",
+    "steps": [
+      {
+        "h": "Sagen Sie uns, was Ihnen vorschwebt.",
+        "p": "Eine Region, die Sie lieben, die Zeit, die Sie dort verbringen möchten, Ihr Budget. Sie müssen noch nicht alles durchgeplant haben."
+      },
+      {
+        "h": "Sprechen Sie mit einem Menschen. Sehen Sie die Zahlen.",
+        "p": "Wir antworten innerhalb eines Werktags mit echter Verfügbarkeit und den Zahlen der passenden Immobilien. Passt eine Immobilie nicht zu Ihren Plänen, sagen wir das."
+      },
+      {
+        "h": "Lernen Sie das Team hinter der Immobilie kennen.",
+        "p": "Wir stellen Ihnen die Menschen vor, die die Immobilie verwalten, damit Sie nach dem Objekt, dem Eigentum und dem Ablauf Ihrer Aufenthalte fragen können."
+      },
+      {
+        "h": "Wir bleiben dabei.",
+        "p": "Vom ersten Gespräch bis zum Kauf bleiben wir eingebunden und helfen Ihnen, die Antworten zu bekommen, die Sie brauchen."
+      }
+    ]
+  }
+}

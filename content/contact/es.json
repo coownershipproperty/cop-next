@@ -1,0 +1,46 @@
+{
+  "_note": "Contact page copy for /es/. Rendered by components/rd/ContactView.js — the same component the English contact page uses. Meta text lifted from the hand-written page it replaced on 22 Sep 2026.",
+  "meta": {
+    "title": "Contacto | Co-Ownership Property",
+    "description": "Habla con el equipo de COP. ¿Preguntas sobre copropiedad fraccionada? Respondemos en pocas horas — sin presión comercial, sin compromiso.",
+    "ogTitle": "Contacta con Co-Ownership Property",
+    "ogDescription": "¿Preguntas sobre copropiedad fraccionada? Habla con nuestro equipo — sin presión comercial, sin compromiso."
+  },
+  "nav": {
+    "emailUs": "Escríbenos"
+  },
+  "hero": {
+    "kicker": "Contacto",
+    "headingTop": "Hablemos de",
+    "headingAccent": "tu próxima casa.",
+    "description": "Una casa que has visto. Un destino que te encanta. O una duda sobre la copropiedad. Cuéntanos qué tienes en mente.",
+    "replyPromise": "Una respuesta personal en un día laborable.",
+    "emailKicker": "¿Prefieres el correo?"
+  },
+  "form": {
+    "kicker": "Envíanos un mensaje",
+    "note": "Solo una conversación. Sin compromiso."
+  },
+  "next": {
+    "kicker": "Qué pasa después",
+    "heading": "Desde tu primer hola.",
+    "teamLink": "Conoce al equipo",
+    "steps": [
+      {
+        "n": "01",
+        "h": "Conocemos tus planes.",
+        "p": "Dónde te gustaría estar, cómo usarías tu casa y qué es importante para ti."
+      },
+      {
+        "n": "02",
+        "h": "Recibes los datos reales.",
+        "p": "Disponibilidad, precio de la participación y gastos corrientes de las casas que encajan. Si una casa no te conviene, te lo decimos."
+      },
+      {
+        "n": "03",
+        "h": "Tú decides qué viene después.",
+        "p": "Pregunta lo que quieras, te presentamos al equipo que gestiona la casa, o tómate tu tiempo."
+      }
+    ]
+  }
+}

@@ -16,109 +16,150 @@
    overflowing, non-wrapping strip on mobile. The Header's switcher styling
    lives ONLY in globals.css now — do not restyle it from this file. */
 
-/* ── Pillar / long-form article pages (/es/copropiedad/, /fr/copropriete-…/) */
-.cop-pillar { padding-top: 90px; background: #FFFFFF; }
+/* ── Pillar / long-form article pages ────────────────────────────────────
+   /es/copropiedad/, /fr/copropriete-residence-secondaire/,
+   /de/miteigentum-ferienimmobilie/ and the six locale pillars rendered by
+   components/PillarPage.js.
+
+   Restyled 22 Sep 2026 to the site redesign: black type on white, Poppins for
+   headings and Inter for body, no navy and no gold. These pages sit inside the
+   redesign shell now (.rd .rd-home-light), so the nav and footer match the
+   rest of the site; what follows is the article itself.
+
+   One live bug went with it: the CTA button had ended up black-on-navy after
+   the de-golding sweep — a black background with navy text, all but unreadable
+   — with a gold hover still underneath it. */
+.cop-pillar { padding-top: 96px; background: #ffffff; }
 .cop-pillar-inner {
-  max-width: 800px;
+  max-width: 760px;
   margin: 0 auto;
   padding: 3rem 1.5rem 5rem;
-  font-family: var(--font-nunito, Arial, sans-serif);
-  color: #2C4A5E;
+  font-family: var(--rd-body);
+  color: #1a1a1a;
 }
-.cop-pillar-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid #6b6b6b; }
+.cop-pillar-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid #e6e6e6; }
 .cop-pillar-eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  font-size: 0.74rem;
   color: #6b6b6b;
   margin: 0 0 1rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 .cop-pillar-header h1 {
-  font-family: var(--font-playfair, Georgia, serif);
-  font-size: clamp(2rem, 4.5vw, 3rem);
-  line-height: 1.15;
+  font-family: var(--rd-head);
+  font-size: clamp(2.1rem, 4.6vw, 3.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   margin: 0 0 1.25rem;
-  font-weight: 600;
-  color: #2C4A5E;
+  font-weight: 500;
+  color: #111111;
 }
-.cop-pillar-lead { font-size: 1.18rem; line-height: 1.65; color: #4a6478; }
+.cop-pillar-lead { font-size: 1.15rem; line-height: 1.7; color: #3d3d3d; }
 
 .cop-pillar-callout {
-  background: #F5F2EC;
-  border-left: 4px solid #6b6b6b;
+  background: #f5f5f5;
+  border-left: 2px solid #111111;
   padding: 1.5rem 1.75rem;
   margin: 2.5rem 0;
 }
-.cop-pillar-callout h2 { font-size: 1.05rem; margin: 0 0 0.5rem; font-family: var(--font-playfair, Georgia, serif); }
-.cop-pillar-callout p { margin: 0; font-size: 0.97rem; line-height: 1.6; }
+.cop-pillar-callout h2 { font-size: 1.05rem; margin: 0 0 0.5rem; font-family: var(--rd-head); font-weight: 500; }
+.cop-pillar-callout p { margin: 0; font-size: 0.97rem; line-height: 1.7; }
+
+.cop-pillar-note {
+  background: #f5f5f5;
+  border-left: 2px solid #111111;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.97rem;
+  line-height: 1.7;
+}
 
 .cop-pillar-toc {
-  background: #F5F2EC;
+  background: #f5f5f5;
   padding: 1.75rem 2rem;
   margin: 2.5rem 0 3.5rem;
 }
 .cop-pillar-toc h2 {
-  font-size: 0.85rem;
+  font-size: 0.74rem;
   margin: 0 0 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   color: #6b6b6b;
-  font-family: var(--font-nunito, Arial, sans-serif);
-  font-weight: 700;
-}
-.cop-pillar-toc ol { margin: 0; padding-left: 1.5rem; line-height: 1.9; }
-.cop-pillar-toc a { color: #2C4A5E; text-decoration: none; }
-.cop-pillar-toc a:hover { color: #6b6b6b; text-decoration: underline; }
-
-.cop-pillar section { margin-top: 3rem; }
-.cop-pillar h2 {
-  font-family: var(--font-playfair, Georgia, serif);
-  font-size: 1.85rem;
-  margin: 0 0 1.25rem;
+  font-family: var(--rd-body);
   font-weight: 600;
-  color: #2C4A5E;
-  scroll-margin-top: 100px;
 }
-.cop-pillar h3 { font-size: 1.2rem; margin: 1.75rem 0 0.6rem; font-weight: 700; color: #2C4A5E; }
-.cop-pillar p { font-size: 1.05rem; line-height: 1.75; margin: 0 0 1rem; color: #3a4a5a; }
-.cop-pillar ul, .cop-pillar ol { line-height: 1.75; padding-left: 1.5rem; margin: 1rem 0; color: #3a4a5a; }
-.cop-pillar ul li, .cop-pillar ol li { margin-bottom: 0.5rem; }
-.cop-pillar a { color: #6b6b6b; }
+.cop-pillar-toc ol { margin: 0; padding-left: 1.5rem; line-height: 1.95; }
+.cop-pillar-toc a { color: #111111; text-decoration: none; border-bottom: 1px solid #d0d0d0; }
+.cop-pillar-toc a:hover { border-bottom-color: #111111; }
 
+.cop-pillar section { margin-top: 3.25rem; }
+.cop-pillar h2 {
+  font-family: var(--rd-head);
+  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+  font-weight: 500;
+  color: #111111;
+  scroll-margin-top: 110px;
+}
+.cop-pillar h3 {
+  font-family: var(--rd-head);
+  font-size: 1.15rem;
+  margin: 1.9rem 0 0.6rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #111111;
+}
+.cop-pillar p { font-size: 1.03rem; line-height: 1.78; margin: 0 0 1rem; color: #3d3d3d; }
+.cop-pillar ul, .cop-pillar ol { line-height: 1.78; padding-left: 1.4rem; margin: 1rem 0; color: #3d3d3d; }
+.cop-pillar ul li, .cop-pillar ol li { margin-bottom: 0.5rem; }
+.cop-pillar strong { color: #111111; font-weight: 600; }
+.cop-pillar a { color: #111111; text-decoration: none; border-bottom: 1px solid #c8c8c8; }
+.cop-pillar a:hover { border-bottom-color: #111111; }
+
+.cop-pillar-table-wrap { overflow-x: auto; margin: 1.5rem 0; }
 .cop-pillar-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
 .cop-pillar-table th,
-.cop-pillar-table td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid #e5e0d2; vertical-align: top; }
-.cop-pillar-table th { background: #F5F2EC; font-weight: 700; color: #2C4A5E; }
+.cop-pillar-table td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid #e6e6e6; vertical-align: top; }
+.cop-pillar-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #111111;
+  font-family: var(--rd-body);
+  letter-spacing: 0.02em;
+}
 
 .cop-pillar-cta {
   margin-top: 4rem;
-  padding: 2.5rem 2rem;
-  background: #2C4A5E;
-  color: #fff;
+  padding: 3rem 2rem;
+  background: #111111;
+  color: #ffffff;
   text-align: center;
 }
-.cop-pillar-cta h2 { color: #fff; margin: 0 0 1rem; }
-.cop-pillar-cta p { color: rgba(255,255,255,0.85); }
+.cop-pillar-cta h2 { color: #ffffff; margin: 0 0 1rem; }
+.cop-pillar-cta p { color: rgba(255, 255, 255, 0.82); }
 .cop-pillar-cta a {
   display: inline-block;
-  margin: 0.5rem 0.5rem 0;
-  padding: 0.85rem 1.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.85rem;
+  margin: 0.6rem 0.4rem 0;
+  padding: 0.95rem 1.9rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
   text-decoration: none;
-  font-family: var(--font-nunito, Arial, sans-serif);
+  border: 0;
+  font-family: var(--rd-body);
 }
-.cop-pillar-cta a.cop-cta-primary { background:#111111; color: #2C4A5E; }
-.cop-pillar-cta a.cop-cta-secondary { background: transparent; color: #fff; border: 1.5px solid #fff; }
-.cop-pillar-cta a.cop-cta-primary:hover { background: #d9b85a; }
-.cop-pillar-cta a.cop-cta-secondary:hover { background: #fff; color: #2C4A5E; }
+.cop-pillar-cta a.cop-cta-primary { background: #ffffff; color: #111111; }
+.cop-pillar-cta a.cop-cta-secondary { background: transparent; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.55); }
+.cop-pillar-cta a.cop-cta-primary:hover { background: #e6e6e6; }
+.cop-pillar-cta a.cop-cta-secondary:hover { background: #ffffff; color: #111111; }
 
 @media (max-width: 720px) {
+  .cop-pillar { padding-top: 76px; }
   .cop-pillar-inner { padding: 2rem 1rem 4rem; }
-  .cop-pillar-header h1 { font-size: 1.85rem; }
-  .cop-pillar h2 { font-size: 1.5rem; }
+  .cop-pillar-toc { padding: 1.4rem 1.25rem; }
   .cop-pillar-table { font-size: 0.88rem; }
 }

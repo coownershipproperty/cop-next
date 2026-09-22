@@ -1,10 +1,10 @@
-// /no/kontakt/ — contact. The real contact page (trust cards,
-// research links), translated. Copy: content/contact/no.json.
-import LocaleContact from '@/components/LocaleContact';
+// /no/ — contact page. The same component the English contact page renders,
+// with this locale's copy from content/contact/no.json.
+import ContactView from '@/components/rd/ContactView';
 import { localeJsonStaticProps } from '@/lib/home-page-data';
 
 export const getStaticProps = localeJsonStaticProps('contact', 'no');
 
-export default function Contact_no(props) {
-  return <LocaleContact locale="no" {...props} />;
+export default function ContactNO(props) {
+  return <ContactView locale="no" {...props} />;
 }

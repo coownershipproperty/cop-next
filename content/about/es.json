@@ -1,0 +1,83 @@
+{
+  "_note": "About page copy for /es/. Rendered by components/rd/AboutView.js — the same component the English about page uses. Text lifted from the hand-written page it replaced on 22 Sep 2026.",
+  "meta": {
+    "title": "Quiénes somos | Co-Ownership Property",
+    "description": "Conoce al equipo detrás de Co-Ownership Property. Fundada en 2022 por David Olsson, ayudamos a compradores inteligentes a acceder a segundas residencias de lujo a través de la copropiedad fraccionada.",
+    "ogTitle": "Quiénes somos | Co-Ownership Property",
+    "ogDescription": "Conoce al equipo que ayuda a compradores inteligentes a acceder a segundas residencias de lujo a través de la copropiedad."
+  },
+  "hero": {
+    "kicker": "Nuestra historia · Desde 2022",
+    "headingTop": "Otra forma de ser propietario.",
+    "headingAccent": "Un motivo muy personal.",
+    "lead": "Actuando 100% del lado del comprador, colaboramos solo con los operadores más reputados, transparentes y profesionalmente gestionados de Europa y Estados Unidos. No estamos vinculados a ninguna plataf",
+    "teamLink": "Más sobre el equipo"
+  },
+  "story": {
+    "kicker": "De los Alpes a una nueva idea",
+    "headingTop": "Una nueva forma de poseer.",
+    "headingBottom": "El mismo deseo de un hogar.",
+    "quote": "Los clientes con los que había trabajado durante años seguían queriendo comprar — pero ya no podían permitírselo. Simplemente, los precios se habían disparado.",
+    "quoteAttr": "David Olsson · Fundador",
+    "paragraphs": [
+      "Actuando 100% del lado del comprador, colaboramos solo con los operadores más reputados, transparentes y profesionalmente gestionados de Europa y Estados Unidos. No estamos vinculados a ninguna plataforma o promotora en concreto. Si una propiedad no cumple nuestros estándares, no aparece en este sitio.",
+      "Más de 20 años vendiendo propiedades premium de esquí en más de 40 estaciones alpinas francesas. David vio cómo el mercado se transformaba y los clientes que antes podían comprar quedaban progresivamente fuera del mercado. Fundó COP en 2022 porque creía que las propiedades excepcionales debían pertenecer a quienes las aman — no solo a quienes pueden permitírselas íntegramente.",
+      "Criado entre Londres y Marbella, con raíces en cuatro países, Dylan creció con un instinto natural para entender al comprador internacional. Tras graduarse en negocios por la Universidad de Manchester, se propuso reducir la distancia entre la aspiración y la realidad — haciendo accesibles las viviendas vacacionales de alta gama a más personas mediante un enfoque transparente centrado en el cliente.",
+      "David pasó más de dos décadas vendiendo propiedades premium en los Alpes franceses. En los primeros años, los tipos hipotecarios franceses estaban por debajo del 2%, los plazos llegaban a 25 años, y los precios en estaciones alpinas — aunque nunca baratos — guardaban una relación razonable con los de París. Comprar una propiedad de esquí era una aspiración realista para una familia profesional."
+    ],
+    "howLink": "Cómo funciona la copropiedad"
+  },
+  "team": {
+    "kicker": "Las personas detrás de COP",
+    "heading": "Conoce al equipo.",
+    "people": [
+      {
+        "key": "david",
+        "name": "David Olsson",
+        "role": "Fundador",
+        "paragraphs": [
+          "Más de 20 años vendiendo propiedades premium de esquí en más de 40 estaciones alpinas francesas. David vio cómo el mercado se transformaba y los clientes que antes podían comprar quedaban progresivamente fuera del mercado. Fundó COP en 2022 porque creía que las propiedades excepcionales debían pertenecer a quienes las aman — no solo a quienes pueden permitírselas íntegramente."
+        ]
+      },
+      {
+        "key": "dylan",
+        "name": "Dylan Olsson",
+        "role": "Cofundador y responsable de ventas",
+        "paragraphs": [
+          "Criado entre Londres y Marbella, con raíces en cuatro países, Dylan creció con un instinto natural para entender al comprador internacional. Tras graduarse en negocios por la Universidad de Manchester, se propuso reducir la distancia entre la aspiración y la realidad — haciendo accesibles las viviendas vacacionales de alta gama a más personas mediante un enfoque transparente centrado en el cliente."
+        ]
+      },
+      {
+        "key": "poppy",
+        "name": "Poppy",
+        "role": "Jefa de seguridad",
+        "paragraphs": [
+          "Tolerancia cero con ardillas, carteros y gatos no autorizados. Se sabe que acepta sobornos en forma de queso cheddar o caricias en la barriga."
+        ]
+      }
+    ]
+  },
+  "process": {
+    "kicker": "Cómo trabajamos contigo",
+    "headingTop": "Una conversación.",
+    "headingBottom": "No una cadena de montaje comercial.",
+    "steps": [
+      {
+        "h": "Cuéntanos qué tienes en mente.",
+        "p": "Un destino que te gusta, el tiempo que quieres pasar allí, tu presupuesto. No hace falta que lo tengas todo decidido."
+      },
+      {
+        "h": "Habla con una persona. Mira las cifras.",
+        "p": "Respondemos en un día laborable con disponibilidad real y las cifras de las casas que encajan. Si una casa no se ajusta a tus planes, te lo decimos."
+      },
+      {
+        "h": "Conoce al equipo que gestiona la casa.",
+        "p": "Te presentamos a quienes gestionan la propiedad, para que preguntes por la casa, por la propiedad y por cómo funcionarán tus estancias."
+      },
+      {
+        "h": "Seguimos contigo.",
+        "p": "Desde la primera conversación hasta la compra, seguimos implicados y te ayudamos a conseguir las respuestas que necesitas."
+      }
+    ]
+  }
+}

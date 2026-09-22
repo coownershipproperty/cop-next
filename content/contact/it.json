@@ -1,27 +1,46 @@
 {
- "meta": {
-  "title": "Contatti | Co-Ownership Property",
-  "description": "Parla con il team COP. Domande sulla comproprietà frazionata? Rispondiamo entro poche ore — senza pressioni commerciali, senza impegno.",
-  "ogTitle": "Contatta Co-Ownership Property",
-  "ogDescription": "Domande sulla comproprietà frazionata? Parla con il nostro team — senza pressioni commerciali, senza impegno."
- },
- "hero": {
-  "eyebrow": "Siamo Qui per Aiutarti",
-  "headingHtml": "Mettiti in <em>Contatto</em>",
-  "subtitle": "Domande sulla comproprietà, su una proprietà specifica o semplicemente su come funziona il tutto? Riceverai risposte chiare — senza alcuna pressione commerciale."
- },
- "trust": {
-  "eyebrow": "Come Lavoriamo",
-  "heading": "Cosa aspettarti quando ci contatti",
-  "card1": { "h": "Scrivici direttamente", "pTop": "Preferisci scrivere? Ci trovi a", "pBottom": "Leggiamo personalmente ogni messaggio." },
-  "card2": { "h": "Una risposta rapida", "p": "Di solito rispondiamo entro poche ore — spesso anche prima. Per le richieste dagli Stati Uniti, considera il fuso orario. Riceverai sempre una nostra risposta." },
-  "card3": { "h": "Nessuna pressione, nessun impegno", "p": "Ti facciamo qualche domanda, ti indichiamo le case giuste e lasciamo la decisione interamente nelle tue mani. Siamo indipendenti — non legati a nessuna piattaforma né a nessun promotore." }
- },
- "links": {
-  "eyebrow": "Stai Ancora Valutando?",
-  "heading": "Non sei ancora pronto a contattarci?",
-  "card1": { "cat": "Come Funziona", "title": "Il processo di acquisto, passo dopo passo", "desc": "Dalla prima richiesta ai contratti firmati — cosa succede, in che ordine e cosa devi preparare.", "arrow": "Leggi la guida →" },
-  "card2": { "cat": "Le Nostre Case", "title": "Sfoglia tutte le proprietà in un unico posto", "desc": "Ville, appartamenti e chalet in Europa e negli Stati Uniti — tutti con il prezzo della quota indicato fin da subito.", "arrow": "Scopri le case →" },
-  "card3": { "cat": "Il Nostro Blog", "title": "Analisi di mercato e guide per l'acquirente", "desc": "Articoli di approfondimento su destinazioni, strutture legali, rendimenti dell'investimento e tutto ciò che un acquirente attento deve sapere.", "arrow": "Sfoglia gli articoli →" }
- }
+  "_note": "Contact page copy for /it/. Rendered by components/rd/ContactView.js — the same component the English contact page uses.",
+  "meta": {
+    "title": "Contatti | Co-Ownership Property",
+    "description": "Parla con il team COP. Domande sulla comproprietà frazionata? Rispondiamo entro poche ore — senza pressioni commerciali, senza impegno.",
+    "ogTitle": "Contatta Co-Ownership Property",
+    "ogDescription": "Domande sulla comproprietà frazionata? Parla con il nostro team — senza pressioni commerciali, senza impegno."
+  },
+  "nav": {
+    "emailUs": "Scrivici"
+  },
+  "hero": {
+    "kicker": "Contatti",
+    "headingTop": "Parliamo della",
+    "headingAccent": "tua prossima casa.",
+    "description": "Una casa che hai notato. Una destinazione che ami. O una domanda sulla comproprietà. Raccontaci cosa hai in mente.",
+    "replyPromise": "Una risposta personale entro un giorno lavorativo.",
+    "emailKicker": "Preferisci l'email?"
+  },
+  "form": {
+    "kicker": "Inviaci un messaggio",
+    "note": "Solo una conversazione. Senza impegno."
+  },
+  "next": {
+    "kicker": "Cosa succede dopo",
+    "heading": "Dal tuo primo ciao.",
+    "teamLink": "Conosci il team",
+    "steps": [
+      {
+        "n": "01",
+        "h": "Capiamo i tuoi progetti.",
+        "p": "Dove ti piacerebbe essere, come useresti la tua casa e cosa conta per te."
+      },
+      {
+        "n": "02",
+        "h": "Ricevi i dati reali.",
+        "p": "Disponibilità, prezzo della quota e costi di gestione delle case adatte. Se una casa non fa per te, te lo diciamo."
+      },
+      {
+        "n": "03",
+        "h": "Decidi tu il passo successivo.",
+        "p": "Fai altre domande, chiedi di essere presentato al team che gestisce la casa, o prenditi il tuo tempo."
+      }
+    ]
+  }
 }

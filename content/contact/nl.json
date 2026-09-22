@@ -1,27 +1,46 @@
 {
- "meta": {
-  "title": "Contact | Co-Ownership Property",
-  "description": "Neem contact op met het COP-team. Vragen over mede-eigendom van een vakantiewoning? Wij reageren binnen enkele uren — zonder verkoopdruk, geheel vrijblijvend.",
-  "ogTitle": "Contact Co-Ownership Property",
-  "ogDescription": "Vragen over mede-eigendom? Spreek met ons team — zonder verkoopdruk, geheel vrijblijvend."
- },
- "hero": {
-  "eyebrow": "Wij Helpen U Graag",
-  "headingHtml": "Neem <em>Contact</em> Op",
-  "subtitle": "Vragen over mede-eigendom, over een specifieke woning, of gewoon over hoe het allemaal werkt? U krijgt heldere antwoorden — zonder verkoopdruk."
- },
- "trust": {
-  "eyebrow": "Zo Werken Wij",
-  "heading": "Wat u kunt verwachten wanneer u contact opneemt",
-  "card1": { "h": "Schrijf ons direct", "pTop": "Liever schriftelijk? U bereikt ons via", "pBottom": "Wij lezen elk bericht persoonlijk." },
-  "card2": { "h": "Snel antwoord", "p": "Meestal reageren wij binnen enkele uren — vaak sneller. Voor vragen over de VS vragen wij uw begrip voor het tijdsverschil. U krijgt altijd antwoord van ons." },
-  "card3": { "h": "Geen druk, geen verplichtingen", "p": "Wij stellen vragen, wijzen u de weg naar de juiste woningen en laten de beslissing volledig aan u. Wij zijn onafhankelijk — niet gebonden aan één platform of ontwikkelaar." }
- },
- "links": {
-  "eyebrow": "Nog Aan Het Oriënteren?",
-  "heading": "Nog niet klaar om contact op te nemen?",
-  "card1": { "cat": "Hoe Het Werkt", "title": "Het aankoopproces, stap voor stap", "desc": "Van eerste aanvraag tot getekende contracten — wat er gebeurt, in welke volgorde, en wat u moet voorbereiden.", "arrow": "Lees de gids →" },
-  "card2": { "cat": "Onze Woningen", "title": "Bekijk alle woningen op één plek", "desc": "Villa's, appartementen en chalets in Europa en de VS — allemaal met de prijs per aandeel er direct bij.", "arrow": "Bekijk de woningen →" },
-  "card3": { "cat": "Ons Blog", "title": "Marktanalyses en kopersgidsen", "desc": "Diepgaande artikelen over bestemmingen, juridische structuren, rendement en alles wat een slimme koper moet weten.", "arrow": "Blader door de artikelen →" }
- }
+  "_note": "Contact page copy for /nl/. Rendered by components/rd/ContactView.js — the same component the English contact page uses.",
+  "meta": {
+    "title": "Contact | Co-Ownership Property",
+    "description": "Neem contact op met het COP-team. Vragen over mede-eigendom van een vakantiewoning? Wij reageren binnen enkele uren — zonder verkoopdruk, geheel vrijblijvend.",
+    "ogTitle": "Contact Co-Ownership Property",
+    "ogDescription": "Vragen over mede-eigendom? Spreek met ons team — zonder verkoopdruk, geheel vrijblijvend."
+  },
+  "nav": {
+    "emailUs": "Mail ons"
+  },
+  "hero": {
+    "kicker": "Contact",
+    "headingTop": "Laten we praten over",
+    "headingAccent": "uw volgende woning.",
+    "description": "Een woning die u hebt gezien. Een bestemming waar u van houdt. Of een vraag over mede-eigendom. Vertel ons wat u in gedachten hebt.",
+    "replyPromise": "Een persoonlijk antwoord binnen één werkdag.",
+    "emailKicker": "Liever e-mail?"
+  },
+  "form": {
+    "kicker": "Stuur ons een bericht",
+    "note": "Gewoon een gesprek. Zonder verplichting."
+  },
+  "next": {
+    "kicker": "Wat er hierna gebeurt",
+    "heading": "Vanaf uw eerste hallo.",
+    "teamLink": "Ontmoet het team",
+    "steps": [
+      {
+        "n": "01",
+        "h": "We leren uw plannen kennen.",
+        "p": "Waar u zou willen zijn, hoe u uw woning zou gebruiken en wat voor u belangrijk is."
+      },
+      {
+        "n": "02",
+        "h": "U krijgt de echte cijfers.",
+        "p": "Beschikbaarheid, prijs per aandeel en lopende kosten van de woningen die passen. Past een woning niet, dan zeggen we dat."
+      },
+      {
+        "n": "03",
+        "h": "U bepaalt wat er daarna komt.",
+        "p": "Stel meer vragen, laat u voorstellen aan het beherende team, of neem rustig de tijd."
+      }
+    ]
+  }
 }

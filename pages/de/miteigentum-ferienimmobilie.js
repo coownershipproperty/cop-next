@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Header from '@/components/Header';
+import Nav from '@/components/rd/Nav';
 import Footer from '@/components/Footer';
 import hreflangLinks from '@/components/HreflangLinks';
 
@@ -74,7 +74,8 @@ export default function MiteigentumFerienimmobiliePillar() {
           }}
         />
       </Head>
-      <Header />
+      <div className="rd rd-home-light rd-pillar">
+      <Nav />
 
       <main className="cop-pillar">
         <article className="cop-pillar-inner">
@@ -664,6 +665,8 @@ export default function MiteigentumFerienimmobiliePillar() {
       </main>
 
       <Footer />
+
+      </div>
     </>
   );
 }

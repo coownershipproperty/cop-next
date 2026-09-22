@@ -1,0 +1,46 @@
+{
+  "_note": "Contact page copy for /fr/. Rendered by components/rd/ContactView.js — the same component the English contact page uses. Meta text lifted from the hand-written page it replaced on 22 Sep 2026.",
+  "meta": {
+    "title": "Contact | Co-Ownership Property",
+    "description": "Parlez à l'équipe COP. Questions sur la copropriété de résidence secondaire ? Nous répondons sous quelques heures — sans pression commerciale, sans engagement.",
+    "ogTitle": "Contacter Co-Ownership Property",
+    "ogDescription": "Questions sur la copropriété ? Parlez à notre équipe — sans pression commerciale, sans engagement."
+  },
+  "nav": {
+    "emailUs": "Écrivez-nous"
+  },
+  "hero": {
+    "kicker": "Contact",
+    "headingTop": "Parlons de",
+    "headingAccent": "votre prochaine maison.",
+    "description": "Une maison que vous avez repérée. Une destination qui vous plaît. Ou une question sur la copropriété. Dites-nous ce que vous avez en tête.",
+    "replyPromise": "Une réponse personnelle sous un jour ouvré.",
+    "emailKicker": "Vous préférez l'e-mail ?"
+  },
+  "form": {
+    "kicker": "Envoyez-nous un message",
+    "note": "Une simple conversation. Sans engagement."
+  },
+  "next": {
+    "kicker": "Ce qui se passe ensuite",
+    "heading": "Dès votre premier bonjour.",
+    "teamLink": "Rencontrer l'équipe",
+    "steps": [
+      {
+        "n": "01",
+        "h": "Nous comprenons votre projet.",
+        "p": "Où vous aimeriez être, comment vous utiliseriez votre maison et ce qui compte pour vous."
+      },
+      {
+        "n": "02",
+        "h": "Vous obtenez les vrais chiffres.",
+        "p": "Disponibilité, prix de la part et charges courantes des maisons qui conviennent. Si une maison ne convient pas, nous le disons."
+      },
+      {
+        "n": "03",
+        "h": "Vous décidez de la suite.",
+        "p": "Posez d'autres questions, demandez une mise en relation avec l'équipe qui gère la maison, ou prenez votre temps."
+      }
+    ]
+  }
+}
