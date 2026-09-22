@@ -1969,7 +1969,10 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             <h2 className="pp-heading">{t.look_heading}</h2>
             <p className="pp-look-sub">{t.look_sub}</p>
             <div className="pp-look-actions">
-              <button type="button" className="pp-look-btn" onClick={() => setLightbox(0)}>
+              {/* Same gate as the lock box: unlocked visitors go to the full
+                  gallery, everyone else is asked for their details first —
+                  this used to open a lightbox of the three public photos. */}
+              <button type="button" className="pp-look-btn" onClick={() => unlocked ? viewGallery() : setShowUnlock(true)}>
                 {t.look_gallery_btn}
               </button>
               <button

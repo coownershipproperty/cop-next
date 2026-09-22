@@ -100,7 +100,7 @@
 .page :global(.cop-fin-inner) { display:block; padding:0; }
 .page :global(.cop-fin-left) { margin-bottom:24px; }
 .page :global(.cop-fin-h1) { font:400 29px/1.2 var(--rd-head); color:var(--rd-ink); }
-.page :global(.cop-fin-h1 em) { color:var(--rd-gold); font-style:normal; }
+.page :global(.cop-fin-h1 em) { color:#1a1a1a; font-style:normal; }
 .page :global(.cop-fin-sub),.page :global(.cop-fin-body) { color:#b9b5ac; font:400 14px/1.8 var(--rd-body); }
 .page :global(.cop-fin-card) { background:#ffffff; }
 .page :global(.pp-stickybar) { background:#ffffff; }

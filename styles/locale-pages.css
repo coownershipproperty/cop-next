@@ -111,7 +111,7 @@
   text-decoration: none;
   font-family: var(--font-nunito, Arial, sans-serif);
 }
-.cop-pillar-cta a.cop-cta-primary { background: #6b6b6b; color: #2C4A5E; }
+.cop-pillar-cta a.cop-cta-primary { background:#111111; color: #2C4A5E; }
 .cop-pillar-cta a.cop-cta-secondary { background: transparent; color: #fff; border: 1.5px solid #fff; }
 .cop-pillar-cta a.cop-cta-primary:hover { background: #d9b85a; }
 .cop-pillar-cta a.cop-cta-secondary:hover { background: #fff; color: #2C4A5E; }

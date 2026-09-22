@@ -210,6 +210,7 @@ const COPY = {
 const C = {
   navy:  '#143047',
   gold:  '#6b6b6b',
+  accent: '#1a1a1a',
   cream: '#F5F2EC',
   muted: '#6B8A9E',
   white: '#FFFFFF',
@@ -389,14 +390,14 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', shar
         @media (max-width: 560px) { .cop-fin-h1 { font-size: 34px; } }
         .cop-fin-h1 em {
           font-style: italic;
-          color: ${C.gold};
+          color: ${C.accent};
           font-weight: 400;
         }
         .cop-fin-sub {
           font-family: 'Nunito Sans', Arial, sans-serif;
           font-size: 15px;
           font-weight: 600;
-          color: ${C.gold};
+          color: #4a4a4a;
           margin: 0 0 16px;
         }
         .cop-fin-body {
@@ -557,7 +558,7 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', shar
           padding: 0;
           transition: background 150ms ease, border-color 150ms ease;
         }
-        .cop-fin-btn:hover { background: ${C.gold}; color: ${C.white}; border-color: ${C.gold}; }
+        .cop-fin-btn:hover { background: #111111; color: ${C.white}; border-color: #111111; }
         .cop-fin-btn:active { transform: translateY(1px); }
 
         /* Result band — stacked feature panel for clean alignment */
