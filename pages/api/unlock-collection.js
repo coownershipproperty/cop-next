@@ -29,7 +29,26 @@ export default async function handler(req, res) {
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
   const { name, email, phone, collectionSlug, message } = req.body;
-  const collection = COLLECTIONS[collectionSlug];
+  let collection = COLLECTIONS[collectionSlug];
+  // Database collections (lib/collections.js). In a local preview build a
+  // 'preview' collection resolves too; for those nothing is written to the
+  // CRM and no email goes out, so testing the unlock never creates a lead.
+  let previewOnly = false;
+  if (!collection && typeof collectionSlug === 'string' && /^[a-z0-9-]+$/.test(collectionSlug)) {
+    const { loadCollection } = await import('@/lib/collections');
+    const dbc = await loadCollection(collectionSlug);
+    if (dbc) {
+      const places = (dbc.homes || []).map(h => h.city).filter(Boolean);
+      collection = {
+        title: dbc.name,
+        baseUrl: `https://co-ownership-property.com/collections/${dbc.slug}/`,
+        destinations: (dbc.homes || []).map(h => h.region || h.city).filter(Boolean).join('; '),
+        heroImage: dbc.hero_image || undefined,
+        summary: `Your personal link opens the full collection: every photo and the floor plans for the ${places.length} homes in ${places.slice(0, -1).join(', ')}${places.length > 1 ? ' and ' : ''}${places.slice(-1)}.`,
+      };
+      previewOnly = dbc.status === 'preview';
+    }
+  }
   const cleanEmail = String(email).trim().toLowerCase();
   const cleanName = String(name || '').trim();
   const cleanPhone = String(phone || '').trim();
@@ -44,6 +63,8 @@ export default async function handler(req, res) {
 
   const { limited } = await checkRateLimit(cleanEmail, 'collection_unlock', 5 * 60 * 1000, 5);
   if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
+
+  if (previewOnly) return res.status(200).json({ ok: true, preview: true });
 
   const token = Buffer.from(JSON.stringify({ n: cleanName, e: cleanEmail, c: collectionSlug })).toString('base64url');
   const accessUrl = `${collection.baseUrl}?access=${token}`;
@@ -87,7 +108,7 @@ export default async function handler(req, res) {
       to: cleanEmail,
       toName: cleanName || null,
       subject: `Your private access to ${collection.title}`,
-      template: React.createElement(CollectionAccessEmail, { firstName: firstName || 'there', accessUrl }),
+      template: React.createElement(CollectionAccessEmail, { firstName: firstName || 'there', accessUrl, collectionTitle: collection.title, heroImage: collection.heroImage, summary: collection.summary }),
       templateName: 'collection-access',
       templateProps: { firstName, accessUrl, collectionSlug },
       trigger: 'collection_access_requested',

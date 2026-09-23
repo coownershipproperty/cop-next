@@ -9,6 +9,8 @@ import { getFavSlugs, onFavsChange } from '@/lib/favs';
 import savedStyles from '@/styles/saved-nav.module.css';
 import { localeFromPath, t, routePath, SUPPORTED_LOCALES, LOCALE_META, switchLocalePath, NOT_AVAILABLE_LABEL } from '@/lib/i18n';
 
+const COLLECTIONS_NAV = process.env.NEXT_PUBLIC_COLLECTIONS_PREVIEW === '1';
+
 const ITEMS = [
   { key: 'home',       labelKey: 'nav.home' },
   { key: 'homes',      labelKey: 'nav.our_homes' },
@@ -114,6 +116,12 @@ export default function Nav({ ctaHref, ctaLabel = 'Speak to us', propertyHero = 
     .filter(({ key }) => locale === 'en' || key !== 'blog')
     .map(({ key, labelKey }) => ({ href: routePath(locale, key), label: t(labelKey, locale) }))
     .filter((l) => l.href);
+  // Collections: English only, and only in a local preview build until the
+  // first collection goes Live (see lib/collections.js).
+  if (COLLECTIONS_NAV && locale === 'en') {
+    const at = links.findIndex(l => l.href === routePath(locale, 'homes'));
+    links.splice(at >= 0 ? at + 1 : links.length, 0, { href: '/collections/', label: 'Collections' });
+  }
   const homeHref = routePath(locale, 'home') || '/';
   const clean = path.split(/[?#]/)[0].replace(/\/+$/, '') + '/';
 

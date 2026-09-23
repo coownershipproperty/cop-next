@@ -10,6 +10,8 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
+import CollectionCard from '@/components/CollectionCard';
+import { loadCollections, collectionCardData } from '@/lib/collections';
 import { track } from '@vercel/analytics';
 import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor, t as translate } from '@/lib/i18n';
 import { capDiscreet, GRID_PAGE_SIZE, MAX_DISCREET_PER_PAGE, DEFAULT_DISCREET_MODE } from '@/lib/discreetMix';
@@ -126,7 +128,14 @@ export async function getStaticProps() {
     console.error('our-homes: discreet_grid unreadable, falling back to', DEFAULT_DISCREET_MODE, '-', e?.message);
   }
 
-  return { props: { allProperties, discreetGrid }, revalidate: 3600 };
+  // Multi-home collections (lib/collections.js). New-share collections only:
+  // resale collections pay a fraction of the fee and are never featured.
+  // Empty on the live site until a collection is Live.
+  const collections = (await loadCollections())
+    .filter(x => x.share_type !== 'resale')
+    .map(collectionCardData);
+
+  return { props: { allProperties, discreetGrid, collections }, revalidate: 3600 };
 }
 
 // Fixed top-country order
@@ -828,7 +837,7 @@ const PAGE_SIZE = GRID_PAGE_SIZE;
 // via thin wrapper pages that pass `forceLocale`.
 
 export default function OurHomes({ allProperties, forceLocale, canonicalPath = '/our-homes/',
-  discreetGrid = { mode: DEFAULT_DISCREET_MODE, maxPerPage: MAX_DISCREET_PER_PAGE } }) {
+  discreetGrid = { mode: DEFAULT_DISCREET_MODE, maxPerPage: MAX_DISCREET_PER_PAGE }, collections = [] }) {
   const router = useRouter();
   // forceLocale wins (set by /es/propiedades/ and /fr/proprietes/ wrappers).
   // Otherwise derive from URL path — /our-homes/ always returns 'en'.
@@ -1029,6 +1038,33 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     ...initialCollection.remaining.slice(0, (page - 1) * PAGE_SIZE),
   ], [initialCollection, page]);
   const hasMore = visible.length < filtered.length;
+
+  // Collection cards for the current search: each collection appears once,
+  // led by its first home that matches the destination filters (a London
+  // search shows the London home's photo). English only for now, and never
+  // in sold / discreet-only / bedroom-filtered views.
+  const collectionSlots = useMemo(() => {
+    if (!collections?.length || locale !== 'en') return [];
+    if (availability === 'sold' || onlyDiscreet || minBeds) return [];
+    return collections.map(card => {
+      if (maxBudget && (card.currency !== budgetCurrency || (maxBudget !== 'over-1m' && Number(card.price) > Number(maxBudget)) || (maxBudget === 'over-1m' && Number(card.price) <= 1000000))) return null;
+      const lead = card.homes.find(h => {
+        if (countries.length > 0 && !countries.some(c => c === 'OTHER' ? !TOP_COUNTRIES.includes(h.country) : h.country === c)) return false;
+        if (regions.length > 0) {
+          const inCountry = regions.filter(r => card.homes.some(x => x.country === h.country && propMatchesRegion(x, r)) || allProperties.some(p => p.country === h.country && propMatchesRegion(p, r)));
+          if (inCountry.length > 0 && !inCountry.some(r => propMatchesRegion(h, r))) return false;
+        }
+        return true;
+      });
+      return lead ? { card, leadKey: countries.length || regions.length ? lead.key : null } : null;
+    }).filter(Boolean);
+  }, [collections, locale, availability, onlyDiscreet, minBeds, maxBudget, budgetCurrency, countries, regions, allProperties]);
+  const gridItems = useMemo(() => {
+    const items = visible.map(p => ({ type: 'home', p }));
+    // Third position: visible without scrolling on desktop, after two homes.
+    collectionSlots.slice().reverse().forEach(slot => items.splice(Math.min(2, items.length), 0, { type: 'collection', ...slot }));
+    return items;
+  }, [visible, collectionSlots]);
 
   const hasActiveFilters = countries.length > 0 || regions.length > 0 || sort !== 'newest' || onlyDiscreet || availability !== 'available' || minBeds || maxBudget;
 
@@ -1279,7 +1315,9 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           {filtered.length > 0 ? (
             <>
               <div className="homes-grid" id="homes-grid">
-                {visible.map(p => <div key={p.slug} className="collection-home"><PropertyCard property={p} />{String(p.status).toLowerCase().includes('sold') && <a className="collection-resale" href={`/property/${p.slug}/`}>Previously listed price · Get resale alerts ↗</a>}</div>)}
+                {gridItems.map(item => item.type === 'collection'
+                  ? <div key={`collection-${item.card.slug}`} className="collection-home"><CollectionCard card={item.card} leadKey={item.leadKey} /></div>
+                  : (p => <div key={p.slug} className="collection-home"><PropertyCard property={p} />{String(p.status).toLowerCase().includes('sold') && <a className="collection-resale" href={`/property/${p.slug}/`}>Previously listed price · Get resale alerts ↗</a>}</div>)(item.p))}
               </div>
               {hasMore && (
                 <div className="load-more-wrap">

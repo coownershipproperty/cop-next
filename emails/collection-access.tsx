@@ -16,36 +16,42 @@ import { EmailColorScheme } from './_color-scheme';
 interface CollectionAccessEmailProps {
   firstName?: string;
   accessUrl: string;
+  collectionTitle?: string;
+  heroImage?: string;
+  summary?: string;
 }
 
+// Defaults are the original Mosaic Collection 14 email; database collections
+// (lib/collections.js) pass their own title, photo and one-line summary.
 export default function CollectionAccessEmail({
   firstName = 'there',
   accessUrl,
+  collectionTitle = 'Mosaic Collection 14',
+  heroImage = 'https://co-ownership-property.com/images/collections/mosaic/mallorca-port-d-andratx.jpg',
+  summary = 'Your personal link brings together the five homes in Mallorca, Tuscany, Chamonix, Barcelona and the South of France, with detailed home information and collection facts in one place.',
 }: CollectionAccessEmailProps) {
   return (
     <Html lang="en">
       <Head>
         <EmailColorScheme />
       </Head>
-      <Preview>Your private access to Mosaic Collection 14</Preview>
+      <Preview>{`Your private access to ${collectionTitle}`}</Preview>
       <Body style={body}>
         <Container style={container}>
           <Section style={header}>
             <Text style={wordmark}>CO-OWNERSHIP PROPERTY</Text>
           </Section>
           <Img
-            src="https://co-ownership-property.com/images/collections/mosaic/mallorca-port-d-andratx.jpg"
-            alt="Mosaic Collection 14"
+            src={heroImage}
+            alt={collectionTitle}
             width="600"
             style={hero}
           />
           <Section style={content}>
-            <Text style={eyebrow}>MOSAIC COLLECTION 14</Text>
+            <Text style={eyebrow}>{collectionTitle.toUpperCase()}</Text>
             <Heading style={heading}>Your private collection guide is ready</Heading>
             <Text style={paragraph}>Hello {firstName},</Text>
-            <Text style={paragraph}>
-              Your personal link brings together the five homes in Mallorca, Tuscany, Chamonix, Barcelona and the South of France, with detailed home information and collection facts in one place.
-            </Text>
+            <Text style={paragraph}>{summary}</Text>
             <Section style={buttonWrap}>
               <Button href={accessUrl} style={button}>VIEW THE COLLECTION GUIDE</Button>
             </Section>
