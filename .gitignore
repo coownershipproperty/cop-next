@@ -68,3 +68,4 @@ Claude outputs/
 
 # Rendered email previews from scripts/render-emails.mjs
 .email-render/
+.trash/

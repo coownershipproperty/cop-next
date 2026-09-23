@@ -311,7 +311,7 @@ export default function PersonalisedNewsletterEmail({
             <Text style={footSmall}>
               Deeded fractional homes in Europe and the USA.<br />
               You are receiving this because you enquired or subscribed on our site.
-              {' '}<Link href={unsubscribeUrl} style={{ color: C.soft, textDecoration: 'underline' }}>Unsubscribe</Link>
+              {' '}<Link href={unsubscribeUrl} style={{ color: C.onDarkMuted, textDecoration: 'underline' }}>Unsubscribe</Link>
             </Text>
           </Section>
 
@@ -327,8 +327,9 @@ const bodyStyle: React.CSSProperties = { margin: 0, padding: '30px 0 40px', back
 const container: React.CSSProperties = { maxWidth: 640, margin: '0 auto' };
 const sheet: React.CSSProperties = { backgroundColor: C.card, border: `1px solid ${C.line}` };
 
-const masthead: React.CSSProperties = { padding: '46px 56px 40px', textAlign: 'center' as const, borderBottom: `1px solid ${C.line}` };
-const wordmark: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.ink, margin: 0, paddingLeft: '0.34em', lineHeight: '1.4' };
+// Black bands top and bottom, like the site's header and footer (David, 23 Sep 2026).
+const masthead: React.CSSProperties = { padding: '46px 56px 40px', textAlign: 'center' as const, backgroundColor: C.black };
+const wordmark: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.onDark, margin: 0, paddingLeft: '0.34em', lineHeight: '1.4' };
 
 const issueStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.soft, margin: '0 0 22px' };
 const h1: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 42, lineHeight: '1.14', fontWeight: 400, color: C.ink, margin: '0 0 26px' };
@@ -355,8 +356,8 @@ const moreLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, color: C
 const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.ink, color: '#FFFFFF', fontFamily: TEXT, fontSize: 14, letterSpacing: '0.22em', textTransform: 'uppercase' as const, padding: '20px 40px', textDecoration: 'none' };
 const nudge: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, lineHeight: '1.7', color: C.ink, margin: '26px 0 0' };
 
-const footer: React.CSSProperties = { padding: '48px 56px 44px', marginTop: 48, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const };
-const footMark: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px', paddingLeft: '0.3em' };
-const footText: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px' };
-const footLink: React.CSSProperties = { color: C.ink, textDecoration: 'none' };
-const footSmall: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, lineHeight: '1.8', color: C.soft, margin: 0 };
+const footer: React.CSSProperties = { padding: '48px 56px 44px', marginTop: 48, backgroundColor: C.black, textAlign: 'center' as const };
+const footMark: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.onDark, margin: '0 0 24px', paddingLeft: '0.3em' };
+const footText: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.onDark, margin: '0 0 24px' };
+const footLink: React.CSSProperties = { color: C.onDark, textDecoration: 'none' };
+const footSmall: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, lineHeight: '1.8', color: C.onDarkMuted, margin: 0 };
