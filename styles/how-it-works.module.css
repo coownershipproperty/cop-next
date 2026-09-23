@@ -162,6 +162,15 @@
 .budgetExample > div:first-child strong { color:#b7b2a8; }
 .budgetExample > div:last-of-type strong { color:#111111; }
 .budgetExample p { font-size:14px; margin:20px 0 0; max-width:380px; color:#b7b2a8; }
+.ownershipVisual { width:180px; margin-top:28px; }
+.ownershipVisual small { display:block; margin-top:12px; color:#595959; font-size:11px; font-weight:500; letter-spacing:.04em; line-height:1.4; text-transform:uppercase; }
+.ownershipPie { position:relative; width:180px; aspect-ratio:1; overflow:hidden; border:1px solid #d3d3ce; border-radius:50%; background:#deded8; isolation:isolate; }
+.ownershipPie::after { content:''; position:absolute; z-index:4; inset:0; border-radius:50%; background:repeating-conic-gradient(from -90deg, transparent 0 44.25deg, rgba(255,255,255,.94) 44.25deg 45deg); pointer-events:none; }
+.pieImage { object-fit:cover; object-position:50% 54%; }
+.wholePie::before { content:''; position:absolute; z-index:2; inset:0; background:rgba(30,30,29,.34); pointer-events:none; }
+.mutedPieImage { filter:grayscale(1); opacity:.25; }
+.shareSliceImage { z-index:2; clip-path:polygon(50% 50%,50% -3%,88% 12%); transform:translate(5px,-5px) scale(1.025); transform-origin:center; filter:saturate(.9) contrast(1.05); }
+.sharePie::before { content:''; position:absolute; z-index:3; inset:-5px; clip-path:polygon(50% 50%,50% -3%,88% 12%); border-radius:50%; background:rgba(30,30,29,.22); transform:translate(5px,-5px) scale(1.025); pointer-events:none; }
 .budgetArrow { align-self:center; display:grid; place-items:center; width:48px; height:48px; padding:0; box-sizing:border-box; border:1px solid #cfcfcf40; border-radius:50%; font-size:24px; line-height:1; color:#cfcfcf; }
 .budgetArrow svg { display:block; margin:0; }
 .budgetExample .exampleNote { grid-column:1/-1; max-width:none; font-size:11px; line-height:1.6; margin:0; padding:20px 0 0; border-top:1px solid #ffffff20; color:#969084; }
@@ -185,6 +194,7 @@
 @media(max-width:760px) {
   .budgetExample { grid-template-columns:1fr; gap:20px; padding:24px 0 0; }
   .budgetArrow { transform:rotate(90deg); justify-self:start; }
+  .ownershipVisual { margin-left:auto; margin-right:auto; }
   .benefits .comparison td { font-size:13px; }
   .page .comparison td:nth-child(2) { background:#fff; color:#595959; }
   .comparison td:nth-child(2)::before { color:#a5977e; }
@@ -278,3 +288,14 @@
   .page.page .faqSection > div:first-child .body { margin-inline:auto; }
 }
 @media(max-width:760px) { .compareHeader { display:none; }.compareRow { padding:22px; }.compareRow > div { gap:20px; }.compareRow p span { display:block; color:#6b6b6b; font-size:11px; margin-bottom:8px; }.page .propertyStrip { height:480px; } }
+
+/* Alternate the hero rhythm: Tuscany lifestyle left, comparison copy right. */
+.comparisonIntro { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); grid-template-areas:"image copy"; gap:6%; align-items:center; margin-bottom:36px; }
+.comparisonCopy { grid-area:copy; min-width:0; }
+.comparisonIntro .benefitLead { margin-bottom:0; }
+.comparisonImage { grid-area:image; position:relative; margin:0; width:100%; aspect-ratio:4 / 3; overflow:hidden; border-radius:4px; background:#eeeee9; }
+.comparisonImage img { object-fit:cover; }
+@media(max-width:760px) {
+  .comparisonIntro { grid-template-columns:minmax(0,1fr); grid-template-areas:"copy"; gap:0; }
+  .comparisonImage { display:none; }
+}

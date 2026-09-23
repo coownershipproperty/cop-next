@@ -26,6 +26,7 @@ import s from '@/styles/how-it-works.module.css';
 import { routePath, numberLocale, ogLocaleFor } from '@/lib/i18n';
 
 const SITE = 'https://co-ownership-property.com';
+const PARIS_INTERIOR = 'https://iotzzoxyckpyatzqcjbo.supabase.co/storage/v1/object/public/property-images/6th-arrondissement-paris-france-2-bed-apartment/gallery-1.jpg';
 
 // Headings that are two or three lines by design; the copy files carry the
 // breaks as newlines so a translator never has to type <br />.
@@ -44,17 +45,46 @@ function Emphasis({ text, phrases }) {
 function OwnershipComparison({ copy }) {
   const c = copy.comparison;
   return <section className={`${s.section} rd-container ${s.benefits}`} id="comparison" aria-labelledby="compare-title">
-    <p className={s.kicker}>{c.kicker}</p>
-    <h2 id="compare-title"><Lines text={`${c.headingTop}\n${c.headingBottom}`} /></h2>
-    <div className={s.ownershipClarifier}>
-      <h3>{c.clarifierHeading}</h3>
-      <p>{c.clarifierBody}</p>
+    <div className={s.comparisonIntro}>
+      <div className={s.comparisonCopy}>
+        <p className={s.kicker}>{c.kicker}</p>
+        <h2 id="compare-title"><Lines text={`${c.headingTop}\n${c.headingBottom}`} /></h2>
+        <div className={s.ownershipClarifier}>
+          <h3>{c.clarifierHeading}</h3>
+          <p>{c.clarifierBody}</p>
+        </div>
+        <p className={s.benefitLead}>{c.lead}</p>
+      </div>
+      <figure className={s.comparisonImage}>
+        <Image
+          src="https://iotzzoxyckpyatzqcjbo.supabase.co/storage/v1/object/public/cop_blog_images/lifestyle-library/tuscany/Family%20sitting%20at%20a%20table%20in%20Tuscany%20with%20the%20Tuscany%20background.jpg"
+          alt={c.imageAlt}
+          fill
+          sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1500px) 42vw, 600px"
+        />
+      </figure>
     </div>
-    <p className={s.benefitLead}>{c.lead}</p>
     <div className={s.budgetExample}>
-      <div><span>{c.budget.wholeLabel}</span><strong>{c.budget.wholePrice}</strong><p>{c.budget.wholeNote}</p></div>
+      <div>
+        <span>{c.budget.wholeLabel}</span><strong>{c.budget.wholePrice}</strong><p>{c.budget.wholeNote}</p>
+        <div className={s.ownershipVisual} role="img" aria-label={c.budget.wholeDiagramLabel}>
+          <div className={`${s.ownershipPie} ${s.wholePie}`}>
+            <Image src={PARIS_INTERIOR} alt="" fill sizes="180px" className={s.pieImage} />
+          </div>
+          <small>{c.budget.wholeDiagramLabel}</small>
+        </div>
+      </div>
       <span className={s.budgetArrow} aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span>
-      <div><span>{c.budget.shareLabel}</span><strong>{c.budget.sharePrice}</strong><p>{c.budget.shareNote}</p></div>
+      <div>
+        <span>{c.budget.shareLabel}</span><strong>{c.budget.sharePrice}</strong><p>{c.budget.shareNote}</p>
+        <div className={s.ownershipVisual} role="img" aria-label={c.budget.shareDiagramLabel}>
+          <div className={`${s.ownershipPie} ${s.sharePie}`}>
+            <Image src={PARIS_INTERIOR} alt="" fill sizes="180px" className={`${s.pieImage} ${s.mutedPieImage}`} />
+            <Image src={PARIS_INTERIOR} alt="" fill sizes="180px" className={`${s.pieImage} ${s.shareSliceImage}`} />
+          </div>
+          <small>{c.budget.shareDiagramLabel}</small>
+        </div>
+      </div>
     </div>
     <div className={s.flowComparison}>{c.rows.slice(1).map(row => <div className={s.flowRow} key={row.h}>
       <div><span className={s.comparisonLabel}>{c.fullLabel}</span><h3>{row.fullHeading}</h3><p>{row.alone}</p></div>
