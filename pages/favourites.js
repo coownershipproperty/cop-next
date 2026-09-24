@@ -7,7 +7,7 @@ import Link from 'next/link';
 import s from '@/styles/saved-homes.module.css';
 import Footer from '@/components/Footer';
 import { FAV_KEY, FAV_EVENT, getFavSlugs, toggleFav, onFavsChange } from '@/lib/favs';
-import { t, propertyHref, DEFAULT_LOCALE, SUPPORTED_LOCALES, routePath, numberLocale } from '@/lib/i18n';
+import { t, propertyHref, DEFAULT_LOCALE, SUPPORTED_LOCALES, routePath, numberLocale, roundPrice } from '@/lib/i18n';
 
 function getSupabase() {
   return createClient(
@@ -256,7 +256,7 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                   const propUrl  = propertyHref(p.slug, locale);
                   const imgSrc   = p.img || (p.images && p.images[0]) || '/images/placeholder.jpg';
                   const price    = p.price
-                    ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString(numberLocale)}`
+                    ? `${CURRENCY_SYM[p.currency] || p.currency}${roundPrice(p.price).toLocaleString(numberLocale)}`
                     : null;
                   const shareDenominator = Number(p.share_denominator);
                   const shareDisplay = Number.isFinite(shareDenominator) && shareDenominator > 0

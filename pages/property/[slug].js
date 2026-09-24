@@ -17,7 +17,7 @@ import DiscreetUnlockModal, { DISCREET_COPY, visitorToken } from '@/components/D
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
-import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice, familyPrefix, destinationAvailableIn } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice, roundPrice, familyPrefix, destinationAvailableIn } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
 import PropertyMap from '@/components/PropertyMap';
 import HoneypotField from '@/components/HoneypotField';
@@ -1090,7 +1090,7 @@ export async function getStaticProps({ params }) {
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
-function fmt(price, currency, locale = 'en-GB') { return `${SYM[currency] || currency}${price.toLocaleString(locale)}`; }
+function fmt(price, currency, locale = 'en-GB') { return `${SYM[currency] || currency}${roundPrice(price).toLocaleString(locale)}`; }
 function fmtApprox(amount, locale = 'en-GB') {
   return (Math.round(amount / 1_000) * 1_000).toLocaleString(locale);
 }

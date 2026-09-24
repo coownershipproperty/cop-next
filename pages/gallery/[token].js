@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { roundPrice } from '@/lib/i18n';
 
 function getSupabase() {
   return createClient(
@@ -549,7 +550,7 @@ export default function GalleryPage({ name, email, property, locale = 'en', prev
 
   const firstName = name ? name.split(' ')[0] : null;
   const sym = { EUR: '€', USD: '$', GBP: '£', CHF: 'CHF ' }[property.currency] || '€';
-  const priceStr = property.price ? `${sym}${Number(property.price).toLocaleString('en-GB')}` : null;
+  const priceStr = property.price ? `${sym}${roundPrice(property.price).toLocaleString('en-GB')}` : null;
   const locationParts = [property.city, property.region, property.country].filter(Boolean);
   const location = [...new Set(locationParts)].join(', ');
 

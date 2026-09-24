@@ -6,7 +6,7 @@ import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
 import DiscreetUnlockModal from '@/components/DiscreetUnlockModal';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
-import { localeFromPath, propertyHref, numberLocale } from '@/lib/i18n';
+import { localeFromPath, propertyHref, numberLocale, roundPrice } from '@/lib/i18n';
 
 // Locale-aware UI strings. Property titles themselves come from translated DB
 // columns (title_es / title_fr) — see localizedTitle() helper in the page that
@@ -301,7 +301,7 @@ export default function PropertyCard({ property: p, priority = false, editorial 
 
   const fromCurrency = p.currency || 'EUR';
   const priceFormatted = p.price
-    ? `${CURRENCY_SYM[fromCurrency] || fromCurrency}${p.price.toLocaleString(localeNumberFmt)}`
+    ? `${CURRENCY_SYM[fromCurrency] || fromCurrency}${roundPrice(p.price).toLocaleString(localeNumberFmt)}`
     : null;
   const convertedAmount = p.price ? convertPrice(p.price, fromCurrency, cx) : null;
   const convertedSym = cx ? (CURRENCY_SYMBOLS[cx.currency] || cx.currency) : null;

@@ -15,6 +15,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ViewingRequestForm from '@/components/ViewingRequestForm';
+import { roundPrice } from '@/lib/i18n';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
@@ -96,7 +97,7 @@ export async function getStaticProps() {
 function formatPrice(price, currency) {
   if (!price) return '';
   const sym = SYM[currency] || '€';
-  return `${sym}${price.toLocaleString('en-GB')}`;
+  return `${sym}${roundPrice(price).toLocaleString('en-GB')}`;
 }
 
 function buildJsonLd(viewings) {

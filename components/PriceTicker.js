@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { roundPrice } from '@/lib/i18n';
 
 // Rolling "buy from" price ticker for the homepage.
 // Self-contained: fetches live entry prices per country from Supabase on mount.
@@ -88,7 +89,7 @@ export default function PriceTicker() {
   if (!items.length) return null;
 
   const fmt = (price, currency) =>
-    `${currency === 'USD' ? '$' : '€'}${Number(price).toLocaleString('en-GB')}`;
+    `${currency === 'USD' ? '$' : '€'}${roundPrice(price).toLocaleString('en-GB')}`;
 
   const cell = (it, key, hidden) => (
     <a
