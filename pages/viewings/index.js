@@ -302,7 +302,7 @@ export default function ViewingsPage({ viewings }) {
       <section className="viewings-close-sec">
         <div className="viewings-close-inner">
           <p>
-            Looking for somewhere else in Europe? Browse our full collection of co-ownership properties — over 350 homes across France, Spain, Italy, Portugal, Austria, and the United Kingdom.
+            Looking for somewhere else in Europe? Browse our full collection of co-ownership properties — hundreds of homes across France, Spain, Italy, Portugal, Austria and beyond.
           </p>
           <a href="/our-homes/" className="viewings-close-btn">Browse all properties →</a>
         </div>
