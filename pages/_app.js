@@ -135,14 +135,19 @@ export default function App({ Component, pageProps }) {
     return () => { stopScroll(); stopReveals(); };
   }, [isPrivate]);
 
+  // No analytics from local previews (David, 24 Sep 2026: his localhost
+  // collection previews were showing up as real visitors in GA4).
+  const track = !isPrivate && process.env.NODE_ENV === 'production';
+
   return (
     <main className={`${playfair.variable} ${nunito.variable} ${poppins.variable} ${inter.variable}${isPublicDesign ? ' cop-public rd rd-home-light' : ''}`}>
       {/* ── Google Analytics 4 ── */}
-      {!isPrivate && <Script
+      {track && <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
       />}
-      {!isPrivate && <Script id="ga4-init" strategy="afterInteractive">{`
+      {track && <Script id="ga4-init" strategy="afterInteractive">{`
+        if (/^(localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) { window['ga-disable-${GA_ID}'] = true; window['ga-disable-${GADS_ID}'] = true; }
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -151,7 +156,7 @@ export default function App({ Component, pageProps }) {
       `}</Script>}
 
       {/* ── Meta Pixel ── (activate by adding NEXT_PUBLIC_META_PIXEL_ID to .env.local) */}
-      {!isPrivate && META_PIXEL_ID && (
+      {track && META_PIXEL_ID && (
         <>
           <Script id="meta-pixel" strategy="afterInteractive">{`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
