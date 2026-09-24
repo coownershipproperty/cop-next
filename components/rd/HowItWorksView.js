@@ -26,7 +26,6 @@ import s from '@/styles/how-it-works.module.css';
 import { routePath, numberLocale, ogLocaleFor } from '@/lib/i18n';
 
 const SITE = 'https://co-ownership-property.com';
-const PARIS_INTERIOR = 'https://iotzzoxyckpyatzqcjbo.supabase.co/storage/v1/object/public/property-images/6th-arrondissement-paris-france-2-bed-apartment/gallery-1.jpg';
 
 // Headings that are two or three lines by design; the copy files carry the
 // breaks as newlines so a translator never has to type <br />.
@@ -40,6 +39,22 @@ function Emphasis({ text, phrases }) {
   const escaped = phrases.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   const pattern = new RegExp(`(${escaped.join('|')})`, 'g');
   return String(text).split(pattern).map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part));
+}
+
+function OwnershipIcon({ single, label }) {
+  return <div className={s.ownershipVisual}>
+    <svg viewBox="0 0 180 180" width="180" height="180" role="img" aria-label={label}>
+      {Array.from({ length: 8 }, (_, i) => {
+        const a = (-90 + i * 45) * Math.PI / 180;
+        const b = a + Math.PI / 4;
+        const dx = single && i === 0 ? 12 * Math.cos((a + b) / 2) : 0;
+        const dy = single && i === 0 ? 12 * Math.sin((a + b) / 2) : 0;
+        const x = 90 + dx, y = 90 + dy, r = 66;
+        return <path key={i} d={`M ${x} ${y} L ${x+r*Math.cos(a)} ${y+r*Math.sin(a)} A ${r} ${r} 0 0 1 ${x+r*Math.cos(b)} ${y+r*Math.sin(b)} Z`} fill={!single || i === 0 ? '#292929' : '#dededb'} stroke="white" strokeWidth="3" strokeLinejoin="round" />;
+      })}
+    </svg>
+    <small>{label}</small>
+  </div>;
 }
 
 function OwnershipComparison({ copy }) {
@@ -67,23 +82,12 @@ function OwnershipComparison({ copy }) {
     <div className={s.budgetExample}>
       <div>
         <span>{c.budget.wholeLabel}</span><strong>{c.budget.wholePrice}</strong><p>{c.budget.wholeNote}</p>
-        <div className={s.ownershipVisual} role="img" aria-label={c.budget.wholeDiagramLabel}>
-          <div className={`${s.ownershipPie} ${s.wholePie}`}>
-            <Image src={PARIS_INTERIOR} alt="" fill sizes="180px" className={s.pieImage} />
-          </div>
-          <small>{c.budget.wholeDiagramLabel}</small>
-        </div>
+        <OwnershipIcon label={c.budget.wholeDiagramLabel} />
       </div>
       <span className={s.budgetArrow} aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span>
       <div>
         <span>{c.budget.shareLabel}</span><strong>{c.budget.sharePrice}</strong><p>{c.budget.shareNote}</p>
-        <div className={s.ownershipVisual} role="img" aria-label={c.budget.shareDiagramLabel}>
-          <div className={`${s.ownershipPie} ${s.sharePie}`}>
-            <Image src={PARIS_INTERIOR} alt="" fill sizes="180px" className={`${s.pieImage} ${s.mutedPieImage}`} />
-            <Image src={PARIS_INTERIOR} alt="" fill sizes="180px" className={`${s.pieImage} ${s.shareSliceImage}`} />
-          </div>
-          <small>{c.budget.shareDiagramLabel}</small>
-        </div>
+        <OwnershipIcon single label={c.budget.shareDiagramLabel} />
       </div>
     </div>
     <div className={s.flowComparison}>{c.rows.slice(1).map(row => <div className={s.flowRow} key={row.h}>

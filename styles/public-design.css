@@ -293,6 +293,12 @@
 .cop-public .page-hero-eyebrow { color:#6b6b6b; font:500 11px/1.6 var(--font-inter),sans-serif; letter-spacing:.16em; }
 
 /* Article content is left intact; only its presentation is normalised. */
+.cop-public .bh-title { font-size:clamp(30px,3.1vw,46px); line-height:1.24; margin:0 auto 30px; }
+.cop-public .blog-related > h2 { font-size:clamp(26px,2.7vw,38px); line-height:1.25; margin:0 0 36px; }
+.cop-public .blog-related-title { font-size:19px; line-height:1.5; letter-spacing:-.015em; }
+.cop-public .blog-related-cat { line-height:1.65; margin-bottom:14px; }
+.cop-public .blog-sidebar { max-height:none; overflow:visible; position:static; }
+.cop-public .blog-sidebar .bsb-view-all { display:flex; box-sizing:border-box; width:100%; max-width:100%; height:auto; white-space:normal; text-align:center; }
 .cop-public :is(.blog-article,.blog-sidebar,.blog-related,.bh-key-points) { font-family:var(--font-inter),sans-serif; color:#505050; }
 .cop-public .blog-article :is(p,li,td,th),.cop-public :is(.art-author-bio,.art-author-role,.bsb-prop-loc,.bsb-prop-price,.bsb-dest-link,.blog-related-cat,.blog-back-link,.bh-key-point small) { font-family:var(--font-inter),sans-serif; color:#505050; }
 .cop-public .blog-article :is(h2,h3,h4),.cop-public :is(.art-author-name,.bsb-prop-title,.blog-related-title,.blog-related h2,.bh-key-point strong) { font-family:var(--font-poppins),sans-serif; font-weight:400; color:#171717; letter-spacing:-.025em; }
