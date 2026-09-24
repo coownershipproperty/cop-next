@@ -38,6 +38,12 @@ const TEMPLATES = [
     thumb: '🔒',
   },
   {
+    id: 'last-shares',
+    name: 'Last shares',
+    desc: 'Same design, "Last shares / Almost spoken for" wording, for one home close to selling out. Send only to people who asked about it; the intro tells the story.',
+    thumb: '⏳',
+  },
+  {
     id: 'property-alert',
     name: 'Property Alert',
     desc: 'Saved-search match. 1–4 properties with reasons.',
