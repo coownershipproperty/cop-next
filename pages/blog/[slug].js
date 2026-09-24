@@ -8,7 +8,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
-import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
+import { pickSidebarProperties } from '@/lib/blog-sidebar.mjs';
 import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
 
 // Locale-aware UI strings for the blog template chrome (sidebar, back link,
@@ -99,76 +99,7 @@ function BlogKeyPointIcon({ name }) {
   );
 }
 
-function normalizeText(value) {
-  return (value || '')
-    .toString()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
-function hashString(value) {
-  return normalizeText(value).split('').reduce((hash, char) => {
-    return ((hash << 5) - hash) + char.charCodeAt(0);
-  }, 0);
-}
-
-function getLocationAliases(term) {
-  const normalized = normalizeText(term).trim();
-  if (normalized.length < 3) return [];
-
-  const stopWords = new Set(['and', 'the', 'with', 'from', 'saint', 'sainte', 'sur', 'les', 'des']);
-  const tokens = normalized
-    .split(' ')
-    .filter(token => token.length >= 4 && !stopWords.has(token));
-
-  return [...new Set([normalized, ...tokens])];
-}
-
-function scoreLocationTerm(term, postText, weight) {
-  const aliases = getLocationAliases(term);
-  if (aliases.length === 0) return 0;
-  if (aliases[0] && postText.includes(aliases[0])) return weight;
-  return aliases.slice(1).some(alias => postText.includes(alias)) ? Math.max(1, weight - 2) : 0;
-}
-
-function pickSidebarProperties(rows, post) {
-  const bySlug = Object.fromEntries((rows || []).map(property => [property.slug, property]));
-  const orderedProperties = FEATURED_PROPERTY_SLUGS
-    .map(slug => bySlug[slug])
-    .filter(property => property && property.img);
-
-  if (orderedProperties.length <= 3) return orderedProperties;
-
-  const postText = normalizeText([
-    post.title,
-    post.category,
-    post.subtitle,
-    post.excerpt,
-  ].filter(Boolean).join(' '));
-
-  const scoredProperties = orderedProperties.map((property, index) => ({
-    property,
-    index,
-    score:
-      scoreLocationTerm(property.city, postText, 6) +
-      scoreLocationTerm(property.region, postText, 5) +
-      scoreLocationTerm(property.country, postText, 4),
-  }));
-
-  if (scoredProperties.some(item => item.score > 0)) {
-    return scoredProperties
-      .sort((a, b) => b.score - a.score || a.index - b.index)
-      .slice(0, 3)
-      .map(item => item.property);
-  }
-
-  const offset = Math.abs(hashString(post.slug || post.title)) % orderedProperties.length;
-  return [...orderedProperties.slice(offset), ...orderedProperties.slice(0, offset)].slice(0, 3);
-}
 
 export async function getStaticPaths() {
   const supabase = getSupabase();
@@ -326,9 +257,10 @@ export async function getStaticProps({ params }) {
   const { data: featuredRows } = await supabase
     .from('properties')
     .select(`slug, ${localeColumns(['title'])}, img, price, currency, city, region, country`)
-    .in('slug', FEATURED_PROPERTY_SLUGS)
     .in('status', ['Live', 'for_sale'])
-    .eq('is_discreet', false);
+    .eq('is_discreet', false)
+    .order('slug')
+    .limit(1000);
 
   const featuredProperties = pickSidebarProperties(featuredRows, post).map(p => ({
     slug: p.slug,

@@ -45,6 +45,7 @@
     ]
   },
   "comparison": {
+    "imageAlt": "Family sharing a meal on a terrace overlooking the Tuscan countryside",
     "kicker": "Buying alone vs co-owning",
     "headingTop": "The same home.",
     "headingBottom": "A fraction of the commitment.",
@@ -110,9 +111,11 @@
       "wholeLabel": "Buy the whole home",
       "wholePrice": "€1.2 million",
       "wholeNote": "Full ownership of the property.",
+      "wholeDiagramLabel": "8 of 8 shares · the whole home",
       "shareLabel": "Own a ⅛ share of the same home",
       "sharePrice": "€150,000",
-      "shareNote": "€1.05 million less committed to one property."
+      "shareNote": "€1.05 million less committed to one property.",
+      "shareDiagramLabel": "1 of 8 shares · the same home"
     }
   },
   "strip": {

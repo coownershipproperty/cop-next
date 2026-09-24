@@ -44,6 +44,7 @@
     ]
   },
   "comparison": {
+    "imageAlt": "Eine Familie beim gemeinsamen Essen auf einer Terrasse mit Blick auf die toskanische Landschaft",
     "kicker": "Allein kaufen oder gemeinsam besitzen",
     "headingTop": "Dieselbe Immobilie.",
     "headingBottom": "Ein Bruchteil der Verpflichtung.",
@@ -56,9 +57,11 @@
       "wholeLabel": "Die ganze Immobilie kaufen",
       "wholePrice": "1,2 Mio. €",
       "wholeNote": "Alleineigentum an der Immobilie.",
+      "wholeDiagramLabel": "8 von 8 Anteilen · die ganze Immobilie",
       "shareLabel": "Einen ⅛-Anteil derselben Immobilie besitzen",
       "sharePrice": "150.000 €",
-      "shareNote": "1,05 Mio. € weniger in einer einzigen Immobilie gebunden."
+      "shareNote": "1,05 Mio. € weniger in einer einzigen Immobilie gebunden.",
+      "shareDiagramLabel": "1 von 8 Anteilen · dieselbe Immobilie"
     },
     "rows": [
       {

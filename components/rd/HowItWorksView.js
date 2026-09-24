@@ -41,20 +41,54 @@ function Emphasis({ text, phrases }) {
   return String(text).split(pattern).map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part));
 }
 
+function OwnershipIcon({ single, label }) {
+  return <div className={s.ownershipVisual}>
+    <svg viewBox="0 0 180 180" width="180" height="180" role="img" aria-label={label}>
+      {Array.from({ length: 8 }, (_, i) => {
+        const a = (-90 + i * 45) * Math.PI / 180;
+        const b = a + Math.PI / 4;
+        const dx = single && i === 0 ? 12 * Math.cos((a + b) / 2) : 0;
+        const dy = single && i === 0 ? 12 * Math.sin((a + b) / 2) : 0;
+        const x = 90 + dx, y = 90 + dy, r = 66;
+        return <path key={i} d={`M ${x} ${y} L ${x+r*Math.cos(a)} ${y+r*Math.sin(a)} A ${r} ${r} 0 0 1 ${x+r*Math.cos(b)} ${y+r*Math.sin(b)} Z`} fill={!single || i === 0 ? '#292929' : '#dededb'} stroke="white" strokeWidth="3" strokeLinejoin="round" />;
+      })}
+    </svg>
+    <small>{label}</small>
+  </div>;
+}
+
 function OwnershipComparison({ copy }) {
   const c = copy.comparison;
   return <section className={`${s.section} rd-container ${s.benefits}`} id="comparison" aria-labelledby="compare-title">
-    <p className={s.kicker}>{c.kicker}</p>
-    <h2 id="compare-title"><Lines text={`${c.headingTop}\n${c.headingBottom}`} /></h2>
-    <div className={s.ownershipClarifier}>
-      <h3>{c.clarifierHeading}</h3>
-      <p>{c.clarifierBody}</p>
+    <div className={s.comparisonIntro}>
+      <div className={s.comparisonCopy}>
+        <p className={s.kicker}>{c.kicker}</p>
+        <h2 id="compare-title"><Lines text={`${c.headingTop}\n${c.headingBottom}`} /></h2>
+        <div className={s.ownershipClarifier}>
+          <h3>{c.clarifierHeading}</h3>
+          <p>{c.clarifierBody}</p>
+        </div>
+        <p className={s.benefitLead}>{c.lead}</p>
+      </div>
+      <figure className={s.comparisonImage}>
+        <Image
+          src="https://iotzzoxyckpyatzqcjbo.supabase.co/storage/v1/object/public/cop_blog_images/lifestyle-library/tuscany/Family%20sitting%20at%20a%20table%20in%20Tuscany%20with%20the%20Tuscany%20background.jpg"
+          alt={c.imageAlt}
+          fill
+          sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1500px) 42vw, 600px"
+        />
+      </figure>
     </div>
-    <p className={s.benefitLead}>{c.lead}</p>
     <div className={s.budgetExample}>
-      <div><span>{c.budget.wholeLabel}</span><strong>{c.budget.wholePrice}</strong><p>{c.budget.wholeNote}</p></div>
+      <div>
+        <span>{c.budget.wholeLabel}</span><strong>{c.budget.wholePrice}</strong><p>{c.budget.wholeNote}</p>
+        <OwnershipIcon label={c.budget.wholeDiagramLabel} />
+      </div>
       <span className={s.budgetArrow} aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h16m-6-6 6 6-6 6" /></svg></span>
-      <div><span>{c.budget.shareLabel}</span><strong>{c.budget.sharePrice}</strong><p>{c.budget.shareNote}</p></div>
+      <div>
+        <span>{c.budget.shareLabel}</span><strong>{c.budget.sharePrice}</strong><p>{c.budget.shareNote}</p>
+        <OwnershipIcon single label={c.budget.shareDiagramLabel} />
+      </div>
     </div>
     <div className={s.flowComparison}>{c.rows.slice(1).map(row => <div className={s.flowRow} key={row.h}>
       <div><span className={s.comparisonLabel}>{c.fullLabel}</span><h3>{row.fullHeading}</h3><p>{row.alone}</p></div>

@@ -44,6 +44,7 @@
     ]
   },
   "comparison": {
+    "imageAlt": "Familia compartiendo una comida en una terraza con vistas a la campiña toscana",
     "kicker": "Comprar solo frente a copropiedad",
     "headingTop": "La misma casa.",
     "headingBottom": "Una fracción del compromiso.",
@@ -56,9 +57,11 @@
       "wholeLabel": "Comprar la casa entera",
       "wholePrice": "1,2 millones €",
       "wholeNote": "Propiedad completa del inmueble.",
+      "wholeDiagramLabel": "8 de 8 participaciones · la casa entera",
       "shareLabel": "Poseer una participación de ⅛ de la misma casa",
       "sharePrice": "150.000 €",
-      "shareNote": "1,05 millones € menos comprometidos en un solo inmueble."
+      "shareNote": "1,05 millones € menos comprometidos en un solo inmueble.",
+      "shareDiagramLabel": "1 de 8 participaciones · la misma casa"
     },
     "rows": [
       {

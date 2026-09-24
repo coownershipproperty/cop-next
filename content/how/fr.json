@@ -44,6 +44,7 @@
     ]
   },
   "comparison": {
+    "imageAlt": "Une famille partage un repas sur une terrasse avec vue sur la campagne toscane",
     "kicker": "Acheter seul ou en copropriété",
     "headingTop": "La même maison.",
     "headingBottom": "Une fraction de l'engagement.",
@@ -56,9 +57,11 @@
       "wholeLabel": "Acheter la maison entière",
       "wholePrice": "1,2 million €",
       "wholeNote": "Pleine propriété du bien.",
+      "wholeDiagramLabel": "8 parts sur 8 · le bien entier",
       "shareLabel": "Détenir une part de ⅛ de la même maison",
       "sharePrice": "150 000 €",
-      "shareNote": "1,05 million € de moins engagés sur un seul bien."
+      "shareNote": "1,05 million € de moins engagés sur un seul bien.",
+      "shareDiagramLabel": "1 part sur 8 · le même bien"
     },
     "rows": [
       {
