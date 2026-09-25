@@ -44,7 +44,22 @@ export default async function handler(req, res) {
         baseUrl: `https://co-ownership-property.com/collections/${dbc.slug}/`,
         destinations: (dbc.homes || []).map(h => h.region || h.city).filter(Boolean).join('; '),
         heroImage: dbc.hero_image || undefined,
-        summary: `Your personal link opens the full collection: every photo and the floor plans for the ${places.length} homes in ${places.slice(0, -1).join(', ')}${places.length > 1 ? ' and ' : ''}${places.slice(-1)}.`,
+        summary: `Your personal link opens the full collection: every photograph of the ${places.length} homes in ${places.slice(0, -1).join(', ')}${places.length > 1 ? ' and ' : ''}${places.slice(-1)}${(dbc.homes || []).some(h => h.floorplans?.length) ? ', with the floor plans' : ''}. Here is a first look at each of them.`,
+        // The guide: one section per home. A home's own photos when it has
+        // them; otherwise the best photos of a past home in the same place,
+        // always labelled as such.
+        homes: (dbc.homes || []).map(h => {
+          const own = (h.photos || []).slice(0, 3);
+          const ex = own.length ? [] : (h.example_photos || []).slice(0, 3);
+          return {
+            place: h.chapter || h.city,
+            name: h.name,
+            status: { ready: 'Ready to use', soon: 'Coming soon', in_preparation: 'Being prepared', searching: 'Being chosen', example: 'Being chosen' }[h.readiness] || '',
+            text: h.description || '',
+            photos: own.length ? own : ex,
+            note: ex.length ? (h.example_note || 'Example of a past home from one of our earlier collections.') : (h.readiness !== 'ready' && own.length ? (h.photos_note || '') : ''),
+          };
+        }),
       };
       previewOnly = dbc.status === 'preview';
     }
@@ -108,7 +123,7 @@ export default async function handler(req, res) {
       to: cleanEmail,
       toName: cleanName || null,
       subject: `Your private access to ${collection.title}`,
-      template: React.createElement(CollectionAccessEmail, { firstName: firstName || 'there', accessUrl, collectionTitle: collection.title, heroImage: collection.heroImage, summary: collection.summary }),
+      template: React.createElement(CollectionAccessEmail, { firstName: firstName || 'there', accessUrl, collectionTitle: collection.title, heroImage: collection.heroImage, summary: collection.summary, homes: collection.homes }),
       templateName: 'collection-access',
       templateProps: { firstName, accessUrl, collectionSlug },
       trigger: 'collection_access_requested',

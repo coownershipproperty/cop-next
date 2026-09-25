@@ -11,7 +11,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import CollectionCard from '@/components/CollectionCard';
-import { loadCollections, collectionCardData } from '@/lib/collections';
+import { loadCollections, collectionCardData, COLLECTIONS_PREVIEW } from '@/lib/collections';
 import { track } from '@vercel/analytics';
 import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor, t as translate } from '@/lib/i18n';
 import { capDiscreet, GRID_PAGE_SIZE, MAX_DISCREET_PER_PAGE, DEFAULT_DISCREET_MODE } from '@/lib/discreetMix';
@@ -937,8 +937,15 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         ));
       }
     }
+    // Places that only a collection home covers (Rome, a London home) still
+    // get a pill, so the visitor can find that collection card.
+    if (locale === 'en') for (const col of collections || []) for (const h of col.homes || []) {
+      if (!h.fRegion || !countries.some(c => c === 'OTHER' ? !TOP_COUNTRIES.includes(h.fCountry) : h.fCountry === c)) continue;
+      if (h.fCountry === 'France') { const cl = franceCluserLabel(h.fRegion); if (cl) all.push(cl); continue; }
+      all.push(countries.includes('OTHER') && !TOP_COUNTRIES.includes(h.fCountry) ? h.fCountry : h.fRegion);
+    }
     return [...new Set(all)]; // deduplicate
-  }, [allProperties, countries]);
+  }, [allProperties, countries, collections, locale]);
 
   // Whether any selected country has un-clustered/regionless properties
   const hasOtherRegions = useMemo(() => {
@@ -964,6 +971,12 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     return p.region === label || p.country === label;
   }
 
+  // Collection homes as filter places (country + region in the listings'
+  // vocabulary). A region that only a collection covers (Rome) must still
+  // narrow the grid, so region matching looks at listings AND these.
+  const collectionPlaces = useMemo(() => (locale === 'en' ? (collections || []).flatMap(col => (col.homes || []).map(h => ({ country: h.fCountry, region: h.fRegion }))) : []), [collections, locale]);
+  const regionUniverse = useMemo(() => [...allProperties, ...collectionPlaces], [allProperties, collectionPlaces]);
+
   // ── Filtered + sorted property list ────────────────────────────────────────
   const curateNewest = sort === 'newest' && countries.length === 0 && regions.length === 0
     && !onlyDiscreet && availability === 'available' && !minBeds && !maxBudget;
@@ -986,7 +999,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     // Region filter — match any selected region label
     if (regions.length > 0) {
       list = list.filter(p => {
-        const countryRegions = regions.filter(r => allProperties.some(home =>
+        const countryRegions = regions.filter(r => regionUniverse.some(home =>
           home.country === p.country && propMatchesRegion(home, r)));
         return countryRegions.length === 0 || countryRegions.some(r => propMatchesRegion(p, r));
       });
@@ -1008,7 +1021,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     // Only the default newest view prioritises available homes.
     if (curateNewest) list.sort((a,b) => Number(String(a.status).toLowerCase().includes('sold')) - Number(String(b.status).toLowerCase().includes('sold')));
     return list;
-  }, [allProperties, countries, regions, sort, onlyDiscreet, discreetGrid, availability, minBeds, maxBudget, budgetCurrency, curateNewest]);
+  }, [allProperties, regionUniverse, countries, regions, sort, onlyDiscreet, discreetGrid, availability, minBeds, maxBudget, budgetCurrency, curateNewest]);
 
   // "N available · N previously listed" — the same filters as `filtered`
   // minus availability, so the two numbers always add up to what the
@@ -1019,13 +1032,13 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     if (maxBudget) list = list.filter(p => p.currency === budgetCurrency && Number(p.price) > 0 && (maxBudget === 'over-1m' ? Number(p.price) > 1000000 : Number(p.price) <= Number(maxBudget)));
     if (countries.length > 0) list = list.filter(p => countries.some(c => c === 'OTHER' ? !TOP_COUNTRIES.includes(p.country) : p.country === c));
     if (regions.length > 0) list = list.filter(p => {
-      const countryRegions = regions.filter(r => allProperties.some(home => home.country === p.country && propMatchesRegion(home, r)));
+      const countryRegions = regions.filter(r => regionUniverse.some(home => home.country === p.country && propMatchesRegion(home, r)));
       return countryRegions.length === 0 || countryRegions.some(r => propMatchesRegion(p, r));
     });
     if (onlyDiscreet) list = list.filter(p => p.discreet);
     const sold = list.filter(p => String(p.status).toLowerCase().includes('sold')).length;
     return { available: list.length - sold, sold };
-  }, [allProperties, countries, regions, onlyDiscreet, minBeds, maxBudget, budgetCurrency]);
+  }, [allProperties, regionUniverse, countries, regions, onlyDiscreet, minBeds, maxBudget, budgetCurrency]);
 
   const initialCollection = useMemo(() => {
     const eligible = p => !curateNewest || (!p.discreet && !String(p.status).toLowerCase().includes('sold'));
@@ -1039,26 +1052,35 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   ], [initialCollection, page]);
   const hasMore = visible.length < filtered.length;
 
-  // Collection cards for the current search: each collection appears once,
-  // led by its first home that matches the destination filters (a London
-  // search shows the London home's photo). English only for now, and never
-  // in sold / discreet-only / bedroom-filtered views.
+  // Collection cards for the current search (David, 25 Sep 2026): with no
+  // destination filter each collection appears once; once the visitor picks a
+  // country or region, every collection home in that place gets its own card
+  // (a Rome search shows the Rome card, "part of the Three Cities
+  // Collection"). English only for now, and never in sold / discreet-only /
+  // bedroom-filtered views. Matching uses fCountry/fRegion, which speak the
+  // listings' filter vocabulary.
   const collectionSlots = useMemo(() => {
     if (!collections?.length || locale !== 'en') return [];
     if (availability === 'sold' || onlyDiscreet || minBeds) return [];
-    return collections.map(card => {
-      if (maxBudget && (card.currency !== budgetCurrency || (maxBudget !== 'over-1m' && Number(card.price) > Number(maxBudget)) || (maxBudget === 'over-1m' && Number(card.price) <= 1000000))) return null;
-      const lead = card.homes.find(h => {
-        if (countries.length > 0 && !countries.some(c => c === 'OTHER' ? !TOP_COUNTRIES.includes(h.country) : h.country === c)) return false;
-        if (regions.length > 0) {
-          const inCountry = regions.filter(r => card.homes.some(x => x.country === h.country && propMatchesRegion(x, r)) || allProperties.some(p => p.country === h.country && propMatchesRegion(p, r)));
-          if (inCountry.length > 0 && !inCountry.some(r => propMatchesRegion(h, r))) return false;
-        }
-        return true;
-      });
-      return lead ? { card, leadKey: countries.length || regions.length ? lead.key : null } : null;
-    }).filter(Boolean);
-  }, [collections, locale, availability, onlyDiscreet, minBeds, maxBudget, budgetCurrency, countries, regions, allProperties]);
+    const filtering = countries.length > 0 || regions.length > 0;
+    const asListing = h => ({ ...h, country: h.fCountry, region: h.fRegion });
+    const homeMatches = (card, h) => {
+      const x = asListing(h);
+      if (countries.length > 0 && !countries.some(c => c === 'OTHER' ? !TOP_COUNTRIES.includes(x.country) : x.country === c)) return false;
+      if (regions.length > 0) {
+        const inCountry = regions.filter(r => regionUniverse.some(p => p.country === x.country && propMatchesRegion(p, r)));
+        if (inCountry.length > 0 && !inCountry.some(r => propMatchesRegion(x, r))) return false;
+      }
+      return true;
+    };
+    const slots = [];
+    for (const card of collections) {
+      if (maxBudget && (card.currency !== budgetCurrency || (maxBudget !== 'over-1m' && Number(card.price) > Number(maxBudget)) || (maxBudget === 'over-1m' && Number(card.price) <= 1000000))) continue;
+      if (!filtering) { slots.push({ card, leadKey: null }); continue; }
+      card.homes.filter(h => homeMatches(card, h)).forEach(h => slots.push({ card, leadKey: h.key }));
+    }
+    return slots;
+  }, [collections, locale, availability, onlyDiscreet, minBeds, maxBudget, budgetCurrency, countries, regions, regionUniverse]);
   const gridItems = useMemo(() => {
     const items = visible.map(p => ({ type: 'home', p }));
     // Third position: visible without scrolling on desktop, after two homes.
@@ -1306,17 +1328,18 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
             {onlyDiscreet && <span className="discreet-pill">Discreet Sale</span>}
             <strong>{inventoryCounts.available}</strong> {filterLabel('available_count').replace('{n}', '').trim()}
             {inventoryCounts.sold > 0 && <> · <strong>{inventoryCounts.sold}</strong> {filterLabel('previously_listed').replace('{n}', '').trim()}</>}
+            {collectionSlots.length > 0 && <> · <strong>{collectionSlots.length}</strong> {collectionSlots.length === 1 ? 'collection home' : 'collection homes'}</>}
             {onlyDiscreet && <> · <button type="button" className="discreet-clear" onClick={clearAll}>{t.clear_filters}</button></>}
           </p>
         </div>
 
         {/* Property grid */}
         <div className="homes-grid-wrap">
-          {filtered.length > 0 ? (
+          {(filtered.length > 0 || collectionSlots.length > 0) ? (
             <>
               <div className="homes-grid" id="homes-grid">
                 {gridItems.map(item => item.type === 'collection'
-                  ? <div key={`collection-${item.card.slug}`} className="collection-home"><CollectionCard card={item.card} leadKey={item.leadKey} /></div>
+                  ? <div key={`collection-${item.card.slug}-${item.leadKey || 'all'}`} className="collection-home" style={{ height: '100%' }}><CollectionCard card={item.card} leadKey={item.leadKey} variant={COLLECTIONS_PREVIEW ? (router.query.cv || null) : null} /></div>
                   : (p => <div key={p.slug} className="collection-home"><PropertyCard property={p} />{String(p.status).toLowerCase().includes('sold') && <a className="collection-resale" href={`/property/${p.slug}/`}>Previously listed price · Get resale alerts ↗</a>}</div>)(item.p))}
               </div>
               {hasMore && (
