@@ -201,6 +201,22 @@ function classify(row, page) {
     }
     return { state: 'ok', note: null };
   }
+  if ((row.partner || '').toLowerCase() === 'myne') {
+    // 25 Sep 2026: every MYNE page carries the site's whole UI dictionary,
+    // including "This property is no longer available" and the sold banner,
+    // so the text markers matched on EVERY listing and the circuit breaker
+    // tripped every run — which also blocked genuine Pacaso sold-outs, since
+    // the breaker counts both. Read the listing's own data instead: a live
+    // page carries the property object with "marketStatus"; a withdrawn page
+    // (~240 KB, no property data) does not.
+    const seen = readMyne(row.partner_url, page.body);
+    if (seen.marketStatus === 'on-market') return { state: 'ok', note: null };
+    if (seen.marketStatus) return { state: 'gone', note: `MYNE page: marketStatus ${seen.marketStatus}` };
+    if (seen.slugFound === false && page.body.length > 100000) {
+      return { state: 'gone', note: 'MYNE page has no listing data for this slug (withdrawn page)' };
+    }
+    return { state: 'unreachable', note: 'could not read MYNE listing data' };
+  }
   const markers = GONE_MARKERS[(row.partner || '').toLowerCase()];
   if (!markers) return { state: 'unknown_partner', note: 'no withdrawal marker known for this partner' };
 
@@ -213,6 +229,22 @@ function classify(row, page) {
   return hit
     ? { state: 'gone', note: `partner page says "${hit}"` }
     : { state: 'ok', note: null };
+}
+
+/**
+ * MYNE pages embed the listing and several "related" listings, so the first
+ * marketStatus on the page is not necessarily ours. The main listing's data
+ * follows its own defaultFullSlug; take the first marketStatus after it.
+ */
+function readMyne(url, body) {
+  const slug = String(url || '').replace(/[?#].*$/, '').replace(/\/+$/, '').split('/').pop();
+  const at = slug ? body.indexOf(`defaultFullSlug\\":\\"listings/${slug}`) : -1;
+  if (at < 0) return { slugFound: null, marketStatus: null };
+  const rest = body.slice(at);
+  const m = rest.match(/marketStatus\\":\\"([a-z-]+)/);
+  // Withdrawn pages still name the slug in their metadata but carry no
+  // property object, so no marketStatus follows it.
+  return { slugFound: !!m, marketStatus: m ? m[1] : null };
 }
 
 /**
@@ -271,7 +303,18 @@ async function handler(req, res) {
   // Pacaso sits behind a rate-based WAF rule; fetch those one at a time with a
   // pause, everything else in parallel as before.
   const isPacaso = (r) => (r.partner || '').toLowerCase() === 'pacaso';
-  const pacasoRows = rows.filter(isPacaso).slice(0, PACASO_PER_RUN);
+  // Pacaso gets its own oldest-first batch rather than whatever share of the
+  // mixed batch it happens to have, so every live Pacaso home is read every
+  // day across the morning runs (David, 25 Sep 2026: "we need to check the
+  // figures every day").
+  const { data: pacasoOwn } = await db
+    .from('properties')
+    .select('slug, partner, partner_url, partner_ref, status, price, last_verified_at')
+    .in('status', ['Live', 'for_sale'])
+    .eq('partner', 'pacaso')
+    .order('last_verified_at', { ascending: true, nullsFirst: true })
+    .limit(PACASO_PER_RUN);
+  const pacasoRows = pacasoOwn || rows.filter(isPacaso).slice(0, PACASO_PER_RUN);
   const otherRows = rows.filter((r) => !isPacaso(r));
   for (const row of pacasoRows) {
     /* eslint-disable no-await-in-loop */
@@ -361,7 +404,7 @@ async function handler(req, res) {
       // the partner's own site; our price is a cache of it").
       await db.from('properties').update({ price: r.priceChange.to }).eq('slug', r.slug);
       await db.from('property_facts')
-        .update({ share_price: r.priceChange.to, shares_remaining: r.pacaso.shares, last_verified_at: now, source: r.partner_url })
+        .update({ share_price: r.priceChange.to, shares_remaining: r.pacaso.shares, listing_stage: r.pacaso.stage, availability_checked_at: now, last_verified_at: now, source: r.partner_url })
         .eq('slug', r.slug);
       await db.from('listing_changes').insert({
         partner: r.partner, slug: r.slug, change_type: 'price',
@@ -370,9 +413,9 @@ async function handler(req, res) {
         notes: `verify-supply: read from the Pacaso listing page${r.pacaso.tag ? ` (${r.pacaso.tag}` : ''}${r.pacaso.shares != null ? `${r.pacaso.tag ? ', ' : ' ('}${r.pacaso.shares} shares available)` : (r.pacaso.tag ? ')' : '')}.`,
       });
     }
-    for (const r of results.filter((x) => x.pacaso && !x.priceChange && x.pacaso.shares != null)) {
+    for (const r of results.filter((x) => x.pacaso && !x.priceChange)) {
       await db.from('property_facts')
-        .update({ shares_remaining: r.pacaso.shares, last_verified_at: now })
+        .update({ ...(r.pacaso.shares != null ? { shares_remaining: r.pacaso.shares } : {}), listing_stage: r.pacaso.stage, availability_checked_at: now, last_verified_at: now })
         .eq('slug', r.slug);
     }
 
