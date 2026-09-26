@@ -242,6 +242,13 @@ export default function CollectionPage({ collection }) {
     router.replace({ pathname: router.pathname, query: { ...router.query, home: key } }, undefined, { shallow: true, scroll: false });
     setMobileSlide(0);
   }
+  const shownNow = new Set([heroPhotos[0], secondPhotos[0], secondPhotos[1]].filter(Boolean));
+  const lockBg = [
+    ...ordered.slice(2).map(faceOf),
+    ...ordered.map(faceOf),
+    ...(isOpen(lead) ? lead.photos.slice(3) : []),
+    ...heroPhotos.slice(3),
+  ].find(src => src && !shownNow.has(src)) || null;
   const mobileSlides = leadOpen
     ? [...heroPhotos.slice(0, 3), ...ordered.slice(1).map(faceOf).filter(Boolean)]
     : heroPhotos;
@@ -298,14 +305,22 @@ export default function CollectionPage({ collection }) {
             {(leadOpen ? ordered[1] : dests[2]) && <span className={c.thumbCaption}>{leadOpen ? (ordered[1].chapter || ordered[1].city) : heroCaption(2)}</span>}
           </div>
           <div className="pp-gallery-lock" onClick={openAll}>
-            <div className="pp-lock-strip" aria-hidden="true">
-              {ordered.slice(1, 5).map(h => ({ key: h.key, src: faceOf(h) || (h.photos || [])[0] })).filter(x => x.src).map(x => <div key={x.key} className="pp-lock-strip-cell" style={{ backgroundImage: `url('${x.src}')` }} />)}
-            </div>
+            {/* One photo, not one of the three already on show, darkened —
+                the same treatment as the property pages (David, 26 Sep 2026). */}
+            {lockBg && <div className="pp-lock-blur-bg" aria-hidden="true" style={{ backgroundImage: `url('${lockBg}')` }} />}
+            <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" />{unlocked ? <path d="M7 11V7a5 5 0 019.9-1" /> : <path d="M7 11V7a5 5 0 0110 0v4" />}
+            </svg>
             <span className="pp-lock-title">{unlocked ? 'Every photograph' : `${lockedCount} more photographs`}</span>
             <span className="pp-lock-sub">{unlocked ? `${totalPhotos} photos of ${n} homes` : `All ${n} homes${planCount ? ', and the floor plans' : ''}`}</span>
             <span className="pp-lock-cta-btn">{unlocked ? 'Open the gallery' : 'Unlock the collection'}</span>
           </div>
         </div>
+
+        {/* Same black strip as the property pages, one link per place. */}
+        <nav className="pp-tabs" aria-label="Places in this collection">
+          {ordered.map(h => <a key={h.key} href={`#home-${h.key}`} className="pp-tab">{h.chapter || h.city}</a>)}
+        </nav>
 
         <main>
           {/* ── Introduction ── */}

@@ -1,13 +1,11 @@
-// /collections/ — the Collections hub. Rebuilt 25 Sep 2026 on the same
-// layout as /how-it-works/ (hero, chapter nav, numbered details, full-width
-// strip, steps, FAQ, newsletter, enquiry form) so it sits with the other big
-// pages. Collection-specific blocks (the places and the collections) use
-// styles/collections.module.css.
+// /collections/ — the Collections hub. Third pass, 26 Sep 2026 (David): sell
+// each collection as a whole, in the How It Works layout. No "several homes,
+// one purchase" line and no grid of places. Every factual line about a
+// collection comes from its own description in the collections table.
 //
 // Copy rules (lib/collections.js): never say how many owners share a
-// collection, never name the operator, weeks always shown as "∼N", no monthly
-// costs, no readiness badges, resale collections never featured.
-// Previous version: Claude outputs/cc/collections-index.before-25sep.js
+// collection, never name the operator, weeks always "∼N", no monthly costs,
+// no readiness badges, resale collections never featured.
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -22,9 +20,36 @@ import c from '@/styles/collections.module.css';
 const SITE = 'https://co-ownership-property.com';
 const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
+// The story of each collection, written from its own description.
+const STORY = {
+  'large-ready-to-go': {
+    line: 'From the hills above Cannes to the Swedish coast.',
+    body: [
+      'June in Provence, where a villa above Cannes looks out across the olive groves to the sea. The autumn light on the Costa del Sol, a few steps from the beach. A week of snow in an apartment facing Mont Blanc, the harvest among the vineyards of Montalcino, and the long, light evenings of a Swedish summer.',
+      'Each home is renovated, furnished and equipped down to the last glass, so you arrive, open the shutters and simply live. At least one ski week a year is guaranteed.',
+    ],
+    year: [['Winter', 'Chamonix'], ['June', 'Provence'], ['Summer evenings', 'The Swedish coast'], ['Harvest', 'Montalcino'], ['Autumn light', 'Costa del Sol']],
+  },
+  meridian: {
+    line: 'Tuscany for the summer, the Alps for the snow, London in between.',
+    body: [
+      'A farmhouse in the Tuscan hills for the long summer. A stone villa in Provence with a pool among the olive trees. A mountain apartment in Chamonix for the snow, a London home for the weekends in between, and a house on the southern Spanish coast for the winter sun.',
+      'You join this collection at its very beginning. The five homes are being chosen now, then renovated, furnished and equipped before the first stays, expected within 12 to 24 months.',
+    ],
+    year: [['Winter sun', 'Costa del Sol'], ['Snow', 'Chamonix'], ['Weekends', 'London'], ['Long summer', 'Tuscany'], ['Olive groves', 'Provence']],
+  },
+  'three-cities': {
+    line: 'Paris, London and Rome, as if you lived there.',
+    body: [
+      'Wake up in the Marais and walk to breakfast on the Rue des Rosiers. Spend a long weekend in London for the galleries and the theatre, then an autumn week in Rome, where every street ends at a church or a fountain.',
+      'The Paris apartment is secured: two bedrooms in a nineteenth-century Marais building, with parquet floors, fireplaces and two west-facing living rooms. London and Rome are being chosen now, with first stays expected within 12 to 24 months.',
+    ],
+    year: [['Breakfast', 'The Marais'], ['Galleries and theatre', 'London'], ['An autumn week', 'Rome']],
+  },
+};
+
 export async function getStaticProps() {
   const all = await loadCollections();
-  // New-share collections only; resale collections are never featured.
   const collections = all.filter(x => x.share_type !== 'resale');
   if (!collections.length) return { notFound: true, revalidate: 3600 };
   return { props: { collections }, revalidate: 3600 };
@@ -36,61 +61,46 @@ function placePhoto(col, h) {
   if (isReady(h)) return h.photos[0];
   return (col.destination_photos || []).find(d => d.key === h.key)?.src;
 }
-function collectionPhoto(col) {
+function photosOf(col) {
   const hs = col.homes || [];
-  const home = hs.find(isReady);
-  if (home) return home.photos[0];
-  for (const h of hs) { const p = placePhoto(col, h); if (p) return p; }
-  return col.hero_image;
+  const list = [];
+  for (const h of [...hs.filter(isReady), ...hs.filter(x => !isReady(x))]) {
+    const p = placePhoto(col, h);
+    if (p && !list.find(x => x.src === p)) list.push({ src: p, label: h.chapter || h.city });
+  }
+  if (!list.length && col.hero_image) list.push({ src: col.hero_image, label: col.name });
+  return list;
 }
 
-function FAQS(collections) {
+const FAQS = (collections) => {
   const five = collections.find(x => (x.homes_count || x.homes?.length) >= 5);
   const small = collections.find(x => (x.homes_count || x.homes?.length) < 5);
   return [
-    { q: 'What is a collection?', a: 'Several homes in different places, bought together and owned together. Instead of a share of one home, you own a share of all of them, and move between them through the year.' },
+    { q: 'What is a collection?', a: 'A set of homes in different places across Europe, owned together. Instead of a share of one home, you own a share of the whole collection and move between its homes through the year.' },
     { q: 'What exactly do I own?', a: 'A share of the company that holds every home in the collection. The homes are bought outright, with no mortgage on them.' },
-    { q: 'How much time do I get?', a: `Circa ${Math.round(five?.weeks_per_year || 12)} weeks a year across a five-home collection${small ? `, and circa ${Math.round(small.weeks_per_year || 7)} weeks in the ${small.name.replace(/^The /, '')}` : ''}. A shared calendar spreads the year fairly across the homes, and longer stays are common outside high season.` },
-    { q: 'Can family and friends use my weeks?', a: 'Yes. Lend your weeks to the people you love. The homes are kept for owners and their guests, never rented out.' },
-    { q: 'Who looks after the homes?', a: 'Every home is renovated, furnished and equipped before the first stays, then cleaned, maintained and insured between them. You arrive and live; there is nothing to organise.' },
-    { q: 'Some homes are still being chosen. What does that mean?', a: 'Newer collections are joined at the very start, while the homes are chosen. First stays are expected within 12 to 24 months. Unlock a collection to see homes from earlier collections in the same places, so you know the standard to expect.' },
+    { q: 'How much time do I get?', a: `Circa ${Math.round(five?.weeks_per_year || 12)} weeks a year in a five-home collection${small ? `, and circa ${Math.round(small.weeks_per_year || 7)} weeks in the ${small.name.replace(/^The /, '')}` : ''}. A shared calendar spreads the year fairly across the homes.` },
+    { q: 'Can family and friends come?', a: 'Yes. Bring them with you, or lend them your weeks. The homes are kept for owners and their guests.' },
+    { q: 'Who looks after the homes?', a: 'Every home is renovated, furnished and equipped before the first stays. Between your stays, the cleaning, maintenance, bills and repairs are taken care of.' },
+    { q: 'Some homes are still being chosen. What does that mean?', a: 'In a new collection you join at the very start, while the homes are chosen. First stays are expected within 12 to 24 months, and you can see homes from earlier collections in the same places, so you know the standard to expect.' },
   ];
-}
+};
 
 export default function CollectionsHub({ collections }) {
   const canonical = `${SITE}/collections/`;
   const horizon = collections.find(x => (x.homes || []).some(isReady)) || collections[0];
-  const heroSrc = collectionPhoto(horizon);
+  const heroSrc = photosOf(horizon)[0]?.src;
   const from = Math.min(...collections.map(x => x.price).filter(Boolean));
-  const countries = new Set(collections.flatMap(col => (col.homes || []).map(h => h.country))).size;
-  const homesTotal = collections.reduce((n, col) => n + (col.homes_count || col.homes?.length || 0), 0);
-
-  // Every place the collections cover, once, with the collections it belongs to.
-  const places = [];
-  for (const col of collections) {
-    for (const h of col.homes || []) {
-      const label = h.chapter || h.city;
-      let p = places.find(x => x.label === label);
-      if (!p) { p = { label, country: h.country, src: null, cols: [] }; places.push(p); }
-      if (!p.src || isReady(h)) p.src = placePhoto(col, h) || p.src;
-      if (!p.cols.find(x => x.slug === col.slug)) p.cols.push({ slug: col.slug, name: col.name });
-    }
-  }
-  const shown = places.filter(p => p.src);
-  const stripHome = (horizon.homes || []).filter(isReady)[1];
-  const stripSrc = stripHome?.photos?.[0];
   const faqs = FAQS(collections);
-  const ideaPlace = shown.find(p => p.label === 'Chamonix') || shown.find(p => p.src !== stripSrc && p.src !== heroSrc);
+  const small = collections.find(x => (x.homes_count || x.homes?.length) < 5);
+  const idea = (horizon.homes || []).find(h => h.key === 'les-praz');
+  const ideaSrc = (idea && placePhoto(horizon, idea)) || photosOf(horizon)[1]?.src;
 
   return <>
     <Head>
-      <title>Collections: several homes, one purchase | Co-Ownership Property</title>
-      <meta name="description" content="Provence in June, the Mediterranean in autumn, the Alps when the snow falls. A collection brings several extraordinary homes together in one purchase, looked after for you." />
+      <title>Collections: a home for every season | Co-Ownership Property</title>
+      <meta name="description" content="Provence in June, the Alps in winter, the Mediterranean in autumn, Paris, London and Rome whenever you like. Our collections bring Europe's most loved places together, looked after for you." />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="canonical" href={canonical} />
-      <meta property="og:title" content="Collections: several homes, one purchase" />
-      <meta property="og:url" content={canonical} />
-      <meta property="og:type" content="website" />
       {COLLECTIONS_PREVIEW && <meta name="robots" content="noindex,nofollow" />}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -103,16 +113,15 @@ export default function CollectionsHub({ collections }) {
         <section className={`${s.hero} rd-container`} aria-labelledby="col-title">
           <div className={s.heroCopy}>
             <p className={s.kicker}>Collections</p>
-            <h1 id="col-title">One purchase.<br /><span>Several homes.</span></h1>
-            <p className={s.lead}>A villa in Provence for the summer, the Mediterranean for the autumn light, the Alps when the snow falls. A collection brings several extraordinary homes together, so the only question is where you wake up next.</p>
+            <h1 id="col-title">A home for<br /><span>every season.</span></h1>
+            <p className={s.lead}>Provence in June, the Alps when the snow falls, the Mediterranean in autumn, and Paris, London or Rome whenever the mood takes you. Our collections bring Europe&rsquo;s most loved places together, and look after every home for you.</p>
             <div className={s.actions}>
-              <a className="rd-btn rd-btn-primary" href="#the-collections">Discover the collections <span aria-hidden="true">↘</span></a>
-              <a className={s.textLink} href="#enquire">Ask us about collections <span aria-hidden="true">↗</span></a>
+              <a className="rd-btn rd-btn-primary" href="#the-collections">Explore the collections <span aria-hidden="true">↘</span></a>
+              <a className={s.textLink} href="#enquire">Speak to us <span aria-hidden="true">↗</span></a>
             </div>
-            <p className={s.heroFoot}>Renovated, furnished and looked after for you. Bought outright, with no mortgage on the homes.</p>
             <p className={s.inventory}>
               {Number.isFinite(from) && <strong>From {formatMoney(from)}</strong>}
-              <span>{collections.length} collections · {homesTotal} homes · {countries} countries</span>
+              <span>{collections.length} collections · {weeksLabel(small || horizon)} to {weeksLabel(horizon)} weeks a year</span>
             </p>
           </div>
           <figure className={s.heroImage}>
@@ -121,79 +130,77 @@ export default function CollectionsHub({ collections }) {
         </section>
 
         <nav className={`${s.chapterNav} rd-container`} aria-label="On this page">
-          {[['idea', 'The idea'], ['places', 'The places'], ['the-collections', 'The collections'], ['how', 'How it works'], ['questions', 'Questions']].map(([id, label]) => <a key={id} href={`#${id}`}>{label}<span aria-hidden="true">↘</span></a>)}
+          {collections.map(col => <a key={col.slug} href={`#c-${col.slug}`}>{col.name.replace(/^The /, '').replace(/ Collection$/, '')}<span aria-hidden="true">↘</span></a>)}
+          <a href="#how">How it works<span aria-hidden="true">↘</span></a>
+          <a href="#questions">Questions<span aria-hidden="true">↘</span></a>
         </nav>
 
         <section className={`${s.section} rd-container ${s.idea}`} id="idea">
           <div data-rv>
             <p className={s.kicker}>The idea</p>
-            <h2>A different home<br />for every season.</h2>
-            <p className={s.body}>Co-ownership gives you a share of one beautiful home. A collection goes further: several homes in different places, bought together, so your year can move with the seasons. June among the olive groves, October by the sea, a week of snow in February. Every home is furnished and equipped down to the last glass, and cared for between your stays.</p>
+            <h2>Why choose<br />just one place?</h2>
+            <p className={s.body}>A holiday home usually means one place and the same view, year after year. A collection is a set of homes across Europe, each chosen for its season, that you move between through the year. The snow is in the Alps, the summer is on the Mediterranean, the long weekends are in the city, and every home is ready when you arrive.</p>
           </div>
-          {ideaPlace?.src && <div className={s.ownershipPhoto} data-rv>
-            <Image src={ideaPlace.src} alt={`${ideaPlace.label}, ${ideaPlace.country}`} width={1600} height={1100} sizes="(max-width: 760px) 100vw, 45vw" quality={85} style={{ objectFit: 'cover' }} />
+          {ideaSrc && <div className={s.ownershipPhoto} data-rv>
+            <Image src={ideaSrc} alt="The mountains above Chamonix in winter" width={1600} height={1100} sizes="(max-width: 760px) 100vw, 45vw" quality={85} style={{ objectFit: 'cover' }} />
           </div>}
         </section>
         <section className={`${s.ownershipDetails} ${c.hubDetails} rd-container`} aria-label="A collection in brief">
           {[
-            ['Several homes, one purchase', 'One share covers every home in the collection, in some of the most loved places in Europe.'],
-            [`${weeksLabel(horizon)} weeks a year`, 'A shared calendar spreads the year fairly across the homes. City collections are smaller, with fewer weeks and a lower price.'],
-            ['Nothing to organise', 'Renovated, furnished and equipped for you, then cleaned, maintained and insured between your stays.'],
-            ['For family and friends', 'Lend your weeks to the people you love. The homes are kept for owners, never rented out.'],
+            ['A home for each season', 'Mountains in winter, the Mediterranean in summer, the great cities whenever you like.'],
+            [`${weeksLabel(horizon)} weeks a year`, `A shared calendar spreads the year fairly across the homes.${small ? ` The ${small.name.replace(/^The /, '')} is smaller: ${weeksLabel(small)} weeks, at a lower price.` : ''}`],
+            ['Nothing to organise', 'Furnished and equipped down to the last glass. Cleaning, maintenance, bills and repairs are taken care of between your stays.'],
+            ['Yours to share', 'Bring family and friends, or lend them your weeks. The homes are kept for owners and their guests.'],
           ].map(([h, p], i) => <article key={h} data-rv><span className={s.detailNumber}>0{i + 1}</span><h3>{h}</h3><p>{p}</p></article>)}
         </section>
 
-        {shown.length > 0 && <section className={`${s.section} rd-container ${c.hubPlaces}`} id="places">
-          <div className={s.sectionHeading} data-rv><div><p className={s.kicker}>The places</p><h2>{WORDS[shown.length] ? WORDS[shown.length][0].toUpperCase() + WORDS[shown.length].slice(1) : shown.length} places,<br />one way of owning them.</h2></div></div>
-          <div className={c.hubPlaceGrid}>
-            {shown.map(p => (
-              <figure key={p.label} className={c.hubPlace} data-rv>
-                <Image src={p.src} alt={`${p.label}, ${p.country}`} fill sizes="(max-width: 760px) 50vw, 25vw" quality={80} style={{ objectFit: 'cover' }} />
-                <span className={c.lSeasonShade} aria-hidden="true" />
-                <figcaption><strong>{p.label}</strong><span>{p.cols.map(x => x.name.replace(/^The /, '').replace(/ Collection$/, '')).join(' · ')}</span></figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>}
-
-        {stripSrc && <figure className={s.propertyStrip} data-rv>
-          <Image src={stripSrc} alt={`${stripHome.chapter || stripHome.city}, part of ${horizon.name}`} fill sizes="100vw" quality={85} style={{ objectFit: 'cover' }} />
-          <figcaption>{stripHome.chapter || stripHome.city} · {horizon.name}</figcaption>
-        </figure>}
-
-        <section className={`${s.section} rd-container ${c.hubList}`} id="the-collections">
-          <div className={s.sectionHeading} data-rv><div><p className={s.kicker}>The collections</p><h2>Choose where<br />your year takes you.</h2></div></div>
+        <div id="the-collections" className={c.hubCols}>
           {collections.map((col, i) => {
             const hs = col.homes || [];
             const n = col.homes_count || hs.length;
+            const story = STORY[col.slug] || { line: col.tagline, body: [col.tagline].filter(Boolean), year: [] };
+            const pics = photosOf(col).slice(0, 3);
             return (
-              <article key={col.slug} className={`${c.lItem} ${i % 2 ? c.hubFlip : ''}`} data-rv>
-                <Link href={collectionHref(col.slug)} className={c.lItemPhoto} aria-label={col.name}>
-                  {collectionPhoto(col) && <Image src={collectionPhoto(col)} alt={col.name} fill sizes="(max-width: 960px) 100vw, 58vw" quality={85} style={{ objectFit: 'cover' }} />}
-                  <span className={`${c.tag} ${c.tagOnPhoto}`}><span className={c.tagRule} aria-hidden="true" />A collection of {WORDS[n] || n} homes</span>
-                </Link>
-                <div>
-                  <p className={c.lItemPlaces}>{hs.map(h => h.chapter || h.city).join('  ·  ')}</p>
-                  <h3 className={c.lItemTitle}>{col.name}</h3>
-                  <p className={c.lItemText}>{col.tagline}</p>
-                  <dl className={c.lItemMeta}>
-                    <div><dt>All {n} homes</dt><dd>{formatMoney(col.price, col.currency)}</dd></div>
-                    <div><dt>Weeks a year</dt><dd>{weeksLabel(col)}</dd></div>
-                  </dl>
-                  <Link className="rd-btn rd-btn-primary" href={collectionHref(col.slug)}>Discover the collection <span aria-hidden="true">↗</span></Link>
+              <section key={col.slug} id={`c-${col.slug}`} className={`${c.hubCol} ${i % 2 ? c.hubColAlt : ''}`} aria-labelledby={`h-${col.slug}`}>
+                <div className={`${c.hubColInner} rd-container`}>
+                  <div className={c.hubColPics} data-rv>
+                    {pics[0] && <Link href={collectionHref(col.slug)} className={c.hubColMain} aria-label={col.name}>
+                      <Image src={pics[0].src} alt={`${pics[0].label}, ${col.name}`} fill sizes="(max-width: 960px) 100vw, 55vw" quality={85} style={{ objectFit: 'cover' }} />
+                      <span className={c.hubPicLabel}>{pics[0].label}</span>
+                    </Link>}
+                    <div className={c.hubColSmall}>
+                      {pics.slice(1).map(p => <div key={p.src} className={c.hubColThumb}>
+                        <Image src={p.src} alt={`${p.label}, ${col.name}`} fill sizes="(max-width: 960px) 50vw, 27vw" quality={80} style={{ objectFit: 'cover' }} />
+                        <span className={c.hubPicLabel}>{p.label}</span>
+                      </div>)}
+                    </div>
+                  </div>
+                  <div className={c.hubColText} data-rv>
+                    <p className={s.kicker}>{col.name} · {WORDS[n] || n} homes</p>
+                    <h2 id={`h-${col.slug}`}>{story.line}</h2>
+                    {story.body.map((para, k) => <p key={k} className={s.body}>{para}</p>)}
+                    <ul className={c.hubHomes}>
+                      {hs.map(h => <li key={h.key}><strong>{h.chapter || h.city}</strong><span>{h.name}</span></li>)}
+                    </ul>
+                    <dl className={c.lItemMeta}>
+                      <div><dt>All {n} homes</dt><dd>{formatMoney(col.price, col.currency)}</dd></div>
+                      <div><dt>Weeks a year</dt><dd>{weeksLabel(col)}</dd></div>
+                    </dl>
+                    <Link className="rd-btn rd-btn-primary" href={collectionHref(col.slug)}>Discover the {col.name.replace(/^The /, '')} <span aria-hidden="true">↗</span></Link>
+                  </div>
                 </div>
-              </article>
+              </section>
             );
           })}
-        </section>
+        </div>
 
         <section className={`${s.fit} rd-container`} aria-labelledby="fit-title">
-          <div><p className={s.kicker}>One home or several</p><h2 id="fit-title">Which suits<br />the way you live?</h2></div>
+          <div><p className={s.kicker}>One home or a collection</p><h2 id="fit-title">Which suits<br />the way you live?</h2></div>
           <div>
             <h3>A share of one home</h3>
             <p>Right if you already know your place: the same village, the same view, year after year, and the lowest way in.</p>
             <h3>A collection</h3>
-            <p>Right if you love the idea of moving with the seasons: the coast in autumn, the mountains in winter, a city for the weekends, all under one purchase.</p>
+            <p>Right if your year has more than one season in it: the mountains in winter, the sea in summer, a city for the long weekends, every home ready when you are.</p>
           </div>
         </section>
 
@@ -201,10 +208,10 @@ export default function CollectionsHub({ collections }) {
           <div className={s.sectionHeading} data-rv><div><p className={s.kicker}>How it works</p><h2>From first look<br />to first stay.</h2></div><a className={s.textLink} href="#enquire">Speak to us ↗</a></div>
           <ol className={s.steps}>
             {[
-              ['Choose a collection', 'Browse the places and the homes, and pick the collection that fits the year you want.'],
-              ['See everything', 'Unlock the collection for every photograph of the homes and the floor plans where they exist.'],
-              ['Speak to us', 'We answer personally, walk you through the calendar and the paperwork, and introduce you to the team that manages the homes.'],
-              ['Arrive and live', 'The homes are prepared for you. Book your weeks through the shared calendar and simply arrive.'],
+              ['Find your collection', 'Read about the places and the homes, and choose the collection that fits the year you picture.'],
+              ['See every home', 'Unlock the collection for every photograph and, where they exist, the floor plans.'],
+              ['Talk it through', 'We answer personally, walk you through the calendar, the costs and the paperwork, and introduce you to the team that manages the homes.'],
+              ['Arrive', 'Book your weeks through the shared calendar. The home is prepared; you open the door.'],
             ].map(([h, p], i) => <li key={h} data-rv><span>0{i + 1}</span><h3>{h}</h3><p>{p}</p></li>)}
           </ol>
         </section>

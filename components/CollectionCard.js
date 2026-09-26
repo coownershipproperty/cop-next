@@ -78,7 +78,7 @@ export default function CollectionCard({ card, leadKey = null, priority = false,
   const status = STATUS[lead.readiness];
   const title = `${lead.city}, ${lead.country} — ${lead.name}`;
   const article = (
-    <article className={`prop-card ${c.pcard} ${variant ? c['v_' + variant] || '' : ''}`}>
+    <article className={`prop-card ${c.pcard} ${variant ? c["v_" + variant] || "" : c.noirHouse}`}>
       <Link href={href} className="prop-card-link" aria-label={`${title}. Part of ${card.name}`} />
       <div className={`prop-img-wrap ${variant === 'painting' || variant === 'baroque' ? c.paintWrap : ''} ${rc ? c.rWrap : ''}`}
         style={rc ? { '--bt': `${rc.bt}px`, '--bs': `${rc.bs}px`, '--bb': `${rc.bb}px`, '--pi': `${rc.pi}px` } : undefined}>
