@@ -477,13 +477,17 @@ textarea.input { resize: vertical; }
 .hubColAlt .hubColPics { order: 2; }
 .hubColPics { display: grid; grid-template-rows: auto auto; gap: 10px; }
 .hubColMain { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; }
-.hubColSmall { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hubColSmall { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 10px; }
+.hubColSmall:has(> :nth-child(4)) { grid-template-columns: 1fr 1fr; }
 .hubColThumb { position: relative; aspect-ratio: 3 / 2; border-radius: 6px; overflow: hidden; }
 .hubPicLabel { position: absolute; left: 14px; bottom: 12px; z-index: 2; color: #fff; font: 500 11px/1 var(--c-body); letter-spacing: .16em; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
 .hub .hubColText h2 { margin: 0 0 22px; font: 300 clamp(1.9rem, 3vw, 2.6rem)/1.12 var(--c-head); letter-spacing: -.025em; color: var(--c-ink); text-align: left; }
 .hub .hubColText p { text-align: left; margin: 0 0 16px; }
 .hubHomes { list-style: none; margin: 26px 0 30px; padding: 0; border-top: 1px solid var(--c-rule); }
-.hubHomes li { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--c-rule); font-size: 14px; }
+.hubHomes li { display: grid; grid-template-columns: 28px 150px 1fr auto; gap: 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--c-rule); font-size: 14px; }
+.hubHomes em { font-style: normal; font-size: 11px; color: var(--c-soft); letter-spacing: .08em; }
+.hubHomes i { font-style: normal; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--c-soft); white-space: nowrap; }
+.hub .hubColText .hubLine { font-family: var(--c-head); font-weight: 300; font-size: 1.15rem; line-height: 1.45; color: var(--c-ink); margin: -8px 0 18px; }
 .hubHomes strong { font-weight: 500; color: var(--c-ink); }
 .hubHomes span { color: var(--c-soft); }
 @media (max-width: 960px) {
@@ -492,7 +496,10 @@ textarea.input { resize: vertical; }
   .hubColAlt .hubColPics { order: 0; }
 }
 @media (max-width: 760px) {
-  .hubHomes li { grid-template-columns: 1fr; gap: 2px; text-align: left; }
+  .hubHomes li { grid-template-columns: 24px 1fr auto; gap: 2px 10px; text-align: left; }
+  .hubHomes li span { grid-column: 2 / 4; grid-row: 2; }
+  .hubHomes li i { grid-column: 3; grid-row: 1; text-align: right; }
   .hub .hubColText :global(.rd-btn) { width: 100%; justify-content: center; }
   .hub .hubColText .lItemMeta { justify-content: flex-start; }
 }
+.hubColMain::after, .hubColThumb::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.5)); z-index: 1; pointer-events: none; }

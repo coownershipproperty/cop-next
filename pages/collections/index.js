@@ -23,28 +23,31 @@ const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'e
 // The story of each collection, written from its own description.
 const STORY = {
   'large-ready-to-go': {
+    places: 'Provence, the Costa del Sol, the Swedish coast, Chamonix and Tuscany.',
     line: 'From the hills above Cannes to the Swedish coast.',
     body: [
       'June in Provence, where a villa above Cannes looks out across the olive groves to the sea. The autumn light on the Costa del Sol, a few steps from the beach. A week of snow in an apartment facing Mont Blanc, the harvest among the vineyards of Montalcino, and the long, light evenings of a Swedish summer.',
       'Each home is renovated, furnished and equipped down to the last glass, so you arrive, open the shutters and simply live. At least one ski week a year is guaranteed.',
     ],
-    year: [['Winter', 'Chamonix'], ['June', 'Provence'], ['Summer evenings', 'The Swedish coast'], ['Harvest', 'Montalcino'], ['Autumn light', 'Costa del Sol']],
+    seasons: { 'Chamonix': 'Winter', 'Provence': 'June', 'The Swedish coast': 'Midsummer', 'Tuscany': 'The harvest', 'Costa del Sol': 'Autumn sun' },
   },
   meridian: {
+    places: 'Tuscany, Provence, Chamonix, London and the Costa del Sol.',
     line: 'Tuscany for the summer, the Alps for the snow, London in between.',
     body: [
       'A farmhouse in the Tuscan hills for the long summer. A stone villa in Provence with a pool among the olive trees. A mountain apartment in Chamonix for the snow, a London home for the weekends in between, and a house on the southern Spanish coast for the winter sun.',
       'You join this collection at its very beginning. The five homes are being chosen now, then renovated, furnished and equipped before the first stays, expected within 12 to 24 months.',
     ],
-    year: [['Winter sun', 'Costa del Sol'], ['Snow', 'Chamonix'], ['Weekends', 'London'], ['Long summer', 'Tuscany'], ['Olive groves', 'Provence']],
+    seasons: { 'Costa del Sol': 'Winter sun', 'Chamonix': 'The snow', 'London': 'Long weekends', 'Tuscany': 'Summer', 'Provence': 'Early summer' },
   },
   'three-cities': {
-    line: 'Paris, London and Rome, as if you lived there.',
+    places: 'Paris, London and Rome.',
+    line: 'Three great cities, lived in rather than visited.',
     body: [
       'Wake up in the Marais and walk to breakfast on the Rue des Rosiers. Spend a long weekend in London for the galleries and the theatre, then an autumn week in Rome, where every street ends at a church or a fountain.',
       'The Paris apartment is secured: two bedrooms in a nineteenth-century Marais building, with parquet floors, fireplaces and two west-facing living rooms. London and Rome are being chosen now, with first stays expected within 12 to 24 months.',
     ],
-    year: [['Breakfast', 'The Marais'], ['Galleries and theatre', 'London'], ['An autumn week', 'Rome']],
+    seasons: { 'Paris': 'Any season', 'London': 'Long weekends', 'Rome': 'Autumn' },
   },
 };
 
@@ -138,8 +141,9 @@ export default function CollectionsHub({ collections }) {
         <section className={`${s.section} rd-container ${s.idea}`} id="idea">
           <div data-rv>
             <p className={s.kicker}>The idea</p>
-            <h2>Why choose<br />just one place?</h2>
-            <p className={s.body}>A holiday home usually means one place and the same view, year after year. A collection is a set of homes across Europe, each chosen for its season, that you move between through the year. The snow is in the Alps, the summer is on the Mediterranean, the long weekends are in the city, and every home is ready when you arrive.</p>
+            <h2>Every season,<br />in its best place.</h2>
+            <p className={s.body}>Most holiday homes end up being every holiday in the same place. A collection works the other way round: a set of homes across Europe, each chosen for the time of year when its place is at its best, and you own a share of all of them.</p>
+            <p className={s.body}>Depending on the collection, February can be the snow in Chamonix, June the hills above Cannes, the autumn a terrace on the Costa del Sol, and the long weekends in between London, Paris or Rome. Everything is booked on one shared calendar, and every home is furnished and looked after between stays, so you arrive and simply live.</p>
           </div>
           {ideaSrc && <div className={s.ownershipPhoto} data-rv>
             <Image src={ideaSrc} alt="The mountains above Chamonix in winter" width={1600} height={1100} sizes="(max-width: 760px) 100vw, 45vw" quality={85} style={{ objectFit: 'cover' }} />
@@ -147,7 +151,7 @@ export default function CollectionsHub({ collections }) {
         </section>
         <section className={`${s.ownershipDetails} ${c.hubDetails} rd-container`} aria-label="A collection in brief">
           {[
-            ['A home for each season', 'Mountains in winter, the Mediterranean in summer, the great cities whenever you like.'],
+            ['A place for every season', 'Mountains in winter, the Mediterranean in summer, the great cities whenever you like.'],
             [`${weeksLabel(horizon)} weeks a year`, `A shared calendar spreads the year fairly across the homes.${small ? ` The ${small.name.replace(/^The /, '')} is smaller: ${weeksLabel(small)} weeks, at a lower price.` : ''}`],
             ['Nothing to organise', 'Furnished and equipped down to the last glass. Cleaning, maintenance, bills and repairs are taken care of between your stays.'],
             ['Yours to share', 'Bring family and friends, or lend them your weeks. The homes are kept for owners and their guests.'],
@@ -158,8 +162,8 @@ export default function CollectionsHub({ collections }) {
           {collections.map((col, i) => {
             const hs = col.homes || [];
             const n = col.homes_count || hs.length;
-            const story = STORY[col.slug] || { line: col.tagline, body: [col.tagline].filter(Boolean), year: [] };
-            const pics = photosOf(col).slice(0, 3);
+            const story = STORY[col.slug] || { places: hs.map(h => h.chapter || h.city).join(', '), line: col.tagline, body: [col.tagline].filter(Boolean), seasons: {} };
+            const pics = photosOf(col).slice(0, 5);
             return (
               <section key={col.slug} id={`c-${col.slug}`} className={`${c.hubCol} ${i % 2 ? c.hubColAlt : ''}`} aria-labelledby={`h-${col.slug}`}>
                 <div className={`${c.hubColInner} rd-container`}>
@@ -177,10 +181,11 @@ export default function CollectionsHub({ collections }) {
                   </div>
                   <div className={c.hubColText} data-rv>
                     <p className={s.kicker}>{col.name} · {WORDS[n] || n} homes</p>
-                    <h2 id={`h-${col.slug}`}>{story.line}</h2>
+                    <h2 id={`h-${col.slug}`}>{story.places}</h2>
+                    {story.line && <p className={c.hubLine}>{story.line}</p>}
                     {story.body.map((para, k) => <p key={k} className={s.body}>{para}</p>)}
                     <ul className={c.hubHomes}>
-                      {hs.map(h => <li key={h.key}><strong>{h.chapter || h.city}</strong><span>{h.name}</span></li>)}
+                      {hs.map((h, k) => <li key={h.key}><em>0{k + 1}</em><strong>{h.chapter || h.city}</strong><span>{h.name}</span>{story.seasons?.[h.chapter || h.city] && <i>{story.seasons[h.chapter || h.city]}</i>}</li>)}
                     </ul>
                     <dl className={c.lItemMeta}>
                       <div><dt>All {n} homes</dt><dd>{formatMoney(col.price, col.currency)}</dd></div>
