@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>COP Collections Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --ink:#1b1d1f; --muted:#626a70; --line:#dcdfe1; --paper:#f4f4f2; --card:#ffffff; --nav:rgba(244,244,242,.92); color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink:#ecebe8; --muted:#a3a7aa; --line:#34373a; --paper:#16181a; --card:#1f2224; --nav:rgba(22,24,26,.92); color-scheme: dark; } }
+  :root[data-theme="dark"] { --ink:#ecebe8; --muted:#a3a7aa; --line:#34373a; --paper:#16181a; --card:#1f2224; --nav:rgba(22,24,26,.92); color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.6 Inter, system-ui, sans-serif; }
+  .top { position:sticky; top:0; z-index:5; background:var(--nav); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .top nav { max-width:1480px; margin:0 auto; padding:10px 16px; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; }
+  .top a { flex:none; font:500 13px/1 Inter, sans-serif; color:var(--ink); text-decoration:none; padding:9px 13px; border-radius:999px; border:1px solid var(--line); background:var(--card); }
+  main { max-width:1480px; margin:0 auto; padding:32px 16px 80px; display:flex; flex-direction:column; gap:88px; }
+  header { max-width:760px; display:flex; flex-direction:column; gap:10px; }
+  .eyebrow { font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  h1 { font:500 clamp(30px,5vw,48px)/1.08 Poppins, system-ui, sans-serif; letter-spacing:-.02em; margin:0; text-wrap:balance; }
+  h2 { font:500 clamp(24px,3vw,32px)/1.15 Poppins, system-ui, sans-serif; letter-spacing:-.015em; margin:0; text-wrap:balance; }
+  p { margin:0; }
+  .lede { color:var(--muted); font-size:16px; max-width:760px; }
+  section { display:flex; flex-direction:column; gap:20px; scroll-margin-top:70px; }
+  .shot { background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.06); }
+  .shot img { display:block; width:100%; height:auto; }
+  .shot a { display:block; }
+  .label { font-size:13px; color:var(--muted); }
+  .tabs { display:flex; flex-wrap:wrap; gap:8px; }
+  .tab { font:500 13px/1 Inter, sans-serif; padding:10px 14px; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer; }
+  .tab[aria-selected="true"] { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .pair { display:grid; grid-template-columns:minmax(0,1fr) 390px; gap:24px; align-items:start; }
+  .phone { width:100%; max-width:390px; margin:0 auto; border-radius:28px; border:8px solid #111; overflow:hidden; background:#fff; }
+  .phone img { display:block; width:100%; height:auto; }
+  .col { display:flex; flex-direction:column; gap:10px; }
+  @media (max-width:980px) { .pair { grid-template-columns:1fr; } }
+  footer { font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; }
+</style>
+</head>
+<body>
+
+
+<div class="top"><nav aria-label="Sections">
+  <a href="#homes">Our Homes</a><a href="#page">Collections page</a><a href="#horizon">Horizon</a><a href="#meridian">Meridian</a><a href="#three">Three Cities</a>
+</nav></div>
+
+<main>
+  <header>
+    <span class="eyebrow">Preview · not live yet · 25 September 2026</span>
+    <h1>Collections on co-ownership-property.com</h1>
+    <p class="lede">Full-size screenshots of the preview build: the collection cards among the homes on Our Homes, the new Collections page in the top bar, and the three collection pages. Tap any screenshot to open it on its own.</p>
+  </header>
+
+  <section id="homes" aria-labelledby="h-homes">
+    <h2 id="h-homes">Our Homes, with the collection cards</h2>
+    <p class="lede">Each place a collection covers gets its own card, in the same style as the other homes. The white badge names the collection, the places run along the foot of the photo, and the card is exactly the same size as the others.</p>
+    <div class="tabs" role="tablist" aria-label="Filter">
+      <button class="tab" role="tab" data-img="collections-9f4k/homes-all.jpg" data-cap="No filter: each collection appears once among the newest homes.">All homes</button>
+      <button class="tab" role="tab" data-img="collections-9f4k/homes-rome.jpg" data-cap="Italy → Rome: no Rome listings yet, so the Rome card of the Three Cities Collection is the result.">Rome</button>
+      <button class="tab" role="tab" data-img="collections-9f4k/homes-italy.jpg" data-cap="Italy: Montalcino, Tuscany and Rome each get their own card.">Italy</button>
+      <button class="tab" role="tab" data-img="collections-9f4k/homes-paris.jpg" data-cap="France → Paris: the Paris card beside the Paris listings.">Paris</button>
+      <button class="tab" role="tab" data-img="collections-9f4k/homes-london.jpg" data-cap="England: London appears once for each collection with a London home.">London</button>
+    </div>
+    <p class="label" id="homes-cap"></p>
+    <div class="pair">
+      <div class="shot"><a id="homes-link" href="collections-9f4k/homes-all.jpg" target="_blank" rel="noopener"><img id="homes-img" src="collections-9f4k/homes-all.jpg" alt="Our Homes page with collection cards"></a></div>
+      <div class="col"><div class="phone"><img src="collections-9f4k/homes-rome-mob.jpg" alt="The Rome card on a phone"></div><p class="label" style="text-align:center">On a phone: Italy → Rome</p></div>
+    </div>
+  </section>
+
+  <section id="page" aria-labelledby="h-page">
+    <h2 id="h-page">The Collections page (new, in the top bar)</h2>
+    <p class="lede">Same layout as How It Works: the idea, the eight places, the three collections, one home or several, how it works, questions and the enquiry form.</p>
+    <div class="pair">
+      <div class="shot"><a href="collections-9f4k/hub.jpg" target="_blank" rel="noopener"><img src="collections-9f4k/hub.jpg" alt="The Collections page on a computer" loading="lazy"></a></div>
+      <div class="col"><div class="phone"><img src="collections-9f4k/hub-mob.jpg" alt="The Collections page on a phone" loading="lazy"></div><p class="label" style="text-align:center">On a phone</p></div>
+    </div>
+  </section>
+
+  <section id="horizon" aria-labelledby="h-hor">
+    <h2 id="h-hor">The Horizon Collection</h2>
+    <p class="lede">Grasse, Estepona, Varberg, Chamonix and Montalcino · €555,000 for all five homes · ∼12 weeks a year.</p>
+    <div class="shot"><a href="collections-9f4k/horizon.jpg" target="_blank" rel="noopener"><img src="collections-9f4k/horizon.jpg" alt="The Horizon Collection page" loading="lazy"></a></div>
+  </section>
+
+  <section id="meridian" aria-labelledby="h-mer">
+    <h2 id="h-mer">The Meridian Collection</h2>
+    <p class="lede">Tuscany, Provence, Chamonix, London and the Costa del Sol · €495,000 for all five homes · ∼12 weeks a year.</p>
+    <div class="shot"><a href="collections-9f4k/meridian.jpg" target="_blank" rel="noopener"><img src="collections-9f4k/meridian.jpg" alt="The Meridian Collection page" loading="lazy"></a></div>
+  </section>
+
+  <section id="three" aria-labelledby="h-tc">
+    <h2 id="h-tc">The Three Cities Collection</h2>
+    <p class="lede">Paris, London and Rome · €350,000 for all three homes · ∼7 weeks a year.</p>
+    <div class="shot"><a href="collections-9f4k/three-cities.jpg" target="_blank" rel="noopener"><img src="collections-9f4k/three-cities.jpg" alt="The Three Cities Collection page" loading="lazy"></a></div>
+  </section>
+
+  <footer>Screenshots of the preview build of co-ownership-property.com. Nothing here is live yet.</footer>
+</main>
+
+<script>
+  const tabs=[...document.querySelectorAll('#homes .tab')];
+  const img=document.getElementById('homes-img'), link=document.getElementById('homes-link'), cap=document.getElementById('homes-cap');
+  function pick(t){ tabs.forEach(x=>x.setAttribute('aria-selected', x===t?'true':'false')); img.src=t.dataset.img; link.href=t.dataset.img; img.alt='Our Homes: '+t.textContent; cap.textContent=t.dataset.cap; }
+  tabs.forEach(t=>t.addEventListener('click',()=>pick(t))); pick(tabs[0]);
+</script>
+
+</body>
+</html>
