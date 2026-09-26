@@ -69,3 +69,20 @@
     box-shadow: none;
   }
 }
+
+@layer cop-button-colours {
+  /* Homepage "What co-ownership gives you" row (David, 26 Sep 2026): the
+     main action sits filled black, as it looks on hover; the expert button
+     beside it stays outlined. */
+  :root body .rd-values .rd-btn.rd-btn-ghost:not([href="#speak-to-expert"]) {
+    background: #171717 !important;
+    color: #fff !important;
+    border-color: #171717 !important;
+    box-shadow: none;
+  }
+  :root body .rd-values .rd-btn.rd-btn-ghost:not([href="#speak-to-expert"]):is(:hover, :focus-visible):not(:disabled):not([aria-disabled="true"]):not(.x-specificity) {
+    background: #333 !important;
+    color: #fff !important;
+    border-color: #333 !important;
+  }
+}
