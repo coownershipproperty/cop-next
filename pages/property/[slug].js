@@ -1137,8 +1137,12 @@ const COUNTRY_DESTINATIONS = {
 };
 
 const MAIN_REGION_DESTINATIONS = [
+  { country: 'Italy', regions: ['Tuscany'], slug: 'tuscany-fractional-ownership-properties', label: 'Tuscany' },
+  { country: 'Italy', regions: ['Lake Garda'], slug: 'lake-garda-fractional-ownership-properties', label: 'Lake Garda' },
+  { country: 'England', regions: ['Cotswolds'], slug: 'cotswolds-fractional-ownership-properties', label: 'Cotswolds' },
+  { country: 'Mexico', regions: ['Los Cabos'], slug: 'los-cabos-fractional-ownership-properties', label: 'Los Cabos' },
   { country: 'France', regions: ["Côte d'Azur", 'Côte d’Azur'], slug: 'south-of-france-fractional-ownership-properties', labels: { en: 'South of France', es: 'Sur de Francia', fr: 'Sud de la France', de: 'Südfrankreich', it: 'Sud della Francia', nl: 'Zuid-Frankrijk', pt: 'Sul da França', sv: 'Södra Frankrike', da: 'Sydfrankrig', no: 'Sør-Frankrike' } },
-  { country: 'France', regions: ['French Alps', 'Portes du Soleil'], slug: 'french-alps-fractional-ownership-properties', labels: { en: 'French Alps', es: 'Alpes franceses', fr: 'Alpes françaises', de: 'Französische Alpen', it: 'Alpi francesi', nl: 'Franse Alpen', pt: 'Alpes Franceses', sv: 'Franska Alperna', da: 'Franske Alper', no: 'De franske Alpene' } },
+  { country: 'France', regions: ['French Alps', 'Portes du Soleil', 'Mont Blanc'], slug: 'french-alps-fractional-ownership-properties', labels: { en: 'French Alps', es: 'Alpes franceses', fr: 'Alpes françaises', de: 'Französische Alpen', it: 'Alpi francesi', nl: 'Franse Alpen', pt: 'Alpes Franceses', sv: 'Franska Alperna', da: 'Franske Alper', no: 'De franske Alpene' } },
   { country: 'France', regions: ['Paris'], slug: 'paris-fractional-ownership-properties', label: 'Paris' },
   { country: 'Italy', regions: ['Sardinia'], slug: 'sardinia-fractional-ownership-properties', label: 'Sardinia' },
   { country: 'Italy', regions: ['Lake Como'], cities: ['Lake Como'], slug: 'lake-como-fractional-ownership-properties', label: 'Lake Como' },
@@ -1192,7 +1196,7 @@ function destinationTrailForProperty(property, locale) {
     property.city && { label: property.city },
     mainRegion
       ? { label: destinationLabel(mainRegion, locale, property.region), href: destinationHref(mainRegion.slug, locale) }
-      : (property.region && { label: property.region }),
+      : (property.region && { label: property.region, ...(country ? { href: destinationHref(country.slug, locale) } : {}) }),
     property.country && (country
       ? { label: countryLabel(property.country, country, locale), href: destinationHref(country.slug, locale) }
       : { label: property.country }),
