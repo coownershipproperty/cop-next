@@ -85,14 +85,6 @@ export default function Destinations({ destinations, tabs, exploreLabel = 'Explo
     buttons.current[countries[next].key]?.focus();
   }
   return <div className={s.showcase} ref={wrap}>
-    {/* On a phone the tab strip is 1,047px of content (1,277px in German) in
-        a 390px window: four of eleven countries are visible in English,
-        three in German, and nothing said the rest were there. The CSS for
-        this hint has existed since the redesign — no component ever rendered
-        the element. */}
-    <p className="destination-swipe-hint" aria-hidden="true">
-      <span>{copy.swipeHint || 'Swipe for more countries'}</span><span>→</span>
-    </p>
     <div className={s.tabs} role="tablist" aria-label="Choose a country">
       {countries.map((d,i) => <button key={d.key} ref={el => { buttons.current[d.key] = el; }} type="button" role="tab" id={`country-tab-${d.key}`} aria-controls={`country-panel-${d.key}`} aria-selected={active.key === d.key} tabIndex={active.key === d.key ? 0 : -1} onPointerEnter={e => { if (e.pointerType === 'mouse') setSelected(d.key); }} onClick={() => setSelected(d.key)} onKeyDown={e => onKeyDown(e,i)}>{label(d.key)}</button>)}
     </div>

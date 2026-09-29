@@ -773,3 +773,51 @@ html[data-cop-navigating] { scroll-behavior:auto !important; }
   .cop-public.cop-public.cop-public .pp-stats { transition:none; transform:none; }
 }
 .rd-home #faq .rd-faq details p strong { font-weight:700 !important; color:#000 !important; }
+
+/* ── 29 Sep 2026 (David): mobile FAQ centred; homepage cards without outline
+   lines on mobile; dark (inverse) enquiry forms everywhere; amenities toggle spacing. ── */
+@media (max-width:760px) {
+  /* Homepage FAQ: centred heading, questions and answers. The empty ::before
+     balances the "+" so the question text sits in the true centre. */
+  .cop-public.cop-public .rd.rd-home #faq .rd-head-row { justify-content:center; align-items:center; text-align:center; }
+  .cop-public.cop-public .rd.rd-home #faq .rd-faq,
+  .cop-public.cop-public .rd-faq { text-align:center; margin-inline:auto; }
+  .cop-public.cop-public .rd-faq summary { text-align:center; }
+  .cop-public.cop-public .rd-faq summary::before { content:''; flex:0 0 30px; width:30px; }
+  .cop-public.cop-public .rd-faq details p { text-align:center; margin-inline:auto; }
+  /* Homepage property cards: no outline around the title/facts, no divider lines. */
+  .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-body { border:0 !important; }
+  .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-mobile-facts { border-top:0; }
+  .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-mobile-facts > div + div { border-left:0; }
+  /* Listing amenities: breathing room above "All N amenities". */
+  .cop-public.cop-public.cop-public.cop-public .pp-amenities > .pp-seemore { margin-top:28px; }
+}
+/* Dark enquiry panels: "Speak to an expert" and the listing enquiry card, desktop and mobile.
+   (The contact page keeps its own light form.) */
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) {
+  background:#000 !important; color:#fff; border:1px solid #000; border-radius:8px; box-shadow:none;
+  --cop-control-border:#fff; --cop-control-text:#fff;
+}
+.cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) { padding:32px !important; box-sizing:border-box; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(label,label span,.rd-filter-select-label,.eq-chips-q,.eq-note-add,.pp-form-title,.pp-form-sub,.eq-done p,.eq-tick,.expert-form-msg,p,h3) { color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea,select,.dest-trigger,.rd-filter-select-trigger,.eq-chip) { background:#000; color:#fff; border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input,textarea)::placeholder { color:#bdbdbd; opacity:1; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input,textarea,select,button):focus-visible { outline:2px solid #fff; outline-offset:3px; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .pp-form-card .eq-choice-check { border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .pp-form-card .eq-chip.is-on { background:#fff; color:#000; border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .pp-form-card .eq-chip.is-on .eq-choice-check { border-color:#000; color:#000; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) .expert-form-msg.error,
+.cop-public.cop-public.cop-public.cop-public.cop-public .pp-form-card .eq-err { color:#ffb4b4; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) :is(.dest-dropdown,.rd-filter-select-menu,.dest-group-header,.dest-option,.rd-filter-select-option) { background:#111; color:#fff; border-color:#666; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) :is(.dest-option:hover,.dest-option.selected,.rd-filter-select-option:hover,.rd-filter-select-option[aria-selected=true]) { background:#333; color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) :is(.dest-placeholder,.dest-trigger svg,.rd-filter-select-trigger svg) { color:#ddd; }
+.cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) .dest-tag { background:#fff; color:#000; }
+/* Submit buttons flip to white. Their colours come from the layered
+   !important rule in buttons.css, which reads these variables. */
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(.expert-submit-btn,.eq-submit) { --cop-button-bg:#fff; --cop-button-text:#000; box-shadow:0 0 0 1px #fff; }
+@media (max-width:760px) {
+  /* Phone: the whole "Speak to an expert" card is the dark panel. */
+  .cop-public.cop-public.cop-public.cop-public.cop-public .expert-section.cop-enquiry .expert-inner { background:#000; border-color:#000; }
+  .cop-public.cop-public.cop-public.cop-public.cop-public .expert-section.cop-enquiry .expert-inner :is(.expert-heading,.expert-heading em,.expert-sub,.expert-eyebrow) { color:#fff; }
+  .cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) { padding:0 !important; border:0; }
+}
