@@ -8,8 +8,8 @@
   .interested-btn, .save-alert-btn, .btn-gold, .btn-blue, .dest-cta-btn-gold,
   .load-more-btn, .geo-visit-submit, .pgal-modal-btn, .prop-map-overlay-btn,
   .prop-form-btn, .wpresidence_button, .prop-unlock-btn, .enquiry-submit,
-  .unlock-submit, .pp-lock-cta-btn, .pp-lb-lock-btn, .eq-submit,
-  .ul-form button[type="submit"], .pp-mob-lock-btn, .compare-cta-buttons a.primary,
+  .unlock-submit, .eq-submit,
+  .ul-form button[type="submit"], .compare-cta-buttons a.primary,
   .art-prop-cta-btn, .bsb-cta-btn, .pc-viewall-btn, .viewing-card-btn.primary,
   .viewings-close-btn, .pp-look-btn, .cp-form button[type="submit"],
   .pw-form button, .fav-save-form button, .lw-submit, .pp-bell-form button,
@@ -28,7 +28,9 @@
   .rd-btn-ghost, .rd-hero .rd-btn, .rd-values .rd-btn, .btn-outline, .dest-cta-btn-outline, .expert-btn, .show-more-btn,
   .wpresidence_button_inverse, .compare-cta-buttons a.ghost,
   .viewing-card-btn.ghost, .pc-btn, .cop-pillar-cta a.cop-cta-secondary,
-  .dest-explore-btn, .lp-all-btn, .prop-see-more-cta
+  .dest-explore-btn, .lp-all-btn, .prop-see-more-cta,
+  /* gallery lock "View gallery" / "Unlock" sits on a dark blurred photo, so it is white */
+  .pp-lock-cta-btn, .pp-lb-lock-btn, .pp-mob-lock-btn
 ) {
   --cop-button-bg: #fff;
   --cop-button-text: #171717;
