@@ -759,8 +759,9 @@ html[data-cop-navigating] { scroll-behavior:auto !important; }
 @media (max-width:767px) {
   .cop-public.cop-public.cop-public .pp-stats { margin-top:var(--opening-gap,0px); opacity:0; transform:translateY(12px); transition:opacity .45s ease,transform .45s ease; }
   .cop-public.cop-public.cop-public .pp-stats.is-revealed { opacity:1; transform:none; }
-  .cop-public.cop-public.cop-public.cop-public .pp-form-card button.eq-chip.is-on { background:#000 !important; color:#fff !important; border-color:#000 !important; }
-  .cop-public.cop-public.cop-public.cop-public .pp-form-card button.eq-chip.is-on span { color:#fff !important; }
+  /* Dark enquiry card: a selected chip is white with black text/check. */
+  .cop-public.cop-public.cop-public.cop-public .pp-form-card button.eq-chip.is-on { background:#fff !important; color:#000 !important; border-color:#fff !important; }
+  .cop-public.cop-public.cop-public.cop-public .pp-form-card button.eq-chip.is-on span { color:#000 !important; border-color:#000 !important; }
   /* Small visible discs inside full-size, non-overlapping touch targets. */
   .cop-public.cop-public .pp-mob-carousel :is(.pp-heart-btn,.pp-share-btn,.pp-bell-btn) { top:6px; width:44px; height:44px; border:0; border-radius:50%; padding:0; background:radial-gradient(circle at center,rgba(255,255,255,.94) 0 16px,transparent 16.5px); box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; display:flex; align-items:center; justify-content:center; }
   .cop-public.cop-public .pp-mob-carousel .pp-heart-btn { right:6px; }
@@ -786,7 +787,8 @@ html[data-cop-navigating] { scroll-behavior:auto !important; }
   .cop-public.cop-public .rd-faq summary::before { content:''; flex:0 0 30px; width:30px; }
   .cop-public.cop-public .rd-faq details p { text-align:center; margin-inline:auto; }
   /* Homepage property cards: no outline around the title/facts, no divider lines. */
-  .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-body { border:0 !important; }
+  /* One thin black outline round the card info (with the photo above it reads as one frame); no inner stat dividers. */
+  .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-body { border:1px solid #000 !important; border-top:0 !important; }
   .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-mobile-facts { border-top:0; }
   .cop-public.cop-public.cop-public .rd-home .rd-editorial-cards .prop-card .prop-mobile-facts > div + div { border-left:0; }
   /* Listing amenities: breathing room above "All N amenities". */
@@ -800,7 +802,8 @@ html[data-cop-navigating] { scroll-behavior:auto !important; }
 }
 .cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) { padding:32px !important; box-sizing:border-box; }
 .cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(label,label span,.rd-filter-select-label,.eq-chips-q,.eq-note-add,.pp-form-title,.pp-form-sub,.eq-done p,.eq-tick,.expert-form-msg,p,h3) { color:#fff; }
-.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea,select,.dest-trigger,.rd-filter-select-trigger,.eq-chip) { background:#000; color:#fff; border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea,select,.dest-trigger,.rd-filter-select-trigger) { background:#000; color:#fff; border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-chip { background:#000; color:#fff; border-color:#fff; }
 .cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input,textarea)::placeholder { color:#bdbdbd; opacity:1; }
 .cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input,textarea,select,button):focus-visible { outline:2px solid #fff; outline-offset:3px; }
 .cop-public.cop-public.cop-public.cop-public.cop-public .pp-form-card .eq-choice-check { border-color:#fff; }
@@ -821,3 +824,22 @@ html[data-cop-navigating] { scroll-behavior:auto !important; }
   .cop-public.cop-public.cop-public.cop-public.cop-public .expert-section.cop-enquiry .expert-inner :is(.expert-heading,.expert-heading em,.expert-sub,.expert-eyebrow) { color:#fff; }
   .cop-public.cop-public.cop-public.cop-public.cop-public .expert-section .expert-form:not(.rd-contact *) { padding:0 !important; border:0; }
 }
+/* Dark enquiry panels — interactive states (29 Sep 2026). Same selector weight
+   as the base dark rules above so selected/hover/focus actually win. */
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-chip:hover { background:#1c1c1c; color:#fff; border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-chip.is-on,
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-chip.is-on:hover { background:#fff; color:#000; border-color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-choice-check { border-color:#fff; color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-chip.is-on .eq-choice-check { border-color:#000; color:#000; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(.eq-chip,.eq-note-add,a):focus-visible { outline:2px solid #fff; outline-offset:3px; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) .eq-note-add:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea,select,.dest-trigger,.rd-filter-select-trigger):is(:hover,:focus) { background:#0d0d0d; border-color:#fff; color:#fff; }
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(input,textarea):-webkit-autofill { -webkit-text-fill-color:#fff; -webkit-box-shadow:0 0 0 1000px #000 inset; caret-color:#fff; }
+/* Submit hover: buttons.css swaps bg/text on hover, which would turn the white
+   button black on a black panel. Swap the variables so hover is light grey. */
+.cop-public.cop-public.cop-public.cop-public.cop-public :is(.expert-section .expert-form,.pp-form-card):not(.rd-contact *) :is(.expert-submit-btn,.eq-submit):is(:hover,:focus-visible) { --cop-button-bg:#000; --cop-button-text:#dcdcdc; }
+/* Hero "Sign up to the newsletter": the field's overflow:hidden + radius clip
+   was shaving the button's 1px white border on the left/right, so the sides
+   read grey. Let the button draw its own rounded border unclipped. */
+.cop-public .rd.rd-home.rd-home-light .rd-hero-newsletter .rd-hero-signup-field:not(.is-open) { overflow:visible; background:transparent; }
+.cop-public .rd.rd-home.rd-home-light .rd-hero-newsletter .rd-hero-signup-field .rd-hero-signup-open { border-radius:8px; }
