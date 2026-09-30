@@ -76,6 +76,16 @@ export function middleware(request) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
+  // Public discovery files must be readable before a crawler knows our policy.
+  // Keep this exemption to exact paths and read-only methods; ordinary pages
+  // and private routes still pass through the existing bot filter below.
+  if (
+    (request.method === 'GET' || request.method === 'HEAD') &&
+    ['/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt'].includes(pathname)
+  ) {
+    return NextResponse.next();
+  }
+
   // ── API routes bypass the bot filter entirely ─────────────────────────────
   // Vercel's cron runner, Resend webhooks, and our own internal scripts all
   // hit /api/* and would otherwise get caught by node/curl/axios patterns
