@@ -1074,6 +1074,9 @@ html:has(.rd-home-light) { scroll-behavior:smooth; }
  .rd.rd-home-light :is(.rd-btn,.rd-nav-cta,.expert-submit-btn,.rd-hero-signup-field):hover {
   transform:translateY(-1px); box-shadow:0 5px 14px #00000018;
  }
+ /* The nav CTA turns white on hover, on a white bar: keep its 1px ring so
+    the button doesn't vanish (David, 1 Oct 2026). */
+ .rd.rd-home-light .rd-nav-cta:hover { box-shadow:0 0 0 1px #171717, 0 5px 14px #00000018; }
 }
 .rd.rd-home-light :is(.rd-btn,.rd-nav-cta,.expert-submit-btn,#destinations [role="tabpanel"] > div a):active { transform:translateY(0); box-shadow:none; }
 @media(prefers-reduced-motion:reduce) {

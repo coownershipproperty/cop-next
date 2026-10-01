@@ -58,3 +58,19 @@
 .page :global(.fav-save-error) { color:#a12e23; }
 @media(max-width:1000px) { .page :global(.page-hero) { padding:130px 28px 40px; } .page :global(.fav-sec) { padding:0 28px 72px; } }
 @media(max-width:600px) { .page :global(.page-hero) { padding:116px 20px 36px; } .page :global(.fav-sec) { padding:0 20px 60px; } .page :global(.fav-save-form) { flex-direction:column; flex-basis:100%; } .page :global(.fav-save-card) { padding:22px; } }
+
+/* 1 Oct 2026: the saved homes were below the fold on both desktop and mobile.
+   Compact hero, tighter header, and the email card now sits after the grid. */
+.page :global(.page-hero) { padding:132px 56px 28px; }
+.page :global(.page-hero-eyebrow) { margin-bottom:14px; }
+.page :global(.page-hero h1) { font-size:clamp(32px,3vw,44px); margin:0 0 10px; }
+.page :global(.page-hero-sub) { margin:0 0 20px; font-size:16px; }
+.browse { min-height:46px; padding:10px 18px; }
+.page :global(.fav-save-card) { margin:40px 0 0; }
+@media(max-width:1000px) { .page :global(.page-hero) { padding:112px 28px 24px; } }
+@media(max-width:600px) {
+  .page :global(.page-hero) { padding:96px 20px 20px; text-align:left; }
+  .page :global(.page-hero h1) { font-size:30px; }
+  .page :global(.page-hero-sub) { font-size:15px; margin-bottom:16px; }
+  .page :global(.fav-save-card) { margin-top:28px; }
+}

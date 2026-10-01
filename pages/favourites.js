@@ -224,33 +224,6 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                 <button className="clear-favs-btn" onClick={clearAll}>{tr('clear_button')}</button>
               </div>
 
-              {/* Save-across-devices email capture */}
-              <div className="fav-save-card">
-                {slState === 'done' ? (
-                  <p className="fav-save-done">✓ {(SL_COPY[locale] || SL_COPY.en).done}</p>
-                ) : (
-                  <>
-                    <div className="fav-save-text">
-                      <p className="fav-save-title">{(SL_COPY[locale] || SL_COPY.en).title}</p>
-                      <p className="fav-save-sub">{(SL_COPY[locale] || SL_COPY.en).sub}</p>
-                    </div>
-                    <form className="fav-save-form" onSubmit={saveShortlist}>
-                      <input
-                        type="email"
-                        required
-                        value={slEmail}
-                        onChange={e => setSlEmail(e.target.value)}
-                        placeholder={(SL_COPY[locale] || SL_COPY.en).placeholder}
-                        aria-label={(SL_COPY[locale] || SL_COPY.en).placeholder}
-                      />
-                      <button type="submit" disabled={slState === 'busy'}>
-                        {slState === 'busy' ? '…' : (SL_COPY[locale] || SL_COPY.en).btn}
-                      </button>
-                    </form>
-                    {slState === 'error' && <p className="fav-save-error">Something went wrong — please try again.</p>}
-                  </>
-                )}
-              </div>
               <div className="fav-grid">
                 {props.map((p) => {
                   const propUrl  = propertyHref(p.slug, locale);
@@ -311,6 +284,35 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                     </article>
                   );
                 })}
+              </div>
+
+              {/* Save-across-devices email capture — below the homes, so the
+                  shortlist itself is what you see first (1 Oct 2026) */}
+              <div className="fav-save-card">
+                {slState === 'done' ? (
+                  <p className="fav-save-done">✓ {(SL_COPY[locale] || SL_COPY.en).done}</p>
+                ) : (
+                  <>
+                    <div className="fav-save-text">
+                      <p className="fav-save-title">{(SL_COPY[locale] || SL_COPY.en).title}</p>
+                      <p className="fav-save-sub">{(SL_COPY[locale] || SL_COPY.en).sub}</p>
+                    </div>
+                    <form className="fav-save-form" onSubmit={saveShortlist}>
+                      <input
+                        type="email"
+                        required
+                        value={slEmail}
+                        onChange={e => setSlEmail(e.target.value)}
+                        placeholder={(SL_COPY[locale] || SL_COPY.en).placeholder}
+                        aria-label={(SL_COPY[locale] || SL_COPY.en).placeholder}
+                      />
+                      <button type="submit" disabled={slState === 'busy'}>
+                        {slState === 'busy' ? '…' : (SL_COPY[locale] || SL_COPY.en).btn}
+                      </button>
+                    </form>
+                    {slState === 'error' && <p className="fav-save-error">Something went wrong — please try again.</p>}
+                  </>
+                )}
               </div>
             </>
           )}

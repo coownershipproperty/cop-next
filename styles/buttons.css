@@ -60,6 +60,11 @@
   background: var(--cop-button-text) !important;
   color: var(--cop-button-bg) !important;
   border-color: #171717 !important;
+  /* Keep the 1px ring on hover. A black button turns white here, and on a
+     white section or the white nav bar it vanished, because later hover
+     rules (the homepage "lift" shadow) replaced the ring. !important inside
+     this layer outranks those unlayered rules. (David, 1 Oct 2026) */
+  box-shadow: 0 0 0 1px #171717, 0 5px 14px #00000018 !important;
 }
 
 }
