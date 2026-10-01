@@ -382,3 +382,31 @@
  .page :global(.pp-financing .cop-fin-result) { gap:8px 16px; }
  .page :global(.pp-financing .cop-fin-result > p:nth-child(2)),.page :global(.pp-financing .cop-fin-result > p:nth-child(4)) { font-size:26px; }
 }
+
+
+/* ── Mobile listing hero: unlock pill, instant swipe, lightbox lock slide (1 Oct 2026) ── */
+@media (max-width: 768px) {
+  /* Swipes land instantly — the 0.35s ease read as lag. */
+  .page :global(.pp-mob-track) { transition: none; }
+  .page :global(.pp-mob-unlock-pill) {
+    position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); z-index: 11;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    background: #fff; color: #111; border: 0; border-radius: 999px;
+    padding: 10px 18px; font: 500 14px/1 var(--rd-body); letter-spacing: 0;
+    box-shadow: 0 6px 20px #00000059; cursor: pointer;
+  }
+  .page :global(.pp-mob-unlock-pill svg) { width: 15px; height: 15px; flex: none; }
+  .page :global(.pp-mob-unlock-count) {
+    font-size: 12px; font-weight: 600; color: #6b6b6b; padding-left: 8px; border-left: 1px solid #ddd;
+  }
+  .page :global(.pp-mob-unlock-pill:active) { transform: translateX(-50%) scale(.97); }
+}
+@media (max-width: 600px) {
+  /* Lightbox lock slide: same landscape box as the photos before it, not a
+     92vh column, with side padding so the copy clears the 44px arrows. */
+  .page :global(.pp-lb-lock) { width: 92vw; max-width: 92vw; height: 69vw; max-height: 80vh; padding: 0 56px; box-sizing: border-box; gap: 6px; }
+  .page :global(.pp-lb-lock > svg) { width: 28px !important; height: 28px !important; margin-bottom: 4px !important; }
+  .page :global(.pp-lb-lock-title) { font-size: 18px; line-height: 1.25; }
+  .page :global(.pp-lb-lock-sub) { font-size: 13px; line-height: 1.4; }
+  .page :global(.pp-lb-lock-btn) { margin-top: 8px; padding: 12px 22px; font-size: 14px; }
+}

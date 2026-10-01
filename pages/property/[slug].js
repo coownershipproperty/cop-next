@@ -2003,6 +2003,23 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
         {mobileSlide < mobileSlides.length - 1 && (
           <button className="pp-mob-arrow pp-mob-next" aria-label="Next photo" onClick={() => setMobileSlide(s => s + 1)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         )}
+        {/* Mobile only: the unlock slide is the last one, so most visitors
+            never swipe far enough to learn the gallery exists. A floating
+            button above the dots says it on every photo; it hides on the
+            lock slide itself, which carries its own button. (1 Oct 2026) */}
+        {mobileSlides[mobileSlide]?.type !== 'lock' && (
+          <button
+            type="button"
+            className="pp-mob-unlock-pill"
+            onClick={() => unlocked ? viewGallery() : setShowUnlock(true)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
+            </svg>
+            <span>{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
+            {galleryTotal > 1 && <span className="pp-mob-unlock-count">{galleryTotal}</span>}
+          </button>
+        )}
         <div className="pp-mob-dots">
           {mobileSlides.map((_, i) => (
             <button key={i} className={`pp-mob-dot${i === mobileSlide ? ' active' : ''}`} onClick={() => setMobileSlide(i)} />

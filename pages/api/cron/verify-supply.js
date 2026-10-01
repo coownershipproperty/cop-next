@@ -212,10 +212,19 @@ function classify(row, page) {
     const seen = readMyne(row.partner_url, page.body);
     if (seen.marketStatus === 'on-market') return { state: 'ok', note: null };
     if (seen.marketStatus) return { state: 'gone', note: `MYNE page: marketStatus ${seen.marketStatus}` };
-    if (seen.slugFound === false && page.body.length > 100000) {
-      return { state: 'gone', note: 'MYNE page has no listing data for this slug (withdrawn page)' };
-    }
-    return { state: 'unreachable', note: 'could not read MYNE listing data' };
+    // 1 Oct 2026: some live MYNE pages (Alpine Garden II, Bramberg, Villa
+    // Nirêve) carry the listing with its salespriceShare but NO marketStatus
+    // field at all. Treating "no marketStatus" as withdrawn hid three homes
+    // David had approved the evening before — three mornings running for
+    // Bramberg. A priced listing object is for sale; only a page that names
+    // the slug and carries neither status nor price is a withdrawn page.
+    if (seen.priced) return { state: 'ok', note: 'MYNE page: priced listing, no marketStatus field' };
+    // Bramberg's live page arrives as 115 KB of shell with the listing
+    // streamed in later, so "slug named, no data" is not evidence of
+    // withdrawal either. A MYNE listing is only "gone" when its own
+    // marketStatus says so; a vanished listing is caught by the daily sync
+    // (not in MYNE's grid) instead. Never hide on the absence of data.
+    return { state: 'unreachable', note: 'MYNE page: no listing data in the HTML (streamed or withdrawn) — not acted on' };
   }
   const markers = GONE_MARKERS[(row.partner || '').toLowerCase()];
   if (!markers) return { state: 'unknown_partner', note: 'no withdrawal marker known for this partner' };
@@ -239,12 +248,16 @@ function classify(row, page) {
 function readMyne(url, body) {
   const slug = String(url || '').replace(/[?#].*$/, '').replace(/\/+$/, '').split('/').pop();
   const at = slug ? body.indexOf(`defaultFullSlug\\":\\"listings/${slug}`) : -1;
-  if (at < 0) return { slugFound: null, marketStatus: null };
-  const rest = body.slice(at);
+  if (at < 0) return { slugFound: false, marketStatus: null, priced: false };
+  // Only the listing's own object: stop at the next defaultFullSlug (a
+  // "related" listing) so its price or status is never read as ours.
+  const next = body.indexOf('defaultFullSlug\\":\\"listings/', at + 20);
+  const rest = body.slice(at, next > at ? next : undefined);
   const m = rest.match(/marketStatus\\":\\"([a-z-]+)/);
+  const priced = /salespriceShare\\":\\"\d{4,}/.test(rest);
   // Withdrawn pages still name the slug in their metadata but carry no
-  // property object, so no marketStatus follows it.
-  return { slugFound: !!m, marketStatus: m ? m[1] : null };
+  // property object: no marketStatus and no salespriceShare follow it.
+  return { slugFound: true, marketStatus: m ? m[1] : null, priced };
 }
 
 /**
