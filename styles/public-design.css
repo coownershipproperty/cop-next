@@ -865,3 +865,20 @@ html[data-cop-navigating] { scroll-behavior:auto !important; }
    (the Poppins "+" glyph rides low). Rotates to × when open, as before. */
 .rd-faq summary::after { content:'' !important; background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor); background-repeat:no-repeat; background-position:center; background-size:11px 1.5px,1.5px 11px; }
 .rd-faq details[open] summary::after { background-image:linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor) !important; background-repeat:no-repeat !important; background-position:center !important; background-size:11px 1.5px,1.5px 11px !important; }
+
+/* ── Mobile property enquiry form: final word (David, 1 Oct 2026) ──
+   Three earlier blocks (dark, light, dark again) fought each other and left
+   white chips with an invisible white tick box, black fields with barely
+   visible edges and centred labels. One readable dark style: grey-filled
+   fields with a visible border, outlined chips with a visible tick box,
+   white when selected, everything left-aligned. */
+@media(max-width:760px) {
+  .cop-public .pp-form-card :is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea,select,.rd-filter-select-trigger) { background:#1c1c1c !important; color:#fff !important; border:1px solid #9a9a9a !important; border-radius:6px !important; text-align:left !important; }
+  .cop-public .pp-form-card :is(input,textarea)::placeholder { color:#a8a8a8 !important; }
+  .cop-public .pp-form-card :is(.eq-field label,.eq-chips-q) { text-align:left !important; display:block; }
+  .cop-public .pp-form-card .eq-chips-row { justify-content:flex-start !important; }
+  .cop-public .pp-form-card .eq-chip { background:transparent !important; color:#fff !important; border:1px solid #9a9a9a !important; border-radius:6px !important; justify-content:flex-start !important; }
+  .cop-public .pp-form-card .eq-choice-check { border-color:#cfcfcf !important; color:#fff !important; }
+  .cop-public .pp-form-card .eq-chip.is-on { background:#fff !important; color:#000 !important; border-color:#fff !important; }
+  .cop-public .pp-form-card .eq-chip.is-on .eq-choice-check { border-color:#000 !important; color:#000 !important; }
+}

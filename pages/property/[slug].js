@@ -231,6 +231,8 @@ const COPY = {
       : n === 1 ? 'View the photo for this home'
       : 'View the full photo gallery for this home',
     view_gallery_btn: 'View Gallery →',
+    pill_unlock: (n) => n > 1 ? `Unlock all ${n} photos` : `Unlock all photos`,
+    pill_view: (n) => n > 1 ? `View all ${n} photos` : `View all photos`,
     form_eye: 'Get in touch',
     form_title: 'Enquire About This Property',
     form_sub: 'Our team typically responds within a few hours. No obligation.',
@@ -290,6 +292,8 @@ const COPY = {
       : n === 1 ? 'Ver la foto de esta vivienda'
       : 'Ver la galería de fotos completa de esta vivienda',
     view_gallery_btn: 'Ver galería →',
+    pill_unlock: (n) => n > 1 ? `Desbloquea las ${n} fotos` : `Desbloquea todas las fotos`,
+    pill_view: (n) => n > 1 ? `Ver las ${n} fotos` : `Ver todas las fotos`,
     form_eye: 'Contáctanos',
     form_title: 'Consulta sobre esta propiedad',
     form_sub: 'Nuestro equipo suele responder en pocas horas. Sin compromiso.',
@@ -349,6 +353,8 @@ const COPY = {
       : n === 1 ? 'Voir la photo de ce bien'
       : 'Voir la galerie photo complète de ce bien',
     view_gallery_btn: 'Voir la galerie →',
+    pill_unlock: (n) => n > 1 ? `Débloquez les ${n} photos` : `Débloquez toutes les photos`,
+    pill_view: (n) => n > 1 ? `Voir les ${n} photos` : `Voir toutes les photos`,
     form_eye: 'Nous contacter',
     form_title: 'Ce bien vous intéresse ?',
     form_sub: 'Notre équipe répond généralement sous quelques heures. Sans engagement.',
@@ -408,6 +414,8 @@ const COPY = {
       : n === 1 ? 'Das Foto dieses Objekts ansehen'
       : 'Die vollständige Fotogalerie dieses Objekts ansehen',
     view_gallery_btn: 'Galerie ansehen →',
+    pill_unlock: (n) => n > 1 ? `Alle ${n} Fotos freischalten` : `Alle Fotos freischalten`,
+    pill_view: (n) => n > 1 ? `Alle ${n} Fotos ansehen` : `Alle Fotos ansehen`,
     form_eye: 'Kontakt aufnehmen',
     form_title: 'Anfrage zu dieser Immobilie',
     form_sub: 'Unser Team antwortet in der Regel innerhalb weniger Stunden. Unverbindlich.',
@@ -474,6 +482,8 @@ const COPY = {
       : n === 1 ? 'Vedi la foto di questa casa'
       : 'Visualizza la galleria fotografica completa di questa casa',
     view_gallery_btn: "Visualizza la galleria →",
+    pill_unlock: (n) => n > 1 ? `Sblocca tutte le ${n} foto` : `Sblocca tutte le foto`,
+    pill_view: (n) => n > 1 ? `Vedi tutte le ${n} foto` : `Vedi tutte le foto`,
     form_eye: "Scrivici",
     form_title: "Richiedi informazioni su questo immobile",
     form_sub: "Il nostro team risponde di solito entro poche ore. Senza impegno.",
@@ -532,6 +542,8 @@ const COPY = {
       : n === 1 ? 'Bekijk de foto van deze woning'
       : 'Bekijk de volledige fotogalerij van deze woning',
     view_gallery_btn: "Galerij bekijken →",
+    pill_unlock: (n) => n > 1 ? `Alle ${n} foto's ontgrendelen` : `Alle foto's ontgrendelen`,
+    pill_view: (n) => n > 1 ? `Alle ${n} foto's bekijken` : `Alle foto's bekijken`,
     form_eye: "Neem contact op",
     form_title: "Informatie aanvragen over deze woning",
     form_sub: "Ons team reageert meestal binnen een paar uur. Geheel vrijblijvend.",
@@ -590,6 +602,8 @@ const COPY = {
       : n === 1 ? 'Veja a fotografia desta casa'
       : 'Veja a galeria de fotografias completa desta casa',
     view_gallery_btn: "Ver galeria →",
+    pill_unlock: (n) => n > 1 ? `Desbloquear as ${n} fotos` : `Desbloquear todas as fotos`,
+    pill_view: (n) => n > 1 ? `Ver as ${n} fotos` : `Ver todas as fotos`,
     form_eye: "Fale connosco",
     form_title: "Peça informações sobre este imóvel",
     form_sub: "A nossa equipa costuma responder em poucas horas. Sem compromisso.",
@@ -657,6 +671,8 @@ const COPY = {
       : n === 1 ? 'Se bilden på det här huset'
       : 'Se hela bildgalleriet för det här huset',
     view_gallery_btn: 'Visa galleriet →',
+    pill_unlock: (n) => n > 1 ? `Lås upp alla ${n} bilder` : `Lås upp alla bilder`,
+    pill_view: (n) => n > 1 ? `Visa alla ${n} bilder` : `Visa alla bilder`,
     form_eye: 'Hör av dig',
     form_title: 'Intresserad av det här huset?',
     form_sub: 'Vi svarar oftast inom några timmar. Helt utan förpliktelser.',
@@ -716,6 +732,8 @@ const COPY = {
       : n === 1 ? 'Se billedet af denne bolig'
       : 'Se hele billedgalleriet for denne bolig',
     view_gallery_btn: 'Se galleriet →',
+    pill_unlock: (n) => n > 1 ? `Lås alle ${n} billeder op` : `Lås alle billeder op`,
+    pill_view: (n) => n > 1 ? `Se alle ${n} billeder` : `Se alle billeder`,
     form_eye: 'Skriv til os',
     form_title: 'Interesseret i denne bolig?',
     form_sub: 'Vi svarer som regel inden for et par timer. Helt uforpligtende.',
@@ -775,6 +793,8 @@ const COPY = {
       : n === 1 ? 'Se bildet av denne boligen'
       : 'Se hele bildegalleriet for denne boligen',
     view_gallery_btn: 'Se galleriet →',
+    pill_unlock: (n) => n > 1 ? `Lås opp alle ${n} bildene` : `Lås opp alle bildene`,
+    pill_view: (n) => n > 1 ? `Se alle ${n} bildene` : `Se alle bildene`,
     form_eye: 'Ta kontakt',
     form_title: 'Interessert i denne boligen?',
     form_sub: 'Vi svarer som regel i løpet av et par timer. Helt uforpliktende.',
@@ -2016,8 +2036,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
             </svg>
-            <span>{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
-            {galleryTotal > 1 && <span className="pp-mob-unlock-count">{galleryTotal}</span>}
+            <span>{unlocked ? t.pill_view(galleryTotal) : t.pill_unlock(galleryTotal)}</span>
           </button>
         )}
         <div className="pp-mob-dots">
