@@ -90,7 +90,7 @@ export default async function handler(req, res) {
         ...(p.size > 0 ? {
           floorSize: { '@type': 'QuantitativeValue', value: p.size, unitCode: 'MTK' },
         } : {}),
-        accommodationCategory: 'Fractional ownership — 1/8 deeded share',
+        accommodationCategory: 'Fractional co-ownership share',
         ...(p.price ? {
           offers: {
             '@type': 'Offer',

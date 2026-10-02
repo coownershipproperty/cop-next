@@ -34,7 +34,6 @@ Disallow: /api/preview/
 Disallow: /api/cron/
 Allow: /api/properties.json
 Allow: /api/destinations.json
-Allow: /api/operators.json
 Allow: /
 
 # ── AI training & indexing crawlers ────────────────────────────────────────
@@ -76,7 +75,6 @@ Disallow: /api/preview/
 Disallow: /api/cron/
 Allow: /api/properties.json
 Allow: /api/destinations.json
-Allow: /api/operators.json
 Allow: /
 
 # ── Sitemap & LLM manifest ─────────────────────────────────────────────────
@@ -90,4 +88,3 @@ Sitemap: https://co-ownership-property.com/sitemap.xml
 # Public JSON feeds (CORS-open, edge-cached 1h):
 #   https://co-ownership-property.com/api/properties.json
 #   https://co-ownership-property.com/api/destinations.json
-#   https://co-ownership-property.com/api/operators.json

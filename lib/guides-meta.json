@@ -10,24 +10,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2200
   },
   "france": {
@@ -41,24 +24,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Paris Property Group",
-        "url": "https://parispropertygroup.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   },
   "italy": {
@@ -72,20 +38,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 1800
   },
   "usa": {
@@ -94,21 +47,12 @@
     "title": "How to Buy a Co-Ownership Share in the USA (2026)",
     "h1": "How to buy a co-ownership share in the United States",
     "subtitle": "The property-specific LLC, what the US market does better and worse than Europe, what it costs across the 107 American homes we list, and the steps in order.",
-    "metaDescription": "You buy a share in a property-specific LLC. {{homes:usa}} homes across 11 states from {{from:usa}}, Pacaso’s uncapped nights, and why letting is not allowed here.",
+    "metaDescription": "You buy a share in a property-specific LLC. {{homes:usa}} homes across 11 states from {{from:usa}}, uncapped nights with our main US partner, and why letting is not allowed here.",
     "category": "buyer-guide",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Abitaro",
-        "url": "https://ownabitaro.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 1900
   }
 }

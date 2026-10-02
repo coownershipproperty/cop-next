@@ -64,7 +64,7 @@ export default function CopropiedadVsMultipropiedad() {
 
             <p>Es la pregunta que todo comprador interesado en una segunda residencia hace tarde o temprano: <strong>¿la copropiedad no es lo mismo que la multipropiedad?</strong> La respuesta corta es no. La respuesta larga importa, porque las dos figuras son fundamentalmente distintas — jurídica, financiera y prácticamente.</p>
 
-            <p>En España, la palabra <em>multipropiedad</em> arrastra décadas de mala prensa: contratos abusivos en los años 90 y 2000, miles de sentencias del Tribunal Supremo anulando esquemas fraudulentos, dificultad notoria para revender. La copropiedad como modelo profesional es algo completamente diferente, popularizado en España por operadores como Vivla a partir de 2022. Vamos a desglosar exactamente por qué.</p>
+            <p>En España, la palabra <em>multipropiedad</em> arrastra décadas de mala prensa: contratos abusivos en los años 90 y 2000, miles de sentencias del Tribunal Supremo anulando esquemas fraudulentos, dificultad notoria para revender. La copropiedad como modelo profesional es algo completamente diferente, popularizado en España por operadores especializados a partir de 2022. Vamos a desglosar exactamente por qué.</p>
 
             <h2>La diferencia en una frase</h2>
             <p style={{fontSize:'1.18rem', borderLeft:'4px solid #6b6b6b', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>La <strong>copropiedad</strong> te hace dueño real de una fracción de la vivienda, registrada en el Registro de la Propiedad. La <strong>multipropiedad</strong> te da solo el derecho de usar la vivienda durante semanas concretas — no eres dueño del inmueble.</p>

@@ -10,24 +10,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2200
   },
   "france": {
@@ -41,24 +24,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Paris Property Group",
-        "url": "https://parispropertygroup.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   },
   "italy": {
@@ -72,20 +38,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 1800
   },
   "usa": {
@@ -94,21 +47,12 @@
     "title": "Acheter une part en copropriété aux États-Unis (2026)",
     "h1": "Comment acheter une part en copropriété aux États-Unis",
     "subtitle": "La LLC dédiée au bien, ce que le marché américain fait mieux et moins bien que l'Europe, ce que cela coûte sur les {{homes:usa}} biens américains que nous répertorions, et les étapes dans l'ordre.",
-    "metaDescription": "Vous achetez une part dans une LLC dédiée au bien. {{homes:usa}} biens dans 11 États dès 68 000 $, les nuits sans plafond de Pacaso et pourquoi on ne peut pas louer.",
+    "metaDescription": "Vous achetez une part dans une LLC dédiée au bien. {{homes:usa}} biens dans 11 États dès 68 000 $, des nuits sans plafond chez notre partenaire principal et pourquoi on ne peut pas louer.",
     "category": "buyer-guide",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Abitaro",
-        "url": "https://ownabitaro.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 1900
   }
 }

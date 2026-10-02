@@ -25,113 +25,19 @@
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
     "mentionsBrands": []
   },
-  "pacaso-vs-myne": {
-    "slug": "pacaso-vs-myne",
-    "title": "Pacaso vs. MYNE: Miteigentums-Anbieter im Vergleich",
-    "h1": "Pacaso vs MYNE Homes",
-    "subtitle": "Zwei der prominentesten Anbieter für fraktionales Miteigentum, mit sehr unterschiedlichen geografischen Stärken, Geschäftsmodellen und Käuferprofilen.",
-    "metaDescription": "Direkt gegenübergestellt: Anteilspreise, Nächte pro Jahr, laufende Kosten, Buchungsregeln und Wiederverkauf. Stand September 2026.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-05-27",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      }
-    ]
-  },
-  "pacaso-vs-vivla": {
-    "slug": "pacaso-vs-vivla",
-    "title": "Pacaso vs. Vivla: Miteigentums-Anbieter im Vergleich",
-    "h1": "Pacaso vs Vivla",
-    "subtitle": "Pacaso bietet die größte grenzüberschreitende Präsenz im fraktionalen Miteigentum; Vivla geht in Spanien tiefer als jeder andere Anbieter. Sie bedienen unterschiedliche Käufer — manchmal denselben Käufer zu unterschiedlichen Zeitpunkten.",
-    "metaDescription": "Einer verkauft in den USA und Europa, einer nur in Spanien. Preise, Nächte, Kosten, Buchung und Wiederverkauf im Vergleich. September 2026.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-05-27",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      }
-    ]
-  },
-  "myne-vs-vivla": {
-    "slug": "myne-vs-vivla",
-    "title": "MYNE vs. Vivla: Miteigentums-Anbieter im Vergleich",
-    "h1": "MYNE Homes vs Vivla",
-    "subtitle": "Zwei in Europa ansässige Anbieter für fraktionales Miteigentum mit überlappender Präsenz in Spanien und sehr unterschiedlichen Philosophien. MYNE geht in die Breite über neun Länder; Vivla geht in die Tiefe in einem Land.",
-    "metaDescription": "Beide verkaufen Achtel europäischer Ferienhäuser. Preis, Nächte pro Jahr, laufende Kosten, Buchung und Wiederverkauf im Vergleich. September 2026.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-05-27",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      }
-    ]
-  },
   "best-fractional-ownership-companies": {
     "slug": "best-fractional-ownership-companies",
-    "title": "Die besten Miteigentums-Anbieter 2026 im Vergleich",
-    "h1": "Die besten Anbieter für fraktionales Miteigentum 2026",
-    "subtitle": "Sechs Anbieter, 268 aktuell gelistete Immobilien und Zahlen, die an den Angeboten selbst gemessen und nicht aus irgendwessen Marketing übernommen sind — einschließlich der laufenden Kosten, die zwei von ihnen veröffentlichen und vier nicht.",
-    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro und Paris Property Group im Vergleich: Preis, laufende Kosten, Nächte und Weiterverkauf — gemessen an 268 Immobilien.",
+    "title": "Miteigentums-Unternehmen 2026: die Arten im Vergleich",
+    "h1": "Arten von Miteigentums-Unternehmen und wie Sie wählen",
+    "subtitle": "Es gibt nicht das eine beste Unternehmen, sondern verschiedene Arten, die in Unterschiedlichem am besten sind — mit Zahlen, gemessen an unseren aktuell gelisteten Immobilien statt aus irgendwessen Marketing übernommen.",
+    "metaDescription": "Auf die USA ausgerichtet, paneuropäisch, Spanien-Spezialist, Boutique und städtisches Pied-à-terre: die Arten im Vergleich nach Preis, laufenden Kosten, Nächten und Weiterverkauf.",
     "category": "category-comparison",
     "comparisonType": "category",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      "Pacaso",
-      "MYNE Homes",
-      "Vivla",
-      "&Hamlet",
-      "Abitaro",
-      "Paris Property Group"
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
-  },
-  "pacaso-alternatives": {
-    "slug": "pacaso-alternatives",
-    "title": "Pacaso-Alternativen: vier Gründe, vier Antworten",
-    "h1": "Pacaso-Alternativen",
-    "subtitle": "Menschen suchen aus vier Gründen nach einer Alternative — Preis, Geografie, Vermietung oder der Wunsch, die laufenden Kosten vorab zu kennen — und jeder Grund hat eine andere Antwort.",
-    "metaDescription": "Zu teuer, nicht in Europa, vermieten wollen oder Paris? Jeder Grund hat eine andere Antwort. Verglichen anhand gemessener Zahlen aus 268 Immobilien.",
-    "category": "category-comparison",
-    "comparisonType": "brand",
-    "datePublished": "2026-09-16",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      "Pacaso",
-      "MYNE Homes",
-      "Vivla",
-      "&Hamlet",
-      "Abitaro",
-      "Paris Property Group"
-    ],
-    "wordCountTarget": 1300
   },
   "cop-vs-going-direct": {
     "slug": "cop-vs-going-direct",
@@ -147,97 +53,32 @@
     "mentionsBrands": [],
     "wordCountTarget": 1300
   },
-  "myne-vs-andhamlet": {
-    "slug": "myne-vs-andhamlet",
-    "title": "MYNE vs. &Hamlet: Miteigentums-Anbieter im Vergleich",
-    "h1": "MYNE Homes vs &Hamlet",
-    "subtitle": "Die beiden europäischen Anbieter, die ihre laufenden Kosten veröffentlichen, verglichen über 108 Immobilien: Preis, Größe, Nächte pro Jahr, Vermietungsregeln und was eine Nacht im Haus tatsächlich kostet.",
-    "metaDescription": "99 MYNE-Immobilien und 9 &Hamlet-Immobilien im Vergleich: Anteilspreis, Schlafzimmer, Nächte pro Jahr, Vermietung und verifizierte laufende Kosten.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-09-16",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      }
-    ],
-    "wordCountTarget": 2200
-  },
   "fractional-ownership-vs-renting": {
     "slug": "fractional-ownership-vs-renting",
     "title": "Fraktionales Miteigentum vs. Mieten: die echten Zahlen",
     "h1": "Fraktionales Miteigentum vs Ferienhaus mieten",
-    "subtitle": "Was eine Nacht in einer Immobilie im Miteigentum tatsächlich kostet, gemessen an den 108 Immobilien, bei denen wir die Kostenaufstellung des Anbieters verifiziert haben — und der Mietpreis pro Nacht, ab dem Kaufen der günstigere Weg dorthin ist.",
+    "subtitle": "Was eine Nacht in einer Immobilie im Miteigentum tatsächlich kostet, gemessen an den 108 Immobilien, bei denen wir die Kostenaufstellung des Partners verifiziert haben — und der Mietpreis pro Nacht, ab dem Kaufen der günstigere Weg dorthin ist.",
     "metaDescription": "Eine Immobilie im Miteigentum kostet im Median 89 € pro Nacht. Mit Kapital kommen die günstigsten auf 188 €. Der Mietpreis am Break-even, offen gerechnet.",
     "category": "model-comparison",
     "comparisonType": "model",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   },
   "which-co-ownership-operator": {
     "slug": "which-co-ownership-operator",
-    "title": "Welcher Miteigentums-Anbieter passt zu Ihnen?",
-    "h1": "Bei welchem Miteigentums-Anbieter sollten Sie kaufen?",
-    "subtitle": "Sechs Anbieter, 268 aktuell gelistete Immobilien und die vier Fragen, die es tatsächlich entscheiden — das Land, ob Sie vermieten dürfen, ob Ihre Nächte eine Untergrenze oder eine feste Zuteilung sind, und die Finanzierung.",
-    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro und Paris Property Group: wo jeder verkauft, wer die Vermietung erlaubt und wie die Nächte funktionieren.",
+    "title": "Welche Art von Miteigentums-Unternehmen passt zu Ihnen?",
+    "h1": "Welche Art von Miteigentums-Unternehmen zu Ihnen passt",
+    "subtitle": "Die Arten von Unternehmen hinter unseren aktuell gelisteten Immobilien und die vier Fragen, die es tatsächlich entscheiden — das Land, ob Sie vermieten dürfen, ob Ihre Nächte eine Untergrenze oder eine feste Zuteilung sind, und die Finanzierung.",
+    "metaDescription": "Wo jede Art von Miteigentums-Unternehmen tätig ist, welche die Vermietung erlaubt, wie die Nächte funktionieren und zu welchem Käufer welche Art passt.",
     "category": "category-comparison",
     "comparisonType": "category",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Abitaro",
-        "url": "https://ownabitaro.com/"
-      },
-      {
-        "name": "Paris Property Group",
-        "url": "https://parispropertygroup.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   }
 }

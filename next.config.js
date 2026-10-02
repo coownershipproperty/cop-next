@@ -56,6 +56,26 @@ nextConfig.redirects = async () => [
   },
   { source: '/admin/crm/', destination: '/admin/leads/', permanent: true },
 
+  // ── partner-name-removal (2 Oct 2026) ──
+  // The site no longer names the partner companies. Their profile pages and
+  // the named head-to-head comparisons are retired; send the traffic to the
+  // homes and to the comparison hub.
+  { source: '/partners/:slug/', destination: '/our-homes/', permanent: true },
+  { source: '/partners/', destination: '/our-homes/', permanent: true },
+  { source: '/es/socios/:slug/', destination: '/es/propiedades/', permanent: true },
+  { source: '/es/socios/', destination: '/es/propiedades/', permanent: true },
+  { source: '/fr/partenaires/:slug/', destination: '/fr/proprietes/', permanent: true },
+  { source: '/fr/partenaires/', destination: '/fr/proprietes/', permanent: true },
+  { source: '/de/partner/:slug/', destination: '/de/immobilien/', permanent: true },
+  { source: '/de/partner/', destination: '/de/immobilien/', permanent: true },
+  { source: '/compare/:slug(pacaso-vs-myne|pacaso-vs-vivla|myne-vs-vivla|myne-vs-andhamlet|pacaso-alternatives)/', destination: '/compare/', permanent: true },
+  { source: '/es/comparativa/:slug(pacaso-vs-myne|pacaso-vs-vivla|myne-vs-vivla|myne-vs-andhamlet|pacaso-alternatives)/', destination: '/es/comparativa/', permanent: true },
+  { source: '/fr/comparaison/:slug(pacaso-vs-myne|pacaso-vs-vivla|myne-vs-vivla|myne-vs-andhamlet|pacaso-alternatives)/', destination: '/fr/comparaison/', permanent: true },
+  { source: '/de/vergleich/:slug(pacaso-vs-myne|pacaso-vs-vivla|myne-vs-vivla|myne-vs-andhamlet|pacaso-alternatives)/', destination: '/de/vergleich/', permanent: true },
+  { source: '/faq/difference-between-cop-and-pacaso/', destination: '/compare/cop-vs-going-direct/', permanent: true },
+  { source: '/faq/will-pacaso-expand-into-europe/', destination: '/compare/cop-vs-going-direct/', permanent: true },
+  { source: '/api/operators.json', destination: '/our-homes/', permanent: false },
+
   // ── Page redirects ──
   { source: '/sitemap_index.xml', destination: '/sitemap.xml', permanent: true },
 

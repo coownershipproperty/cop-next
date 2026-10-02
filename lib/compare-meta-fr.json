@@ -25,72 +25,6 @@
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
     "mentionsBrands": []
   },
-  "pacaso-vs-myne": {
-    "slug": "pacaso-vs-myne",
-    "title": "Pacaso vs MYNE : comparatif des opérateurs",
-    "h1": "Pacaso vs MYNE Homes",
-    "subtitle": "Deux des opérateurs de copropriété fractionnée les plus en vue, avec des forces géographiques, des modèles opérationnels et des profils d'acheteur très différents.",
-    "metaDescription": "Face à face : prix de la quote-part, nuits par an, charges courantes, règles de réservation et revente chez chacun. Mis à jour en septembre 2026.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-05-27",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      }
-    ]
-  },
-  "pacaso-vs-vivla": {
-    "slug": "pacaso-vs-vivla",
-    "title": "Pacaso vs Vivla : comparatif des opérateurs",
-    "h1": "Pacaso vs Vivla",
-    "subtitle": "Pacaso offre la plus large empreinte transfrontalière en copropriété fractionnée ; Vivla va plus en profondeur en Espagne qu'aucun autre opérateur. Ils servent des acheteurs différents — parfois le même acheteur à des moments différents.",
-    "metaDescription": "L'un vend aux États-Unis et en Europe, l'autre seulement en Espagne. Prix, nuits, charges, réservation et revente comparés. Septembre 2026.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-05-27",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      }
-    ]
-  },
-  "myne-vs-vivla": {
-    "slug": "myne-vs-vivla",
-    "title": "MYNE vs Vivla : comparatif des opérateurs",
-    "h1": "MYNE Homes vs Vivla",
-    "subtitle": "Deux opérateurs de copropriété fractionnée basés en Europe, avec des empreintes espagnoles qui se chevauchent et des philosophies très différentes. MYNE va en largeur sur neuf pays ; Vivla va en profondeur sur un seul.",
-    "metaDescription": "Tous deux vendent des huitièmes de maisons européennes. Comparés sur le prix, les nuits, les charges, la réservation et la revente. Septembre 2026.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-05-27",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      }
-    ]
-  },
   "cop-vs-going-direct": {
     "slug": "cop-vs-going-direct",
     "title": "Acheter via une agence ou en direct chez l'opérateur",
@@ -107,137 +41,44 @@
   },
   "best-fractional-ownership-companies": {
     "slug": "best-fractional-ownership-companies",
-    "title": "Les meilleures sociétés de copropriété fractionnée 2026",
-    "h1": "Les meilleures sociétés de copropriété fractionnée en 2026",
-    "subtitle": "Six opérateurs, 268 biens en vente, et des chiffres mesurés à partir des annonces elles-mêmes plutôt que repris du marketing de qui que ce soit — y compris les coûts d'exploitation que deux d'entre eux publient et que quatre ne publient pas.",
-    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro et Paris Property Group comparés sur le prix, les charges, les nuits et la revente, sur 268 biens en vente.",
+    "title": "Sociétés de copropriété fractionnée en 2026 : les types comparés",
+    "h1": "Les types de société de copropriété fractionnée, et comment choisir",
+    "subtitle": "Il n'existe pas de meilleure société unique, mais des types différents qui excellent chacun dans un domaine — chiffres mesurés sur nos biens en vente plutôt que repris du marketing de qui que ce soit.",
+    "metaDescription": "Centrées sur les États-Unis, paneuropéennes, spécialistes de l'Espagne, boutique et pied-à-terre urbain : les types de société comparés sur le prix, les charges, les nuits et la revente.",
     "category": "category-comparison",
     "comparisonType": "category",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      "Pacaso",
-      "MYNE Homes",
-      "Vivla",
-      "&Hamlet",
-      "Abitaro",
-      "Paris Property Group"
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
-  },
-  "pacaso-alternatives": {
-    "slug": "pacaso-alternatives",
-    "title": "Alternatives à Pacaso : quatre raisons, quatre réponses",
-    "h1": "Alternatives à Pacaso",
-    "subtitle": "On en cherche une pour quatre raisons — le prix, la géographie, la location, ou l'envie de connaître les coûts d'exploitation d'avance — et chacune appelle une réponse différente.",
-    "metaDescription": "Trop cher, pas en Europe, envie de louer ou envie de Paris ? Chaque raison a sa réponse. Chiffres mesurés sur 268 biens en vente chez six opérateurs.",
-    "category": "category-comparison",
-    "comparisonType": "brand",
-    "datePublished": "2026-09-16",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      "Pacaso",
-      "MYNE Homes",
-      "Vivla",
-      "&Hamlet",
-      "Abitaro",
-      "Paris Property Group"
-    ],
-    "wordCountTarget": 1300
-  },
-  "myne-vs-andhamlet": {
-    "slug": "myne-vs-andhamlet",
-    "title": "MYNE vs &Hamlet : comparatif des opérateurs",
-    "h1": "MYNE Homes vs &Hamlet",
-    "subtitle": "Les deux opérateurs européens qui publient leurs coûts d'exploitation, comparés sur 108 biens : prix, taille, nuits par an, règles de location, et ce que coûte réellement une nuit dans la maison.",
-    "metaDescription": "99 biens MYNE et 9 biens &Hamlet comparés sur le prix de la part, les chambres, les nuits par an, la location et le coût d'exploitation vérifié par nuit.",
-    "category": "partner-comparison",
-    "comparisonType": "partner",
-    "datePublished": "2026-09-16",
-    "dateModified": "2026-09-16",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      }
-    ],
-    "wordCountTarget": 2200
   },
   "fractional-ownership-vs-renting": {
     "slug": "fractional-ownership-vs-renting",
     "title": "Copropriété fractionnée vs location : les vrais chiffres",
     "h1": "Copropriété fractionnée ou location d'une résidence secondaire",
-    "subtitle": "Ce que coûte réellement une nuit dans un bien en copropriété, mesuré sur les 108 biens dont nous avons vérifié la fiche de coûts de l'opérateur — et le tarif de location à la nuit au-delà duquel acheter revient moins cher.",
+    "subtitle": "Ce que coûte réellement une nuit dans un bien en copropriété, mesuré sur les 108 biens dont nous avons vérifié la fiche de coûts du partenaire — et le tarif de location à la nuit au-delà duquel acheter revient moins cher.",
     "metaDescription": "Un bien en copropriété coûte 89 € la nuit en médiane. Avec le capital, les moins chers ressortent à 188 €. Le tarif de location d'équilibre, calcul à l'appui.",
     "category": "model-comparison",
     "comparisonType": "model",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   },
   "which-co-ownership-operator": {
     "slug": "which-co-ownership-operator",
-    "title": "Quel opérateur de copropriété choisir ?",
-    "h1": "Chez quel opérateur de copropriété acheter ?",
-    "subtitle": "Six opérateurs, 268 biens en vente, et les quatre questions qui tranchent vraiment — le pays, la possibilité de louer le bien, des nuits qui sont un plancher ou une allocation fixe, et le financement.",
-    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro et Paris Property Group : où chacun vend, qui autorise la location, comment marchent les nuits et à qui chacun convient.",
+    "title": "Quel type de société de copropriété vous convient ?",
+    "h1": "Quel type de société de copropriété vous convient",
+    "subtitle": "Les types de société derrière nos biens en vente, et les quatre questions qui tranchent vraiment — le pays, la possibilité de louer le bien, des nuits qui sont un plancher ou une allocation fixe, et le financement.",
+    "metaDescription": "Où travaille chaque type de société de copropriété, lesquelles autorisent la location, comment marchent les nuits et à quel acheteur chaque type convient.",
     "category": "category-comparison",
     "comparisonType": "category",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Abitaro",
-        "url": "https://ownabitaro.com/"
-      },
-      {
-        "name": "Paris Property Group",
-        "url": "https://parispropertygroup.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   }
 }

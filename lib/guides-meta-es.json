@@ -10,24 +10,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Vivla",
-        "url": "https://www.vivla.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2200
   },
   "france": {
@@ -41,24 +24,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      },
-      {
-        "name": "Paris Property Group",
-        "url": "https://parispropertygroup.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 2000
   },
   "italy": {
@@ -72,20 +38,7 @@
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "MYNE Homes",
-        "url": "https://www.myne-homes.com/"
-      },
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "&Hamlet",
-        "url": "https://www.andhamlet.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 1800
   },
   "usa": {
@@ -94,21 +47,12 @@
     "title": "Participación en copropiedad en EE. UU.: guía 2026",
     "h1": "Cómo comprar una participación en copropiedad en Estados Unidos",
     "subtitle": "La LLC específica del inmueble, en qué el mercado estadounidense es mejor y peor que el europeo, lo que cuesta en las {{homes:usa}} viviendas estadounidenses que listamos, y los pasos en orden.",
-    "metaDescription": "Compra una participación en una LLC específica del inmueble. {{homes:usa}} viviendas en 11 estados desde {{from:usa}}, noches sin tope con Pacaso y por qué no se alquila.",
+    "metaDescription": "Compra una participación en una LLC específica del inmueble. {{homes:usa}} viviendas en 11 estados desde {{from:usa}}, noches sin tope con nuestro socio principal y por qué no se alquila.",
     "category": "buyer-guide",
     "datePublished": "2026-09-16",
     "dateModified": "2026-09-16",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
-    "mentionsBrands": [
-      {
-        "name": "Pacaso",
-        "url": "https://www.pacaso.com/"
-      },
-      {
-        "name": "Abitaro",
-        "url": "https://ownabitaro.com/"
-      }
-    ],
+    "mentionsBrands": [],
     "wordCountTarget": 1900
   }
 }

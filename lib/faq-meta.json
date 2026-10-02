@@ -1601,7 +1601,7 @@
     "title": "Can I get a mortgage for a fractional ownership share? (2026)",
     "h1": "Can I get a mortgage for a fractional ownership share?",
     "subtitle": "In some markets yes, with LTVs typically around 70%. US fractional mortgage availability is most developed; European mortgage market for fractional is thinner and varies by operator and country.",
-    "shortAnswer": "In some markets yes. US fractional operators have established mortgage partners offering LTVs around 70% to qualified US buyers — Pacaso and several others have this in place as standard. The European fractional mortgage market is thinner: a handful of European operators have arranged partner-bank financing for their share sales, but the majority of European fractional purchases are cash. International buyers (non-resident in the property's country) typically pay cash regardless of operator. Check with the specific operator on financing availability for your buyer profile before assuming you can leverage.",
+    "shortAnswer": "In some markets yes. US fractional operators have established mortgage partners offering LTVs around 70% to qualified US buyers — several of the larger US operators have this in place as standard. The European fractional mortgage market is thinner: a handful of European operators have arranged partner-bank financing for their share sales, but the majority of European fractional purchases are cash. International buyers (non-resident in the property's country) typically pay cash regardless of operator. Check with the specific operator on financing availability for your buyer profile before assuming you can leverage.",
     "metaDescription": "Some fractional shares can be financed at ~70% LTV, particularly in the US. The European mortgage market for fractional is thinner. Here is the 2026 picture.",
     "category": "investment",
     "related": [
@@ -1915,27 +1915,6 @@
       "fractional-ownership"
     ],
     "slug": "does-cop-charge-buyers-anything",
-    "datePublished": "2026-06-03",
-    "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
-  },
-  "difference-between-cop-and-pacaso": {
-    "title": "What's the difference between Co-Ownership Property (COP) and Pacaso? (2026)",
-    "h1": "What is the difference between Co-Ownership Property and Pacaso?",
-    "subtitle": "Different products entirely. Pacaso is an operator — they buy specific homes and sell shares of those homes. COP is an independent marketplace — we aggregate listings from multiple operators (including Pacaso's competitors in Europe) in one place.",
-    "shortAnswer": "Pacaso and COP are fundamentally different products. Pacaso is an operator — they buy specific luxury homes (primarily in US destinations plus a smaller European footprint) and sell deeded 1/8 shares of those specific homes to buyers. Co-Ownership Property is an independent marketplace — we don't own any homes; we aggregate listings from multiple operators worldwide (the European equivalents of Pacaso) and let buyers compare side-by-side. Pacaso buyers transact with Pacaso. COP introduces buyers to the operator that best fits their needs across the wider market.",
-    "metaDescription": "Pacaso is an operator that buys homes and sells shares. COP is an independent marketplace aggregating multiple operators in Europe. Here is the structural difference.",
-    "category": "brand",
-    "related": [
-      "is-cop-independent-or-operator-owned",
-      "why-does-cop-list-multiple-operators",
-      "how-does-cop-make-money",
-      "what-is-fractional-ownership-real-estate"
-    ],
-    "aboutEntities": [
-      "fractional-ownership"
-    ],
-    "slug": "difference-between-cop-and-pacaso",
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
@@ -3177,27 +3156,6 @@
       "fractional-ownership"
     ],
     "slug": "why-some-fractional-properties-stay-unsold",
-    "datePublished": "2026-06-03",
-    "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
-  },
-  "will-pacaso-expand-into-europe": {
-    "title": "Will Pacaso expand further into Europe in 2026? (2026 outlook)",
-    "h1": "Will Pacaso expand further into Europe in 2026?",
-    "subtitle": "Pacaso has a small but growing European footprint as of 2026 (London, Paris, Tuscany, Madrid). Further expansion is likely but slower than European-native operators because Pacaso's model targets a US-export buyer demographic that's a fraction of European demand.",
-    "shortAnswer": "Pacaso has a small but growing European footprint as of mid-2026 (London, Paris, Tuscany and Madrid, plus Los Cabos in Mexico outside Europe). Further European expansion is likely but probably slower than European-native operators because Pacaso's core customer is a US buyer extending into European destinations, while European-native operators target the much larger pool of European buyers seeking European destinations. Pacaso's structural advantages (deep US buyer pipeline, established secondary market, brand recognition) work less powerfully in European-domestic markets where European operators have local-destination expertise and existing buyer relationships.",
-    "metaDescription": "Pacaso has a growing European footprint (London, Paris, Tuscany, Madrid) but slower expansion than European-native operators. 2026 outlook.",
-    "category": "long-tail",
-    "related": [
-      "difference-between-cop-and-pacaso",
-      "is-fractional-ownership-growing-or-declining",
-      "what-is-fractional-ownership-real-estate",
-      "how-much-does-fractional-ownership-cost-in-europe"
-    ],
-    "aboutEntities": [
-      "fractional-ownership"
-    ],
-    "slug": "will-pacaso-expand-into-europe",
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
@@ -4790,8 +4748,7 @@
     "related": [
       "is-cop-independent-or-operator-owned",
       "why-does-cop-list-multiple-operators",
-      "how-does-cop-vet-operators-it-works-with",
-      "difference-between-cop-and-pacaso"
+      "how-does-cop-vet-operators-it-works-with"
     ],
     "aboutEntities": [
       "fractional-ownership"
