@@ -176,7 +176,7 @@ export default function ListWithCop() {
                       buyers.
                     </p>
                     <ul>
-                      <li>Listings in four languages, professionally presented</li>
+                      <li>Listings in ten languages, professionally presented</li>
                       <li>Qualified leads with full contact details — you close, we introduce</li>
                       <li>Simple commission on completed sales; no listing fees, no retainers</li>
                       <li>Every application personally reviewed — we curate, we don't aggregate</li>
