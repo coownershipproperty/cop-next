@@ -49,7 +49,7 @@
     "headingTop": "La misma casa.",
     "headingBottom": "Una fracción del compromiso.",
     "clarifierHeading": "Propiedad real. No es multipropiedad.",
-    "clarifierBody": "Compras una participación real en la propiedad, no solo el derecho a alojarte. Según la casa, los propietarios poseen su participación directamente o a través de la sociedad titular del inmueble, y los documentos de compra recogen exactamente qué se posee.",
+    "clarifierBody": "Eres propietario de una parte real de la vivienda, no solo del derecho a alojarte. La estructura legal la organiza nuestro socio para cada vivienda y te la explica en detalle antes de comprar.",
     "lead": "Las estimaciones del sector apuntan a que muchos propietarios de segundas residencias las usan solo entre cuatro y seis semanas al año. Una participación de ⅛ te da alrededor de seis semanas — sin comprar la casa entera.",
     "fullLabel": "Propiedad completa",
     "sharedLabel": "Copropiedad",
@@ -139,7 +139,7 @@
     "details": [
       {
         "h": "Propiedad real. Un lugar propio.",
-        "p": "Posees una participación real de la casa, no una reserva ni una membresía. La propiedad se mantiene directamente o a través de la sociedad titular del inmueble, y tus derechos quedan recogidos en los documentos de compra."
+        "p": "Posees una participación real de la casa, no una reserva ni una membresía. Puedes venderla, dejarla en herencia, y su valor sube y baja con el de la casa. La estructura legal la organiza nuestro socio para cada vivienda y te la explica en detalle antes de comprar."
       },
       {
         "h": "Bien diseñada. Lista para disfrutar.",
@@ -210,7 +210,7 @@
       },
       {
         "q": "¿En qué se diferencia de la multipropiedad?",
-        "a": "Las casas de nuestra colección ofrecen un derecho de propiedad sobre un inmueble concreto, a menudo a través de la sociedad titular, y no una membresía por puntos. Las fórmulas de multipropiedad varían y algunas también son escrituradas, así que conviene comparar la propiedad, el uso y las condiciones de reventa reales, no solo la etiqueta."
+        "a": "Las casas de nuestra colección te hacen propietario de una parte real de un inmueble concreto, y no de una membresía por puntos. Las fórmulas de multipropiedad varían y algunas también incluyen una forma de propiedad, así que conviene comparar la propiedad, el uso y las condiciones de reventa reales, no solo la etiqueta."
       },
       {
         "q": "¿Qué incluye el precio de la participación?",
@@ -246,7 +246,7 @@
       },
       {
         "q": "¿El inmueble tiene hipoteca?",
-        "a": "La situación de deuda del inmueble forma parte de las comprobaciones de compra. Pídenos los documentos de propiedad que confirman cualquier préstamo, las restricciones para hipotecar la casa y cómo se mantiene separada la financiación de cada participación. Que exista una sociedad titular no significa por sí solo que la casa esté libre de deuda."
+        "a": "La situación de deuda del inmueble forma parte de las comprobaciones de compra. Pídenos los documentos de propiedad que confirman cualquier préstamo, las restricciones para hipotecar la casa y cómo se mantiene separada la financiación de cada participación. Que la propiedad sea compartida no significa por sí solo que la casa esté libre de deuda."
       },
       {
         "q": "¿Puedo vender mi participación más adelante?",

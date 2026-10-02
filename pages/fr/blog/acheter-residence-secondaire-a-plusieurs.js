@@ -19,13 +19,13 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
     <>
       <Head>
         <title>Acheter une résidence secondaire à plusieurs : le guide complet [2026]</title>
-        <meta name="description" content="Comment acheter une résidence secondaire à plusieurs en 2026 : modèles juridiques (LLC, indivision, copropriété professionnelle), fiscalité, calendrier, sortie. Guide pratique complet." />
+        <meta name="description" content="Comment acheter une résidence secondaire à plusieurs en 2026 : modèles juridiques (copropriété professionnelle, société civile, indivision), fiscalité, calendrier, sortie. Guide pratique complet." />
         <link rel="canonical" href={canonicalUrl} />
         {hreflangLinks({ englishPath: '/fr/blog/acheter-residence-secondaire-a-plusieurs' })}
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:title" content="Acheter une résidence secondaire à plusieurs : le guide complet 2026" />
-        <meta property="og:description" content="LLC, indivision, copropriété professionnelle : comment acheter à plusieurs en 2026, étape par étape." />
+        <meta property="og:description" content="Copropriété professionnelle, société civile, indivision : comment acheter à plusieurs en 2026, étape par étape." />
         <meta property="og:url" content={canonicalUrl} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',
@@ -40,10 +40,10 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: [
-            { '@type': 'Question', name: 'Combien de personnes peuvent acheter une résidence secondaire à plusieurs ?', acceptedAnswer: { '@type': 'Answer', text: "Il n'existe pas de limite légale stricte. En indivision classique, 2 à 5 acquéreurs est le format le plus courant en France. Le modèle de copropriété professionnelle structuré via une LLC (Limited Liability Company) utilise typiquement 8 quotes-parts (1/8 chacune) — équilibre entre accessibilité financière et nombre raisonnable de jours d'usage par an (45 nuits)." } },
-            { '@type': 'Question', name: 'Quel est le meilleur statut juridique pour acheter à plusieurs ?', acceptedAnswer: { '@type': 'Answer', text: "Pour 2 à 4 personnes proches (couple, famille), l'indivision peut suffire mais reste juridiquement instable (Code civil article 815). Pour 5 personnes ou plus, ou pour des co-acquéreurs qui ne sont pas de la même famille, la copropriété professionnelle structurée via une LLC est le meilleur choix : stabilité, gouvernance claire dans l'operating agreement, transmission simple du membership interest, protection de la responsabilité personnelle." } },
-            { '@type': 'Question', name: 'Comment se passe la sortie quand on veut vendre ?', acceptedAnswer: { '@type': 'Answer', text: "En LLC, vous cédez votre membership interest à un nouvel acquéreur par acte authentique chez le notaire. Les autres membres peuvent disposer d'un droit de préemption selon l'operating agreement. Le bien lui-même n'est pas vendu — il reste détenu par la LLC. C'est nettement plus fluide qu'une indivision où la sortie peut nécessiter de vendre le bien entier." } },
-            { '@type': 'Question', name: 'Quels sont les frais à prévoir ?', acceptedAnswer: { '@type': 'Answer', text: "À l'achat : droits d'enregistrement (de l'ordre de 5% sur la valeur du membership interest pour une LLC à prépondérance immobilière) + frais de notaire. Annuellement : taxe foncière, charges courantes, entretien, assurance. Avec un opérateur de copropriété professionnel, comptez 5 000 à 12 000 € par an pour 1/8 d'une villa de gamme moyenne." } },
+            { '@type': 'Question', name: 'Combien de personnes peuvent acheter une résidence secondaire à plusieurs ?', acceptedAnswer: { '@type': 'Answer', text: "Il n'existe pas de limite légale stricte. En indivision classique, 2 à 5 acquéreurs est le format le plus courant en France. Le modèle de copropriété professionnelle utilise typiquement 8 quotes-parts (1/8 chacune) — équilibre entre accessibilité financière et nombre raisonnable de jours d'usage par an (45 nuits)." } },
+            { '@type': 'Question', name: 'Quel est le meilleur statut juridique pour acheter à plusieurs ?', acceptedAnswer: { '@type': 'Answer', text: "Pour 2 à 4 personnes proches (couple, famille), l'indivision peut suffire mais reste juridiquement instable (Code civil article 815). Pour 5 personnes ou plus, ou pour des co-acquéreurs qui ne sont pas de la même famille, la copropriété professionnelle est le meilleur choix : vous êtes propriétaire d'une part réelle du bien, pas d'un droit d'usage ; le montage juridique est organisé par notre partenaire pour chaque bien et vous est expliqué en détail avant l'achat, et la gestion est entièrement prise en charge." } },
+            { '@type': 'Question', name: 'Comment se passe la sortie quand on veut vendre ?', acceptedAnswer: { '@type': 'Answer', text: "En copropriété professionnelle, la revente passe par le processus de revente de notre partenaire, sans que vous ayez à vendre toute la maison. Les autres copropriétaires peuvent disposer d'un droit de préemption. C'est nettement plus fluide qu'une indivision où la sortie peut nécessiter de vendre le bien entier." } },
+            { '@type': 'Question', name: 'Quels sont les frais à prévoir ?', acceptedAnswer: { '@type': 'Answer', text: "À l'achat : les droits et frais dépendent du pays et du montage juridique de chaque bien, que notre partenaire vous explique avant l'achat ; nous vous recommandons de prendre un conseil indépendant. Annuellement : taxe foncière, charges courantes, entretien, assurance. Avec un opérateur de copropriété professionnel, comptez 5 000 à 12 000 € par an pour 1/8 d'une villa de gamme moyenne." } },
           ],
         }) }} />
       </Head>
@@ -71,7 +71,7 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
             <ol>
               <li><a href="#pourquoi">Pourquoi acheter à plusieurs en 2026</a></li>
               <li><a href="#modeles">Les trois modèles juridiques principaux</a></li>
-              <li><a href="#sci">Le modèle LLC : la structure professionnelle de référence</a></li>
+              <li><a href="#sci">Le montage juridique en copropriété professionnelle</a></li>
               <li><a href="#copropriete">La copropriété de résidence secondaire (1/8 type)</a></li>
               <li><a href="#indivision">L'indivision : simple mais instable</a></li>
               <li><a href="#fiscalite">Fiscalité : ce que coûte chaque modèle</a></li>
@@ -101,10 +101,10 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Copropriété professionnelle (LLC, modèle 1/8)</strong></td>
+                  <td><strong>Copropriété professionnelle (modèle 1/8)</strong></td>
                   <td>8 acquéreurs, gestion incluse, multi-pays</td>
                   <td>Très stable</td>
-                  <td>Marché secondaire géré, cession de membership interest</td>
+                  <td>Revente via le processus de revente de notre partenaire</td>
                 </tr>
                 <tr>
                   <td><strong>Société civile constituée entre proches</strong></td>
@@ -121,26 +121,13 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
               </tbody>
             </table>
 
-            <h2 id="sci">3. Le modèle LLC : la structure professionnelle de référence</h2>
-            <p>La <strong>LLC (Limited Liability Company)</strong> est la structure utilisée de manière homogène par la copropriété professionnelle internationale — en France comme en Espagne, en Italie, au Portugal ou aux États-Unis. La LLC est constituée spécifiquement pour détenir le bien immobilier ; chaque acquéreur reçoit un <em>membership interest</em> (intérêt de membre) proportionnel à sa contribution. La LLC est propriétaire du bien — pas vous individuellement.</p>
-            <p><strong>Avantages :</strong></p>
-            <ul>
-              <li>Stabilité juridique : un membre qui veut sortir cède son membership interest, sans toucher au bien lui-même</li>
-              <li>Protection de la responsabilité personnelle : votre exposition est limitée à votre quote-part dans la LLC</li>
-              <li>Gouvernance claire : l'<em>operating agreement</em> fixe les règles (calendrier d'usage, charges, vote, cession)</li>
-              <li>Transmission simple : le membership interest se transmet par donation ou succession comme tout actif financier</li>
-              <li>Cohérence multi-pays : la même structure quel que soit le pays de localisation du bien</li>
-            </ul>
-            <p><strong>Inconvénients :</strong></p>
-            <ul>
-              <li>Frais de constitution et de gestion administrative</li>
-              <li>Tenue de comptabilité annuelle pour la LLC</li>
-              <li>Décisions soumises à la procédure de vote prévue à l'operating agreement</li>
-            </ul>
-            <p>Pour un groupe d'acquéreurs dispersé géographiquement, ou pour un bien situé hors de France, le modèle LLC est devenu la référence du marché professionnel.</p>
+            <h2 id="sci">3. Le montage juridique en copropriété professionnelle</h2>
+            <p>En copropriété professionnelle, vous êtes propriétaire d'une <strong>part réelle du bien</strong> — un huitième, un quart —, pas d'un droit d'usage. Vous pouvez la revendre, la transmettre à vos héritiers, et sa valeur suit celle de la maison.</p>
+            <p>Le montage juridique est organisé par notre partenaire pour chaque bien et vous est expliqué en détail avant l'achat. Les grandes décisions — vendre la maison, engager de gros travaux — sont prises ensemble par les copropriétaires.</p>
+            <p>Pour un groupe d'acquéreurs dispersé géographiquement, ou pour un bien situé hors de France, la copropriété professionnelle est devenue la référence du marché.</p>
 
             <h2 id="copropriete">4. La copropriété de résidence secondaire (modèle 1/8)</h2>
-            <p>La copropriété professionnelle de résidence secondaire — popularisée en Europe depuis 2018-2020 — applique exactement ce modèle LLC à grande échelle. Un opérateur sélectionne un bien, constitue une LLC dédiée, et vend 8 membership interests égaux. Chaque acquéreur reçoit 1/8 du bien et 45 nuits d'usage par an, gérées via un calendrier rotatif équitable.</p>
+            <p>La copropriété professionnelle de résidence secondaire — popularisée en Europe depuis 2018-2020 — fonctionne ainsi : un opérateur sélectionne un bien, organise le montage juridique et vend 8 parts égales. Chaque acquéreur devient propriétaire de 1/8 du bien et 45 nuits d'usage par an, gérées via un calendrier rotatif équitable.</p>
             <p><strong>Différence clé avec un montage entre proches :</strong> tout est géré pour vous. Sélection du bien, montage juridique, ameublement, entretien, ménage entre séjours, calendrier, fiscalité — l'opérateur prend tout en charge en échange de frais de gestion. Vous arrivez, profitez, repartez.</p>
             <p>C'est le modèle utilisé par les opérateurs internationaux qui figurent sur Co-Ownership Property. C'est aussi le modèle que <em>Prello</em> avait popularisé en France avant sa cessation d'activité en septembre 2024 — mais d'autres opérateurs européens continuent d'opérer ce modèle de manière saine et durable.</p>
             <p><strong>Idéal si :</strong> vous voulez une résidence secondaire haut de gamme sans aucune charge mentale ; vous n'avez pas 7 amis fiables avec qui acheter ; vous valorisez la professionnalisation de la gestion ; le bien est dans un pays différent du vôtre.</p>
@@ -148,21 +135,21 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
             <h2 id="indivision">5. L'indivision : simple mais instable</h2>
             <p>L'indivision est la situation par défaut quand plusieurs personnes achètent un bien ensemble sans créer de société. C'est ce qui se passe automatiquement, par exemple, après une succession. Chacun détient une quote-part indivise du bien.</p>
             <p><strong>Le problème majeur :</strong> l'article 815 du Code civil dispose que <em>« nul n'est contraint de demeurer dans l'indivision »</em>. Concrètement, n'importe quel indivisaire peut, à tout moment, demander le partage — c'est-à-dire la liquidation forcée de l'indivision. Si un seul des quatre cousins qui ont hérité de la maison familiale veut sortir, et que les autres ne peuvent pas le racheter, le bien doit être vendu.</p>
-            <p>Pour limiter ce risque, on peut signer une <strong>convention d'indivision</strong> qui peut interdire le partage pour une durée maximale de 5 ans (renouvelable). Mais cela reste fragile — une LLC offre une stabilité supérieure pour à peine plus de coût initial.</p>
+            <p>Pour limiter ce risque, on peut signer une <strong>convention d'indivision</strong> qui peut interdire le partage pour une durée maximale de 5 ans (renouvelable). Mais cela reste fragile — une société civile ou une copropriété professionnelle offrent une stabilité supérieure.</p>
             <p><strong>Idéal seulement si :</strong> vous achetez à 2 ou 3 personnes très proches (couple, frère et sœur), pour un horizon court (5 ans ou moins), et que vous acceptez le risque de devoir liquider en cas de désaccord.</p>
 
             <h2 id="fiscalite">6. Fiscalité : ce que coûte chaque modèle</h2>
 
             <h3>À l'achat</h3>
-            <p>Pour une <strong>acquisition directe en indivision</strong>, vous payez les droits de mutation à titre onéreux normaux (~7-8 % en France). Pour une <strong>acquisition de membership interest dans une LLC à prépondérance immobilière</strong>, les droits applicables aux cessions de parts de sociétés à prépondérance immobilière sont de l'ordre de 5 % (article 726 CGI). Les frais de notaire et émoluments s'ajoutent dans les deux cas.</p>
+            <p>Pour une <strong>acquisition directe en indivision</strong>, vous payez les droits de mutation à titre onéreux normaux (~7-8 % en France), plus les frais de notaire et émoluments. En <strong>copropriété professionnelle</strong>, la fiscalité dépend du pays et du montage juridique de chaque bien, que notre partenaire vous explique avant l'achat ; nous vous recommandons de prendre un conseil indépendant.</p>
 
             <h3>Pendant la détention</h3>
             <p><strong>IFI (Impôt sur la Fortune Immobilière) :</strong> votre quote-part de la valeur du bien entre dans votre patrimoine taxable. Si votre patrimoine immobilier total dépasse 1,3 M€, vous êtes redevable au prorata.</p>
-            <p><strong>Taxe foncière, taxe d'habitation :</strong> dues par la LLC ou les indivisaires, refacturées au prorata.</p>
+            <p><strong>Taxe foncière, taxe d'habitation :</strong> réparties au prorata entre les copropriétaires ou les indivisaires.</p>
             <p><strong>Loyers perçus (location partielle) :</strong> imposés au régime des revenus fonciers (réel ou micro-foncier si moins de 15 000 €/an).</p>
 
             <h3>À la revente</h3>
-            <p>La cession d'un membership interest dans une LLC à prépondérance immobilière relève du régime des plus-values immobilières des particuliers (19 % + 17,2 % de prélèvements sociaux), avec abattements pour durée de détention : exonération totale de l'IR après 22 ans, des prélèvements sociaux après 30 ans.</p>
+            <p>En France, les plus-values immobilières des particuliers sont imposées à 19 % + 17,2 % de prélèvements sociaux, avec abattements pour durée de détention : exonération totale de l'IR après 22 ans, des prélèvements sociaux après 30 ans. En copropriété professionnelle, la fiscalité dépend du pays et du montage juridique de chaque bien, que notre partenaire vous explique avant l'achat ; nous vous recommandons de prendre un conseil indépendant.</p>
 
             <h2 id="calendrier">7. Comment organiser le calendrier de jouissance</h2>
             <p>C'est le sujet qui inquiète le plus les futurs co-acquéreurs : qui prend Noël ? Qui a la maison la première semaine d'août ?</p>
@@ -172,40 +159,40 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
               <li><strong>Allocation fixe.</strong> Chaque copropriétaire reçoit une allocation fixe : 1 semaine en août, 1 à Noël, 1 à Pâques, 3 hors saison. Plus simple à comprendre, moins équitable si certains préfèrent toujours juillet et d'autres préfèrent septembre.</li>
               <li><strong>Plateforme de réservation.</strong> Modèle utilisé par les opérateurs professionnels. Algorithme qui équilibre les semaines premium sur plusieurs années. Permet aussi les échanges de dernière minute entre copropriétaires.</li>
             </ul>
-            <p>Pour 2 à 4 personnes dans une structure montée entre proches, la rotation annuelle suffit et se règle dans les statuts ou l'operating agreement. Pour 5+ personnes, une plateforme de réservation est indispensable — c'est ce que fournit le modèle de copropriété professionnelle structuré via LLC.</p>
+            <p>Pour 2 à 4 personnes dans une structure montée entre proches, la rotation annuelle suffit et se règle dans les statuts ou la convention entre co-acquéreurs. Pour 5+ personnes, une plateforme de réservation est indispensable — c'est ce que fournit le modèle de copropriété professionnelle.</p>
 
             <h2 id="sortie">8. Sortie et revente</h2>
             <p>La question de la sortie est ce qui fait ou défait le succès d'un achat à plusieurs. Trois scénarios :</p>
-            <p><strong>Sortie organisée d'un membre dans une LLC (ou société civile).</strong> Cession du membership interest (ou des parts) à un acquéreur extérieur ou aux autres membres. Si l'operating agreement prévoit un droit de préemption, les membres existants ont la priorité. Un avenant formalise la nouvelle répartition. Délai : 4 à 8 semaines avec notaire.</p>
+            <p><strong>Sortie organisée d'un associé dans une société civile.</strong> Cession des parts à un acquéreur extérieur ou aux autres associés. Si les statuts prévoient un droit de préemption, les associés existants ont la priorité. Un avenant formalise la nouvelle répartition. Délai : 4 à 8 semaines avec notaire.</p>
             <p><strong>Sortie d'un indivisaire en indivision.</strong> Si les autres ne rachètent pas la quote-part, le bien peut être vendu (article 815 CC). Délai : peut prendre des mois et générer des conflits.</p>
-            <p><strong>Sortie en copropriété professionnelle (modèle 1/8).</strong> L'opérateur facilite la revente sur un marché secondaire interne ou externe. Certains offrent une garantie de rachat après 2 à 3 ans. Délai : typiquement 1 à 6 mois selon la liquidité du marché et le bien.</p>
+            <p><strong>Sortie en copropriété professionnelle (modèle 1/8).</strong> La revente passe par le processus de revente de notre partenaire, sans que vous ayez à vendre toute la maison. Certains opérateurs offrent une garantie de rachat après 2 à 3 ans.</p>
 
             <h2 id="choisir">9. Quel modèle choisir ? Arbre de décision</h2>
             <ul>
               <li><strong>Vous achetez à 2 personnes (couple, frère/sœur), pour 5 ans ou moins ?</strong> → Indivision avec convention.</li>
               <li><strong>Vous achetez à 3-5 personnes proches, pour 10+ ans ?</strong> → Société civile familiale créée chez votre notaire.</li>
-              <li><strong>Vous voulez le bien sans aucune charge de gestion, et vous n'avez pas 7 co-acquéreurs ?</strong> → Copropriété professionnelle 1/8 structurée via LLC (modèle agrégateur).</li>
-              <li><strong>Vous voulez constituer un groupe de 5 à 16 personnes vous-même, avec une gouvernance solide ?</strong> → Structure LLC sur mesure avec gestionnaire externe.</li>
+              <li><strong>Vous voulez le bien sans aucune charge de gestion, et vous n'avez pas 7 co-acquéreurs ?</strong> → Copropriété professionnelle 1/8 (modèle agrégateur).</li>
+              <li><strong>Vous voulez constituer un groupe de 5 à 16 personnes vous-même, avec une gouvernance solide ?</strong> → Société civile sur mesure avec gestionnaire externe.</li>
             </ul>
 
             <h2 id="faq">10. Questions fréquentes</h2>
 
             <h3>Combien de personnes peuvent acheter ensemble ?</h3>
-            <p>Pas de limite légale stricte. En pratique : 2-5 en indivision ou société civile familiale, 8 en copropriété professionnelle structurée via LLC, jusqu'à 16 dans une LLC sur mesure multi-membres.</p>
+            <p>Pas de limite légale stricte. En pratique : 2-5 en indivision ou société civile familiale, 8 en copropriété professionnelle, jusqu'à 16 dans une société civile sur mesure.</p>
 
             <h3>Faut-il être de la même famille ?</h3>
-            <p>Non. La LLC accepte tous les membres. Pour des co-acquéreurs sans lien familial, la LLC est même <em>fortement recommandée</em> (l'indivision étant trop fragile en cas de désaccord).</p>
+            <p>Non. Une société civile ou une copropriété professionnelle accueillent des co-acquéreurs sans lien familial — c'est même <em>fortement recommandé</em> (l'indivision étant trop fragile en cas de désaccord).</p>
 
             <h3>Et si l'un de nous fait faillite ?</h3>
-            <p>Dans une LLC, le membership interest d'un membre en faillite peut être saisi par ses créanciers. C'est rare mais possible. Une clause d'agrément dans l'operating agreement permet aux autres membres de bloquer l'arrivée d'un nouveau membre non désiré.</p>
+            <p>Dans une société civile, les parts d'un associé en faillite peuvent être saisies par ses créanciers. C'est rare mais possible. Une clause d'agrément dans les statuts permet aux autres associés de bloquer l'arrivée d'un nouvel associé non désiré.</p>
 
             <h3>Et si on n'arrive plus à se mettre d'accord ?</h3>
-            <p>Dans une LLC, l'operating agreement définit à l'avance les règles de prise de décision (majorité simple, qualifiée, unanimité selon le sujet). En indivision, c'est plus risqué. C'est pour cela que la LLC est préférée pour les achats à plusieurs au-delà de 2-3 personnes.</p>
+            <p>Dans une société civile, les statuts définissent à l'avance les règles de prise de décision (majorité simple, qualifiée, unanimité selon le sujet) ; en copropriété professionnelle, les grandes décisions sont prises ensemble par les copropriétaires. En indivision, c'est plus risqué. C'est pour cela qu'une structure organisée est préférée pour les achats à plusieurs au-delà de 2-3 personnes.</p>
 
             <h3>Peut-on louer notre résidence secondaire à plusieurs ?</h3>
-            <p>Oui, sous réserve de l'operating agreement. La location partielle (semaines inutilisées) génère des revenus qui couvrent souvent les frais courants. Vérifiez la réglementation locale (déclaration de meublé de tourisme, autorisation de la mairie dans certaines zones tendues).</p>
+            <p>Oui, sous réserve des règles de la copropriété. La location partielle (semaines inutilisées) génère des revenus qui couvrent souvent les frais courants. Vérifiez la réglementation locale (déclaration de meublé de tourisme, autorisation de la mairie dans certaines zones tendues).</p>
 
-            <p style={{marginTop: '3rem'}}><strong>Vous voulez explorer les biens disponibles dès maintenant en copropriété professionnelle ?</strong> Nous présentons des résidences secondaires en copropriété en Espagne, en France, en Italie, au Portugal et au-delà — avec la structure juridique LLC, la gestion incluse, et un calendrier d'usage géré.</p>
+            <p style={{marginTop: '3rem'}}><strong>Vous voulez explorer les biens disponibles dès maintenant en copropriété professionnelle ?</strong> Nous présentons des résidences secondaires en copropriété en Espagne, en France, en Italie, au Portugal et au-delà — avec un montage juridique expliqué en détail avant l'achat, la gestion incluse, et un calendrier d'usage géré.</p>
 
             <p style={{marginTop: '1.5rem'}}>
               <a href="/our-homes/" className="cop-cta-primary">Voir les biens en copropriété &rarr;</a>

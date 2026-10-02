@@ -29,7 +29,7 @@
       "eyebrow": "Ainda pesquisando?",
       "h2": "Ainda não é hora de escrever?",
       "cards": [
-        { "href": "/pt/multipropriedade-casa-de-ferias/", "cat": "O guia completo", "title": "Como funciona, passo a passo", "desc": "Da escolha da casa à escritura: o que acontece, em que ordem, e o que vale deixar preparado.", "arrow": "Ler o guia" },
+        { "href": "/pt/multipropriedade-casa-de-ferias/", "cat": "O guia completo", "title": "Como funciona, passo a passo", "desc": "Da escolha da casa à assinatura: o que acontece, em que ordem, e o que vale deixar preparado.", "arrow": "Ler o guia" },
         { "href": "/pt/imoveis/", "cat": "O catálogo", "title": "As casas disponíveis agora", "desc": "Compare preço da fração, quartos e destino entre todos os principais operadores.", "arrow": "Ver imóveis" },
         { "href": "/pt/sobre-nos/", "cat": "Sobre nós", "title": "Por que somos independentes", "desc": "Como trabalhamos, como ganhamos dinheiro, e por que podemos dizer que uma casa não serve para você.", "arrow": "Saiba mais" }
       ]

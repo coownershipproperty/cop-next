@@ -216,7 +216,7 @@ const COPY = {
     tour_btn: 'Request 3D Tour',
     coown_heading: 'How Co-Ownership Works',
     coown_points: (n, days) => [
-      [`You own 1/${n} of the home`, 'Real, deeded property ownership — not a timeshare, not points.'],
+      [`You own 1/${n} of the home`, 'Real ownership of the home — not a timeshare, not points.'],
       [`~${days} days a year`, 'Stays are scheduled fairly between the co-owners across the whole year.'],
       ['Costs are shared', `You pay 1/${n}th of the home's total running costs, shared between all owners.`],
       ['Fully managed', 'Maintenance, cleaning and scheduling are handled for you — just arrive and enjoy.'],
@@ -277,7 +277,7 @@ const COPY = {
     tour_btn: 'Solicitar tour 3D',
     coown_heading: 'Cómo funciona la copropiedad',
     coown_points: (n, days) => [
-      [`Eres dueño de 1/${n} de la casa`, 'Propiedad real inscrita a tu nombre — no es multipropiedad ni puntos.'],
+      [`Eres dueño de 1/${n} de la casa`, 'Propiedad real de la vivienda — no es multipropiedad ni puntos.'],
       [`~${days} días al año`, 'Las estancias se reparten de forma equitativa entre los copropietarios durante todo el año.'],
       ['Los gastos se comparten', `Pagas 1/${n} de los gastos totales de la casa, repartidos entre todos los propietarios.`],
       ['Gestión integral', 'Mantenimiento, limpieza y calendario gestionados por el equipo — tú solo llega y disfruta.'],
@@ -338,7 +338,7 @@ const COPY = {
     tour_btn: 'Demander une visite 3D',
     coown_heading: 'Comment fonctionne la copropriété',
     coown_points: (n, days) => [
-      [`Vous possédez 1/${n} de la maison`, 'Une propriété réelle, inscrite à votre nom — ni timeshare, ni points.'],
+      [`Vous possédez 1/${n} de la maison`, 'Une propriété réelle du bien — ni timeshare, ni points.'],
       [`~${days} jours par an`, "Les séjours sont répartis équitablement entre les copropriétaires sur toute l'année."],
       ['Les frais sont partagés', `Vous payez 1/${n} des frais totaux de la maison, répartis entre tous les propriétaires.`],
       ['Gestion complète', "Entretien, ménage et calendrier sont pris en charge — vous n'avez qu'à profiter."],
@@ -399,7 +399,7 @@ const COPY = {
     tour_btn: '3D-Rundgang anfragen',
     coown_heading: 'So funktioniert Miteigentum',
     coown_points: (n, days) => [
-      [`Ihnen gehört 1/${n} des Hauses`, 'Echtes, grundbuchlich eingetragenes Eigentum — kein Timesharing, keine Punkte.'],
+      [`Ihnen gehört 1/${n} des Hauses`, 'Echtes Eigentum an der Immobilie — kein Timesharing, keine Punkte.'],
       [`~${days} Tage pro Jahr`, 'Die Aufenthalte werden fair über das ganze Jahr zwischen den Miteigentümern verteilt.'],
       ['Kosten werden geteilt', `Sie zahlen 1/${n} der gesamten laufenden Kosten des Hauses, geteilt unter allen Eigentümern.`],
       ['Komplett verwaltet', 'Instandhaltung, Reinigung und Kalender werden für Sie übernommen — einfach ankommen und genießen.'],
@@ -468,7 +468,7 @@ const COPY = {
     tour_btn: "Richiedi un tour 3D",
     coown_heading: "Come funziona la comproprietà",
     coown_points: (n, days) => [
-      [`Possiede 1/${n} della casa`, "Proprietà immobiliare reale, con atto notarile a suo nome — non una multiproprietà, non un sistema a punti."],
+      [`Possiede 1/${n} della casa`, "Proprietà reale della casa — non una multiproprietà, non un sistema a punti."],
       [`~${days} giorni all'anno`, "I soggiorni sono distribuiti in modo equo tra i comproprietari nell'arco di tutto l'anno."],
       ["I costi sono condivisi", `Paga 1/${n} dei costi di gestione complessivi della casa, ripartiti tra tutti i proprietari.`],
       ["Gestione completa", "Manutenzione, pulizie e calendario dei soggiorni sono gestiti per lei — non le resta che arrivare e godersi la casa."],
@@ -528,7 +528,7 @@ const COPY = {
     tour_btn: "3D-rondleiding aanvragen",
     coown_heading: "Hoe mede-eigendom werkt",
     coown_points: (n, days) => [
-      [`U bezit 1/${n} van de woning`, "Echt eigendom, vastgelegd in de akte — geen timeshare, geen punten."],
+      [`U bezit 1/${n} van de woning`, "Echt eigendom van de woning — geen timeshare, geen punten."],
       [`~${days} dagen per jaar`, "Verblijven worden het hele jaar door eerlijk verdeeld tussen de mede-eigenaren."],
       ["De kosten worden gedeeld", `U betaalt 1/${n} van de totale lopende kosten van de woning, gedeeld door alle eigenaren.`],
       ["Volledig beheerd", "Onderhoud, schoonmaak en planning worden voor u geregeld — u komt alleen nog aan en geniet."],
@@ -588,7 +588,7 @@ const COPY = {
     tour_btn: "Pedir visita 3D",
     coown_heading: "Como funciona a compropriedade",
     coown_points: (n, days) => [
-      [`É proprietário de 1/${n} da casa`, "Propriedade real, com escritura em seu nome — não é multipropriedade nem um sistema de pontos."],
+      [`É proprietário de 1/${n} da casa`, "Propriedade real do imóvel — não é multipropriedade nem um sistema de pontos."],
       [`~${days} dias por ano`, "As estadias são agendadas de forma justa entre os comproprietários ao longo de todo o ano."],
       ["Os custos são partilhados", `Paga 1/${n} das despesas correntes da casa, repartidas por todos os proprietários.`],
       ["Gestão completa", "Tratamos da manutenção, das limpezas e do calendário de estadias — basta chegar e aproveitar."],
@@ -656,7 +656,7 @@ const COPY = {
     tour_btn: 'Begär 3D-visning',
     coown_heading: 'Så fungerar samägande',
     coown_points: (n, days) => [
-      [`Du äger 1/${n} av huset`, 'Verklig, lagfaren äganderätt — inte tidsdelat boende, inte poäng.'],
+      [`Du äger 1/${n} av huset`, 'Verkligt ägande av huset — inte tidsdelat boende, inte poäng.'],
       [`~${days} dagar om året`, 'Vistelserna fördelas rättvist mellan delägarna över hela året.'],
       ['Kostnaderna delas', `Du betalar 1/${n} av husets totala löpande kostnader, delat mellan alla delägare.`],
       ['Allt sköts åt dig', 'Underhåll, städning och bokning hanteras av förvaltaren — du kommer bara hit och njuter.'],
@@ -717,7 +717,7 @@ const COPY = {
     tour_btn: 'Bed om 3D-rundvisning',
     coown_heading: 'Sådan fungerer medejerskab',
     coown_points: (n, days) => [
-      [`Du ejer 1/${n} af boligen`, 'Rigtigt, tinglyst ejerskab — ikke timeshare, ikke point.'],
+      [`Du ejer 1/${n} af boligen`, 'Rigtigt ejerskab af boligen — ikke timeshare, ikke point.'],
       [`~${days} dage om året`, 'Ophold fordeles retfærdigt mellem medejerne hen over hele året.'],
       ['Udgifterne deles', `Du betaler 1/${n} af boligens samlede løbende udgifter, delt mellem alle ejere.`],
       ['Alt bliver passet', 'Vedligehold, rengøring og booking klares for dig — du møder bare op og nyder det.'],
@@ -778,7 +778,7 @@ const COPY = {
     tour_btn: 'Be om 3D-visning',
     coown_heading: 'Slik fungerer sameie',
     coown_points: (n, days) => [
-      [`Du eier 1/${n} av boligen`, 'Ekte, tinglyst eierskap — en ideell andel, ikke timeshare og ikke poeng.'],
+      [`Du eier 1/${n} av boligen`, 'Ekte eierskap — en ideell andel av boligen, ikke timeshare og ikke poeng.'],
       [`~${days} dager i året`, 'Oppholdene fordeles rettferdig mellom sameierne gjennom hele året.'],
       ['Kostnadene deles', `Du betaler 1/${n} av boligens samlede løpende kostnader, delt mellom alle eierne.`],
       ['Alt blir tatt hånd om', 'Vedlikehold, renhold og booking ordnes for deg — du bare kommer og nyter det.'],
@@ -1795,8 +1795,8 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   const propLocation = [p.city || p.region, p.country].filter(Boolean).join(', ');
   const metaDesc = locale === 'en'
     ? (p.price
-        ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real deeded ownership, own only what you use.`
-        : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`)
+        ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real ownership, own only what you use.`
+        : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real ownership, own only what you use.`)
     : propertyMetaDescription(locale, {
         title: local.title,
         // formatPrice, not fmt(): fmt is hard-wired to en-GB grouping, which
@@ -1895,7 +1895,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
               "amenityFeature": (Array.isArray(p.amenities) && p.amenities.length > 0)
                 ? p.amenities.map(a => ({ "@type": "LocationFeatureSpecification", "name": a, "value": true }))
                 : undefined,
-              "accommodationCategory": "Fractional ownership — 1/8 deeded share",
+              "accommodationCategory": "Fractional co-ownership — 1/8 share of the home",
               "mainEntityOfPage": canonicalUrl,
               "offers": p.price ? {
                 "@type": "Offer",
@@ -1937,7 +1937,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
               "amenityFeature": (Array.isArray(p.amenities) && p.amenities.length > 0)
                 ? p.amenities.map(a => ({ "@type": "LocationFeatureSpecification", "name": a, "value": true }))
                 : undefined,
-              "accommodationCategory": "Fractional ownership — 1/8 deeded share",
+              "accommodationCategory": "Fractional co-ownership — 1/8 share of the home",
             },
             {
               "@type": "BreadcrumbList",

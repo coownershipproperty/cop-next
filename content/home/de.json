@@ -2,7 +2,7 @@
   "_note": "Homepage copy for /de/. Rendered by components/rd/HomeView.js — the same component the English homepage uses. Lifted from the hand-written pages/de/index.js it replaced on 22 Sep 2026, so the SEO wording and keyword choices are unchanged. {count} is the live property count.",
   "meta": {
     "title": "Luxus-Co-Ownership in Europa | Ferienimmobilie im Miteigentum — COP",
-    "description": "Entdecken Sie Co-Ownership- und Miteigentum-Ferienimmobilien auf Mallorca, Ibiza, an der Costa del Sol und in weiteren europäischen Destinationen. Echtes Eigentum mit notarieller Eintragung.",
+    "description": "Entdecken Sie Co-Ownership- und Miteigentum-Ferienimmobilien auf Mallorca, Ibiza, an der Costa del Sol und in weiteren europäischen Destinationen. Echtes Eigentum statt Timesharing.",
     "ogTitle": "Luxus-Co-Ownership in Europa | Ferienimmobilie im Miteigentum — COP",
     "ogDescription": "Entdecken Sie Co-Ownership- und Miteigentum-Ferienimmobilien in ganz Europa. Echtes Eigentum, kein Timesharing."
   },
@@ -10,7 +10,7 @@
     "pre": "",
     "em": "Die besten Ferienimmobilien",
     "post": "im Miteigentum",
-    "lead": "Echtes, im Grundbuch eingetragenes Eigentum an einem vollständig verwalteten Zweitwohnsitz — zu einem Bruchteil des Preises eines Alleinkaufs.",
+    "lead": "Echtes Eigentum an einem vollständig verwalteten Zweitwohnsitz — zu einem Bruchteil des Preises eines Alleinkaufs.",
     "ctaPrimary": "Immobilien ansehen →",
     "ctaSecondary": "So funktioniert's"
   },
@@ -96,8 +96,8 @@
     "items": [
       {
         "n": "01",
-        "h": "Sie erwerben einen rechtlich verbrieften Anteil",
-        "p": "Sie kaufen 1/8 der Immobilie. Es handelt sich um echtes Eigentum, im Grundbuch auf Ihren Namen eingetragen, mit vollem rechtlichem Schutz. Unsere Immobilien sind so konzipiert, dass sie im Wert steigen — Sie profitieren von einer echten Immobilieninvestition. Sie haben volle Flexibilität, Ihren Anteil jederzeit zu verkaufen — Sie bestimmen den Preis, wir helfen beim Käufer-Matching."
+        "h": "Sie besitzen einen echten Anteil",
+        "p": "Sie besitzen einen echten Anteil an der Immobilie — ein Achtel, ein Viertel —, kein bloßes Nutzungsrecht. Sie können ihn verkaufen, vererben, und sein Wert entwickelt sich mit dem des Hauses. Die rechtliche Struktur richtet unser Partner für jede Immobilie ein und erklärt sie Ihnen vor dem Kauf im Detail. Unsere Immobilien sind so konzipiert, dass sie im Wert steigen — Sie profitieren von einer echten Immobilieninvestition. Sie haben volle Flexibilität, Ihren Anteil jederzeit zu verkaufen — Sie bestimmen den Preis, wir helfen beim Käufer-Matching."
       },
       {
         "n": "02",
@@ -112,7 +112,7 @@
       {
         "n": "04",
         "h": "Zusätzliche Vorteile",
-        "p": "Co-Ownership bietet weitere Vorteile — von steuerlich günstigen Strukturen über vereinfachte Nachfolgeplanung bis zur Flexibilität, Wochen mit anderen Miteigentümern aus unserem internationalen Portfolio zu tauschen."
+        "p": "Co-Ownership bietet weitere Vorteile — von vereinfachter Nachfolgeplanung bis zur Flexibilität, Wochen mit anderen Miteigentümern aus unserem internationalen Portfolio zu tauschen."
       }
     ],
     "ctaHowItWorks": "So funktioniert Miteigentum",
@@ -129,15 +129,15 @@
     "items": [
       {
         "q": "Was ist Co-Ownership oder Miteigentum an einer Ferienimmobilie?",
-        "a": "Beim Co-Ownership erwerben Sie zusammen mit einer kleinen Anzahl weiterer Miteigentümer einen im Grundbuch eingetragenen Anteil an einer professionell verwalteten Luxus-Ferienimmobilie. Sie besitzen einen echten Bruchteil der Immobilie — typischerweise 1/8 — und im Gegensatz zum Timesharing haben Sie ein rechtlich verbrieftes Eigentum an der Immobilie. Es kombiniert den Stolz und die finanziellen Vorteile echten Immobilieneigentums mit dem Komfort eines Fünf-Sterne-Hotels — zu einem Bruchteil des Vollkaufpreises."
+        "a": "Beim Co-Ownership erwerben Sie zusammen mit einer kleinen Anzahl weiterer Miteigentümer einen echten Anteil an einer professionell verwalteten Luxus-Ferienimmobilie. Sie besitzen einen echten Bruchteil der Immobilie — typischerweise 1/8 — und im Gegensatz zum Timesharing kein bloßes Nutzungsrecht. Die rechtliche Struktur richtet unser Partner für jede Immobilie ein und erklärt sie Ihnen vor dem Kauf im Detail. Es kombiniert den Stolz und die finanziellen Vorteile echten Immobilieneigentums mit dem Komfort eines Fünf-Sterne-Hotels — zu einem Bruchteil des Vollkaufpreises."
       },
       {
         "q": "Wie unterscheidet sich Co-Ownership von Timesharing?",
-        "a": "Im Gegensatz zum Timesharing erhalten Sie beim Co-Ownership einen echten, im Grundbuch eingetragenen Anteil an der Immobilie. Das bedeutet, Sie profitieren von jeglicher Wertsteigerung und können Ihren Anteil jederzeit auf dem freien Markt verkaufen. Da es sich um Luxusimmobilien in stark nachgefragten Lagen handelt, steigen die Preise typischerweise mit der Zeit. Es gibt kein Mitgliedschaftsmodell, kein Punktesystem und keine langfristige vertragliche Bindung. Sie sind ein echter Immobilieneigentümer mit allen rechtlichen Befugnissen über Ihren Anteil."
+        "a": "Im Gegensatz zum Timesharing erhalten Sie beim Co-Ownership einen echten Anteil an der Immobilie. Das bedeutet, Sie profitieren von jeglicher Wertsteigerung und können Ihren Anteil jederzeit auf dem freien Markt verkaufen. Da es sich um Luxusimmobilien in stark nachgefragten Lagen handelt, steigen die Preise typischerweise mit der Zeit. Es gibt kein Mitgliedschaftsmodell, kein Punktesystem und keine langfristige vertragliche Bindung. Sie sind ein echter Immobilieneigentümer mit allen rechtlichen Befugnissen über Ihren Anteil."
       },
       {
         "q": "Was ist im Kaufpreis enthalten?",
-        "a": "Ihr Kaufpreis umfasst Ihren im Grundbuch eingetragenen Anteil an der Immobilie sowie das gesamte Mobiliar, die Innenausstattung und die Geräte. Viele unserer Immobilien sind professionell eingerichtet — vom ersten Tag an bezugsfertig. Die laufenden Kosten — Wartung, Versicherungen, Verwaltung und kommunale Steuern — werden anteilig auf alle Miteigentümer verteilt, sodass Ihre individuellen Ausgaben sehr gering bleiben."
+        "a": "Ihr Kaufpreis umfasst Ihren Anteil an der Immobilie sowie das gesamte Mobiliar, die Innenausstattung und die Geräte. Viele unserer Immobilien sind professionell eingerichtet — vom ersten Tag an bezugsfertig. Die laufenden Kosten — Wartung, Versicherungen, Verwaltung und kommunale Steuern — werden anteilig auf alle Miteigentümer verteilt, sodass Ihre individuellen Ausgaben sehr gering bleiben."
       },
       {
         "q": "Wie wird die Nutzungszeit zwischen den Miteigentümern aufgeteilt?",
@@ -153,7 +153,7 @@
       },
       {
         "q": "Kann ich meinen Anteil später verkaufen?",
-        "a": "Selbstverständlich. Da Sie einen im Grundbuch eingetragenen Anteil halten, können Sie diesen jederzeit auf dem freien Markt verkaufen — wie jede andere Immobilie auch. Ist die Immobilie im Wert gestiegen, profitieren Sie anteilig von der Wertsteigerung. Unser Team unterstützt Sie auch beim Wiederverkauf über unser Netzwerk qualifizierter Käufer."
+        "a": "Selbstverständlich. Da Sie einen echten Anteil an der Immobilie besitzen, können Sie diesen jederzeit auf dem freien Markt verkaufen — wie jede andere Immobilie auch. Ist die Immobilie im Wert gestiegen, profitieren Sie anteilig von der Wertsteigerung. Unser Team unterstützt Sie auch beim Wiederverkauf über unser Netzwerk qualifizierter Käufer."
       },
       {
         "q": "Welche Destinationen und Immobilientypen bieten Sie an?",

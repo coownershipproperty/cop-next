@@ -384,7 +384,7 @@ function buildMetaDesc(slug, properties, existingDesc) {
   const priceStr = formatPrice(minProp.price, minProp.currency || 'EUR');
   const count = properties.length;
   const name = destLabel(slug);
-  return `${count} co-ownership ${count === 1 ? 'property' : 'properties'} in ${name} from ${priceStr}. Real deeded ownership — not timeshare. Luxury homes at a fraction of the cost.`;
+  return `${count} co-ownership ${count === 1 ? 'property' : 'properties'} in ${name} from ${priceStr}. Real ownership — not timeshare. Luxury homes at a fraction of the cost.`;
 }
 
 // ── Heading ID injection + TOC extraction ────────────────────────────────────
@@ -787,7 +787,7 @@ export default function DestinationPage({
     "url": "https://co-ownership-property.com",
     "logo": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
     "image": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
-    "description": "Co-Ownership Property (COP) are independent agents for deeded fractional ownership of luxury second homes worldwide — Europe, the United States, Mexico — held in purpose-built LLC structures with full professional management. We do not operate the homes; we list them, publish what they cost, and make the introduction.",
+    "description": "Co-Ownership Property (COP) are independent agents for fractional co-ownership of luxury second homes worldwide — Europe, the United States, Mexico — with full professional management. We do not operate the homes; we list them, publish what they cost, and make the introduction.",
     "areaServed": [
       { "@type": "Country", "name": "France" },
       { "@type": "Country", "name": "Spain" },

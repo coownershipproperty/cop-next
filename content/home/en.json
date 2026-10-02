@@ -2,7 +2,7 @@
   "_note": "English homepage copy. components/rd/HomeView.js renders this and the nine translated siblings; content/home/en-reference.json documents the shape for translators. {count} is the live property count.",
   "meta": {
     "title": "Co-Ownership Property | Luxury Fractional Ownership",
-    "description": "Browse {count}+ luxury co-ownership homes across Europe and the USA. Real, deeded ownership of a managed second home — for a fraction of the price of buying alone.",
+    "description": "Browse {count}+ luxury co-ownership homes across Europe and the USA. Real ownership of a managed second home — for a fraction of the price of buying alone.",
     "ogTitle": "Co-Ownership Property | Luxury Fractional Ownership",
     "ogDescription": "Browse 300+ luxury fractional ownership homes across Europe and the USA. Real ownership from a fraction of the cost."
   },
@@ -10,7 +10,7 @@
     "pre": "Your window to the world’s finest",
     "em": "co-ownership.",
     "post": "",
-    "lead": "Real, deeded ownership of a fully managed second home — for a fraction of the price of buying it alone.",
+    "lead": "Real ownership of a fully managed second home — for a fraction of the price of buying it alone.",
     "ctaPrimary": "Browse properties →",
     "ctaSecondary": "How it works"
   },
@@ -97,7 +97,7 @@
       {
         "n": "01",
         "h": "Real ownership",
-        "p": "A deeded share of the home itself, registered in your name. Not a timeshare, not a membership — you can sell it, pass it on, and gain if it rises in value."
+        "p": "A real share of the home itself, not a right to use it. Not a timeshare, not a membership — you can sell it, pass it on to your heirs, and it rises and falls in value with the house."
       },
       {
         "n": "02",
@@ -129,11 +129,11 @@
     "items": [
       {
         "q": "What is co-ownership of a holiday home?",
-        "a": "You and a small number of other owners each buy a deeded share of a fully managed home — typically one eighth. It is real property ownership, registered in your name, not a timeshare or a membership. You get the home, the furnishings and the management, at a fraction of the cost of buying it alone."
+        "a": "You and a small number of other owners each own a real share of a fully managed home — typically one eighth — not a timeshare or a membership. You can sell it, pass it on to your heirs, and it rises and falls in value with the house; the legal set-up is arranged by our partner for each home and walked through with you before you buy. You get the home, the furnishings and the management, at a fraction of the cost of buying it alone."
       },
       {
         "q": "How is it different from a timeshare?",
-        "a": "A timeshare sells you time; co-ownership sells you the property. Your share is a legal interest in the home itself, so you benefit if it rises in value and you can sell it on the open market when you choose. There is no points system and no lock-in."
+        "a": "A timeshare sells you time; co-ownership sells you the property. Your share is a real share of the home itself, so you benefit if it rises in value and you can sell it on the open market when you choose. There is no points system and no lock-in."
       },
       {
         "q": "What does the price include?",
@@ -165,9 +165,9 @@
       }
     ],
     "emphasise": [
-      "deeded share",
+      "real share",
       "not a timeshare or a membership",
-      "legal interest in the home itself",
+      "real share of the home itself",
       "fully furnished and equipped",
       "before you commit",
       "around six weeks a year",

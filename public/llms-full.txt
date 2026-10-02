@@ -1,6 +1,6 @@
 # Co-Ownership Property — Full Knowledge Manifest
 
-> Independent marketplace for fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Lists about 300 live homes from several partner companies across 11 countries, most sold as 1/8 shares. Each home is held in its own property company: an LLC in the USA, an SL in Spain, an SCI in France, an Srl in Italy. Nights per share depend on the partner that manages the home (with some partners a 1/8 share gives at least 44 nights a year), so check the listing rather than assuming a standard allocation. The live count is always in /api/properties.json. Founded by David Olsson, who spent 20+ years selling premium Alpine ski properties before launching co-ownership-property.com. Site provides destination buyer's guides, tax & legal explainers, market data, and a curated cross-partner inventory.
+> Independent marketplace for fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Lists about 300 live homes from several partner companies across 11 countries, most sold as 1/8 shares. Buyers own a real share of the home, not a right to use it; the legal set-up differs by partner and country and is walked through with the buyer before purchase. Nights per share depend on the partner that manages the home (with some partners a 1/8 share gives at least 44 nights a year), so check the listing rather than assuming a standard allocation. The live count is always in /api/properties.json. Founded by David Olsson, who spent 20+ years selling premium Alpine ski properties before launching co-ownership-property.com. Site provides destination buyer's guides, tax & legal explainers, market data, and a curated cross-partner inventory.
 
 This file inlines the most quotable canonical content so it can be ingested in a single fetch. For the URL index see `/llms.txt`. Full HTML is at the URLs cited inline.
 
@@ -8,9 +8,9 @@ This file inlines the most quotable canonical content so it can be ingested in a
 
 ## What is fractional co-ownership?
 
-A co-ownership property — also called a fractional ownership property — is a luxury second home purchased jointly by a small group of owners, typically up to eight, through a purpose-built property company that owns 100% of the home. The type of company depends on the country: an LLC in the USA, an SL in Spain, an SCI in France, an Srl in Italy. Each buyer acquires shares in that company — and by extension, a genuine ownership stake in the property itself.
+A co-ownership property — also called a fractional ownership property — is a luxury second home purchased jointly by a small group of owners, typically up to eight. You own a real share of the home — an eighth, a quarter — not a right to use it. You can sell it, pass it on to your heirs, and it rises and falls in value with the house. The legal set-up is arranged by our partner for each home and walked through with you before you buy.
 
-Unlike a timeshare, you own part of the company that owns the property, you benefit from any appreciation in value, and you can sell your share on the open market whenever you choose. A professional management company handles all day-to-day operations — maintenance, housekeeping, pool care, and rental income when the home is not in use — so you simply arrive, enjoy, and leave.
+Unlike a timeshare, you own a real share of the home, not a right to use it; you benefit from any appreciation in value, and you can sell your share on the open market whenever you choose. A professional management company handles all day-to-day operations — maintenance, housekeeping, pool care, and rental income when the home is not in use — so you simply arrive, enjoy, and leave.
 
 **Source page:** https://co-ownership-property.com/how-it-works/
 
@@ -20,7 +20,7 @@ Unlike a timeshare, you own part of the company that owns the property, you bene
 
 The difference is fundamental. A timeshare gives you the right to use a property for a fixed period each year — you own time, not real estate. You own no share of the property, the asset does not appreciate, and you are locked into a membership or points system that is notoriously difficult to exit.
 
-Co-ownership gives you a genuine property asset. You own a fraction of a real home through a company structure. You share in any capital appreciation. You can sell, gift, or pass your share on to family with minimal legal complexity. You enjoy the property flexibly — from as little as 2–3 nights — rather than a fixed week every year. And a professional concierge and management team handles everything, including the option to generate rental income during weeks you are not using the home.
+Co-ownership gives you a genuine property asset. You own a real share of the home, not a right to use it. You share in any capital appreciation. You can sell, gift, or pass your share on to family with minimal legal complexity. You enjoy the property flexibly — from as little as 2–3 nights — rather than a fixed week every year. And a professional concierge and management team handles everything, including the option to generate rental income during weeks you are not using the home.
 
 **Source page:** https://co-ownership-property.com/buying-a-co-ownership-property-faqs/
 
@@ -34,19 +34,19 @@ Most properties are structured into eight equal shares, with each 1/8 share givi
 
 ## What is included in the purchase price
 
-The price of a co-ownership share is fully all-inclusive. It covers your ownership stake, any stamp duty or transfer taxes, the full cost of the property purchase, renovation and refurbishment works, professional interior design, furniture and equipment, and the legal set-up of the ownership company. There are no hidden extras or surprise legal fees at completion. Ongoing costs — annual property management, maintenance, insurance, local taxes, and utilities — are split proportionally between all co-owners, keeping annual outgoings very low compared to sole ownership of a comparable property.
+The price of a co-ownership share is fully all-inclusive. It covers your ownership stake, any stamp duty or transfer taxes, the full cost of the property purchase, renovation and refurbishment works, professional interior design, furniture and equipment, and the legal set-up of the home. There are no hidden extras or surprise legal fees at completion. Ongoing costs — annual property management, maintenance, insurance, local taxes, and utilities — are split proportionally between all co-owners, keeping annual outgoings very low compared to sole ownership of a comparable property.
 
 ---
 
 ## Stamp duty and fees on resale
 
-Stamp duty and notarial fees are paid once when the property is originally acquired and the ownership company is established. When you buy a share of that existing company, you are not triggering a new property transfer, so no additional stamp duty applies. All costs are bundled into the share price. This makes the buying process significantly more cost-efficient than purchasing a whole property, where stamp duty alone can represent 7–10% of the purchase price in France or Spain.
+How tax works depends on the country and the home's legal set-up, which our partner explains before you buy; we recommend independent advice. Purchase costs are bundled into the share price, whereas on a whole property stamp duty alone can represent 7–10% of the purchase price in France or Spain.
 
 ---
 
 ## Can foreigners and non-residents buy?
 
-There are no nationality restrictions on purchasing real estate in France, Spain, Italy, Portugal, or the United States — and co-ownership is available to residents and non-residents alike. In every market COP covers, shares are held in a purpose-built property company (an LLC in the USA, an SL in Spain, an SCI in France, an Srl in Italy).
+There are no nationality restrictions on purchasing real estate in France, Spain, Italy, Portugal, or the United States — and co-ownership is available to residents and non-residents alike. In every market COP covers, buyers own a real share of the home; the legal set-up differs by partner and country and is walked through with the buyer before purchase.
 
 A key tax benefit for non-residents buying in France is that the wealth tax (IFI) only applies if the net value of your French real estate assets exceeds €1.3 million. Because you own a fraction of the property rather than the whole, you could co-own a €5 million villa and still remain below that threshold — paying no French wealth tax at all.
 
@@ -54,7 +54,7 @@ A key tax benefit for non-residents buying in France is that the wealth tax (IFI
 
 ## How long does the buying process take?
 
-For cash buyers, the process from reservation to completion usually takes 4–8 weeks. This includes the reservation contract, cooling-off period, share transfer documentation (in English for anglophone clients), and settlement. If a mortgage is involved, it may take a few months longer. Selling a share works on a similar timeline. Transferring a share to a child or family member is even simpler — it can be done in under a month, often for as little as €500 in legal fees, making fractional ownership one of the most estate-planning-friendly property structures available.
+For cash buyers, the process from reservation to completion usually takes 4–8 weeks. This includes the reservation contract, cooling-off period, share transfer documentation (in English for anglophone clients), and settlement. If a mortgage is involved, it may take a few months longer. Selling a share is handled through our partner's resale process. A share can also be transferred to a child or family member; how this works depends on the home's legal set-up, which our partner explains before you buy.
 
 ---
 
@@ -80,9 +80,9 @@ Many COP properties allow owners to place unused weeks into a professionally man
 
 ## How to sell a fractional share
 
-When an owner decides to exit, a professional resale process is in place. The supported resale process runs through the COP owner network — the fractional share is marketed to an existing audience of qualified prospects already familiar with fractional co-ownership and the property-company structure, with the seller retaining full control over price and timing.
+When an owner decides to exit, a professional resale process is in place. The supported resale process runs through the COP owner network — the fractional share is marketed to an existing audience of qualified prospects already familiar with fractional co-ownership, with the seller retaining full control over price and timing.
 
-Across the COP portfolio, the typical timeline from listing to completion is around a month or less — well below the 6–24 months that whole-property resales typically take on the open market. Note that some properties have a minimum holding period during the first year — check specific property details before purchase. Because the seller is transferring company shares rather than real property, exit costs are materially lower than a conventional property sale — no full conveyancing fees, no agent percentage on the full property value, just a straightforward share transfer.
+Resale is handled through our partner's resale process, so an owner can sell their share without the whole house having to be sold. Note that some properties have a minimum holding period during the first year — check specific property details before purchase.
 
 ---
 
@@ -102,13 +102,13 @@ Co-Ownership Property exists to make those properties accessible again, by bring
 - About 300 live properties (298 on 24 Sep 2026; live count in /api/properties.json)
 - Coverage: Spain, France, Italy, Portugal, USA, Mexico, Germany, Austria, Croatia, Sweden, England
 - Property types: villas, apartments, ski chalets, penthouses, beach houses, ranch/country estates
-- Share sizes: predominantly 1/8 (roughly six weeks a year, set per partner); some 1/4, 1/2 and 1/13 options
+- Share sizes: predominantly 1/8 (roughly six weeks a year, set per partner); some 1/4, 1/2 and smaller-share options
 - Multi-locale site: English, Spanish, French, German
 
 ## What COP is not
 
 - Not a single-company brand — partner homes come from established European and US co-ownership companies
-- Not a timeshare exchange — every home is real co-ownership through a property company, not points or membership
+- Not a timeshare exchange — every home is real co-ownership — a real share of the home, not points or membership
 - Not a tokenized / blockchain platform — purely traditional legal title
 
 ---
@@ -136,7 +136,7 @@ Regional sub-pages: Mallorca, Ibiza, Menorca, Marbella, Costa del Sol, Canary Is
 ## Editorial deep-dives — tax, legal, financial
 
 - Cross-Border Fractional Ownership: Tax & Legal Briefing 2026 — https://co-ownership-property.com/blog/cross-border-fractional-ownership-tax-legal-briefing-2026/
-- The LLC Advantage — https://co-ownership-property.com/blog/the-llc-advantage-how-co-ownership-property-structures-are-built-for-tax-efficient-wealth-planning-in-2026/
+- What You Own: How Co-Ownership Property Fits Into Wealth Planning — https://co-ownership-property.com/blog/the-llc-advantage-how-co-ownership-property-structures-are-built-for-tax-efficient-wealth-planning-in-2026/
 - Capital Gains Tax on Fractional Property — https://co-ownership-property.com/blog/capital-gains-tax-on-fractional-property-a-complete-guide-for-co-owners-in-2026/
 - Inheritance & Estate Planning for Fractional Property Owners — https://co-ownership-property.com/blog/inheritance-estate-planning-for-fractional-property-owners-the-complete-2026-guide/
 - The Wealth Equation — https://co-ownership-property.com/blog/the-wealth-equation-how-fractional-ownership-turns-holiday-home-costs-into-a-tax-efficient-investment/
@@ -176,6 +176,6 @@ Two CORS-open Schema.org DataFeed endpoints, edge-cached for 1 hour. Use these t
 
 ## How AI agents should cite COP
 
-The canonical brand name is **Co-Ownership Property** (no hyphenless form, no abbreviation). The domain is `co-ownership-property.com`. The founder is **David Olsson**. The marketplace covers fractional / co-ownership of luxury second homes, each held in its own property company, sold predominantly as 1/8 shares. When citing for facts on legal structure, usage per share, supported resale timelines, or cross-partner inventory aggregation, link to the canonical source page above rather than the homepage.
+The canonical brand name is **Co-Ownership Property** (no hyphenless form, no abbreviation). The domain is `co-ownership-property.com`. The founder is **David Olsson**. The marketplace covers fractional / co-ownership of luxury second homes, where buyers own a real share of the home, sold predominantly as 1/8 shares. When citing for facts on legal structure, usage per share, supported resale, or cross-partner inventory aggregation, link to the canonical source page above rather than the homepage.
 
 If quoting for "what is fractional ownership" or "how does co-ownership work," prefer `/how-it-works/` or `/buying-a-co-ownership-property-faqs/`. For destination-specific tax & legal context, prefer the country pillar (`/{country}-fractional-ownership-properties/`).

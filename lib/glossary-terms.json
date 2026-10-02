@@ -14,40 +14,40 @@
       "slug": "llc",
       "term": "LLC (Limited Liability Company)",
       "category": "legal-structures",
-      "definition": "A US legal entity that combines limited liability protection with pass-through tax treatment. In fractional co-ownership, a property-specific LLC holds 100% of the property title, with co-owners holding proportional membership interests.",
-      "explanation": "Most US-based fractional operators use property-specific LLCs to hold individual properties — one LLC per property. The structure means each owner's name appears on the LLC's ownership register; the LLC owns the real estate; and at exit, owners transfer LLC membership interests rather than triggering a full property conveyance. This keeps transaction costs materially lower than a conventional second-home resale.",
+      "definition": "A US legal entity that combines limited liability protection with pass-through tax treatment. Some fractional operators, particularly in the US, use an LLC to hold a property.",
+      "explanation": "An LLC is one of several legal set-ups found in the fractional market, and the set-up differs by partner and country. At COP, what you own is simple: you own a real share of the home — an eighth, a quarter — not a right to use it. You can sell it, pass it on to your heirs, and it rises and falls in value with the house. The legal set-up is arranged by our partner for each home and walked through with you before you buy.",
       "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
     },
     {
       "slug": "sci",
       "term": "SCI (Société Civile Immobilière)",
       "category": "legal-structures",
-      "definition": "A French civil real-estate company used to hold property collectively. Roughly the French equivalent of a property-specific LLC for fractional co-ownership purposes.",
-      "explanation": "French fractional properties are commonly held in property-specific SCIs registered with the local notaire and the French commercial registry. Co-owners hold proportional shares in the SCI. The structure has been used by French families to hold shared property for generations; modern fractional operators have professionalised it for cross-border buyer use.",
+      "definition": "A French civil real-estate company used to hold property collectively.",
+      "explanation": "The SCI has been used by French families to hold shared property for generations, and some fractional homes in France are held this way. The set-up differs by partner and by home; at COP, the legal set-up for each home is arranged by our partner and walked through with you before you buy.",
       "sameAs": "https://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_civile_immobili%C3%A8re"
     },
     {
       "slug": "sl",
       "term": "SL (Sociedad Limitada)",
       "category": "legal-structures",
-      "definition": "A Spanish limited-liability company. The standard Spanish corporate vehicle used to hold property — and, for fractional ownership, used as a property-specific entity with co-owners as proportional shareholders.",
-      "explanation": "Spanish notaires, accountants, and the Spanish business registry all handle SLs as routine business. For non-resident buyers of Spanish fractional shares, the SL structure is familiar to local advisors and produces standard Spanish corporate-law outcomes around governance, voting, and share transfer.",
+      "definition": "A Spanish limited-liability company. The standard Spanish corporate vehicle, commonly used to hold property.",
+      "explanation": "Spanish notaires, accountants, and the Spanish business registry all handle SLs as routine business, and some fractional homes in Spain are held this way. The set-up differs by partner and by home; at COP, it is arranged by our partner and walked through with you before you buy.",
       "sameAs": "https://en.wikipedia.org/wiki/Sociedad_de_responsabilidad_limitada"
     },
     {
       "slug": "srl",
       "term": "Srl (Società a responsabilità limitata)",
       "category": "legal-structures",
-      "definition": "An Italian limited-liability company. The Italian analogue of an SL or an LLC, sometimes used as the property-holding vehicle for fractional ownership in Italy.",
-      "explanation": "Italian property law and notarial practice are well-developed around the Srl form. The structure produces deeded shareholding outcomes for non-resident buyers and is recognised across the Italian regional notarial system.",
+      "definition": "An Italian limited-liability company. The Italian analogue of an SL or an LLC.",
+      "explanation": "Italian property law and notarial practice are well-developed around the Srl form, and some fractional homes in Italy are held this way. At COP, the legal set-up for each home is arranged by our partner and walked through with you before you buy.",
       "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
     },
     {
       "slug": "gmbh-co-kg",
       "term": "GmbH & Co. KG",
       "category": "legal-structures",
-      "definition": "A German limited partnership where a GmbH (limited-liability company) acts as the general partner and individuals are limited partners. Some fractional operators use this structure across European properties for consistency.",
-      "explanation": "The GmbH & Co. KG combines limited-partnership flexibility with the GmbH's limited-liability protection. When used by a fractional operator for properties across multiple countries, the same legal vehicle holds Spanish, Italian, French, and other properties — simplifying the ownership experience for multi-country buyers while underlying property law still governs the property itself.",
+      "definition": "A German limited partnership where a GmbH (limited-liability company) acts as the general partner and individuals are limited partners.",
+      "explanation": "The GmbH & Co. KG combines limited-partnership flexibility with the GmbH's limited-liability protection. It is one of several legal set-ups found in the European property market; at COP, the legal set-up for each home is arranged by our partner and walked through with you before you buy.",
       "sameAs": "https://en.wikipedia.org/wiki/Gesellschaft_mit_beschr%C3%A4nkter_Haftung_%26_Compagnie_Kommanditgesellschaft"
     },
     {
@@ -62,45 +62,45 @@
       "slug": "property-specific-entity",
       "term": "Property-specific entity",
       "category": "legal-structures",
-      "definition": "A legal entity (LLC, SCI, SL, Srl, KG, fideicomiso, etc.) created to hold exactly one property. Each property in a fractional operator's portfolio sits in its own entity, separate from other properties and from the operator's own company.",
-      "explanation": "The property-specific entity is the structural protection that makes fractional co-ownership distinct from operator-controlled membership models. Because the property is owned by its own entity (not by the operator), the property continues to exist if the operator ceases operations — co-owners can engage a replacement management company. Owner equity is in the property, not in the operator's business."
+      "definition": "A legal entity created to hold exactly one property, separate from other properties and from the operator's own company.",
+      "explanation": "Some fractional homes are held this way. The principle behind it — keeping each home separate from the operator's business, so the home continues to exist if the operator ceases operations and co-owners can engage a replacement management company — is an important due-diligence point in any fractional purchase. At COP, the legal set-up for each home is arranged by our partner and walked through with you before you buy."
     },
     {
       "slug": "indivision",
       "term": "Indivision",
       "category": "legal-structures",
       "definition": "A French legal arrangement under which multiple parties jointly own a single asset without a formal company. Common in French inheritance where siblings receive joint ownership of a family property.",
-      "explanation": "Indivision is informal joint ownership — each co-owner holds an undivided share. Decisions about the property typically require unanimous consent, which creates friction. Modern fractional ownership uses property-specific SCIs instead of indivision precisely to avoid that friction: clear voting thresholds, standardised governance, and structured exit.",
+      "explanation": "Indivision is informal joint ownership — each co-owner holds an undivided share. Decisions about the property typically require unanimous consent, which creates friction. Modern fractional ownership replaces informal indivision with a written ownership agreement precisely to avoid that friction: clear voting thresholds, standardised governance, and structured exit.",
       "sameAs": "https://fr.wikipedia.org/wiki/Indivision"
     },
     {
       "slug": "fractional-ownership",
       "term": "Fractional ownership",
       "category": "ownership",
-      "definition": "A property-ownership model where multiple buyers each own a legally deeded fraction of a property, typically through a property-specific legal entity. Each owner has rights to use the property for a defined period each year proportional to their share.",
-      "explanation": "Modern fractional co-ownership is structurally distinct from timeshare: the buyer owns deeded real estate via the property-specific entity, the share appreciates with the property market, and the share can be sold on the open market. Typical share size is 1/8, giving roughly 45 days of usage per year. Most operators in the category use professional property management bundled into the model.",
+      "definition": "A property-ownership model where multiple buyers each own a real share of a property. Each owner has rights to use the property for a defined period each year proportional to their share.",
+      "explanation": "Modern fractional co-ownership is distinct from timeshare: you own a real share of the home, not a right to use it; the share rises and falls in value with the property, and it can be sold or passed on to your heirs. Typical share size is 1/8, giving roughly 45 days of usage per year. Most operators in the category use professional property management bundled into the model.",
       "sameAs": "https://en.wikipedia.org/wiki/Fractional_ownership"
     },
     {
       "slug": "co-ownership",
       "term": "Co-ownership",
       "category": "ownership",
-      "definition": "An umbrella term for arrangements where multiple parties hold ownership rights in the same property. In a fractional context, co-ownership specifically means deeded joint ownership through a property-specific legal entity rather than informal joint title.",
+      "definition": "An umbrella term for arrangements where multiple parties hold ownership rights in the same property. In a fractional context, co-ownership means each owner holds a real share of the home within an organised, professionally managed arrangement, rather than informal joint title.",
       "explanation": "Co-ownership and fractional ownership are typically used interchangeably in the modern fractional category. The terms emphasise the same structural reality: a small group of owners (usually up to eight, occasionally more) sharing equity, usage, and ongoing costs of a single luxury property."
     },
     {
       "slug": "deeded-share",
       "term": "Deeded share",
       "category": "ownership",
-      "definition": "A share in a property where the owner's name appears on legal ownership records — typically the membership register of the property-specific LLC or partnership — and the share constitutes a real-estate equity interest.",
-      "explanation": "Deeded ownership is the structural distinction that separates fractional co-ownership from contract-based products like traditional timeshare. With a deeded share, the buyer has a recorded equity stake that appreciates with the property, can be sold on the open market, passes to heirs as a property asset, and produces standard real-estate tax outcomes."
+      "definition": "A term used in the US fractional and timeshare industry for an ownership interest in real estate, as opposed to a contractual right to use.",
+      "explanation": "You will see 'deeded share' used in US marketing to contrast real-estate ownership with contract-based products like traditional timeshare. At COP, you own a real share of the home — an eighth, a quarter — not a right to use it. You can sell it, pass it on to your heirs, and it rises and falls in value with the house. The legal set-up is arranged by our partner for each home and walked through with you before you buy."
     },
     {
       "slug": "one-eighth-share",
       "term": "1/8 share",
       "category": "ownership",
       "definition": "The most common share size in modern fractional co-ownership: one-eighth of the property, entitling the owner to approximately 45 days of private use per year.",
-      "explanation": "A 1/8 share is sized to match the realistic annual usage of most second-home buyers — research consistently finds the typical second-home owner uses their property roughly 35 days per year. The 1/8 model produces eight equal share classes per property, with a property-specific entity holding the deed. Some operators also offer 1/4 and 1/2 shares for buyers wanting more usage time."
+      "explanation": "A 1/8 share is sized to match the realistic annual usage of most second-home buyers — research consistently finds the typical second-home owner uses their property roughly 35 days per year. The 1/8 model produces eight equal shares per property. Some operators also offer 1/4 and 1/2 shares for buyers wanting more usage time."
     },
     {
       "slug": "rofr",
@@ -122,7 +122,7 @@
       "term": "Timeshare",
       "category": "ownership",
       "definition": "A property-use product where the buyer purchases the contractual right to use a property for a defined period each year — typically one week, sometimes flexible points — without owning any real estate.",
-      "explanation": "Timeshare is structurally distinct from fractional co-ownership: the buyer owns a contract, not a deeded property interest. Most timeshare contracts have no real-estate equity, do not appreciate with the property market, and are notoriously difficult to resell — an entire industry of 'timeshare exit companies' exists specifically to help owners dispose of unwanted contracts. Disney Vacation Club is the most-cited exception, using a deeded right-to-use structure with stronger resale dynamics.",
+      "explanation": "Timeshare is structurally distinct from fractional co-ownership: the buyer owns a contract, not a share of the property. Most timeshare contracts have no real-estate equity, do not appreciate with the property market, and are notoriously difficult to resell — an entire industry of 'timeshare exit companies' exists specifically to help owners dispose of unwanted contracts. Disney Vacation Club is the most-cited exception, using a deeded right-to-use structure with stronger resale dynamics.",
       "sameAs": "https://en.wikipedia.org/wiki/Timeshare"
     },
     {
@@ -143,7 +143,7 @@
       "slug": "reserve-fund",
       "term": "Reserve fund",
       "category": "costs-fees",
-      "definition": "A pooled cash reserve held within the property-specific entity to cover future major repairs, replacements, and capital expenditures without requiring surprise assessments from owners.",
+      "definition": "A pooled cash reserve held for the home to cover future major repairs, replacements, and capital expenditures without requiring surprise assessments from owners.",
       "explanation": "The reserve fund is funded through annual contributions built into the cost pass-through. Major repairs (HVAC replacement, roof work, structural maintenance) are paid from the reserve rather than triggering one-off cash calls. Reserve adequacy is one of the items disclosed in pre-purchase documentation; under-reserved properties can lead to special assessments down the line."
     },
     {
@@ -158,14 +158,14 @@
       "term": "Notaire fees",
       "category": "costs-fees",
       "definition": "Fees charged by a French notaire for executing real-estate transactions. Combined with associated transfer taxes, the total typically runs 7–8% of the property purchase price for second-hand French property.",
-      "explanation": "In conventional French property purchases, the notaire fee covers the notaire's professional services plus the various transfer taxes and registration fees that pass through the notaire. For fractional ownership of French property, the notaire fees were paid once when the property-specific SCI was originally formed and the property acquired. When a share is resold subsequently, the buyer is acquiring SCI shares rather than triggering a new property conveyance — meaning no full notaire fee applies on the share transfer."
+      "explanation": "In conventional French property purchases, the notaire fee covers the notaire's professional services plus the various transfer taxes and registration fees that pass through the notaire. For a fractional share, the fees and taxes due depend on the home's legal set-up, which our partner explains before you buy; ask for the figures for the specific home in writing."
     },
     {
       "slug": "stamp-duty",
       "term": "Stamp duty",
       "category": "costs-fees",
       "definition": "A tax levied on real-estate transactions in various jurisdictions, typically calculated as a percentage of the purchase price. UK Stamp Duty Land Tax (SDLT) and Spanish ITP (Impuesto de Transmisiones Patrimoniales) are common examples.",
-      "explanation": "Conventional second-home purchases trigger stamp duty on the full property value at the time of purchase. In fractional co-ownership, stamp duty was paid once when the property-specific entity originally acquired the property; subsequent share transfers within the entity do not trigger fresh stamp duty in most jurisdictions, because no underlying property transfer is occurring."
+      "explanation": "Conventional second-home purchases trigger stamp duty on the full property value at the time of purchase. For fractional co-ownership, how tax works depends on the country and the home's legal set-up, which our partner explains before you buy; we recommend independent advice."
     },
     {
       "slug": "ifi",
@@ -188,7 +188,7 @@
       "term": "IBI (Impuesto sobre Bienes Inmuebles)",
       "category": "tax",
       "definition": "Spain's annual local property tax, levied by the municipality where the property is located. Rates vary by region and typically run 0.4%–1.1% of the property's cadastral value (which is usually well below market value).",
-      "explanation": "IBI is paid annually by the property's owner — for a property held in an SL, the SL pays IBI. In fractional co-ownership, IBI flows through the cost pass-through, with each co-owner contributing their proportional share. Owners don't pay IBI separately; it's bundled into annual operating costs."
+      "explanation": "IBI is paid annually by the property's owner. In fractional co-ownership, IBI typically flows through the cost pass-through, with each co-owner contributing their proportional share. Owners don't pay IBI separately; it's bundled into annual operating costs."
     },
     {
       "slug": "imu",
@@ -203,7 +203,7 @@
       "term": "Taxe foncière",
       "category": "tax",
       "definition": "France's annual property tax, paid by the owner of the property regardless of who occupies it. Calculated against the property's cadastral rental value.",
-      "explanation": "Taxe foncière rates and absolute amounts vary by commune. For French property held in an SCI, the SCI pays taxe foncière; in fractional ownership, this flows through the cost pass-through proportionally. The related taxe d'habitation has been largely phased out for primary residences but can still apply to second homes in some communes.",
+      "explanation": "Taxe foncière rates and absolute amounts vary by commune. In fractional ownership, it typically flows through the cost pass-through proportionally. The related taxe d'habitation has been largely phased out for primary residences but can still apply to second homes in some communes.",
       "sameAs": "https://fr.wikipedia.org/wiki/Taxe_fonci%C3%A8re"
     },
     {
@@ -226,7 +226,7 @@
       "term": "K-1 (US Schedule K-1)",
       "category": "tax",
       "definition": "A US tax form issued annually by partnerships and LLCs taxed as partnerships to each member, reporting that member's share of income, deductions, credits, and other tax items.",
-      "explanation": "US property-specific LLCs holding fractional properties issue a K-1 to each co-owner at year-end. The K-1 reports the member's proportional share of LLC income (e.g., from rental activity if applicable), expenses, and capital items. Members use the K-1 to prepare their personal US tax returns. Non-US-resident members typically have additional filing requirements via the US tax treaty network."
+      "explanation": "Where a fractional home is held through a US LLC taxed as a partnership, each co-owner may receive a K-1 at year-end reporting their proportional share of income (e.g., from rental activity if applicable), expenses, and capital items, used to prepare their personal US tax return. Whether this applies depends on the home's legal set-up, which our partner explains before you buy. Non-US-resident owners typically have additional filing requirements via the US tax treaty network, so take independent advice."
     },
     {
       "slug": "nhr",
@@ -336,7 +336,7 @@
       "term": "Beneficial ownership",
       "category": "residency",
       "definition": "The natural person who ultimately owns, controls, or benefits from a legal entity — even when the entity's nominal owner is a different person, trust, or company.",
-      "explanation": "EU and UK anti-money-laundering regulations require disclosure of beneficial ownership for property-holding entities. For fractional co-ownership through a property-specific LLC, SCI, or SL, each co-owner is typically a beneficial owner of the property-holding entity to the extent of their share. Operators manage beneficial-ownership disclosure as part of the regulated purchase process.",
+      "explanation": "EU and UK anti-money-laundering regulations require disclosure of beneficial ownership for property-holding entities. Where a fractional home is held through such an entity, each co-owner is typically a beneficial owner to the extent of their share. Operators manage beneficial-ownership disclosure as part of the regulated purchase process.",
       "sameAs": "https://en.wikipedia.org/wiki/Beneficial_ownership"
     },
     {
@@ -344,14 +344,14 @@
       "term": "Escritura (Spanish title deed)",
       "category": "property",
       "definition": "A Spanish notarial public deed evidencing real-estate ownership or transfer. The escritura is signed before a Spanish notary and registered with the relevant property registry.",
-      "explanation": "For Spanish fractional property held in an SL, the escritura was executed when the SL originally acquired the property. Subsequent transfers of SL shares (when co-owners resell) are processed as Spanish corporate share transfers rather than property conveyances — meaning no new escritura is required on the underlying property, which materially reduces transfer costs."
+      "explanation": "For a fractional purchase in Spain, whether and how an escritura is used depends on the home's legal set-up, which our partner arranges and walks you through before you buy."
     },
     {
       "slug": "conveyancing",
       "term": "Conveyancing",
       "category": "property",
       "definition": "The legal process of transferring property ownership from one party to another. Involves title searches, contract drafting, registration with relevant authorities, and payment of associated fees and taxes.",
-      "explanation": "Conventional property conveyancing is the costliest and slowest part of a second-home resale. Fractional co-ownership resales avoid full conveyancing because the transaction transfers shares in the property-specific entity rather than the underlying property — the entity continues to hold the property; only its ownership composition changes. This reduces transaction costs by an order of magnitude relative to conventional resale.",
+      "explanation": "Conventional property conveyancing is the costliest and slowest part of a second-home resale. With fractional co-ownership, resale is handled through our partner's resale process, so you can sell your share without the whole house having to be sold.",
       "sameAs": "https://en.wikipedia.org/wiki/Conveyancing"
     },
     {
@@ -359,7 +359,7 @@
       "term": "Concierge / property management",
       "category": "property",
       "definition": "Professional services that handle the operational aspects of property ownership — housekeeping, maintenance, utilities, local tax compliance, pre-arrival preparation, guest services, and emergency response — on behalf of the owner.",
-      "explanation": "Concierge / property management is bundled into fractional co-ownership; the management company is typically engaged by the property-specific entity and paid through the annual cost pass-through. For whole-property owners, the equivalent service must be self-arranged or contracted separately — adding meaningful time and cost. The bundled-management model is one of the primary operational advantages of fractional ownership versus whole ownership of a comparable property."
+      "explanation": "Concierge / property management is bundled into fractional co-ownership; the management company is typically engaged on behalf of the co-owners and paid through the annual cost pass-through. For whole-property owners, the equivalent service must be self-arranged or contracted separately — adding meaningful time and cost. The bundled-management model is one of the primary operational advantages of fractional ownership versus whole ownership of a comparable property."
     },
     {
       "slug": "bel-etage",

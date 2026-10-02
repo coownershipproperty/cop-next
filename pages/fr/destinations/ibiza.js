@@ -40,7 +40,7 @@ export default function IbizaFR({ properties }) {
     <div className="rd rd-destination">
       <Head>
         <title>Résidence secondaire à Ibiza : copropriété et villas en quote-part [2026]</title>
-        <meta name="description" content="Devenez copropriétaire d'une résidence secondaire à Ibiza — villas et fincas dans les meilleures zones (Santa Eulalia, San José, Roca Llisa). À partir d'1/8 avec acte authentique." />
+        <meta name="description" content="Devenez copropriétaire d'une résidence secondaire à Ibiza — villas et fincas dans les meilleures zones (Santa Eulalia, San José, Roca Llisa). À partir d'une part de 1/8 du bien." />
         <link rel="canonical" href={canonicalUrl} />
         {hreflangLinks({ englishPath: '/fr/destinations/ibiza' })}
         <meta property="og:type" content="website" />

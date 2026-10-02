@@ -31,14 +31,14 @@ const COPY = {
     eyebrow: (country) => `Co-Ownership · ${country}`,
     title: (town) => `Co-Ownership Homes in ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'One luxury holiday home' : `${n} luxury holiday homes`} in ${town} available as deeded co-ownership shares${from ? `, from ${from} per share` : ''}. Genuine ownership, fully managed, a fraction of the whole-home price.`,
+      `${n === 1 ? 'One luxury holiday home' : `${n} luxury holiday homes`} in ${town} available as co-ownership shares${from ? `, from ${from} per share` : ''}. Genuine ownership, fully managed, a fraction of the whole-home price.`,
     homes_heading: (town) => `The ${town} Collection`,
     about_heading: (town) => `Why buy a co-ownership home in ${town}?`,
     about_body: (town, country, from) =>
-      `Buying a whole holiday home in ${town} means paying full price for a house that stands empty most of the year. Co-ownership takes the same home — professionally managed, beautifully furnished — and divides it into deeded shares, usually eighths. You own real property in ${country}, registered in your name, with roughly six weeks of use a year, the freedom to sell whenever you choose, and running costs shared between owners rather than shouldered alone.${from ? ` In ${town}, that ownership starts from ${from}.` : ''}`,
+      `Buying a whole holiday home in ${town} means paying full price for a house that stands empty most of the year. Co-ownership takes the same home — professionally managed, beautifully furnished — and divides it into shares, usually eighths. You own a real share of the home — not a right to use it — with roughly six weeks of use a year, the freedom to sell whenever you choose, and running costs shared between owners rather than shouldered alone.${from ? ` In ${town}, that ownership starts from ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `What does co-ownership in ${town} cost?`, a: `Each listing shows the full price of its share — typically one-eighth of the home. It is a purchase price, not a deposit or membership fee: you become a deeded owner of the property.` },
-      { q: `Is this a timeshare?`, a: `No. A timeshare sells you time; co-ownership sells you property. Your share of the ${town} home is real estate in ${country}, registered in your name — it can appreciate, be resold on the open market, and be passed on.` },
+      { q: `What does co-ownership in ${town} cost?`, a: `Each listing shows the full price of its share — typically one-eighth of the home. It is a purchase price, not a deposit or membership fee: you become a co-owner of the home.` },
+      { q: `Is this a timeshare?`, a: `No. A timeshare sells you time; co-ownership sells you property. You own a real share of the ${town} home, not a right to use it — it rises and falls in value with the house, can be sold, and can be passed on to your heirs.` },
       { q: `How much time do I get at the home?`, a: `A one-eighth share corresponds to about six weeks a year, scheduled fairly across seasons so every owner enjoys peak weeks over time. The home is professionally managed — you simply arrive.` },
     ],
     cta: 'Browse all homes',
@@ -48,14 +48,14 @@ const COPY = {
     eyebrow: (country) => `Copropiedad · ${country}`,
     title: (town) => `Copropiedad en ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Una vivienda vacacional de lujo' : `${n} viviendas vacacionales de lujo`} en ${town} disponibles como participaciones de copropiedad con escritura${from ? `, desde ${from} por participación` : ''}. Propiedad real, gestión integral, una fracción del precio total.`,
+      `${n === 1 ? 'Una vivienda vacacional de lujo' : `${n} viviendas vacacionales de lujo`} en ${town} disponibles como participaciones de copropiedad${from ? `, desde ${from} por participación` : ''}. Propiedad real, gestión integral, una fracción del precio total.`,
     homes_heading: (town) => `La colección de ${town}`,
     about_heading: (town) => `¿Por qué comprar en copropiedad en ${town}?`,
     about_body: (town, country, from) =>
-      `Comprar una vivienda vacacional entera en ${town} significa pagar el precio completo por una casa que pasa vacía la mayor parte del año. La copropiedad toma esa misma casa — gestionada profesionalmente y amueblada con gusto — y la divide en participaciones con escritura, normalmente octavos. Eres propietario real en ${country}, a tu nombre, con unas seis semanas de uso al año, libertad para vender cuando quieras y gastos compartidos entre propietarios.${from ? ` En ${town}, esa propiedad empieza desde ${from}.` : ''}`,
+      `Comprar una vivienda vacacional entera en ${town} significa pagar el precio completo por una casa que pasa vacía la mayor parte del año. La copropiedad toma esa misma casa — gestionada profesionalmente y amueblada con gusto — y la divide en participaciones, normalmente octavos. Eres propietario de una parte real de la vivienda, no de un derecho de uso, con unas seis semanas de uso al año, libertad para vender cuando quieras y gastos compartidos entre propietarios.${from ? ` En ${town}, esa propiedad empieza desde ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `¿Cuánto cuesta la copropiedad en ${town}?`, a: `Cada anuncio muestra el precio completo de su participación — normalmente un octavo de la vivienda. Es un precio de compra, no un depósito: te conviertes en propietario con escritura.` },
-      { q: `¿Es una multipropiedad?`, a: `No. La multipropiedad vende tiempo; la copropiedad vende propiedad. Tu participación en ${town} es un inmueble real en ${country}, a tu nombre — puede revalorizarse, revenderse y heredarse.` },
+      { q: `¿Cuánto cuesta la copropiedad en ${town}?`, a: `Cada anuncio muestra el precio completo de su participación — normalmente un octavo de la vivienda. Es un precio de compra, no un depósito: te conviertes en copropietario de la vivienda.` },
+      { q: `¿Es una multipropiedad?`, a: `No. La multipropiedad vende tiempo; la copropiedad vende propiedad. Eres propietario de una parte real de la vivienda en ${town}, no de un derecho de uso — su valor sube y baja con el de la casa, y puedes revenderla o dejarla en herencia.` },
       { q: `¿Cuánto tiempo disfruto de la casa?`, a: `Una participación de un octavo corresponde a unas seis semanas al año, repartidas de forma justa entre temporadas. La casa está gestionada profesionalmente — tú solo llegas.` },
     ],
     cta: 'Ver todas las propiedades',
@@ -65,14 +65,14 @@ const COPY = {
     eyebrow: (country) => `Copropriété · ${country}`,
     title: (town) => `Copropriété à ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Une résidence de vacances de luxe' : `${n} résidences de vacances de luxe`} à ${town}, disponibles en parts de copropriété avec titre de propriété${from ? `, à partir de ${from} la part` : ''}. Une vraie propriété, entièrement gérée, pour une fraction du prix.`,
+      `${n === 1 ? 'Une résidence de vacances de luxe' : `${n} résidences de vacances de luxe`} à ${town}, disponibles en parts de copropriété${from ? `, à partir de ${from} la part` : ''}. Une vraie propriété, entièrement gérée, pour une fraction du prix.`,
     homes_heading: (town) => `La collection ${town}`,
     about_heading: (town) => `Pourquoi acheter en copropriété à ${town} ?`,
     about_body: (town, country, from) =>
-      `Acheter une résidence secondaire entière à ${town}, c'est payer plein prix pour une maison vide la majeure partie de l'année. La copropriété prend cette même maison — gérée par des professionnels, joliment meublée — et la divise en parts avec titre de propriété, généralement des huitièmes. Vous possédez un bien immobilier réel en ${country}, à votre nom, avec environ six semaines d'usage par an, la liberté de revendre à tout moment et des charges partagées entre propriétaires.${from ? ` À ${town}, cette propriété commence à ${from}.` : ''}`,
+      `Acheter une résidence secondaire entière à ${town}, c'est payer plein prix pour une maison vide la majeure partie de l'année. La copropriété prend cette même maison — gérée par des professionnels, joliment meublée — et la divise en parts, généralement des huitièmes. Vous êtes propriétaire d'une part réelle du bien, pas d'un droit d'usage, avec environ six semaines d'usage par an, la liberté de revendre à tout moment et des charges partagées entre propriétaires.${from ? ` À ${town}, cette propriété commence à ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Combien coûte la copropriété à ${town} ?`, a: `Chaque annonce affiche le prix complet de sa part — généralement un huitième du bien. C'est un prix d'achat, pas un dépôt : vous devenez propriétaire en titre.` },
-      { q: `Est-ce du timeshare ?`, a: `Non. Le timeshare vend du temps ; la copropriété vend de la pierre. Votre part à ${town} est un bien immobilier réel en ${country}, à votre nom — il peut prendre de la valeur, se revendre librement et se transmettre.` },
+      { q: `Combien coûte la copropriété à ${town} ?`, a: `Chaque annonce affiche le prix complet de sa part — généralement un huitième du bien. C'est un prix d'achat, pas un dépôt : vous devenez copropriétaire du bien.` },
+      { q: `Est-ce du timeshare ?`, a: `Non. Le timeshare vend du temps ; la copropriété vend de la pierre. Vous êtes propriétaire d'une part réelle du bien à ${town}, pas d'un droit d'usage — sa valeur suit celle de la maison, et vous pouvez la revendre ou la transmettre à vos héritiers.` },
       { q: `Combien de temps ai-je la maison ?`, a: `Une part d'un huitième correspond à environ six semaines par an, réparties équitablement entre les saisons. La maison est entièrement gérée — vous n'avez qu'à arriver.` },
     ],
     cta: 'Voir tous les biens',
@@ -82,14 +82,14 @@ const COPY = {
     eyebrow: (country) => `Miteigentum · ${country}`,
     title: (town) => `Miteigentum in ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Ein luxuriöses Ferienhaus' : `${n} luxuriöse Ferienhäuser`} in ${town}, erhältlich als grundbuchlich eingetragene Miteigentumsanteile${from ? `, ab ${from} pro Anteil` : ''}. Echtes Eigentum, komplett verwaltet, zum Bruchteil des Gesamtpreises.`,
+      `${n === 1 ? 'Ein luxuriöses Ferienhaus' : `${n} luxuriöse Ferienhäuser`} in ${town}, erhältlich als Miteigentumsanteile${from ? `, ab ${from} pro Anteil` : ''}. Echtes Eigentum, komplett verwaltet, zum Bruchteil des Gesamtpreises.`,
     homes_heading: (town) => `Die ${town}-Kollektion`,
     about_heading: (town) => `Warum Miteigentum in ${town}?`,
     about_body: (town, country, from) =>
-      `Ein ganzes Ferienhaus in ${town} zu kaufen heißt, den vollen Preis für ein Haus zu zahlen, das die meiste Zeit des Jahres leer steht. Beim Miteigentum wird dasselbe Haus — professionell verwaltet, geschmackvoll eingerichtet — in eingetragene Anteile geteilt, meist Achtel. Sie besitzen echtes Eigentum in ${country}, auf Ihren Namen, mit rund sechs Wochen Nutzung pro Jahr, jederzeitiger Verkaufsfreiheit und zwischen den Eigentümern geteilten Kosten.${from ? ` In ${town} beginnt dieses Eigentum ab ${from}.` : ''}`,
+      `Ein ganzes Ferienhaus in ${town} zu kaufen heißt, den vollen Preis für ein Haus zu zahlen, das die meiste Zeit des Jahres leer steht. Beim Miteigentum wird dasselbe Haus — professionell verwaltet, geschmackvoll eingerichtet — in Anteile geteilt, meist Achtel. Sie besitzen einen echten Anteil an der Immobilie, kein bloßes Nutzungsrecht, mit rund sechs Wochen Nutzung pro Jahr, jederzeitiger Verkaufsfreiheit und zwischen den Eigentümern geteilten Kosten.${from ? ` In ${town} beginnt dieses Eigentum ab ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Was kostet Miteigentum in ${town}?`, a: `Jedes Inserat zeigt den vollständigen Preis seines Anteils — in der Regel ein Achtel des Hauses. Es ist ein Kaufpreis, keine Anzahlung: Sie werden eingetragener Eigentümer.` },
-      { q: `Ist das Timesharing?`, a: `Nein. Timesharing verkauft Zeit; Miteigentum verkauft Immobilie. Ihr Anteil in ${town} ist echtes Eigentum in ${country}, auf Ihren Namen — er kann an Wert gewinnen, frei weiterverkauft und vererbt werden.` },
+      { q: `Was kostet Miteigentum in ${town}?`, a: `Jedes Inserat zeigt den vollständigen Preis seines Anteils — in der Regel ein Achtel des Hauses. Es ist ein Kaufpreis, keine Anzahlung: Sie werden Miteigentümer der Immobilie.` },
+      { q: `Ist das Timesharing?`, a: `Nein. Timesharing verkauft Zeit; Miteigentum verkauft Immobilie. Sie besitzen einen echten Anteil an der Immobilie in ${town}, kein bloßes Nutzungsrecht — sein Wert entwickelt sich mit dem des Hauses, und Sie können ihn verkaufen oder vererben.` },
       { q: `Wie viel Zeit habe ich im Haus?`, a: `Ein Achtel-Anteil entspricht etwa sechs Wochen pro Jahr, fair über die Saisons verteilt. Das Haus wird professionell verwaltet — Sie reisen einfach an.` },
     ],
     cta: 'Alle Immobilien ansehen',
@@ -99,14 +99,14 @@ const COPY = {
     eyebrow: (country) => `Comproprietà · ${country}`,
     title: (town) => `Case in comproprietà a ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Una casa vacanze di lusso' : `${n} case vacanze di lusso`} a ${town}, in vendita come quote di comproprietà registrate a tuo nome${from ? `, a partire da ${from} per quota` : ''}. Proprietà reale, tutto gestito per te, a una frazione del prezzo dell'intera casa.`,
+      `${n === 1 ? 'Una casa vacanze di lusso' : `${n} case vacanze di lusso`} a ${town}, in vendita come quote di comproprietà${from ? `, a partire da ${from} per quota` : ''}. Proprietà reale, tutto gestito per te, a una frazione del prezzo dell'intera casa.`,
     homes_heading: (town) => `La collezione ${town}`,
     about_heading: (town) => `Perché comprare una casa in comproprietà a ${town}?`,
     about_body: (town, country, from) =>
-      `Comprare un'intera casa vacanze a ${town} significa pagare il prezzo pieno per una casa che resta vuota gran parte dell'anno. La comproprietà prende la stessa casa — gestita professionalmente, arredata con gusto — e la divide in quote registrate, di solito ottavi. Possiedi una proprietà reale in ${country}, registrata a tuo nome, con circa sei settimane di utilizzo all'anno, la libertà di vendere quando vuoi e i costi di gestione divisi tra i comproprietari invece che tutti sulle tue spalle.${from ? ` A ${town} questa proprietà parte da ${from}.` : ''}`,
+      `Comprare un'intera casa vacanze a ${town} significa pagare il prezzo pieno per una casa che resta vuota gran parte dell'anno. La comproprietà prende la stessa casa — gestita professionalmente, arredata con gusto — e la divide in quote, di solito ottavi. Possiedi una quota reale della casa, non un diritto d'uso, con circa sei settimane di utilizzo all'anno, la libertà di vendere quando vuoi e i costi di gestione divisi tra i comproprietari invece che tutti sulle tue spalle.${from ? ` A ${town} questa proprietà parte da ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Quanto costa la comproprietà a ${town}?`, a: `Ogni annuncio indica il prezzo completo della sua quota — di norma un ottavo della casa. È un prezzo di acquisto, non un acconto né una quota associativa: diventi comproprietario dell'immobile a tutti gli effetti, registrato a tuo nome.` },
-      { q: `È una multiproprietà?`, a: `No. La multiproprietà ti vende del tempo; la comproprietà ti vende un immobile. La tua quota della casa di ${town} è proprietà immobiliare reale in ${country}, registrata a tuo nome: può rivalutarsi, essere rivenduta sul mercato libero e lasciata in eredità.` },
+      { q: `Quanto costa la comproprietà a ${town}?`, a: `Ogni annuncio indica il prezzo completo della sua quota — di norma un ottavo della casa. È un prezzo di acquisto, non un acconto né una quota associativa: diventi comproprietario dell'immobile a tutti gli effetti.` },
+      { q: `È una multiproprietà?`, a: `No. La multiproprietà ti vende del tempo; la comproprietà ti vende un immobile. Possiedi una quota reale della casa di ${town}, non un diritto d'uso: il suo valore segue quello della casa, e puoi rivenderla o lasciarla in eredità.` },
       { q: `Quanto tempo posso passare nella casa?`, a: `Una quota di un ottavo corrisponde a circa sei settimane all'anno, distribuite in modo equo tra le stagioni. La casa è gestita professionalmente — a te basta arrivare.` },
     ],
     cta: 'Vedi tutte le case',
@@ -116,14 +116,14 @@ const COPY = {
     eyebrow: (country) => `Mede-eigendom · ${country}`,
     title: (town) => `Mede-eigendom in ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Eén luxe vakantiewoning' : `${n} luxe vakantiewoningen`} in ${town}, verkrijgbaar als notarieel vastgelegde aandelen${from ? `, vanaf ${from} per aandeel` : ''}. Echt eigendom, volledig beheerd, voor een fractie van de prijs van de hele woning.`,
+      `${n === 1 ? 'Eén luxe vakantiewoning' : `${n} luxe vakantiewoningen`} in ${town}, verkrijgbaar als aandelen in de woning${from ? `, vanaf ${from} per aandeel` : ''}. Echt eigendom, volledig beheerd, voor een fractie van de prijs van de hele woning.`,
     homes_heading: (town) => `De ${town}-collectie`,
     about_heading: (town) => `Waarom mede-eigendom in ${town}?`,
     about_body: (town, country, from) =>
-      `Een hele vakantiewoning in ${town} kopen betekent de volle prijs betalen voor een huis dat het grootste deel van het jaar leegstaat. Bij mede-eigendom wordt dezelfde woning — professioneel beheerd, smaakvol ingericht — verdeeld in notarieel vastgelegde aandelen, meestal achtsten. U bezit echt eigendom in ${country}, op uw naam ingeschreven, met ongeveer zes weken gebruik per jaar, de vrijheid om te verkopen wanneer u wilt en kosten die tussen de eigenaren worden gedeeld.${from ? ` In ${town} begint dat eigendom vanaf ${from}.` : ''}`,
+      `Een hele vakantiewoning in ${town} kopen betekent de volle prijs betalen voor een huis dat het grootste deel van het jaar leegstaat. Bij mede-eigendom wordt dezelfde woning — professioneel beheerd, smaakvol ingericht — verdeeld in aandelen, meestal achtsten. U bezit een echt deel van de woning, geen gebruiksrecht, met ongeveer zes weken gebruik per jaar, de vrijheid om te verkopen wanneer u wilt en kosten die tussen de eigenaren worden gedeeld.${from ? ` In ${town} begint dat eigendom vanaf ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Wat kost mede-eigendom in ${town}?`, a: `Elke aanbieding toont de volledige prijs van het aandeel — doorgaans een achtste van de woning. Het is een koopsom, geen aanbetaling: u wordt ingeschreven eigenaar.` },
-      { q: `Is dit deeltijdgebruik?`, a: `Nee. Deeltijdgebruik verkoopt u tijd; mede-eigendom verkoopt u vastgoed. Uw aandeel in ${town} is echt eigendom in ${country}, op uw naam ingeschreven — het kan in waarde stijgen, vrij worden doorverkocht en worden vererfd.` },
+      { q: `Wat kost mede-eigendom in ${town}?`, a: `Elke aanbieding toont de volledige prijs van het aandeel — doorgaans een achtste van de woning. Het is een koopsom, geen aanbetaling: u wordt mede-eigenaar van de woning.` },
+      { q: `Is dit deeltijdgebruik?`, a: `Nee. Deeltijdgebruik verkoopt u tijd; mede-eigendom verkoopt u vastgoed. U bezit een echt deel van de woning in ${town}, geen gebruiksrecht — de waarde beweegt mee met die van het huis, en u kunt het verkopen of nalaten aan uw erfgenamen.` },
       { q: `Hoeveel tijd heb ik in de woning?`, a: `Een aandeel van een achtste komt overeen met ongeveer zes weken per jaar, eerlijk verdeeld over de seizoenen. De woning wordt professioneel beheerd — u hoeft alleen maar aan te komen.` },
     ],
     cta: 'Alle woningen bekijken',
@@ -133,14 +133,14 @@ const COPY = {
     eyebrow: (country) => `Multipropriedade · ${country}`,
     title: (town) => `Multipropriedade em ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Uma casa de férias de luxo' : `${n} casas de férias de luxo`} em ${town}, à venda em cotas de multipropriedade registradas em seu nome${from ? `, a partir de ${from} por cota` : ''}. Direito real de propriedade, gestão completa, por uma fração do preço da casa inteira.`,
+      `${n === 1 ? 'Uma casa de férias de luxo' : `${n} casas de férias de luxo`} em ${town}, à venda em cotas de multipropriedade${from ? `, a partir de ${from} por cota` : ''}. Propriedade real, gestão completa, por uma fração do preço da casa inteira.`,
     homes_heading: (town) => `A Coleção ${town}`,
     about_heading: (town) => `Por que comprar em multipropriedade em ${town}?`,
     about_body: (town, country, from) =>
-      `Comprar uma casa de férias inteira em ${town} significa pagar o preço cheio por um imóvel que fica vazio na maior parte do ano. Na multipropriedade, a mesma casa — com gestão profissional e mobiliada com bom gosto — é dividida em cotas registradas, normalmente oitavos. Você tem direito real de propriedade em ${country}, registrado em seu nome, com cerca de seis semanas de uso por ano, liberdade para vender quando quiser e os custos de manutenção divididos entre os coproprietários, em vez de assumidos sozinho.${from ? ` Em ${town}, essa propriedade começa a partir de ${from}.` : ''}`,
+      `Comprar uma casa de férias inteira em ${town} significa pagar o preço cheio por um imóvel que fica vazio na maior parte do ano. Na multipropriedade, a mesma casa — com gestão profissional e mobiliada com bom gosto — é dividida em cotas, normalmente oitavos. Você é proprietário de uma parte real do imóvel, não de um direito de uso, com cerca de seis semanas de uso por ano, liberdade para vender quando quiser e os custos de manutenção divididos entre os coproprietários, em vez de assumidos sozinho.${from ? ` Em ${town}, essa propriedade começa a partir de ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Quanto custa a multipropriedade em ${town}?`, a: `Cada anúncio mostra o preço integral da sua cota — normalmente um oitavo da casa. É um preço de compra, não um sinal: você se torna proprietário registrado do imóvel.` },
-      { q: `Isto é tempo compartilhado?`, a: `Não. O tempo compartilhado vende tempo; a multipropriedade vende imóvel. Sua cota da casa em ${town} é um bem imóvel em ${country}, registrado em seu nome — pode valorizar, ser revendida no mercado aberto e ser transmitida por herança.` },
+      { q: `Quanto custa a multipropriedade em ${town}?`, a: `Cada anúncio mostra o preço integral da sua cota — normalmente um oitavo da casa. É um preço de compra, não um sinal: você se torna coproprietário do imóvel.` },
+      { q: `Isto é tempo compartilhado?`, a: `Não. O tempo compartilhado vende tempo; a multipropriedade vende imóvel. Você é proprietário de uma parte real da casa em ${town}, não de um direito de uso — o valor acompanha o da casa, e você pode revender a cota ou deixá-la de herança.` },
       { q: `Quanto tempo eu tenho na casa?`, a: `Uma cota de um oitavo corresponde a cerca de seis semanas por ano, distribuídas de forma justa entre as estações. A casa tem gestão profissional — você só precisa chegar.` },
     ],
     cta: 'Ver todos os imóveis',
@@ -150,14 +150,14 @@ const COPY = {
     eyebrow: (country) => `Samägande · ${country}`,
     title: (town) => `Samägande i ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Ett lyxigt fritidshus' : `${n} lyxiga fritidshus`} i ${town} till salu som registrerade ägarandelar${from ? `, från ${from} per andel` : ''}. Riktigt ägande, fullt förvaltat, till en bråkdel av priset för hela bostaden.`,
+      `${n === 1 ? 'Ett lyxigt fritidshus' : `${n} lyxiga fritidshus`} i ${town} till salu som ägarandelar${from ? `, från ${from} per andel` : ''}. Riktigt ägande, fullt förvaltat, till en bråkdel av priset för hela bostaden.`,
     homes_heading: (town) => `${town}-kollektionen`,
     about_heading: (town) => `Varför samägande i ${town}?`,
     about_body: (town, country, from) =>
-      `Att köpa ett helt fritidshus i ${town} innebär att betala fullt pris för ett hus som står tomt större delen av året. Vid samägande delas samma hus — professionellt förvaltat, smakfullt inrett — upp i registrerade andelar, oftast åttondelar. Du äger en riktig fastighet i ${country}, registrerad i ditt namn, med omkring sex veckors användning per år, friheten att sälja när du vill och driftskostnader som delas mellan delägarna i stället för att bäras ensam.${from ? ` I ${town} börjar det ägandet från ${from}.` : ''}`,
+      `Att köpa ett helt fritidshus i ${town} innebär att betala fullt pris för ett hus som står tomt större delen av året. Vid samägande delas samma hus — professionellt förvaltat, smakfullt inrett — upp i andelar, oftast åttondelar. Du äger en verklig andel i bostaden, ingen nyttjanderätt, med omkring sex veckors användning per år, friheten att sälja när du vill och driftskostnader som delas mellan delägarna i stället för att bäras ensam.${from ? ` I ${town} börjar det ägandet från ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Vad kostar samägande i ${town}?`, a: `Varje objekt visar hela priset för sin andel — i regel en åttondel av bostaden. Det är ett köpepris, inte en handpenning: du blir registrerad ägare.` },
-      { q: `Är det här ett tidsdelat boende?`, a: `Nej. Tidsdelat boende säljer tid; samägande säljer fastighet. Din andel i ${town} är en riktig fastighet i ${country}, registrerad i ditt namn — den kan stiga i värde, säljas vidare på öppna marknaden och gå i arv.` },
+      { q: `Vad kostar samägande i ${town}?`, a: `Varje objekt visar hela priset för sin andel — i regel en åttondel av bostaden. Det är ett köpepris, inte en handpenning: du blir delägare i bostaden.` },
+      { q: `Är det här ett tidsdelat boende?`, a: `Nej. Tidsdelat boende säljer tid; samägande säljer fastighet. Du äger en verklig andel i bostaden i ${town}, ingen nyttjanderätt — värdet följer husets, och du kan sälja andelen eller låta den gå i arv.` },
       { q: `Hur mycket tid får jag i bostaden?`, a: `En åttondels andel motsvarar ungefär sex veckor per år, rättvist fördelade över säsongerna. Bostaden sköts professionellt — du bara anländer.` },
     ],
     cta: 'Se alla bostäder',
@@ -167,14 +167,14 @@ const COPY = {
     eyebrow: (country) => `Medejerskab · ${country}`,
     title: (town) => `Medejerskab i ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Én luksuriøs feriebolig' : `${n} luksuriøse feriboliger`} i ${town}, der kan købes som tinglyste ejerandele${from ? `, fra ${from} pr. andel` : ''}. Rigtigt ejerskab, fuldt administreret, til en brøkdel af prisen for hele boligen.`,
+      `${n === 1 ? 'Én luksuriøs feriebolig' : `${n} luksuriøse feriboliger`} i ${town}, der kan købes som ejerandele${from ? `, fra ${from} pr. andel` : ''}. Rigtigt ejerskab, fuldt administreret, til en brøkdel af prisen for hele boligen.`,
     homes_heading: (town) => `${town}-kollektionen`,
     about_heading: (town) => `Hvorfor købe medejerskab i ${town}?`,
     about_body: (town, country, from) =>
-      `At købe en hel feriebolig i ${town} betyder, at du betaler fuld pris for et hus, der står tomt det meste af året. Ved medejerskab bliver den samme bolig — professionelt administreret og smukt indrettet — delt op i tinglyste andele, oftest ottendedele. Du ejer rigtig fast ejendom i ${country}, registreret i dit navn, med omkring seks ugers brug om året, frihed til at sælge, når du vil, og driftsomkostninger, der deles mellem ejerne i stedet for at hvile på dig alene.${from ? ` I ${town} begynder det ejerskab ved ${from}.` : ''}`,
+      `At købe en hel feriebolig i ${town} betyder, at du betaler fuld pris for et hus, der står tomt det meste af året. Ved medejerskab bliver den samme bolig — professionelt administreret og smukt indrettet — delt op i andele, oftest ottendedele. Du ejer en reel andel af boligen, ikke en brugsret, med omkring seks ugers brug om året, frihed til at sælge, når du vil, og driftsomkostninger, der deles mellem ejerne i stedet for at hvile på dig alene.${from ? ` I ${town} begynder det ejerskab ved ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Hvad koster medejerskab i ${town}?`, a: `Hver bolig viser den fulde pris på sin andel — typisk en ottendedel af boligen. Det er en købspris, ikke et depositum eller et medlemsgebyr: du bliver tinglyst ejer af ejendommen.` },
-      { q: `Er det en timeshare?`, a: `Nej. En timeshare sælger dig tid; medejerskab sælger dig ejendom. Din andel af boligen i ${town} er fast ejendom i ${country}, registreret i dit navn — den kan stige i værdi, sælges frit videre og gå i arv.` },
+      { q: `Hvad koster medejerskab i ${town}?`, a: `Hver bolig viser den fulde pris på sin andel — typisk en ottendedel af boligen. Det er en købspris, ikke et depositum eller et medlemsgebyr: du bliver medejer af boligen.` },
+      { q: `Er det en timeshare?`, a: `Nej. En timeshare sælger dig tid; medejerskab sælger dig ejendom. Du ejer en reel andel af boligen i ${town}, ikke en brugsret — værdien følger husets, og du kan sælge andelen eller lade den gå i arv.` },
       { q: `Hvor meget tid får jeg i boligen?`, a: `En ottendedelsandel svarer til cirka seks uger om året, fordelt retfærdigt hen over sæsonerne. Boligen bliver professionelt administreret — du møder bare op.` },
     ],
     cta: 'Se alle boliger',
@@ -184,14 +184,14 @@ const COPY = {
     eyebrow: (country) => `Sameie · ${country}`,
     title: (town) => `Sameie i ${town}`,
     sub: (n, from, town) =>
-      `${n === 1 ? 'Én luksuriøs fritidsbolig' : `${n} luksuriøse fritidsboliger`} i ${town}, tilgjengelig som registrerte eierandeler${from ? `, fra ${from} per andel` : ''}. Reelt eierskap, fullt forvaltet, til en brøkdel av prisen for hele boligen.`,
+      `${n === 1 ? 'Én luksuriøs fritidsbolig' : `${n} luksuriøse fritidsboliger`} i ${town}, tilgjengelig som eierandeler${from ? `, fra ${from} per andel` : ''}. Reelt eierskap, fullt forvaltet, til en brøkdel av prisen for hele boligen.`,
     homes_heading: (town) => `${town}-kolleksjonen`,
     about_heading: (town) => `Hvorfor kjøpe bolig i sameie i ${town}?`,
     about_body: (town, country, from) =>
-      `Å kjøpe en hel fritidsbolig i ${town} betyr å betale full pris for et hus som står tomt mesteparten av året. I et sameie deles den samme boligen — profesjonelt forvaltet, vakkert møblert — i registrerte eierandeler, som regel åttedeler. Du eier reell eiendom i ${country}, registrert i ditt navn, med rundt seks uker bruk i året, frihet til å selge når du vil, og driftskostnader som deles mellom eierne i stedet for å bæres alene.${from ? ` I ${town} starter dette eierskapet fra ${from}.` : ''}`,
+      `Å kjøpe en hel fritidsbolig i ${town} betyr å betale full pris for et hus som står tomt mesteparten av året. I et sameie deles den samme boligen — profesjonelt forvaltet, vakkert møblert — i eierandeler, som regel åttedeler. Du eier en reell andel av boligen, ikke en bruksrett, med rundt seks uker bruk i året, frihet til å selge når du vil, og driftskostnader som deles mellom eierne i stedet for å bæres alene.${from ? ` I ${town} starter dette eierskapet fra ${from}.` : ''}`,
     faq: (town, country) => [
-      { q: `Hva koster en eierandel i ${town}?`, a: `Hver annonse viser hele prisen for andelen — vanligvis en åttedel av boligen. Det er en kjøpesum, ikke et depositum: du blir registrert eier av eiendommen.` },
-      { q: `Er dette en tidspart?`, a: `Nei. En tidspart selger deg tid; sameie selger deg eiendom. Andelen din i ${town} er reell eiendom i ${country}, registrert i ditt navn — den kan stige i verdi, selges videre i det åpne markedet og gå i arv.` },
+      { q: `Hva koster en eierandel i ${town}?`, a: `Hver annonse viser hele prisen for andelen — vanligvis en åttedel av boligen. Det er en kjøpesum, ikke et depositum: du blir medeier i boligen.` },
+      { q: `Er dette en tidspart?`, a: `Nei. En tidspart selger deg tid; sameie selger deg eiendom. Du eier en reell andel av boligen i ${town}, ikke en bruksrett — verdien følger husets, og du kan selge andelen eller la den gå i arv.` },
       { q: `Hvor mye tid får jeg i boligen?`, a: `En åttedels andel tilsvarer omtrent seks uker i året, fordelt rettferdig gjennom sesongene. Boligen forvaltes profesjonelt — du bare ankommer.` },
     ],
     cta: 'Se alle boliger',
@@ -210,16 +210,16 @@ const COUNTRY_GUIDE = {
   Portugal: '/portugal-fractional-ownership-properties/',
 };
 const COUNTRY_LINK_COPY = {
-  en: (c) => `The legal structure, taxes and resale process for your 1/8 deeded share are covered in depth in our complete country guide.`,
-  es: (c) => `La estructura legal, los impuestos y el proceso de reventa de tu participación 1/8 con escritura se explican en profundidad en nuestra guía completa del país.`,
-  fr: (c) => `La structure juridique, la fiscalité et le processus de revente de votre part 1/8 en titre sont couverts en détail dans notre guide complet du pays.`,
-  de: (c) => `Rechtsstruktur, Steuern und Wiederverkaufsprozess Ihres eingetragenen 1/8-Anteils behandelt unser vollständiger Länderguide im Detail.`,
-  it: (c) => `La struttura giuridica, la fiscalità e il processo di rivendita della tua quota registrata di 1/8 sono trattati in dettaglio nella nostra guida completa al paese.`,
-  nl: (c) => `De juridische structuur, de belastingen en het verkoopproces van uw notarieel vastgelegde 1/8-aandeel behandelen we uitgebreid in onze volledige landengids.`,
-  pt: (c) => `A estrutura jurídica, os impostos e o processo de revenda da sua cota registrada de 1/8 são detalhados no nosso guia completo do país.`,
-  sv: (c) => `Juridisk struktur, skatter och försäljningsprocess för din registrerade 1/8-andel går vår kompletta landguide igenom i detalj.`,
-  da: (c) => `Juridisk struktur, skat og videresalg af din tinglyste 1/8-andel er beskrevet i dybden i vores komplette landeguide.`,
-  no: (c) => `Juridisk struktur, skatt og videresalg av din registrerte 1/8-andel er beskrevet i detalj i vår komplette landguide.`,
+  en: (c) => `Taxes, resale and how ownership works for your 1/8 share of the home are covered in depth in our complete country guide.`,
+  es: (c) => `La fiscalidad, la reventa y el funcionamiento de tu participación de 1/8 de la vivienda se explican en profundidad en nuestra guía completa del país.`,
+  fr: (c) => `La fiscalité, la revente et le fonctionnement de votre part de 1/8 du bien sont couverts en détail dans notre guide complet du pays.`,
+  de: (c) => `Steuern, Wiederverkauf und die Funktionsweise Ihres Achtel-Anteils an der Immobilie behandelt unser vollständiger Länderguide im Detail.`,
+  it: (c) => `La fiscalità, la rivendita e il funzionamento della tua quota di 1/8 della casa sono trattati in dettaglio nella nostra guida completa al paese.`,
+  nl: (c) => `De belastingen, de verkoop en de werking van uw 1/8-aandeel in de woning behandelen we uitgebreid in onze volledige landengids.`,
+  pt: (c) => `Os impostos, a revenda e o funcionamento da sua cota de 1/8 do imóvel são detalhados no nosso guia completo do país.`,
+  sv: (c) => `Skatter, försäljning och hur ägandet fungerar för din 1/8-andel i bostaden går vår kompletta landguide igenom i detalj.`,
+  da: (c) => `Skat, videresalg og hvordan ejerskabet fungerer for din 1/8-andel af boligen er beskrevet i dybden i vores komplette landeguide.`,
+  no: (c) => `Skatt, videresalg og hvordan eierskapet fungerer for din 1/8-andel av boligen er beskrevet i detalj i vår komplette landguide.`,
 };
 const COUNTRY_LINK_CTA = {
   en: (c) => `Read the full ${c} ownership guide →`,

@@ -371,7 +371,7 @@ export async function getStaticProps({ params }) {
 
   const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));
 
-  const metaDesc = existingMetaDesc || `${destLabel(slug)} — casas exclusivas en copropiedad, desde una fracción 1/8 escriturada e inscrita en el Registro de la Propiedad.`;
+  const metaDesc = existingMetaDesc || `${destLabel(slug)} — casas exclusivas en copropiedad, desde una participación de 1/8 de la vivienda.`;
 
   const FALLBACK_OG = 'https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg';
   const ogImage = matchedProps.find(p => p.img)?.img || FALLBACK_OG;

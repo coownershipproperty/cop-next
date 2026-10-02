@@ -5,13 +5,13 @@
     "canonical": "/da/medejerskab-feriebolig/",
     "hreflangKey": "/how-it-works",
     "ogTitle": "Medejerskab af feriebolig: den komplette guide",
-    "ogDescription": "Sådan fungerer medejerskab af ferieboliger i Sydeuropa: en rigtig andel tinglyst i dit navn, omkostningerne, og hvorfor det ikke er timeshare.",
+    "ogDescription": "Sådan fungerer medejerskab af ferieboliger i Sydeuropa: en reel andel af boligen, omkostningerne, og hvorfor det ikke er timeshare.",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg",
     "updated": "2026-08-27"
   },
   "eyebrow": "Komplet guide · Opdateret 2026",
   "h1": "Medejerskab af feriebolig: den komplette guide",
-  "lead": "<strong>Medejerskab</strong> — også kaldet <strong>delt ejerskab</strong> — er i dag den mest effektive måde at have en rigtig god feriebolig i Sydeuropa på uden at betale for hele huset. Du køber en reel andel af én bestemt bolig, tinglyst i dit navn, og bruger den et antal uger om året. Denne guide gennemgår, hvordan det fungerer, hvilken struktur der ligger under, hvad det faktisk koster, og hvorfor det ikke er timeshare.",
+  "lead": "<strong>Medejerskab</strong> — også kaldet <strong>delt ejerskab</strong> — er i dag den mest effektive måde at have en rigtig god feriebolig i Sydeuropa på uden at betale for hele huset. Du køber en reel andel af én bestemt bolig og bruger den et antal uger om året. Denne guide gennemgår, hvordan det fungerer, hvilken struktur der ligger under, hvad det faktisk koster, og hvorfor det ikke er timeshare.",
   "tocHeading": "Indhold",
   "sections": [
     {
@@ -31,8 +31,8 @@
         { "p": "Forløbet har normalt fem trin:" },
         { "steps": [
           "<strong>Du vælger boligen.</strong> Du vælger villaen eller lejligheden blandt de tilgængelige. På COP er boligerne fra alle de store europæiske og amerikanske udbydere samlet ét sted, med filtre på destination, soveværelser, pris og faciliteter — uden at du skal gennemgå udbyder for udbyder.",
-          "<strong>Reservation og gennemgang af papirerne.</strong> Når du har fundet en andel, skriver du en reservationsaftale. Andelen er reserveret, mens den juridiske gennemgang står på. Det er nu, du læser vedtægterne, brugsreglerne, driftsbudgettet og reglerne for videresalg.",
-          "<strong>Indtræden i ejerselskabet.</strong> Boligen står i navnet på et selskab med begrænset ansvar (LLC), stiftet specifikt til netop den bolig — den samme struktur bruges konsekvent i hele den internationale portefølje, fra Spanien og Frankrig til Portugal og USA. Du køber en andel i selskabet svarende til din del, og handlen formaliseres hos notar.",
+          "<strong>Reservation og gennemgang af papirerne.</strong> Når du har fundet en andel, skriver du en reservationsaftale. Andelen er reserveret, mens den juridiske gennemgang står på. Det er nu, du læser ejerdokumenterne, brugsreglerne, driftsbudgettet og reglerne for videresalg.",
+          "<strong>Underskrift af købet.</strong> Du ejer en reel andel af boligen — en ottendedel, en fjerdedel — ikke en brugsret. Den juridiske opsætning ordnes af vores partner for hver bolig og gennemgås grundigt med dig, før du køber.",
           "<strong>Drift og kalender.</strong> Herefter passes boligen: vedligeholdelse, have, pool, rengøring mellem ophold, forsikringer, forbrug. Du booker dine uger i et system, der roterer de mest efterspurgte datoer — jul og nytår, sommerugerne, vinterferien — fra år til år, så kalenderen over tid bliver lige god for alle.",
           "<strong>Brug boligen, og sælg når du vil.</strong> Du bruger boligen i dine uger (typisk 44-45 nætter fordelt på flere ophold). Når du vil sælge, er andelen frit omsættelig."
         ]},
@@ -48,8 +48,8 @@
         { "table": {
           "head": ["", "Medejerskab", "Timeshare"],
           "rows": [
-            ["Hvad du ejer", "En andel af boligen, tinglyst i dit navn", "En brugsret i en periode om året"],
-            ["Tinglysning", "Din andel står bag ejerskabet af ejendommen", "Intet ejerskab af fast ejendom"],
+            ["Hvad du ejer", "En reel andel af boligen", "En brugsret i en periode om året"],
+            ["Ejerskab", "Andelen er din: du kan sælge den eller lade den gå i arv", "Intet ejerskab af fast ejendom"],
             ["Værdistigning", "Du får del i boligens værdiudvikling", "Ingen: værdien falder typisk"],
             ["Salg", "På det åbne marked, til hvem du vil", "Berygtet svært; nærmest intet gensalgsmarked"],
             ["Arv", "Går i arv som enhver anden ejendom", "Ofte arves også pligten til de årlige afgifter"],
@@ -66,9 +66,9 @@
       "id": "juridisk",
       "h2": "4. Den juridiske struktur og underskriften",
       "blocks": [
-        { "p": "I praksis skrives boligen ikke direkte på otte fysiske personer, men på et <strong>selskab med begrænset ansvar (LLC), der er stiftet specifikt til den bolig</strong>. COP møder den struktur konsekvent i hele den internationale portefølje, og grunden er praktisk: salg, arv og beslutninger bliver væsentligt enklere end med otte navne på samme skøde." },
+        { "p": "Du ejer en <strong>reel andel af boligen</strong> — en ottendedel, en fjerdedel — ikke en brugsret. Du kan sælge den, lade den gå i arv, og dens værdi stiger og falder med husets. Den juridiske opsætning ordnes af vores partner for hver bolig og gennemgås grundigt med dig, før du køber: den varierer fra land til land og fra bolig til bolig." },
         { "h3": "Hvad du skriver under på" },
-        { "p": "Købet af andelen formaliseres <strong>hos notar</strong>. Sammen med skødet får du selskabets vedtægter og brugsreglerne. Det er de to dokumenter, der reelt styrer din hverdag som medejer, og de skal læses før underskrift, ikke efter." },
+        { "p": "Købet af andelen formaliseres efter den juridiske opsætning for netop den bolig. Sammen med købsdokumenterne får du brugsreglerne og reglerne for medejerskabet. Det er de dokumenter, der reelt styrer din hverdag som medejer, og de skal læses før underskrift, ikke efter." },
         { "h3": "Hvad du skal kigge efter" },
         { "ul": [
           "<strong>Kalenderen.</strong> Hvordan de eftertragtede uger roterer fra år til år, og over hvor mange år cyklussen slutter.",
@@ -84,7 +84,7 @@
       "id": "omkostninger",
       "h2": "5. Hvad det koster: købesum og årlige udgifter",
       "blocks": [
-        { "p": "Prisen for andelen er <strong>alt inklusive</strong>. Den dækker dit ejerskab, de overdragelsesafgifter der er betalt på forhånd, hele anskaffelsessummen for boligen, renoveringen, indretningen og det komplette inventar, samt stiftelsen af ejerselskabet. Ingen skjulte tillæg og ingen overraskelser ved overtagelsen." },
+        { "p": "Prisen for andelen er <strong>alt inklusive</strong>. Den dækker din andel, hele anskaffelsessummen for boligen, renoveringen, indretningen og det komplette inventar. Ingen skjulte tillæg og ingen overraskelser ved overtagelsen." },
         { "p": "De <strong>løbende udgifter</strong> — drift, vedligeholdelse, forsikringer, lokale ejendomsskatter og forbrug — fordeles mellem medejerne efter andel. Du får hele specifikationen, post for post, før købet. Det er den del af materialet, der fortjener mest regnearbejde, for det er det, du betaler hvert år." },
         { "h3": "Den sammenligning der faktisk betyder noget" },
         { "p": "Den nyttige sammenligning er ikke med fuldt ejerskab, men med den <em>faktiske brug</em> en feriebolig får. En helejet feriebolig bruges i gennemsnit få uger om året, men koster tolv måneders vedligeholdelse, skat, forsikring og — først og fremmest — bundet kapital. Medejerskab lægger omkostningen på linje med brugen." },
@@ -97,7 +97,7 @@
       "blocks": [
         { "p": "Skatten afhænger af to ting: hvor boligen ligger, og hvor du er skattepligtig. Fordi porteføljen er international, findes der ikke ét svar — men det store billede ser sådan ud." },
         { "ul": [
-          "<strong>Ved købet</strong> er overdragelsesafgiften på ejendommen allerede betalt, dengang ejerselskabet købte boligen. At købe en andel i et eksisterende selskab udløser ikke en ny fuld ejendomsoverdragelse, hvilket gør indgangen mærkbart mere effektiv end at købe en hel bolig.",
+          "<strong>Ved købet</strong> afhænger beskatningen af landet og af boligens juridiske opsætning, som vores partner gennemgår med dig før købet; vi anbefaler uafhængig rådgivning.",
           "<strong>Hvert år</strong> fordeles de lokale ejendomsskatter og driftsudgifterne mellem medejerne efter andel.",
           "<strong>I Danmark</strong> skal aktiver i udlandet oplyses til Skattestyrelsen, og en eventuel gevinst ved salg behandles efter danske regler med lempelse i henhold til dobbeltbeskatningsoverenskomsten med det land, hvor boligen ligger.",
           "<strong>At eje en andel i udlandet ændrer ikke, hvor du er skattepligtig.</strong> Det afgøres af bopæl og ophold, ikke af hvad du ejer."
@@ -129,7 +129,7 @@
         { "h3": "Om udbyderen: fire spørgsmål" },
         { "steps": [
           "<strong>Hvor længe har I eksisteret, og hvor mange boliger driver I?</strong> Drift er et skalafag: med få boliger er det svært at holde en ensartet standard.",
-          "<strong>Hvad sker der, hvis I lukker?</strong> Ejerskabet er stadig dit — selskabet ejer boligen — men driften skal erstattes. Spørg, hvordan overgangen er tænkt.",
+          "<strong>Hvad sker der, hvis I lukker?</strong> Din andel er stadig din, men driften skal erstattes. Spørg, hvordan overgangen er tænkt.",
           "<strong>Hvordan foregår et salg i praksis?</strong> Hvor mange andele er solgt videre indtil nu, på hvor lang tid, og på hvilke vilkår. Det er det spørgsmål, der giver mest information af alle.",
           "<strong>Er årsbudgettet specificeret post for post?</strong> Et samlet beløb på én linje er ikke et budget."
         ]},
@@ -142,7 +142,7 @@
       "blocks": [
         { "p": "Andelen er frit omsættelig: du sælger den på det åbne marked, til hvem du vil, når du vil. Der er ingen bindingsperiode og intet medlemskab at opsige." },
         { "p": "I praksis meddeler du udbyderen, at du vil sælge, det tjekkes om reglerne giver de øvrige medejere forkøbsret, og andelen sættes til salg. Mange udbydere hjælper med processen, og nogle har tilbagekøbsprogrammer efter en fastsat periode — et vilkår, det er værd at få bekræftet <em>før</em> købet, ikke efter." },
-        { "p": "At overdrage andelen til et barn er også enklere end med en hel bolig: man overdrager selskabsandelen, ofte på under en måned og til begrænsede omkostninger. Det er en af de mindre omtalte grunde til, at modellen tiltaler — boligen behøver aldrig at blive delt mellem arvinger, der vil noget forskelligt med den." }
+        { "p": "At overdrage andelen til et barn er også enklere end med en hel bolig: man overdrager kun andelen, uden at hele boligen skal sælges. Det er en af de mindre omtalte grunde til, at modellen tiltaler — boligen behøver aldrig at blive delt mellem arvinger, der vil noget forskelligt med den." }
       ]
     }
   ],
@@ -150,15 +150,15 @@
     "id": "ofte-stillede-spoergsmaal",
     "heading": "Ofte stillede spørgsmål",
     "items": [
-      { "q": "Hvad er medejerskab af en feriebolig helt konkret?", "a": "Flere købere — typisk op til otte — ejer den samme feriebolig sammen gennem et selskab, der er stiftet specifikt til netop den bolig. Hver medejer køber med skøde en andel af selskabet, og dermed reelt ejerskab af ejendommen, med ret til omkring seks ugers eksklusiv brug om året. En professionel administrator står for vedligeholdelse, rengøring, forsikringer og kalender." },
+      { "q": "Hvad er medejerskab af en feriebolig helt konkret?", "a": "Flere købere — typisk op til otte — ejer den samme feriebolig sammen. Hver medejer ejer en reel andel af boligen — en ottendedel, en fjerdedel — ikke en brugsret: den kan sælges eller gå i arv, og dens værdi stiger og falder med husets. Den juridiske opsætning ordnes af vores partner for hver bolig og gennemgås grundigt, før du køber. En ottendedel giver ret til omkring seks ugers eksklusiv brug om året. En professionel administrator står for vedligeholdelse, rengøring, forsikringer og kalender." },
       { "q": "Er det det samme som timeshare?", "a": "Nej, og forskellen er hele pointen. Timeshare giver kun ret til at bruge en bolig i en fast periode hvert år: du ejer ingenting, får ikke del i værdistigningen og kan sjældent sælge frit. Medejerskab er rigtigt ejerskab af fast ejendom: du står som ejer af en andel af boligen, får del i værdiudviklingen og kan sælge andelen på det åbne marked til hvem du vil." },
       { "q": "Hvor mange uger om året må jeg bruge boligen?", "a": "En ottendedels andel giver ret til omkring 44-45 nætter om året, altså cirka seks uger, som kan deles op på flere ophold. Du kan købe flere andele i samme bolig — mange udbydere tillader op til 50 % — og antallet af uger vokser tilsvarende." },
       { "q": "Hvordan fordeles de mest eftertragtede uger?", "a": "Med en roterende kalender. De mest efterspurgte datoer — jul og nytår, sommerugerne, vinterferien — flytter sig mellem medejerne fra år til år, så alle over en flerårig cyklus har haft lige meget højsæson. Resten af året bookes fleksibelt, som regel via administratorens platform, uden at ejerne skal forhandle indbyrdes." },
       { "q": "Hvad sker der, hvis en medejer ikke betaler sin del af udgifterne?", "a": "Regelsættet tager højde for det, normalt ved at brugsretten suspenderes og, ved vedvarende manglende betaling, ved tvangssalg af andelen. Det er et af de første afsnit, det er værd at læse, for det er præcis dét, der adskiller et struktureret medejerskab fra et arvet sommerhus uden aftaler." },
       { "q": "Må jeg leje de uger ud, jeg ikke bruger?", "a": "Det afhænger af boligen og udbyderen: nogle tillader det og står selv for udlejningen, andre udelukker det for at bevare boligens private karakter. Spørg før købet, for det ændrer både økonomien og stemningen i huset." },
-      { "q": "Kan jeg købe andelen gennem mit selskab?", "a": "Ja. Andelen kan stå i dit eget navn eller i et selskabs, en fonds eller en anden strukturs. Selskabet, der ejer boligen, holdes under alle omstændigheder adskilt fra din private eller virksomhedens økonomi. Tal med din revisor om oplysningspligten i Danmark." },
+      { "q": "Kan jeg købe andelen gennem mit selskab?", "a": "Det afhænger af boligens juridiske opsætning, som vores partner ordner for hver bolig og gennemgår med dig før købet. Tal med din revisor om oplysningspligten i Danmark." },
       { "q": "Hvor lang tid tager købet?", "a": "For en kontantkøber tager det typisk fire til otte uger fra reservation til underskrift: reservationsaftale, fortrydelsesfrister, overdragelsesdokumenter og signering. Med finansiering kommer der nogle uger til." },
-      { "q": "Hvad hvis udbyderen, der driver boligen, lukker?", "a": "Boligen ejes fortsat af selskabet og dermed af medejerne: ejerskabet afhænger ikke af, at udbyderen overlever. Det, der skal erstattes, er driftsydelsen. Regelsættet bør beskrive, hvordan medejerne udpeger en ny administrator — spørg udtrykkeligt til det før købet." },
+      { "q": "Hvad hvis udbyderen, der driver boligen, lukker?", "a": "Boligen ejes fortsat af medejerne: ejerskabet afhænger ikke af, at udbyderen overlever. Det, der skal erstattes, er driftsydelsen. Regelsættet bør beskrive, hvordan medejerne udpeger en ny administrator — spørg udtrykkeligt til det før købet." },
       { "q": "Kan jeg sælge min andel, når jeg vil?", "a": "Ja. Der er ingen bindingsperiode. Du sælger på det åbne marked, efter at have tjekket om reglerne giver de øvrige medejere forkøbsret. Nogle udbydere hjælper med salget eller tilbyder tilbagekøb efter en fastsat periode — vilkår, det er værd at kende før købet." }
     ]
   },

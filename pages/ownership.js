@@ -9,7 +9,7 @@ export default function Ownership() {
     <>
       <Head>
         <title>Ownership and Funding | Co-Ownership Property</title>
-        <meta name="description" content="Understand how fractional ownership is legally structured — LLC ownership, deeded title, funding options, and how co-owners hold and sell their shares." />
+        <meta name="description" content="Understand what you own as a fractional co-owner — a real share of the home — plus funding options and how co-owners hold and sell their shares." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/ownership/" />

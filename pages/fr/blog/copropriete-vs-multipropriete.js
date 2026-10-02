@@ -37,11 +37,11 @@ export default function CoproprieteVsMultipropriete() {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: [
-            { '@type': 'Question', name: 'Quelle est la différence entre copropriété et multibien ?', acceptedAnswer: { '@type': 'Answer', text: "La copropriété de résidence secondaire est une vrai bien immobilière : vous êtes copropriétaire enregistré d'une fraction du bien (typiquement 1/8) via une LLC (Limited Liability Company) qui détient le bien, avec acte authentique chez le notaire et inscription au cadastre. La multibien (ou temps partagé) est seulement un droit d'usage de semaines déterminées — vous n'êtes pas propriétaire du bien, il ne prend pas de valeur, et la revente est notoirement difficile." } },
+            { '@type': 'Question', name: 'Quelle est la différence entre copropriété et multibien ?', acceptedAnswer: { '@type': 'Answer', text: "La copropriété de résidence secondaire est une vraie propriété immobilière : vous êtes propriétaire d'une part réelle du bien (typiquement 1/8), pas d'un droit d'usage. La multibien (ou temps partagé) est seulement un droit d'usage de semaines déterminées — vous n'êtes pas propriétaire du bien, il ne prend pas de valeur, et la revente est notoirement difficile." } },
             { '@type': 'Question', name: 'La multibien est-elle légale en France ?', acceptedAnswer: { '@type': 'Answer', text: "Oui, encadrée par le Code de la consommation (articles L224-69 et suivants), application de la directive européenne 2008/122/CE adoptée précisément pour réguler les abus historiques. Mais le modèle conserve ses problèmes structurels : pas de vrai bien, pas de plus-value, marché de revente quasi inexistant." } },
             { '@type': 'Question', name: 'Puis-je revendre ma multibien ?', acceptedAnswer: { '@type': 'Answer', text: "En théorie oui, en pratique très difficilement. Le marché secondaire de la multibien en France est moribond. Les annonces 'multibien à céder' finissent souvent transférées pour des montants symboliques. La copropriété, au contraire, dispose d'un marché secondaire actif avec plus-values fréquentes." } },
             { '@type': 'Question', name: 'Pourquoi la copropriété prend de la valeur et pas la multibien ?', acceptedAnswer: { '@type': 'Answer', text: "Parce que ce sont des choses différentes. La copropriété est un actif immobilier réel — sa valeur suit le marché immobilier qui se valorise historiquement. La multibien est un contrat de droit d'usage sans valeur immobilière sous-jacente — sa valeur dépend uniquement de la demande de droits d'usage, qui s'est effondrée avec la libéralisation de la location de vacances." } },
-            { '@type': 'Question', name: 'Comment distinguer une multibien déguisée en copropriété ?', acceptedAnswer: { '@type': 'Answer', text: "Demandez toujours trois choses : (1) l'acte authentique chez le notaire qui vous rendra membre d'une LLC propriétaire du bien ; (2) l'inscription de la LLC au cadastre comme propriétaire ; (3) l'operating agreement de la LLC précisant votre droit d'usage. Si on vous propose un 'club', des 'points', ou des 'droits d'usage' sans bien enregistré, c'est de la multibien — quel que soit le nom commercial." } },
+            { '@type': 'Question', name: 'Comment distinguer une multibien déguisée en copropriété ?', acceptedAnswer: { '@type': 'Answer', text: "Demandez toujours ce que vous achetez exactement. En copropriété, vous êtes propriétaire d'une part réelle du bien — un huitième, un quart —, pas d'un droit d'usage ; le montage juridique est organisé par notre partenaire pour chaque bien et vous est expliqué en détail avant l'achat. Si on vous propose un 'club', des 'points', ou des 'droits d'usage' sans propriété d'une part du bien, c'est de la multibien — quel que soit le nom commercial." } },
           ],
         }) }} />
       </Head>
@@ -65,10 +65,10 @@ export default function CoproprieteVsMultipropriete() {
             <p>En France, le mot <em>multibien</em> traîne plusieurs décennies de mauvaise réputation : contrats abusifs des années 1980-2000, directive européenne 2008/122/CE adoptée spécifiquement pour réguler le secteur, jurisprudence cassant des centaines de contrats. La copropriété de résidence secondaire moderne — popularisée en Europe ces dernières années — est tout autre chose. Voici exactement pourquoi.</p>
 
             <h2>La différence en une phrase</h2>
-            <p style={{fontSize:'1.18rem', borderLeft:'4px solid #6b6b6b', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>La <strong>copropriété de résidence secondaire</strong> fait de vous le copropriétaire réel d'une fraction du bien, enregistrée au cadastre. La <strong>multibien</strong> vous donne seulement le droit d'utiliser le bien pendant des semaines déterminées — vous n'êtes pas propriétaire du bien.</p>
+            <p style={{fontSize:'1.18rem', borderLeft:'4px solid #6b6b6b', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>La <strong>copropriété de résidence secondaire</strong> fait de vous le copropriétaire réel d'une fraction du bien. La <strong>multibien</strong> vous donne seulement le droit d'utiliser le bien pendant des semaines déterminées — vous n'êtes pas propriétaire du bien.</p>
 
             <h2>Important : ne pas confondre avec la copropriété d'immeuble</h2>
-            <p style={{background:'#fff8e6', borderLeft:'4px solid #d9a920', padding:'1.25rem 1.5rem', margin:'1.5rem 0'}}>Le mot <em>copropriété</em> en français désigne traditionnellement la copropriété d'immeuble (loi du 10 juillet 1965) — celle des parties communes d'un bâtiment. Ici on parle de <strong>copropriété de résidence secondaire</strong>, qui repose sur une structure LLC (Limited Liability Company) complètement différente. Pas de syndic, pas d'assemblée d'immeuble, pas de charges de couloir.</p>
+            <p style={{background:'#fff8e6', borderLeft:'4px solid #d9a920', padding:'1.25rem 1.5rem', margin:'1.5rem 0'}}>Le mot <em>copropriété</em> en français désigne traditionnellement la copropriété d'immeuble (loi du 10 juillet 1965) — celle des parties communes d'un bâtiment. Ici on parle de <strong>copropriété de résidence secondaire</strong>, qui est tout autre chose : vous êtes propriétaire d'une part réelle d'une maison. Pas de syndic, pas d'assemblée d'immeuble, pas de charges de couloir.</p>
 
             <h2>Tableau comparatif complet</h2>
 
@@ -81,17 +81,16 @@ export default function CoproprieteVsMultipropriete() {
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Régime juridique</td><td>Bien immobilière (LLC propriétaire)</td><td>Droit d'usage à temps partagé (Code consommation)</td></tr>
-                <tr><td>Acte authentique chez notaire</td><td>Oui</td><td>Non — contrat de consommation</td></tr>
-                <tr><td>Inscription au cadastre</td><td>Oui (la LLC au cadastre)</td><td>Non</td></tr>
-                <tr><td>Nature de ce que vous achetez</td><td>Membership interest dans la LLC = fraction du bien</td><td>Droit d'usage de semaines</td></tr>
+                <tr><td>Régime juridique</td><td>Propriété d'une part réelle du bien</td><td>Droit d'usage à temps partagé (Code consommation)</td></tr>
+                <tr><td>Montage juridique</td><td>Organisé par notre partenaire pour chaque bien et expliqué avant l'achat</td><td>Contrat de consommation</td></tr>
+                <tr><td>Nature de ce que vous achetez</td><td>Une part réelle du bien (1/8, 1/4)</td><td>Droit d'usage de semaines</td></tr>
                 <tr><td>Plus-value</td><td>Oui — suit le marché immobilier</td><td>Non — se déprécie</td></tr>
-                <tr><td>Marché secondaire</td><td>Actif — revente typique en 1-6 mois</td><td>Quasi inexistant</td></tr>
+                <tr><td>Marché secondaire</td><td>Actif — revente via le processus de revente de notre partenaire</td><td>Quasi inexistant</td></tr>
                 <tr><td>Transmission successorale</td><td>Oui, comme tout bien immobilier</td><td>Variable selon contrat</td></tr>
                 <tr><td>Frais annuels si vous n'utilisez pas</td><td>Frais réels au prorata uniquement</td><td>Frais fixes obligatoires</td></tr>
                 <tr><td>Histoire de fraudes</td><td>Aucune</td><td>Historique — directive UE 2008/122/CE</td></tr>
                 <tr><td>Durée du droit</td><td>Indéfinie (bien)</td><td>Limitée (typiquement 99 ans max.)</td></tr>
-                <tr><td>Taxe foncière</td><td>Payée par la LLC, répartie au prorata</td><td>Refacturée dans les charges</td></tr>
+                <tr><td>Taxe foncière</td><td>Répartie au prorata entre copropriétaires</td><td>Refacturée dans les charges</td></tr>
               </tbody>
             </table>
 
@@ -104,17 +103,10 @@ export default function CoproprieteVsMultipropriete() {
 
             <p><strong>3. Le manque d'information claire.</strong> La copropriété professionnelle de résidence secondaire est récente en France (depuis 2020-2022, avec Prello puis d'autres acteurs). Avant cela, "partager une résidence secondaire" évoquait essentiellement la multibien. Le marché est encore en phase d'éducation.</p>
 
-            <h2>Le modèle juridique de la copropriété : la LLC</h2>
-            <p>Le modèle standard utilisé par la copropriété professionnelle internationale fonctionne ainsi — la même structure étant appliquée de manière homogène en France comme en Espagne, en Italie, au Portugal ou aux États-Unis :</p>
-            <ol>
-              <li>Une <strong>LLC (Limited Liability Company)</strong> est constituée avec le bien comme unique actif.</li>
-              <li>La LLC est propriétaire du bien — inscrite comme telle au cadastre.</li>
-              <li>Les droits dans la LLC sont divisés en 8 <em>membership interests</em> égaux (1/8 = 12,5% des intérêts).</li>
-              <li>Chaque copropriétaire acquiert le membership interest correspondant à sa quote-part par <strong>acte authentique chez le notaire</strong>.</li>
-              <li>L'<em>operating agreement</em> de la LLC fixe le calendrier d'usage, les coûts partagés, les règles de cession.</li>
-            </ol>
+            <h2>Le modèle juridique de la copropriété</h2>
+            <p>Vous êtes propriétaire d'une <strong>part réelle du bien</strong> — un huitième, un quart —, pas d'un droit d'usage. Vous pouvez la revendre, la transmettre à vos héritiers, et sa valeur suit celle de la maison.</p>
 
-            <p>Résultat : vous êtes véritable copropriétaire (via la LLC) d'une fraction du bien, votre bien est protégé juridiquement, et l'inscription au cadastre fait foi. La LLC offre également une protection de la responsabilité personnelle et une cohérence d'un pays à l'autre — un atout majeur pour qui détient des biens dans plusieurs juridictions.</p>
+            <p>Le montage juridique est organisé par notre partenaire pour chaque bien et vous est expliqué en détail avant l'achat. Les grandes décisions — vendre la maison, engager de gros travaux — sont prises ensemble par les copropriétaires.</p>
 
             <h2>Le modèle juridique de la multibien</h2>
             <p>La multibien — formellement <em>contrat d'utilisation d'un bien à temps partagé</em> — est encadrée par les articles L224-69 et suivants du Code de la consommation, transposition de la directive européenne 2008/122/CE. Le schéma typique :</p>
@@ -129,7 +121,7 @@ export default function CoproprieteVsMultipropriete() {
 
             <h2>Sortie : copropriété vs multibien</h2>
 
-            <p><strong>Sortie d'une copropriété :</strong> vous cédez votre membership interest dans la LLC à un nouvel acquéreur. Acte authentique chez le notaire, délai typique 1 à 6 mois. Si le bien s'est valorisée (la norme dans les destinations premium), vous réalisez une plus-value. La fiscalité applicable est celle des plus-values immobilières des particuliers (19% + 17,2% de prélèvements sociaux, avec abattements pour durée de détention).</p>
+            <p><strong>Sortie d'une copropriété :</strong> la revente passe par le processus de revente de notre partenaire, sans que vous ayez à vendre toute la maison. Si le bien s'est valorisée (la norme dans les destinations premium), vous réalisez une plus-value. La fiscalité dépend du pays et du montage juridique de chaque bien, que notre partenaire vous explique avant l'achat ; nous vous recommandons de prendre un conseil indépendant.</p>
 
             <p><strong>Sortie d'une multibien :</strong> compliquée. Le marché secondaire est moribond en France. De nombreux multipropriétaires tentent depuis des années de "se débarrasser" de leur contrat sans succès, allant jusqu'à céder leurs semaines pour un montant symbolique. Des cabinets juridiques se sont spécialisés dans l'aide à la sortie de contrats de multibien (avec honoraires souvent élevés) — leur existence même illustre l'ampleur du problème.</p>
 
@@ -138,9 +130,9 @@ export default function CoproprieteVsMultipropriete() {
             <p>Si on vous propose une "résidence secondaire partagée" ou un "fractional", demandez trois éléments avant de signer :</p>
 
             <ol>
-              <li><strong>Modèle d'acte authentique.</strong> Doit être l'acquisition d'un membership interest dans une LLC propriétaire du bien — pas un "contrat d'adhésion" ou une "souscription à un club".</li>
-              <li><strong>Vérification de l'inscription de la LLC au cadastre.</strong> Le nom de la LLC doit figurer comme propriétaire du bien. Demandez l'extrait cadastral à jour.</li>
-              <li><strong>Operating agreement de la LLC.</strong> Doit refléter votre droit d'usage, les coûts partagés, les règles de cession du membership interest, et les droits des copropriétaires. Faites-le relire par un notaire ou un avocat.</li>
+              <li><strong>Ce que vous achetez exactement.</strong> Doit être une part réelle du bien — pas un "contrat d'adhésion" ou une "souscription à un club".</li>
+              <li><strong>Le montage juridique, expliqué en détail.</strong> Notre partenaire l'organise pour chaque bien et vous l'explique avant l'achat. Faites-le relire par un conseil indépendant.</li>
+              <li><strong>Les documents qui encadrent l'usage.</strong> Ils doivent refléter votre droit d'usage, les coûts partagés, les règles de cession de votre part, et les droits des copropriétaires. Faites-les relire par un notaire ou un avocat.</li>
             </ol>
 
             <p>Si l'un de ces trois éléments manque, ce n'est pas de la copropriété — quel que soit le nom commercial.</p>
@@ -148,13 +140,13 @@ export default function CoproprieteVsMultipropriete() {
             <h2>Questions fréquentes</h2>
 
             <h3>La copropriété de résidence secondaire est-elle légale en France ?</h3>
-            <p>Oui, pleinement. Elle repose sur le droit civil (articles 815 et suivants du Code civil pour l'indivision, articles 1832 et suivants pour les sociétés civiles). C'est l'une des formes les plus solides de détention immobilière en France.</p>
+            <p>Oui, pleinement. Elle repose sur le droit civil ; le montage juridique de chaque bien est organisé par notre partenaire et vous est expliqué en détail avant l'achat. C'est l'une des formes les plus solides de détention immobilière en France.</p>
 
             <h3>Les frais de multibien peuvent-ils augmenter dans le temps ?</h3>
             <p>Oui, et ils augmentent significativement. C'est l'un des problèmes chroniques du modèle : les frais annuels augmentent année après année, souvent au-delà de l'inflation, sans contrôle réel de l'acheteur.</p>
 
             <h3>Une copropriété peut-elle se transformer en multibien par erreur ?</h3>
-            <p>Non. Ce sont des dispositifs juridiques distincts et la documentation est complètement différente. Si vous avez signé un acte authentique chez un notaire pour acquérir un membership interest dans une LLC propriétaire d'un bien, vous êtes copropriétaire — vous ne pouvez pas devenir multipropriétaire par accident.</p>
+            <p>Non. Ce sont des dispositifs juridiques distincts et la documentation est complètement différente. Si vous avez acheté une part réelle d'un bien, vous êtes copropriétaire — vous ne pouvez pas devenir multipropriétaire par accident.</p>
 
             <h3>Y a-t-il un avantage réel à la multibien ?</h3>
             <p>Le coût initial est plus bas. Pour une personne au budget très limité qui veut accéder à des vacances dans un bien touristique précise pour une ou deux semaines par an, et qui accepte que ce ne soit qu'un droit d'usage (pas un bien), cela peut avoir du sens. Pour tous les autres cas, la copropriété est nettement supérieure.</p>
@@ -162,7 +154,7 @@ export default function CoproprieteVsMultipropriete() {
             <h3>Que faire si j'ai une multibien et veux en sortir ?</h3>
             <p>Il existe des avocats spécialisés dans l'annulation de contrats de multibien. De nombreux contrats antérieurs à 2009 sont nuls en raison de la jurisprudence et de la directive UE de 2008. Pour les contrats postérieurs, cela dépend des termes spécifiques. Consultez un avocat spécialisé.</p>
 
-            <p style={{marginTop:'3rem'}}><strong>Si vous voulez explorer des options de copropriété en Europe</strong>, nous présentons les biens des principaux opérateurs en Espagne (Mallorque, Ibiza, Costa del Sol), en France (Provence, Côte d'Azur, Alpes), en Italie et au-delà — toutes avec acte authentique chez le notaire et inscription au cadastre.</p>
+            <p style={{marginTop:'3rem'}}><strong>Si vous voulez explorer des options de copropriété en Europe</strong>, nous présentons les biens des principaux opérateurs en Espagne (Mallorque, Ibiza, Costa del Sol), en France (Provence, Côte d'Azur, Alpes), en Italie et au-delà — dans chacun d'eux, vous êtes propriétaire d'une part réelle du bien.</p>
 
             <p style={{marginTop:'1.5rem'}}>
               <a href="/our-homes/" className="cop-cta-primary">Voir les biens en copropriété &rarr;</a>

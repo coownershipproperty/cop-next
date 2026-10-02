@@ -17,7 +17,7 @@ export default function CopropiedadPillar() {
         <title>Copropiedad: la guía completa para comprar una segunda residencia en España [2026]</title>
         <meta
           name="description"
-          content="Guía completa de la copropiedad y propiedad fraccionada en España: cómo funciona, modelo legal (SL), fiscalidad, costes y diferencias con la multipropiedad. Actualizada 2026."
+          content="Guía completa de la copropiedad y propiedad fraccionada en España: cómo funciona, qué se compra exactamente, fiscalidad, costes y diferencias con la multipropiedad. Actualizada 2026."
         />
         <link rel="canonical" href="https://co-ownership-property.com/es/copropiedad/" />
         {hreflangLinks({ englishPath: '/es/copropiedad' })}
@@ -48,7 +48,7 @@ export default function CopropiedadPillar() {
                   name: '¿Es lo mismo que la multipropiedad o el timeshare?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'No. La multipropiedad (timeshare) le da derecho a usar una vivienda durante semanas concretas, sin ser dueño de la propiedad. La copropiedad le hace propietario real de una fracción del inmueble, con escritura ante notario y registro en el Registro de la Propiedad.',
+                    text: 'No. La multipropiedad (timeshare) le da derecho a usar una vivienda durante semanas concretas, sin ser dueño de la propiedad. La copropiedad le hace propietario de una parte real de la vivienda, no de un derecho de uso.',
                   },
                 },
                 {
@@ -56,7 +56,7 @@ export default function CopropiedadPillar() {
                   name: '¿Cómo se estructura legalmente la copropiedad en España?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'La estructura utilizada de forma homogénea en toda nuestra cartera internacional es una LLC (Limited Liability Company) constituida específicamente para el inmueble — en España como en Francia, Italia, Portugal o Estados Unidos. La LLC es titular registral de la vivienda y cada copropietario adquiere un membership interest proporcional a su fracción (típicamente 1/8). El Código Civil español (Artículo 392 y siguientes) regula la copropiedad como figura jurídica subyacente.',
+                    text: 'Usted es propietario de una parte real de la vivienda —un octavo, un cuarto—, no de un derecho de uso. Puede venderla, dejarla en herencia, y su valor sube y baja con el de la casa. La estructura legal la organiza nuestro socio para cada vivienda y se la explica en detalle antes de comprar.',
                   },
                 },
                 {
@@ -64,7 +64,7 @@ export default function CopropiedadPillar() {
                   name: '¿Qué impuestos pago al comprar una fracción?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'En la compra de un membership interest en una LLC a la que se aplica el régimen de sociedades con predominio inmobiliario, se paga el Impuesto sobre Transmisiones Patrimoniales (ITP) sobre el valor del membership interest, no sobre el inmueble entero. Anualmente, el copropietario asume su parte proporcional del IBI (impuesto local) y, si es no residente, del IRPF de no residentes.',
+                    text: 'Cómo funciona la fiscalidad depende del país y de la estructura legal de cada vivienda, que nuestro socio le explica antes de comprar; le recomendamos un asesoramiento independiente. Anualmente, el copropietario asume su parte proporcional del IBI (impuesto local) y, si es no residente, del IRPF de no residentes.',
                   },
                 },
                 {
@@ -107,7 +107,7 @@ export default function CopropiedadPillar() {
               <li><a href="#que-es">¿Qué es la copropiedad?</a></li>
               <li><a href="#como-funciona">¿Cómo funciona en la práctica?</a></li>
               <li><a href="#vs-multipropiedad">Copropiedad vs. multipropiedad: la diferencia clave</a></li>
-              <li><a href="#legal">Modelo legal en España: la SL y sus alternativas</a></li>
+              <li><a href="#legal">Modelo legal: qué compra exactamente</a></li>
               <li><a href="#costes">Costes: precio de compra y gastos anuales</a></li>
               <li><a href="#fiscalidad">Fiscalidad: ITP, IBI, IRPF</a></li>
               <li><a href="#destinos">Mejores destinos en España para copropiedad</a></li>
@@ -140,8 +140,8 @@ export default function CopropiedadPillar() {
               La diferencia con comprar una segunda residencia tradicional es evidente: en
               lugar de pagar 1.200.000 € por una villa de lujo en Mallorca, paga 150.000 €
               por una fracción de 1/8. La diferencia con alquilar es también clara: <strong>es
-              propiedad real</strong>. Su nombre figura como copropietario, la fracción se
-              hereda, se puede vender, y se beneficia de la revalorización del inmueble.
+              propiedad real</strong>. Usted es propietario de una parte real de la vivienda: la
+              fracción se hereda, se puede vender, y su valor sube y baja con el de la casa.
             </p>
           </section>
 
@@ -163,11 +163,9 @@ export default function CopropiedadPillar() {
                 jurídica y la firma definitiva.
               </li>
               <li>
-                <strong>Constitución o entrada en la SL.</strong> Si la propiedad ya está
-                constituida en SL, el copropietario adquiere las participaciones correspondientes
-                a su fracción. Si no, se constituye la SL en el proceso de compra. La compra
-                de participaciones se formaliza ante <strong>notario</strong> en una escritura
-                pública.
+                <strong>Estructura legal y firma.</strong> La estructura legal la organiza
+                nuestro socio para cada vivienda y se la explica en detalle antes de comprar.
+                Después se firma la compra de su fracción.
               </li>
               <li>
                 <strong>Gestión profesional y calendario.</strong> A partir de aquí, el operador
@@ -202,18 +200,18 @@ export default function CopropiedadPillar() {
               <tbody>
                 <tr>
                   <td>¿Es propiedad inmobiliaria real?</td>
-                  <td>Sí. Titular registral de fracción del inmueble.</td>
+                  <td>Sí. Propietario de una parte real de la vivienda.</td>
                   <td>No. Solo derecho de uso por semanas.</td>
                 </tr>
                 <tr>
-                  <td>Escritura ante notario</td>
-                  <td>Sí, escritura pública.</td>
+                  <td>Base legal</td>
+                  <td>Organizada por nuestro socio para cada vivienda y explicada antes de comprar.</td>
                   <td>Contrato privado o de adhesión.</td>
                 </tr>
                 <tr>
-                  <td>Registro de la Propiedad</td>
-                  <td>Sí, inscripción registral.</td>
-                  <td>No habitualmente.</td>
+                  <td>Qué se compra</td>
+                  <td>Una parte real de la vivienda (un octavo, un cuarto).</td>
+                  <td>Un derecho de uso por semanas.</td>
                 </tr>
                 <tr>
                   <td>Revalorización del inmueble</td>
@@ -246,35 +244,20 @@ export default function CopropiedadPillar() {
 
           {/* 4. Legal model ─────────────────────────────────────────────── */}
           <section id="legal">
-            <h2>4. Modelo legal: la LLC, estructura única en toda la cartera</h2>
+            <h2>4. Modelo legal: qué compra exactamente</h2>
             <p>
-              El modelo utilizado de forma homogénea en toda nuestra cartera internacional —
-              en España, Francia, Italia, Portugal y Estados Unidos — es la <strong>LLC
-              (Limited Liability Company)</strong> constituida específicamente para el
-              inmueble. Funciona así:
+              Usted es propietario de una <strong>parte real de la vivienda</strong> —un octavo,
+              un cuarto—, no de un derecho de uso. Puede venderla, dejarla en herencia, y su
+              valor sube y baja con el de la casa.
             </p>
-            <ul>
-              <li>Se constituye una LLC cuyo único activo es la vivienda.</li>
-              <li>La LLC es titular registral del inmueble en el Registro de la Propiedad.</li>
-              <li>Los derechos en la LLC se dividen en 8 <em>membership interests</em> iguales (o en el número de fracciones que tenga la propiedad).</li>
-              <li>Cada copropietario adquiere el membership interest correspondiente a su fracción — típicamente 1/8 = 12,5% de los intereses de la LLC.</li>
-              <li>La compra del membership interest se formaliza ante notario y se inscribe debidamente.</li>
-            </ul>
             <p>
-              <strong>¿Por qué la LLC y no la copropiedad directa proindiviso?</strong> Porque
-              la LLC aísla la propiedad del riesgo personal de cada copropietario (limita la
-              responsabilidad al membership interest), simplifica la transferencia de
-              fracciones, formaliza claramente los derechos de uso a través del operating
-              agreement, ofrece coherencia jurídica de un país a otro, y resulta fiscalmente
-              eficiente en la mayoría de los casos. Las figuras tradicionales del Código Civil
-              español para titularidad compartida pueden funcionar entre familiares cercanos,
-              pero carecen de la protección de responsabilidad y de la gobernanza estructurada
-              que ofrece una LLC profesional.
+              La estructura legal la organiza nuestro socio para cada vivienda y se la explica
+              en detalle antes de comprar.
             </p>
             <p>
               Las decisiones importantes (vender la propiedad, hacer reformas estructurales)
-              requieren mayoría cualificada de miembros, según el operating agreement. La
-              gestión ordinaria está delegada al operador.
+              las toman conjuntamente los copropietarios. La gestión ordinaria está delegada
+              al operador.
             </p>
           </section>
 
@@ -298,9 +281,8 @@ export default function CopropiedadPillar() {
               <li><strong>Chalet en Baqueira u otro destino de esquí</strong>: 100.000 € – 250.000 € por 1/8.</li>
             </ul>
             <p>
-              Sobre la compra se paga el <strong>Impuesto sobre Transmisiones Patrimoniales
-              (ITP)</strong> al adquirir las participaciones (típicamente 1-1,5% en España,
-              variable por comunidad autónoma) y los gastos de notaría y registro.
+              Los impuestos y gastos de la compra dependen del país y de la estructura legal de
+              cada vivienda, que nuestro socio le explica antes de comprar.
             </p>
             <h3>Gastos anuales</h3>
             <p>
@@ -330,32 +312,25 @@ export default function CopropiedadPillar() {
             </p>
             <h3>Al comprar</h3>
             <p>
-              <strong>ITP (Impuesto sobre Transmisiones Patrimoniales).</strong> Al adquirir
-              participaciones de una SL no inmobiliaria pura, generalmente el tipo aplicable
-              es del 1-1,5% sobre el valor de las participaciones. Si la SL es considerada
-              fiscalmente inmobiliaria (Artículo 314 LMV), puede tributar al tipo de
-              transmisiones de inmuebles (8-10% según comunidad).
-            </p>
-            <p>
-              <strong>Notaría y Registro Mercantil.</strong> Costes fijos de la operación,
-              típicamente 800-1.500 € en total para una compra de 1/8.
+              <strong>ITP u otros impuestos de compra.</strong> Cómo funciona la fiscalidad
+              depende del país y de la estructura legal de cada vivienda, que nuestro socio le
+              explica antes de comprar; le recomendamos un asesoramiento independiente.
             </p>
             <h3>Anualmente</h3>
             <p>
-              <strong>IBI.</strong> El impuesto local sobre bienes inmuebles lo paga la SL
-              propietaria del inmueble. La parte proporcional la asume cada copropietario.
+              <strong>IBI.</strong> El impuesto local sobre bienes inmuebles se reparte entre los
+              copropietarios: cada uno asume su parte proporcional.
             </p>
             <p>
               <strong>IRPF de no residentes.</strong> Si es no residente fiscal en España y
               utiliza la propiedad para uso propio (sin alquilarla), debe declarar la
-              imputación de rentas inmobiliarias por su parte proporcional de la titularidad.
+              imputación de rentas inmobiliarias por su parte proporcional.
               El operador suele facilitar la información fiscal anualmente.
             </p>
             <h3>Al vender</h3>
             <p>
-              <strong>Plusvalía.</strong> En la venta de las participaciones de la SL puede
-              haber ganancia patrimonial sujeta a IRPF (residentes) o a IRNR (no residentes).
-              La tributación es similar a la venta de cualquier participación societaria.
+              <strong>Plusvalía.</strong> En la venta de su fracción puede haber ganancia
+              patrimonial sujeta a IRPF (residentes) o a IRNR (no residentes).
             </p>
             <p>
               Recomendamos siempre consultar con un asesor fiscal antes de la compra. Cada
@@ -389,12 +364,12 @@ export default function CopropiedadPillar() {
             <h2>8. Cómo elegir la propiedad y el operador adecuado</h2>
             <p>Antes de firmar, las preguntas clave que conviene hacer:</p>
             <ul>
-              <li><strong>Estructura legal exacta:</strong> ¿es una SL? ¿quién es el titular registral? ¿qué dicen los estatutos sobre uso, venta y disolución?</li>
+              <li><strong>Estructura legal exacta:</strong> pida que se la expliquen en detalle antes de comprar. ¿Qué dicen los documentos sobre uso, venta y disolución?</li>
               <li><strong>Calendario de uso:</strong> ¿cómo se reparten las semanas de temporada alta? ¿hay un algoritmo de rotación equitativa?</li>
               <li><strong>Gastos anuales:</strong> desglose detallado por concepto. ¿Qué pasa si los costes suben?</li>
               <li><strong>Operador:</strong> ¿cuántos años lleva operando? ¿propiedades en cartera? ¿reseñas verificables?</li>
               <li><strong>Reventa:</strong> ¿cómo se gestiona? ¿comisiones? ¿hay garantía de recompra?</li>
-              <li><strong>Qué pasa si el operador cesa:</strong> la SL es independiente del operador; el inmueble sigue siendo de los copropietarios. Verifíquelo en el contrato.</li>
+              <li><strong>Qué pasa si el operador cesa:</strong> el inmueble debe seguir siendo de los copropietarios. Verifíquelo en el contrato.</li>
             </ul>
             <p>
               En COP presentamos propiedades de los principales operadores de copropiedad de
@@ -408,8 +383,8 @@ export default function CopropiedadPillar() {
             <h2>9. ¿Y si quiero vender mi fracción?</h2>
             <p>
               La fracción de copropiedad <strong>es perfectamente transferible</strong>. La
-              venta se hace mediante transmisión de las participaciones de la SL al nuevo
-              copropietario, formalizada ante notario.
+              reventa se gestiona a través del proceso de reventa de nuestro socio, sin que
+              usted tenga que vender toda la casa.
             </p>
             <p>
               La mayoría de los operadores facilitan el proceso de reventa: mantienen una
@@ -459,10 +434,10 @@ export default function CopropiedadPillar() {
               del Artículo 9 LIRPF, no por la mera titularidad de inmuebles.
             </p>
 
-            <h3>¿Puedo escriturar a nombre de mi sociedad o de un fideicomiso?</h3>
+            <h3>¿Puedo comprar a través de mi sociedad o de un fideicomiso?</h3>
             <p>
-              Sí, la mayoría de los operadores permiten que la titularidad de las
-              participaciones esté a nombre de una sociedad o estructura patrimonial.
+              Sí, la mayoría de los operadores permiten comprar la fracción a través de una
+              sociedad o estructura patrimonial.
               Conviene revisarlo en la due diligence con un asesor fiscal.
             </p>
           </section>

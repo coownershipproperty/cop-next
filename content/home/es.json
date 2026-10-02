@@ -2,7 +2,7 @@
   "_note": "Homepage copy for /es/. Rendered by components/rd/HomeView.js — the same component the English homepage uses. Lifted from the hand-written pages/es/index.js it replaced on 22 Sep 2026, so the SEO wording and keyword choices are unchanged. {count} is the live property count.",
   "meta": {
     "title": "Casas vacacionales de lujo | Copropiedad inmobiliaria",
-    "description": "Descubre casas vacacionales en propiedad fraccionada en Mallorca, Ibiza, Costa del Sol, Baqueira, Costa Azul, París, Italia y otros destinos europeos. Propiedad real con escritura ante notario, no es \"tiempo compartido\".",
+    "description": "Descubre casas vacacionales en propiedad fraccionada en Mallorca, Ibiza, Costa del Sol, Baqueira, Costa Azul, París, Italia y otros destinos europeos. Propiedad real, no es \"tiempo compartido\".",
     "ogTitle": "Casas exclusivas en España, Francia, Italia, Estados Unidos y más | Propiedad fraccionada — COP",
     "ogDescription": "Descubre casas exclusivas en copropiedad por toda Europa. Propiedad real, no es \"Tiempo Compartido o Timeshare\"."
   },
@@ -10,7 +10,7 @@
     "pre": "",
     "em": "Las casas vacacionales más exclusivas",
     "post": "en copropiedad",
-    "lead": "Propiedad real y escriturada de una segunda residencia totalmente gestionada — por una fracción del precio de comprarla en solitario.",
+    "lead": "Propiedad real de una segunda residencia totalmente gestionada — por una fracción del precio de comprarla en solitario.",
     "ctaPrimary": "Ver propiedades →",
     "ctaSecondary": "Cómo funciona"
   },
@@ -97,7 +97,7 @@
       {
         "n": "01",
         "h": "Eres dueño de una participación legal",
-        "p": "Compras 1/8 de la propiedad. Es propiedad real, registrada a tu nombre, con plenas garantías legales. Nuestras propiedades están diseñadas para revalorizarse, dándote los beneficios de la inversión inmobiliaria. Tienes total flexibilidad para vender tu fracción cuando quieras — tú pones el precio y nosotros te ayudamos a encontrar comprador."
+        "p": "Eres propietario de una parte real de la vivienda —un octavo, un cuarto—, no de un derecho de uso. Puedes venderla, dejarla en herencia, y su valor sube y baja con el de la casa. La estructura legal la organiza nuestro socio para cada vivienda y te la explica en detalle antes de comprar. Nuestras propiedades están diseñadas para revalorizarse, dándote los beneficios de la inversión inmobiliaria. Tienes total flexibilidad para vender tu fracción cuando quieras — tú pones el precio y nosotros te ayudamos a encontrar comprador."
       },
       {
         "n": "02",
@@ -112,7 +112,7 @@
       {
         "n": "04",
         "h": "Beneficios añadidos",
-        "p": "La copropiedad ofrece ventajas adicionales — desde un tratamiento fiscal favorable y una planificación sucesoria simplificada, hasta la flexibilidad de intercambios con otros copropietarios de nuestro porfolio internacional."
+        "p": "La copropiedad ofrece ventajas adicionales — desde una planificación sucesoria simplificada hasta la flexibilidad de intercambios con otros copropietarios de nuestro porfolio internacional."
       }
     ],
     "ctaHowItWorks": "Cómo funciona la copropiedad",
@@ -129,15 +129,15 @@
     "items": [
       {
         "q": "¿Qué es la copropiedad o propiedad fraccionada de una vivienda vacacional?",
-        "a": "La copropiedad significa que tú y un pequeño número de otros propietarios compráis una participación registrada de una propiedad de lujo totalmente gestionada. Posees una fracción real de la vivienda — típicamente 1/8 — y, a diferencia de la multipropiedad, tienes una titularidad legal genuina de la propiedad. Combina el orgullo y los beneficios financieros de la propiedad inmobiliaria real con la comodidad de un hotel de cinco estrellas, por una fracción del precio de la compra íntegra."
+        "a": "La copropiedad significa que tú y un pequeño número de otros propietarios poseéis una parte real de una propiedad de lujo totalmente gestionada. Posees una fracción real de la vivienda — típicamente 1/8 — y, a diferencia de la multipropiedad, no un derecho de uso. La estructura legal la organiza nuestro socio para cada vivienda y te la explica en detalle antes de comprar. Combina el orgullo y los beneficios financieros de la propiedad inmobiliaria real con la comodidad de un hotel de cinco estrellas, por una fracción del precio de la compra íntegra."
       },
       {
         "q": "¿En qué se diferencia la copropiedad de la multipropiedad?",
-        "a": "A diferencia de la multipropiedad, la copropiedad te da una participación real de la escritura de la propiedad, lo que significa que te beneficias de cualquier revalorización y puedes vender tu fracción en el mercado libre cuando quieras. Como son propiedades de lujo en ubicaciones muy demandadas, los precios típicamente suben con el tiempo. No hay club de membresía, no hay sistema de puntos, ni vinculación contractual a largo plazo. Eres un propietario inmobiliario auténtico con plenos derechos legales sobre tu fracción."
+        "a": "A diferencia de la multipropiedad, la copropiedad te da una parte real de la vivienda, lo que significa que te beneficias de cualquier revalorización y puedes vender tu fracción en el mercado libre cuando quieras. Como son propiedades de lujo en ubicaciones muy demandadas, los precios típicamente suben con el tiempo. No hay club de membresía, no hay sistema de puntos, ni vinculación contractual a largo plazo. Eres un propietario inmobiliario auténtico con plenos derechos legales sobre tu fracción."
       },
       {
         "q": "¿Qué incluye el precio de compra?",
-        "a": "Tu precio de compra cubre tu fracción registrada de la propiedad junto con todo el mobiliario, el diseño de interiores y el equipamiento. Muchas de nuestras propiedades están profesionalmente decoradas con un estándar listo para entrar a vivir desde el primer día. Los costes recurrentes — mantenimiento, seguros, gestión y impuestos locales — se reparten proporcionalmente entre todos los copropietarios, manteniendo los gastos individuales muy bajos."
+        "a": "Tu precio de compra cubre tu fracción de la propiedad junto con todo el mobiliario, el diseño de interiores y el equipamiento. Muchas de nuestras propiedades están profesionalmente decoradas con un estándar listo para entrar a vivir desde el primer día. Los costes recurrentes — mantenimiento, seguros, gestión y impuestos locales — se reparten proporcionalmente entre todos los copropietarios, manteniendo los gastos individuales muy bajos."
       },
       {
         "q": "¿Cómo se reparte el tiempo de uso entre propietarios?",
@@ -153,7 +153,7 @@
       },
       {
         "q": "¿Puedo vender mi fracción más adelante?",
-        "a": "Por supuesto. Como tienes una participación registrada, puedes venderla cuando quieras en el mercado libre — igual que cualquier otra propiedad. Si la vivienda se ha revalorizado, te beneficias de ese crecimiento en proporción a tu participación. Nuestro equipo también puede ayudarte con las reventas a través de nuestra red de compradores cualificados."
+        "a": "Por supuesto. Como eres propietario de una parte real de la vivienda, puedes venderla cuando quieras en el mercado libre — igual que cualquier otra propiedad. Si la vivienda se ha revalorizado, te beneficias de ese crecimiento en proporción a tu participación. Nuestro equipo también puede ayudarte con las reventas a través de nuestra red de compradores cualificados."
       },
       {
         "q": "¿Qué destinos y tipos de propiedad ofrecéis?",

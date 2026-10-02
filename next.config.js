@@ -75,6 +75,10 @@ nextConfig.redirects = async () => [
   { source: '/faq/difference-between-cop-and-pacaso/', destination: '/compare/cop-vs-going-direct/', permanent: true },
   { source: '/faq/will-pacaso-expand-into-europe/', destination: '/compare/cop-vs-going-direct/', permanent: true },
   { source: '/api/operators.json', destination: '/our-homes/', permanent: false },
+  // Ownership wording (2 Oct 2026): one page answers "what do I own".
+  { source: '/faq/what-is-a-deeded-coownership-share/', destination: '/faq/what-do-i-own-in-co-ownership/', permanent: true },
+  { source: '/faq/what-is-a-property-specific-llc/', destination: '/faq/what-do-i-own-in-co-ownership/', permanent: true },
+  { source: '/faq/fractional-ownership-llc-structure-explained/', destination: '/faq/what-do-i-own-in-co-ownership/', permanent: true },
 
   // ── Page redirects ──
   { source: '/sitemap_index.xml', destination: '/sitemap.xml', permanent: true },

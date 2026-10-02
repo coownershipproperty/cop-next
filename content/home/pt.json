@@ -2,7 +2,7 @@
   "_note": "Homepage copy for /pt/. Rendered by components/rd/HomeView.js — the same component the English homepage uses. See content/home/en.json for the reference text and content/home/en-reference.json for the shape. {count} is the live property count.",
   "meta": {
     "title": "Multipropriedade de Casas de Férias de Luxo — COP",
-    "description": "Multipropriedade de casas de férias em Maiorca, Ibiza, Costa del Sol, Alpes Franceses, Paris, Itália e EUA. Direito real de propriedade — não é timeshare.",
+    "description": "Multipropriedade de casas de férias em Maiorca, Ibiza, Costa del Sol, Alpes Franceses, Paris, Itália e EUA. Propriedade real — não é timeshare.",
     "ogTitle": "Casas exclusivas na Espanha, França, Itália, EUA e mais | Multipropriedade — COP",
     "ogDescription": "Descubra casas de férias exclusivas em copropriedade por toda a Europa. Propriedade de verdade, não é timeshare."
   },
@@ -10,7 +10,7 @@
     "pre": "Sua janela para as",
     "em": "melhores casas do mundo",
     "post": "em copropriedade",
-    "lead": "Propriedade real e escriturada de uma segunda casa totalmente gerida — por uma fração do preço de comprá-la sozinho.",
+    "lead": "Propriedade real de uma segunda casa totalmente gerida — por uma fração do preço de comprá-la sozinho.",
     "ctaPrimary": "Ver Imóveis →",
     "ctaSecondary": "Como Funciona"
   },
@@ -97,7 +97,7 @@
       {
         "n": "01",
         "h": "Você é Dono de uma Fração Legal",
-        "p": "Você adquire uma cota de 1/8 de um imóvel premium. É propriedade de verdade, registrada em seu nome na matrícula do imóvel, com todas as garantias legais. Nossos imóveis são escolhidos para valorizar com o tempo, oferecendo os benefícios do investimento imobiliário. Você tem total liberdade para vender sua cota quando quiser — você define o preço, e nós ajudamos a encontrar um comprador."
+        "p": "Você é dono de uma parte real de um imóvel premium — um oitavo, um quarto —, e não de um direito de uso. Pode vendê-la, deixá-la de herança, e o valor dela sobe e desce com o da casa. A estrutura jurídica é organizada pelo nosso parceiro para cada imóvel e explicada em detalhe a você antes da compra. Nossos imóveis são escolhidos para valorizar com o tempo, oferecendo os benefícios do investimento imobiliário. Você tem total liberdade para vender sua cota quando quiser — você define o preço, e nós ajudamos a encontrar um comprador."
       },
       {
         "n": "02",
@@ -112,7 +112,7 @@
       {
         "n": "04",
         "h": "Vantagens Adicionais",
-        "p": "A copropriedade traz ainda outros benefícios — de um tratamento tributário favorável e um planejamento sucessório simplificado à flexibilidade do intercâmbio de casas com outros coproprietários em nosso portfólio de imóveis pelo mundo."
+        "p": "A copropriedade traz ainda outros benefícios — de um planejamento sucessório simplificado à flexibilidade do intercâmbio de casas com outros coproprietários em nosso portfólio de imóveis pelo mundo."
       }
     ],
     "ctaHowItWorks": "Como funciona a copropriedade",
@@ -129,15 +129,15 @@
     "items": [
       {
         "q": "O que é multipropriedade ou copropriedade de uma casa de férias?",
-        "a": "Na copropriedade, você e um pequeno grupo de outros proprietários adquirem, cada um, uma fração imobiliária de um imóvel de luxo totalmente administrado. Você é dono de uma fração real da casa — normalmente um oitavo — e, ao contrário de um timeshare, detém verdadeiro direito real de propriedade sobre o próprio imóvel. É a união do orgulho e dos benefícios financeiros de ser proprietário com a comodidade de uma experiência de hotel cinco estrelas, por uma fração do custo de comprar sozinho."
+        "a": "Na copropriedade, você e um pequeno grupo de outros proprietários adquirem, cada um, uma fração imobiliária de um imóvel de luxo totalmente administrado. Você é dono de uma fração real da casa — normalmente um oitavo — e, ao contrário de um timeshare, não um direito de uso. A estrutura jurídica é organizada pelo nosso parceiro para cada imóvel e explicada em detalhe a você antes da compra. É a união do orgulho e dos benefícios financeiros de ser proprietário com a comodidade de uma experiência de hotel cinco estrelas, por uma fração do custo de comprar sozinho."
       },
       {
         "q": "Qual a diferença entre copropriedade e timeshare?",
-        "a": "Ao contrário do timeshare, a copropriedade lhe dá uma cota real do imóvel, registrada na matrícula, o que significa que você se beneficia de qualquer valorização e pode vender sua cota no mercado livre quando quiser. Como são imóveis de luxo em locais de alta demanda, os preços normalmente sobem com o tempo. Não há clube de associados, sistema de pontos nem contrato de fidelidade de longo prazo. Você é um proprietário de verdade, com plenos direitos legais sobre a sua fração."
+        "a": "Ao contrário do timeshare, a copropriedade lhe dá uma cota real do imóvel, o que significa que você se beneficia de qualquer valorização e pode vender sua cota no mercado livre quando quiser. Como são imóveis de luxo em locais de alta demanda, os preços normalmente sobem com o tempo. Não há clube de associados, sistema de pontos nem contrato de fidelidade de longo prazo. Você é um proprietário de verdade, com plenos direitos legais sobre a sua fração."
       },
       {
         "q": "O que está incluído no preço de compra?",
-        "a": "O preço de compra cobre sua fração imobiliária, registrada na matrícula do imóvel, junto com todo o mobiliário, o projeto de interiores e os equipamentos. Muitas de nossas casas são decoradas profissionalmente em padrão pronto para morar, disponíveis desde o primeiro dia. Custos contínuos como manutenção, seguro, administração e impostos locais são divididos proporcionalmente entre todos os coproprietários, mantendo os gastos individuais muito baixos."
+        "a": "O preço de compra cobre sua fração do imóvel junto com todo o mobiliário, o projeto de interiores e os equipamentos. Muitas de nossas casas são decoradas profissionalmente em padrão pronto para morar, disponíveis desde o primeiro dia. Custos contínuos como manutenção, seguro, administração e impostos locais são divididos proporcionalmente entre todos os coproprietários, mantendo os gastos individuais muito baixos."
       },
       {
         "q": "Como o tempo de uso é dividido entre os proprietários?",
@@ -153,7 +153,7 @@
       },
       {
         "q": "Posso vender minha cota mais tarde?",
-        "a": "Com certeza. Como você detém uma fração registrada na matrícula do imóvel, pode vendê-la a qualquer momento no mercado livre — como qualquer outro imóvel. Se a casa tiver valorizado, você se beneficia desse ganho na proporção da sua cota. Nossa equipe também pode ajudar na revenda junto à nossa rede de compradores qualificados."
+        "a": "Com certeza. Como você é dono de uma parte real do imóvel, pode vendê-la a qualquer momento no mercado livre — como qualquer outro imóvel. Se a casa tiver valorizado, você se beneficia desse ganho na proporção da sua cota. Nossa equipe também pode ajudar na revenda junto à nossa rede de compradores qualificados."
       },
       {
         "q": "Quais destinos e tipos de imóveis vocês oferecem?",

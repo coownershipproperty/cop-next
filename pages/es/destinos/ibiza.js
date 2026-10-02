@@ -40,7 +40,7 @@ export default function IbizaES({ properties }) {
     <div className="rd rd-destination">
       <Head>
         <title>Copropiedad en Ibiza: villas y casas en propiedad fraccionada [2026]</title>
-        <meta name="description" content="Propiedades en copropiedad en Ibiza — villas y casas en Santa Eulalia, San José, San Juan y otras zonas. Propiedad real con escritura ante notario, desde una fracción del precio." />
+        <meta name="description" content="Propiedades en copropiedad en Ibiza — villas y casas en Santa Eulalia, San José, San Juan y otras zonas. Propiedad real de una parte de la vivienda, desde una fracción del precio." />
         <link rel="canonical" href={canonicalUrl} />
         {hreflangLinks({ englishPath: '/es/destinos/ibiza' })}
         <meta property="og:type" content="website" />
